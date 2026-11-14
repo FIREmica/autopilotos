@@ -1379,6 +1379,7 @@ Runbook: docs/HOSTED_LEDGER_P0C_20261112.md; checkpoint OPENCODE y CODEX_CONTINU
 
 PR232 inicial 17b90d2: validate aprobado; postgres agoto 3s en primer checkpoint P0B antes de P0C. Ajuste solo de fixture: jit=off y consulta 5s; runner alojado sigue 3s. Causa interna exacta no demostrada; CI final pendiente. Worktree alineado mediante fetch OpenSSL y comparacion exacta de arbol, sin reset/force push.
 
+
 ## 2026-11-14 · P0C cloud: credenciales listas, transporte operativo bloqueado
 
 Orden expresa del propietario, PR232 existente desde e1712f4/main a63ed47; sin duplicar PR. Proyecto aislado juyowvmtluxfetgkckjd ACTIVE_HEALTHY; cuatro tablas RLS, doce funciones, cero grants API/membresias/misiones. Principal intacto. Directo solo AAAA; Windows sin ruta ::/0, timeout antes de autenticacion. Session Pooler oficial IPv4 probado con TLS1.3/verify-full y CA del dashboard.
