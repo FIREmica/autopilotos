@@ -26,3 +26,6 @@ EJECUTADO: rotacion SCRAM del rol dedicado y carga del mismo valor a P0C_LEDGER_
 BLOQUEO REAL: pg_stat_ssl.ssl=false en backend del pooler. Guarda SQL devuelve unauthorized_cloud_session; no se relaja ni se activa transporte. Candidato explicito supabase-session pinnea host/puerto/login del proyecto, preserva identidad SQL, binding y TLS; directo sigue predeterminado. Variables de transporte/SHA ausentes. Sin dispatch, admision, merge, deploy, produccion, envios, gastos ni scheduler.
 
 PROBADO: verify exit0 516/516 sin omisiones, tipos/skills/builds/API. Fixture TLS 1/1 sin omitir, 72s: recuperacion/fencing, ACL/auth y routing pooler, rechazo de backend sin TLS. CI del nuevo SHA se registra en PR. Reporte: docs/HOSTED_LEDGER_CLOUD_20261114.md. Siguiente: ruta IPv6 directa o TLS upstream demostrado; revision PR/CI, autorizacion de una admision sintetica (hoy cero), luego main/SHA/aprobacion del environment para status/resume. Recuperacion alojada NO ejecutada.
+
+
+Autorizacion expresa posterior del propietario (14/11/2026): admitir una unica mision synthetic-p0c-cloud-check sin envios/produccion, solo despues de resolver TLS y revisar codigo. Permiso concedido; admision aun NO ejecutada. CI de 9af06c3: validate/postgres aprobados; checks del commit documental final en PR.

@@ -93,8 +93,10 @@ no una afirmación de soporte operativo del pooler actual.
 2. Revisar esta actualización de PR232 y CI del SHA final. Mantener borrador y
    workflow bloqueado hasta cerrar la incompatibilidad; no fusionar por inercia.
 3. El criterio exige una misión *previamente admitida*, pero hay cero. El propietario
-   debe autorizar una admisión sintética concreta o proporcionar la ID ya admitida
-   cuando exista. No crear misión real ni interpretar esta auditoría como admisión.
+   autorizó expresamente en esta sesión una única misión
+   `synthetic-p0c-cloud-check`, sin envíos/producción, **una vez resuelto el bloqueo
+   TLS y revisado el código**. No admitirla antes de esas condiciones; no crear
+   una misión real ni interpretar esta auditoría como admisión ya realizada.
 4. Solo entonces integrar el código revisado, fijar el SHA exacto de main y el
    transporte aprobado, despachar status/resume manual y obtener revisión del
    environment. No saltar aprobación ni habilitar continuación automática.

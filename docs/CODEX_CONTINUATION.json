@@ -4,9 +4,9 @@
   "execution_id": "codex-hosted-ledger-cloud-20261114",
   "repository": {
     "branch": "codex/hosted-ledger-20261112",
-    "head_sha": "e1712f49a0c98f19466d1777e698701659b52c70",
+    "head_sha": "9af06c3a4901107731ba873134915d749b2f71b0",
     "worktree": "C:/autopilot-worktrees/hosted-ledger-20261112",
-    "note": "Padre verificado de la actualizacion PR232. Commit contenedor y CI final en PR; main permanece a63ed47."
+    "note": "Padre verificado del checkpoint con autorizacion sintetica; CI validate/postgres de este padre aprobados. SHA contenedor final en PR232."
   },
   "current_order": {
     "id": "ORD-P0C-CLOUD-CONFIG-20261114",
@@ -23,6 +23,10 @@
     {
       "operation": "Comprobar incompatibilidad TLS upstream y conservar cierre seguro",
       "detection": "pg_stat_ssl=false; unauthorized_cloud_session; fixture negativo aprobado"
+    },
+    {
+      "operation": "Autorizacion sintetica expresa",
+      "detection": "Respuesta del propietario permite synthetic-p0c-cloud-check solo tras resolver TLS y revisar codigo; no admitida aun"
     }
   ],
   "evidence_refs": [
@@ -36,7 +40,6 @@
   ],
   "blockers": [
     "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
-    "Cero misiones previamente admitidas; falta autorizacion de una admision sintetica concreta.",
     "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
     "Persistencia de artefactos entre hosts no acreditada."
   ],
@@ -50,13 +53,12 @@
     "environment": "Proyecto aislado autorizado; sin cambios en principal ni activacion",
     "dependencies": [
       "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
-      "Cero misiones previamente admitidas; falta autorizacion de una admision sintetica concreta.",
       "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
       "Persistencia de artefactos entre hosts no acreditada."
     ],
     "permissions": {
       "status": "authorized",
-      "scope": "Diagnostico y candidato local; no relajar TLS ni admitir mision nueva sin autorizacion concreta"
+      "scope": "Mision synthetic-p0c-cloud-check autorizada expresamente por propietario, solo tras resolver TLS y revisar codigo; sin relajar guardas/envios/produccion."
     },
     "acceptance_criteria": [
       "TLS hacia backend demostrado y credenciales existentes protegidas",
@@ -66,7 +68,7 @@
     "idempotency": {
       "detection": "Consultar PR/rama y estado aislado antes de operar; bootstrap rechaza public ocupado"
     },
-    "next_action": "Proveer ruta IPv6 directa o prueba TLS upstream; revisar candidato y autorizar una admision sintetica. No fijar SHA ni despachar mientras persista bloqueo."
+    "next_action": "Resolver IPv6 directa o TLS upstream, revisar candidato y despues admitir exclusivamente synthetic-p0c-cloud-check. No fijar SHA ni despachar mientras persista bloqueo."
   },
   "resumption": {
     "status": "unverified",
