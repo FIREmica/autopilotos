@@ -1,5 +1,9 @@
 # P0C · Provisión aislada del ledger sintético
 
+> Actualización 14/11/2026: este documento conserva el diseño inicial. Estado
+> alojado, rotación/secrets y bloqueo TLS del pooler comprobados en
+> [HOSTED_LEDGER_CLOUD_20261114.md](HOSTED_LEDGER_CLOUD_20261114.md).
+
 Fase F0/N2, soporte técnico de F1–F4. Base verificada: main
 `a63ed47a3b79b3ca109fdaba30ecf77f46a37fc2` (P0B, PR231).
 Estado: PREPARADO para revisión; ninguna mutación alojada ni credencial configurada.

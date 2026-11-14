@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { cloudBinding } from '../src/autopilot/cloudMissionStore.ts';
+import { cloudBinding, cloudConnectionUser } from '../src/autopilot/cloudMissionStore.ts';
 import { isolatedHostEnvironment,prepareHostedHost } from './hosted-ledger-host.mjs';
 
 // Invoked only by the manual, protected job. No provisioning/admission path.
@@ -17,10 +17,10 @@ try {
  root=await mkdtemp(path.join(tmpdir(),'p0c-runner-'));
  // Deliberately excludes secrets, injected Git/Node/PG options and author configuration.
  const env=isolatedHostEnvironment();
- const config=await prepareHostedHost(root);const {database}=config;
+ const config=await prepareHostedHost(root,process.env.P0C_CONNECTION_MODE || 'direct');const {database}=config;
  await writeFile(database.sslRootCert,P0C_CA_CERT,{mode:0o600});
  const escaped=P0C_RUNNER_PASSWORD.replaceAll('\\','\\\\').replaceAll(':','\\:');
- await writeFile(database.passFile,`${database.host}:5432:postgres:autopilot_cloud_runner:${escaped}\n`,{mode:0o600});
+ await writeFile(database.passFile,`${database.host}:5432:postgres:${cloudConnectionUser(config)}:${escaped}\n`,{mode:0o600});
  const file=path.join(root,'host.json');await writeFile(file,JSON.stringify(config),{mode:0o600});
  // Only sanitized outcome metadata is published, never config, SQL stderr, task data or audit.
  console.log(JSON.stringify({event:'hosted_runner_configured',binding:cloudBinding(config),baseSha:config.resources.baseSha}));

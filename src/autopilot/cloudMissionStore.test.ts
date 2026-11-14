@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { CloudMissionStore, cloudBinding, cloudProcessEnvironment, validateCloudConfig, type CloudMissionConfig } from './cloudMissionStore';
+import { CloudMissionStore, cloudBinding, cloudConnectionUser, cloudProcessEnvironment, validateCloudConfig, type CloudMissionConfig } from './cloudMissionStore';
 import { ManagedProcesses } from './managedProcesses';
 export const cloudConfig = (): CloudMissionConfig => ({version:1,mode:'cloud_synthetic_lab',ledgerId:'synthetic-cloud-fixture',
  database:{host:'ledger.example.invalid',port:5432,name:'victoriosa_mission_operator_lab',user:'autopilot_cloud_runner',
@@ -40,6 +40,21 @@ test('cloud libpq environment cannot inherit redirection, password, TLS downgrad
    assert.equal(env.PGSSLMODE,'verify-full');assert.equal(env.PGPASSFILE,cloudConfig().database.passFile);
    for(const k of Object.keys(poisoned).filter(k=>k!=='PGSSLMODE'))assert.equal(env[k],undefined);
  } finally {for(const[k,v]of Object.entries(before))if(v===undefined)delete process.env[k];else process.env[k]=v;}
+});
+
+test('session pooler requires explicit mode and pins project routing without changing SQL identity',()=>{
+ const direct=cloudConfig();Object.assign(direct.database,{name:'postgres',host:'db.juyowvmtluxfetgkckjd.supabase.co'});
+ const session=structuredClone(direct);Object.assign(session.database,{connectionMode:'supabase-session',host:'aws-0-ca-central-1.pooler.supabase.com'});
+ assert.equal(cloudConnectionUser(session),'autopilot_cloud_runner.juyowvmtluxfetgkckjd');
+ assert.equal(session.database.user,'autopilot_cloud_runner');
+ assert.equal(cloudConnectionUser(direct),'autopilot_cloud_runner');
+ assert.equal(cloudBinding(session),cloudBinding(direct));
+ assert.equal(cloudProcessEnvironment(session).PGSSLMODE,'verify-full');
+ for(const patch of [{connectionMode:undefined},{connectionMode:'transaction'},{connectionMode:'direct'},
+   {host:'aws-1-ca-central-1.pooler.supabase.com'},{host:direct.database.host},{port:6543},
+   {name:'victoriosa_mission_operator_lab'},{user:'autopilot_cloud_runner.jfjzpwlrhzqbcrvqxhzf'},
+   {user:'postgres.juyowvmtluxfetgkckjd'},{sslmode:'require'}])
+   assert.throws(()=>validateCloudConfig({...session,database:{...session.database,...patch}}));
 });
 test('cloud runner never provisions or admits and owns a copy of host config',async()=>{
  const c=cloudConfig(),p=new ManagedProcesses(),store=new CloudMissionStore(c,p);const binding=store.binding;

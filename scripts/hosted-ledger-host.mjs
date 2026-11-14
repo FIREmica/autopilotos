@@ -10,7 +10,8 @@ export function isolatedHostEnvironment() {
  return Object.fromEntries(['PATH','Path','SystemRoot','WINDIR','TEMP','TMP'].flatMap(k=>process.env[k]?[[k,process.env[k]]]:[]));
 }
 // Reproducible synthetic seed, shared by offline review and the manual CI runner.
-export async function prepareHostedHost(root) {
+export async function prepareHostedHost(root, connectionMode = 'direct') {
+ if (!['direct','supabase-session'].includes(connectionMode)) throw Error('invalid_connection_mode');
  const repository=path.join(root,'seed'),worktreeRoot=path.join(root,'worktrees');
  await mkdir(repository);await mkdir(worktreeRoot);
  const git=async args=>(await exec('git',['-c','core.hooksPath=/dev/null','-c','core.autocrlf=false',...args],{cwd:repository,
@@ -21,7 +22,8 @@ export async function prepareHostedHost(root) {
  await git(['add','synthetic-seed.txt']);
  await git(['-c','user.name=Synthetic Fixture','-c','user.email=fixture@example.invalid','-c','commit.gpgsign=false','commit','-m','P0C synthetic seed v1']);
  return validateCloudConfig({version:1,mode:'cloud_synthetic_lab',ledgerId:'synthetic-hosted-p0c',
-   database:{host:'db.juyowvmtluxfetgkckjd.supabase.co',port:5432,name:'postgres',user:'autopilot_cloud_runner',
+   database:{host:connectionMode === 'supabase-session' ? 'aws-0-ca-central-1.pooler.supabase.com' : 'db.juyowvmtluxfetgkckjd.supabase.co',
+     connectionMode,port:5432,name:'postgres',user:'autopilot_cloud_runner',
      sslRootCert:path.join(root,'ca.crt'),passFile:path.join(root,'runner.pgpass')},
    resources:{repository,worktreeRoot,baseSha:await git(['rev-parse','HEAD'])},permissions:{admit:false,execute:true,cancel:false},
    leaseSeconds:30,deadlineMs:25000,queryTimeoutMs:3000});

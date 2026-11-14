@@ -1378,3 +1378,13 @@ PROBADO local: verify 515/515, tipos/skills/builds/API; TLS P0B+P0C 1/1 sin omit
 Runbook: docs/HOSTED_LEDGER_P0C_20261112.md; checkpoint OPENCODE y CODEX_CONTINUATION actualizados. Sin SQL alojado, secrets, dispatch, merge, deploy, produccion, envios, gasto ni scheduler nuevo. Git deployments rama deshabilitados antes de publicar por conector GitHub (Git schannel/gh no autenticados). PR borrador y CI por SHA se contrastan al cierre. Siguiente: revisar seguridad/migracion y CI antes de provision autorizada; almacenamiento durable de artefactos entre hosts pendiente.
 
 PR232 inicial 17b90d2: validate aprobado; postgres agoto 3s en primer checkpoint P0B antes de P0C. Ajuste solo de fixture: jit=off y consulta 5s; runner alojado sigue 3s. Causa interna exacta no demostrada; CI final pendiente. Worktree alineado mediante fetch OpenSSL y comparacion exacta de arbol, sin reset/force push.
+
+## 2026-11-14 · P0C cloud: credenciales listas, transporte operativo bloqueado
+
+Orden expresa del propietario, PR232 existente desde e1712f4/main a63ed47; sin duplicar PR. Proyecto aislado juyowvmtluxfetgkckjd ACTIVE_HEALTHY; cuatro tablas RLS, doce funciones, cero grants API/membresias/misiones. Principal intacto. Directo solo AAAA; Windows sin ruta ::/0, timeout antes de autenticacion. Session Pooler oficial IPv4 probado con TLS1.3/verify-full y CA del dashboard.
+
+EJECUTADO: rotacion SCRAM del rol dedicado y carga del mismo valor a P0C_LEDGER_RUNNER_PASSWORD mediante transferencia OpenPGP cifrada y stdin; P0C_LEDGER_CA_CERT configurado. Autenticacion/rol/base/marcador/binding verificados por psql; cinco ACL negativas reales denegadas. Environment solo main, revisor obligatorio y prevent_self_review; bypass preexistente no usado. No se recuperaron valores de GitHub Secrets.
+
+BLOQUEO REAL: pg_stat_ssl.ssl=false en backend del pooler. Guarda SQL devuelve unauthorized_cloud_session; no se relaja ni se activa transporte. Candidato explicito supabase-session pinnea host/puerto/login del proyecto, preserva identidad SQL, binding y TLS; directo sigue predeterminado. Variables de transporte/SHA ausentes. Sin dispatch, admision, merge, deploy, produccion, envios, gastos ni scheduler.
+
+PROBADO: verify exit0 516/516 sin omisiones, tipos/skills/builds/API. Fixture TLS 1/1 sin omitir, 72s: recuperacion/fencing, ACL/auth y routing pooler, rechazo de backend sin TLS. CI del nuevo SHA se registra en PR. Reporte: docs/HOSTED_LEDGER_CLOUD_20261114.md. Siguiente: ruta IPv6 directa o TLS upstream demostrado; revision PR/CI, autorizacion de una admision sintetica (hoy cero), luego main/SHA/aprobacion del environment para status/resume. Recuperacion alojada NO ejecutada.

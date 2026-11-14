@@ -1,28 +1,28 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-13T01:16:00Z",
-  "execution_id": "codex-hosted-ledger-p0c-20261112",
+  "updated_at": "2026-11-14T23:49:49Z",
+  "execution_id": "codex-hosted-ledger-cloud-20261114",
   "repository": {
     "branch": "codex/hosted-ledger-20261112",
-    "head_sha": "17b90d2a96ef08eefea297490e4a29a18ae654f0",
+    "head_sha": "e1712f49a0c98f19466d1777e698701659b52c70",
     "worktree": "C:/autopilot-worktrees/hosted-ledger-20261112",
-    "note": "Implementacion inicial PR232; el commit de este checkpoint agrega ajuste de fixture tras timeout CI P0B. Worktree alineado por fetch OpenSSL; CI final en PR."
+    "note": "Padre verificado de la actualizacion PR232. Commit contenedor y CI final en PR; main permanece a63ed47."
   },
   "current_order": {
-    "id": "ORD-P0C-HOSTED-LEDGER-20261112",
+    "id": "ORD-P0C-CLOUD-CONFIG-20261114",
     "phase": "F0",
-    "objective": "Preparar compatibilidad postgres, bootstrap aislado staged y runner manual sin mutacion alojada",
-    "status": "completed",
-    "last_verified_step": "verify 515/515; TLS P0B+P0C 1/1 sin omitir, provision sin superuser/auth preservado/ACL negativas; sin ejecutar alojado"
+    "objective": "Completar credenciales y verificar compatibilidad cloud del proyecto aislado",
+    "status": "blocked",
+    "last_verified_step": "SCRAM y ambos secrets configurados; psql autentica por pooler verify-full, cinco ACL denegadas; backend ssl=false bloqueado. Verify516/516 + fixtureTLS1/1."
   },
   "completed_operations": [
     {
-      "operation": "Compatibilidad limitada al proyecto autorizado",
-      "detection": "cloudMissionStore.test.ts rechaza host existente, otro host, puerto y nombre ajenos"
+      "operation": "Rotacion SCRAM y secrets aislados",
+      "detection": "psql verify-full autenticado; metadatos SCRAM y gh secret list, sin recuperar valores"
     },
     {
-      "operation": "Probar bootstrap y recuperacion en fixture TLS desechable",
-      "detection": "cloud-ledger-postgres.test.ts: P0B intento2 y P0C postgres no superuser; cluster eliminado"
+      "operation": "Comprobar incompatibilidad TLS upstream y conservar cierre seguro",
+      "detection": "pg_stat_ssl=false; unauthorized_cloud_session; fixture negativo aprobado"
     }
   ],
   "evidence_refs": [
@@ -31,47 +31,51 @@
     "docs/AUTOPILOT_STATE.md",
     "tests/cloud-ledger-postgres.test.ts",
     "supabase/staged/hosted_synthetic_ledger_p0c.sql",
-    "https://github.com/Victoriosas/autopilot/pull/232"
+    "https://github.com/Victoriosas/autopilot/pull/232",
+    "docs/HOSTED_LEDGER_CLOUD_20261114.md"
   ],
   "blockers": [
-    "Revision humana de seguridad/migracion antes de mutacion alojada",
-    "Secrets y environment protegido no configurados; sin provision/admision remota",
-    "Persistencia de artefactos entre hosts no acreditada"
+    "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
+    "Cero misiones previamente admitidas; falta autorizacion de una admision sintetica concreta.",
+    "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
+    "Persistencia de artefactos entre hosts no acreditada."
   ],
-  "next_order_id": "ORD-P0C-REVIEW-20261112",
+  "next_order_id": "ORD-P0C-TLS-REVIEW-20261114",
   "next_order": {
-    "id": "ORD-P0C-REVIEW-20261112",
+    "id": "ORD-P0C-TLS-REVIEW-20261114",
     "phase": "F0",
-    "objective": "Revisar PR/CI y seguridad/migracion antes de provision alojada",
-    "status": "pending_review",
+    "objective": "Resolver ruta TLS sin rebajar seguridad y revisar PR232 antes de mision sintetica",
+    "status": "blocked",
     "executor": "Codex",
-    "environment": "GitHub en lectura; Supabase alojado sin mutaciones",
+    "environment": "Proyecto aislado autorizado; sin cambios en principal ni activacion",
     "dependencies": [
-      "CI validate/postgres del SHA final",
-      "Revision humana de SQL ensamblado y permisos"
+      "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
+      "Cero misiones previamente admitidas; falta autorizacion de una admision sintetica concreta.",
+      "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
+      "Persistencia de artefactos entre hosts no acreditada."
     ],
     "permissions": {
       "status": "authorized",
-      "scope": "Revision y preparacion local; nunca tocar jfjzpwlrhzqbcrvqxhzf; sin mutacion alojada hasta revision/aprobacion especifica"
+      "scope": "Diagnostico y candidato local; no relajar TLS ni admitir mision nueva sin autorizacion concreta"
     },
     "acceptance_criteria": [
-      "CI del SHA final verificada",
-      "Revision seguridad/migracion documentada",
-      "Credenciales solo GitHub Secrets, host fijado y environment protegido antes de operar"
+      "TLS hacia backend demostrado y credenciales existentes protegidas",
+      "CI SHA final y revision de PR232",
+      "Mision sintetica previamente admitida y autorizada antes de resume"
     ],
     "idempotency": {
       "detection": "Consultar PR/rama y estado aislado antes de operar; bootstrap rechaza public ocupado"
     },
-    "next_action": "Revisar PR borrador; no configurar secretos/variable ni despachar runner automaticamente"
+    "next_action": "Proveer ruta IPv6 directa o prueba TLS upstream; revisar candidato y autorizar una admision sintetica. No fijar SHA ni despachar mientras persista bloqueo."
   },
   "resumption": {
     "status": "unverified",
-    "mechanism": "PLAN Cloud mantiene cierre seguro; modos manuales preparados, ninguno ejecutado alojado"
+    "mechanism": "PLAN Cloud conserva cierre seguro; ningun modo hosted ejecutado"
   },
   "resume_instructions": "Leer AGENTS, direccion, checkpoint P0C, PR y CI por SHA. HEAD base local y commit remoto pueden diferir por conector; preservar diff. Nunca tocar proyecto existente. No activar hosted por existencia del codigo.",
   "supervision": {
-    "verdict": "APROBADO",
-    "scope": "Candidato local para revision, no autorizacion de SQL alojado",
-    "evidence": "515/515 + TLS P0B/P0C 1/1; auth preservado, rollback por public ocupado, replay y privilegios negativos. Revision humana pendiente."
+    "verdict": "BLOQUEADO",
+    "scope": "Credenciales y diagnostico aprobados; runtime alojado incompatible con TLS upstream observado",
+    "evidence": "516/516 + fixtureTLS1/1; login real/CA/ACL comprobados; backend sin TLS rechazado"
   }
 }

@@ -146,6 +146,7 @@ jobs:
         env:
           P0C_RUNNER_PASSWORD: ${{ secrets.P0C_LEDGER_RUNNER_PASSWORD }}
           P0C_CA_CERT: ${{ secrets.P0C_LEDGER_CA_CERT }}
+          P0C_CONNECTION_MODE: ${{ vars.P0C_LEDGER_CONNECTION_MODE }}
           P0C_REVIEWED_SHA: ${{ vars.P0C_HOSTED_REVIEWED_SHA }}
           P0C_MISSION_ID: ${{ inputs.mission_id }}
           P0C_ACTION: ${{ inputs.mode == 'hosted-status' && 'status' || 'resume' }}

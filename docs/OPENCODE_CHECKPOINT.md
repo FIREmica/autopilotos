@@ -16,3 +16,13 @@ PR232 publicada por conector; worktree alineado por fetch OpenSSL, sin force pus
 CI inicial: validate PASS; postgres timeout P0B. Fixture JIT off/5s; CI final pendiente.
 Revisar CI por SHA y seguridad/migracion antes de
 habilitar credenciales o ejecutar runbook. Artefactos entre hosts aun efimeros.
+
+## 2026-11-14 · P0C cloud: credenciales listas, transporte operativo bloqueado
+
+Orden expresa del propietario, PR232 existente desde e1712f4/main a63ed47; sin duplicar PR. Proyecto aislado juyowvmtluxfetgkckjd ACTIVE_HEALTHY; cuatro tablas RLS, doce funciones, cero grants API/membresias/misiones. Principal intacto. Directo solo AAAA; Windows sin ruta ::/0, timeout antes de autenticacion. Session Pooler oficial IPv4 probado con TLS1.3/verify-full y CA del dashboard.
+
+EJECUTADO: rotacion SCRAM del rol dedicado y carga del mismo valor a P0C_LEDGER_RUNNER_PASSWORD mediante transferencia OpenPGP cifrada y stdin; P0C_LEDGER_CA_CERT configurado. Autenticacion/rol/base/marcador/binding verificados por psql; cinco ACL negativas reales denegadas. Environment solo main, revisor obligatorio y prevent_self_review; bypass preexistente no usado. No se recuperaron valores de GitHub Secrets.
+
+BLOQUEO REAL: pg_stat_ssl.ssl=false en backend del pooler. Guarda SQL devuelve unauthorized_cloud_session; no se relaja ni se activa transporte. Candidato explicito supabase-session pinnea host/puerto/login del proyecto, preserva identidad SQL, binding y TLS; directo sigue predeterminado. Variables de transporte/SHA ausentes. Sin dispatch, admision, merge, deploy, produccion, envios, gastos ni scheduler.
+
+PROBADO: verify exit0 516/516 sin omisiones, tipos/skills/builds/API. Fixture TLS 1/1 sin omitir, 72s: recuperacion/fencing, ACL/auth y routing pooler, rechazo de backend sin TLS. CI del nuevo SHA se registra en PR. Reporte: docs/HOSTED_LEDGER_CLOUD_20261114.md. Siguiente: ruta IPv6 directa o TLS upstream demostrado; revision PR/CI, autorizacion de una admision sintetica (hoy cero), luego main/SHA/aprobacion del environment para status/resume. Recuperacion alojada NO ejecutada.

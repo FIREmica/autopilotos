@@ -193,6 +193,21 @@ test('two isolated runner processes recover the same durable TLS ledger after re
      assert.equal(claim.error,null);assert.equal(claim.data.length,1);
      assert.equal(await store.cancel('synthetic-p0c'),true);
      assert.equal((await store.status('synthetic-p0c')).state,'cancelled');
+     const pooled=structuredClone(hosted);
+     Object.assign(pooled.database,{connectionMode:'supabase-session',host:'aws-0-ca-central-1.pooler.supabase.com'});
+     const pooledProcesses=new ManagedProcesses();
+     pooledProcesses.exec=(file,args,options)=>{
+       assert.equal(args[1],pooled.database.host);assert.equal(args[3],'5432');
+       assert.equal(args[5],'autopilot_cloud_runner.juyowvmtluxfetgkckjd');
+       assert.equal(options.env?.PGSSLMODE,'verify-full');
+       assert.ok(options.input?.includes("session_user<>'autopilot_cloud_runner'"));
+       return originalExec(binary('psql'),args.map((v,i)=>i===1?'127.0.0.1':i===3?String(port):i===5?'autopilot_cloud_runner':v),options);
+     };
+     assert.equal((await new CloudMissionStore(pooled,pooledProcesses).status('synthetic-p0c')).state,'cancelled');
+     const tlsExec=pooledProcesses.exec.bind(pooledProcesses);
+     pooledProcesses.exec=(file,args,options)=>tlsExec(file,args,{...options,
+       input:options.input?.replace('pid=pg_backend_pid() and ssl','pid=pg_backend_pid() and ssl and false')});
+     await assert.rejects(new CloudMissionStore(pooled,pooledProcesses).status('synthetic-p0c'),/process_failed/);
      await assert.rejects(store.initialize(),/cloud_provisioning_not_allowed/);
      await assert.rejects(store.admit({}),/cloud_admission_not_allowed/);
      for(const q of ['create table public.forbidden(id int);','update public.agent_tasks set attempt_count=0;',
