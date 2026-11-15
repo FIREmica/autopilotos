@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T11:42:26.619Z",
+  "updated_at": "2026-11-15T12:18:47Z",
   "execution_id": "codex-p1-per-effect-authorization-20261115",
   "repository": {
     "branch": "codex/p1-per-effect-authorization-20261115",
-    "head_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
+    "head_sha": "77c6e3c2ba903ead6728f2e663563094815e1574",
     "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
     "worktree": "C:/autopilot-worktrees/p1-per-effect-authorization-20261115",
-    "note": "Candidato local preparado sobre origin/main verificada; SHA de main es el padre. Reemplazar head_sha por el commit candidato y registrar PR/CI solo después de publicarlos y verificarlos.",
-    "pr_number": null,
-    "pr_url": null
+    "note": "Head observado en PR #240 al registrar el checkpoint. Si se actualiza este JSON en un commit posterior, head_sha referencia el padre documental; recuperar el SHA/CI final directamente de la PR.",
+    "pr_number": 240,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/240"
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
@@ -17,7 +17,7 @@
     "linear_phase": "P1",
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
-    "last_verified_step": "PR239 integrada en main 44dbaeeb6384740da81db2357fb003c7de42d33b; validate/postgres/CodeQL y demás checks relevantes de PR239 verificados en su head exacto. Candidato local añade autorización por operación, permiso sintético local, contexto y checkpoint validados, y atestación de verificador distinto y de un solo uso. RED/GREEN focal 25/25, npm run lint y npm run verify 555/555 aprobados; CI del nuevo SHA aún pendiente.",
+    "last_verified_step": "PR239 integrada en main 44dbaeeb6384740da81db2357fb003c7de42d33b; sus checks exactos se verificaron. PR240 draft abierta con head inicial 77c6e3c2ba903ead6728f2e663563094815e1574. RED/GREEN focal 25/25, lint y verify 555/555 aprobados localmente. En la primera consulta de CI, validate, postgres, public-browser-smoke y CodeQL aún corrían; Supabase Preview SKIPPED y Vercel Preview automático success. Reconsultar SHA final luego de actualizar este checkpoint.",
     "limits": [
       "Autorización y verificador son callbacks host in-process; no certifican identidad remota ni se revocan atómicamente con SQL.",
       "Solo operaciones sintéticas locales: execute_step puede recibir únicamente synthetic_worktree con local_synthetic_only, no_network y no_send; no dispatch externo, red ni envío.",
@@ -116,6 +116,10 @@
     {
       "operation": "Continuar ORD-P1-SUPERVISOR-ADAPTER-20261114 con autorización por efecto y atestación independiente",
       "detection": "Worktree aislado sobre main 44dbae; RED reproduce denegación post-claim y completion sin verificador, más checkpoint terminal duplicado. GREEN focal 25/25, lint aprobado y verify 555/555 aprobado. Sin efecto remoto/SQL/dispatch."
+    },
+    {
+      "operation": "Publicar una PR draft única para la continuación P1 y conciliar el checkpoint",
+      "detection": "PR #240 abierta por el perfil Victoriosas, base 44dbaeeb y head inicial 77c6e3c; rama codex/p1-per-effect-authorization-20261115. No hay fusión. CI final en curso; Vercel Preview fue activado automáticamente por GitHub, sin despliegue manual a producción."
     }
   ],
   "evidence_refs": [
@@ -165,7 +169,7 @@
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "worktree aislado codex/p1-per-effect-authorization-20261115 sobre origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b",
+    "environment": "PR draft #240; branch codex/p1-per-effect-authorization-20261115, worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115, base 44dbaeeb6384740da81db2357fb003c7de42d33b",
     "dependencies": [
       "PR237, #238 y #239 ya están integradas; la candidata de claim-only #239 no se debe recrear.",
       "Reutilizar runtime, MissionLedger, LocalMissionStore, SQL claim/lease/fencing y supervisor; no duplicar cola/scheduler/ledger.",
@@ -178,7 +182,7 @@
       "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
       "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ],
-    "next_action": "Publicar una sola PR draft para el worktree existente; reconciliar número/head en este JSON y AUTOPILOT_STATE en la misma PR; comprobar validate, postgres, CodeQL y checks relevantes del SHA final exacto. Mantener revisión humana requerida y P1 parcial; después, primera dependencia futura es revocación/autorización durables atómicas con SQL e identidad/verificación fuera de proceso. No conectar CLI/scheduler ni activar P2.",
+    "next_action": "Actualizar checkpoint en la misma PR con número/URL y reconciliar nuevamente el head; verificar validate, postgres, CodeQL, public-browser-smoke y Vercel Preview del SHA final exacto. Mantener Supabase Preview SKIPPED como ausencia de cobertura, P1 parcial y revisión humana pendiente. No fusionar, promover, ejecutar SQL, conectar CLI/scheduler ni activar P2.",
     "permissions": {
       "status": "bounded",
       "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
@@ -186,13 +190,13 @@
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Misma orden P1 y automatización existente. Retomar C:/autopilot-worktrees/p1-per-effect-authorization-20261115; recuperar PR por rama tras crearla. No reabrir #237–#239."
+    "mechanism": "Misma orden P1, PR draft #240 y heartbeat existente. Revalidar head/checks exactos al reanudar; rama codex/p1-per-effect-authorization-20261115 y worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115. No reabrir #237–#239."
   },
   "resume_instructions": "Leer AGENTS.md, PROJECT_DIRECTION, plan, prompt y este JSON. Confirmar main, rama/head, PR y CI exactos y escritores. Revisar el candidato único por efecto. No repetir ejecución/SQL ni afirmar dispatch; la revocación durable/atómica y la identidad remota siguen pendientes. Continuar la misma orden P1; P2 permanece inactiva.",
   "supervision": {
     "verdict": "P1_PER_EFFECT_CANDIDATE_REVIEW_REQUIRED",
     "scope": "Autorización por efecto local sintético y atestación independiente in-process sobre runtime/ledger existentes; no está conectado a CLI/scheduler ni a recursos alojados.",
-    "evidence": "RED/GREEN focal 25/25; lint y npm run verify 555/555 aprobados localmente en worktree aislado. CI del SHA candidato y revisión siguen pendientes. PR239 integrada y no duplicada."
+    "evidence": "PR239 integrada y checks exactos SUCCESS. PR240 draft inicial head 77c6e3c; verify local 555/555 y focal 25/25. En primera lectura de CI: validate/postgres/public-browser-smoke/CodeQL en progreso; Vercel Preview success automático; Supabase Preview skipped. Reconsultar SHA final después de actualizar checkpoint."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
