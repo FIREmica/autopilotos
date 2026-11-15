@@ -15,13 +15,13 @@
       "path": "C:\\autopilot",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 456735178,
       "sha": "a6cff5aba04e752cb010926b88c24fd4abfe84b6",
       "branch": "codex/workspace-main-20261108",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -29,7 +29,7 @@
       "path": "C:\\autopilot-worktrees",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 8473620995,
       "reason": "contenedor de worktrees; no borrar agregado",
@@ -40,7 +40,7 @@
       "path": "C:\\autopilot-backups",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 725423199,
       "reason": "respaldo existente; recuperabilidad no ensayada",
@@ -51,7 +51,7 @@
       "path": "C:\\autopilot-audit-ready-updated",
       "exists": true,
       "classification": "DESCONOCIDO",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 2680718,
       "owner": "por confirmar",
@@ -61,13 +61,13 @@
       "path": "C:\\autopilot-mission-20261025",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 13951834,
       "sha": "5882da4eb3ead7560f5d2f73a020eaa85c8e4f03",
       "branch": "agent/secure-reports-20261025",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -75,7 +75,7 @@
       "path": "C:\\codex-worktrees",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 212004262,
       "reason": "contenedor de worktrees; no borrar agregado",
@@ -86,7 +86,7 @@
       "path": "C:\\victoriosa",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 299571321,
       "sha": "d11dce6d133b4a0b72108e8efaf421a0cb9dd346",
@@ -101,7 +101,7 @@
       "path": "C:\\victoriosa-autopilot-admin-control-center",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 403580954,
       "sha": "e7e328ea4370f8b1668832a912f748ea3204a262",
@@ -116,7 +116,7 @@
       "path": "C:\\Users\\micahael\\.codex",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 5194941879,
       "reason": "estado compartido Codex; contiene credenciales/historial, no respaldar en claro",
@@ -127,7 +127,7 @@
       "path": "C:\\CODEX-expressjobs-repo",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 2,
       "bytes": 2146919392,
       "sha": "0ac66966c727e2a148edef4c5b7b0baa104ab157",
@@ -142,13 +142,13 @@
       "path": "E:\\autopilot-continuation-v5-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15271867,
       "sha": "2a34b77f94d09cdacf4e88b141e912a898d99eef",
       "branch": "codex/continuation-v5-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -156,13 +156,13 @@
       "path": "E:\\autopilot-f3-guardian-injection-20261108",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203275840,
       "sha": "2607a427d77f3b523de120a2d41ae1f1898b146f",
       "branch": "codex/f3-guardian-injection-20261108",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -170,13 +170,13 @@
       "path": "E:\\autopilot-public-health-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203201132,
       "sha": "50fcea83a6f84acc36cae1da2516690618c91f94",
       "branch": "codex/public-health-diagnostics-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -184,13 +184,13 @@
       "path": "E:\\autopilot-victoriosas-skills-v2",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15262654,
       "sha": "5b9ceac1f56812a722754fbce873551e9bb9633f",
       "branch": "codex/victoriosas-skills-v2",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -198,7 +198,7 @@
       "path": "E:\\AutopilotTemp",
       "exists": true,
       "classification": "DESCONOCIDO",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 1482229,
       "owner": "por confirmar",
@@ -208,7 +208,7 @@
       "path": "E:\\Victoriosas_QA_20261104",
       "exists": true,
       "classification": "DESCONOCIDO",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 26607033,
       "owner": "por confirmar",
@@ -218,7 +218,7 @@
       "path": "E:\\Victoriosas_Recovery_20261108",
       "exists": true,
       "classification": "DESCONOCIDO",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 89184929,
       "owner": "por confirmar",
@@ -228,13 +228,13 @@
       "path": "C:\\autopilot-worktrees\\activation-preservation-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15561971,
       "sha": "cc7f753605f3e718e727d7c151f5e1af321b79ad",
       "branch": "codex/activation-preservation-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -242,13 +242,13 @@
       "path": "C:\\autopilot-worktrees\\admin-auth-upstream-status-20261108",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203278866,
       "sha": "8b8929ab964b249d856d0a4e0e4cfa9f26da1c0a",
       "branch": "codex/admin-auth-upstream-status-20261108",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -256,13 +256,13 @@
       "path": "C:\\autopilot-worktrees\\alignment-audit-20261105",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 201070807,
       "sha": "48a6f2f3fde5ac48e7664f0b47143ac385dcae7d",
       "branch": "codex/alignment-audit-20261105",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -270,13 +270,13 @@
       "path": "C:\\autopilot-worktrees\\api-404-build-isolation-20261108",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210680789,
       "sha": "7da72d3634c378d4cd1f6b41aa99b30f0a6001ce",
       "branch": "codex/api-404-build-isolation-20261108",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -284,13 +284,13 @@
       "path": "C:\\autopilot-worktrees\\auth-test-review-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203327972,
       "sha": "eb92a0cef9c5d50ea578f4a532e7b56cb600cdab",
       "branch": "codex/auth-test-review-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -298,13 +298,13 @@
       "path": "C:\\autopilot-worktrees\\autonomy-continuity-20261112",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 217850539,
       "sha": "30e9f41c0713ee1692aeefe0a26e16931d0fe4b1",
       "branch": "codex/autonomy-continuity-20261112",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -312,13 +312,13 @@
       "path": "C:\\autopilot-worktrees\\beauty",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 3897262,
       "sha": "a69788be6966dd3818030d47a34da36cce25c2cb",
       "branch": "worktree/beauty",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -326,13 +326,13 @@
       "path": "C:\\autopilot-worktrees\\clinical-final-qa-20261031",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 200497980,
       "sha": "c6ee2f41f33ecdd40872987224f72db93504b824",
       "branch": "",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -340,13 +340,13 @@
       "path": "C:\\autopilot-worktrees\\clinical-navigation-20261031",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 76633021,
       "sha": "c6ee2f41f33ecdd40872987224f72db93504b824",
       "branch": "codex/clinical-navigation-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -354,13 +354,13 @@
       "path": "C:\\autopilot-worktrees\\cloud-ledger-adapter-20261112",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 217710795,
       "sha": "30e9f41c0713ee1692aeefe0a26e16931d0fe4b1",
       "branch": "codex/cloud-ledger-adapter-20261112",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -368,13 +368,13 @@
       "path": "C:\\autopilot-worktrees\\comercio",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 3897264,
       "sha": "a69788be6966dd3818030d47a34da36cce25c2cb",
       "branch": "worktree/comercio",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -382,13 +382,13 @@
       "path": "C:\\autopilot-worktrees\\configuration-decisions-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15305643,
       "sha": "564ca2a9142e86e69e0e7a0a00fca1243d83d11c",
       "branch": "codex/shared-context-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -396,13 +396,13 @@
       "path": "C:\\autopilot-worktrees\\consultation-admin-d-20261111",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 322593097,
       "sha": "d666cccfc49f6fea183b1cb5f8e028f839628881",
       "branch": "codex/consultation-admin-integration-v1",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -410,13 +410,13 @@
       "path": "C:\\autopilot-worktrees\\continuity-validation-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203269600,
       "sha": "d3bd06684d17eef9c4f594f007cf96048c67b629",
       "branch": "",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -424,13 +424,13 @@
       "path": "C:\\autopilot-worktrees\\copy-remoto",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 10650465,
       "sha": "965f1c8a43c2568db458401c56547fe885bcb638",
       "branch": "codex/victoriosas-copy-remoto-20261018",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -438,13 +438,13 @@
       "path": "C:\\autopilot-worktrees\\discovery-20261031",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 20496337,
       "sha": "ad30a5758c4bbc6e3cda8c3c6ffa1d2885e87d7e",
       "branch": "codex/service-discovery-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -452,13 +452,13 @@
       "path": "C:\\autopilot-worktrees\\discovery-plan",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 44250696,
       "sha": "344b4f0b6996383437bb187584fba22717663f15",
       "branch": "codex/discovery-plan-20261023",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -466,13 +466,13 @@
       "path": "C:\\autopilot-worktrees\\diseno",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203391354,
       "sha": "c132ed0efcad02593f9b348141d96c28b25c9af7",
       "branch": "codex/victoriosas-functional-audit-20261017",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -480,13 +480,13 @@
       "path": "C:\\autopilot-worktrees\\f1-api-auth-review-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210810823,
       "sha": "d4bc0bbbc96736538830ed057125d056d87bf6a6",
       "branch": "codex/f1-api-auth-review-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -494,13 +494,13 @@
       "path": "C:\\autopilot-worktrees\\f1-public-health-redaction-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210605070,
       "sha": "50f35fb77c9dd635310d468e4be884450c8b09af",
       "branch": "codex/f1-public-health-redaction-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -508,13 +508,13 @@
       "path": "C:\\autopilot-worktrees\\f1-readiness-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210339091,
       "sha": "c52d3a70e98de9b53f19b404579e22bcc285c7bb",
       "branch": "codex/f1-readiness-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -522,13 +522,13 @@
       "path": "C:\\autopilot-worktrees\\f3-authorized-evaluation-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15261898,
       "sha": "9d7edf1cfe90562cad29771738b038f06f7f3696",
       "branch": "codex/f3-authorized-evaluation-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -536,13 +536,13 @@
       "path": "C:\\autopilot-worktrees\\f3-quality-recovery-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203272859,
       "sha": "266bc53091895056ba2460b94e83f13e4034f066",
       "branch": "codex/f3-quality-recovery-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -550,13 +550,13 @@
       "path": "C:\\autopilot-worktrees\\forensic-audit-20261114",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 16045264,
       "sha": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
       "branch": "codex/forensic-audit-20261114",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -564,13 +564,13 @@
       "path": "C:\\autopilot-worktrees\\github-maintenance-20261031",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 200360811,
       "sha": "9deefb61ad1083e1eb6cd713390e7ac2f2a1d5bc",
       "branch": "codex/github-maintenance-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -578,13 +578,13 @@
       "path": "C:\\autopilot-worktrees\\glm53-opencode-20261031",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 14447937,
       "sha": "677ac2c26e9178981d96a522a9af999d48416fec",
       "branch": "codex/opencode-glm53-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -592,13 +592,13 @@
       "path": "C:\\autopilot-worktrees\\hosted-ledger-20261112",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 217889563,
       "sha": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
       "branch": "codex/hosted-ledger-20261112",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -606,13 +606,13 @@
       "path": "C:\\autopilot-worktrees\\integracion-local-20261029",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 212224866,
       "sha": "a6cff5aba04e752cb010926b88c24fd4abfe84b6",
       "branch": "main",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -620,13 +620,13 @@
       "path": "C:\\autopilot-worktrees\\mission-native-activation-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15561915,
       "sha": "bd24d4c8efde7ec24efea05b949b6fb0c8814021",
       "branch": "codex/mission-native-activation-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -634,13 +634,13 @@
       "path": "C:\\autopilot-worktrees\\mission-native-host-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203593106,
       "sha": "15720289647da59c19cc2c19c7f123ee84259a31",
       "branch": "codex/mission-native-host-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -648,13 +648,13 @@
       "path": "C:\\autopilot-worktrees\\mission-operator-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210574371,
       "sha": "d704d54de5624bc5aeb8931f7a72b2aabe17c1d1",
       "branch": "codex/mission-operator-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -662,13 +662,13 @@
       "path": "C:\\autopilot-worktrees\\mission-planner-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210505175,
       "sha": "6a7fe56942fde15890bbf175ea8a117603259e35",
       "branch": "codex/mission-planner-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -676,13 +676,13 @@
       "path": "C:\\autopilot-worktrees\\mission-runner-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210432709,
       "sha": "31c158d3ebdd5337d0891eda196444676ef868a4",
       "branch": "codex/mission-runner-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -690,13 +690,13 @@
       "path": "C:\\autopilot-worktrees\\mission-trigger-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203628154,
       "sha": "f0b0a0639a49fa91bf51c880772bdab632c6d5b0",
       "branch": "codex/mission-trigger-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -704,13 +704,13 @@
       "path": "C:\\autopilot-worktrees\\native-window-evidence-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15613494,
       "sha": "ca7f4237211ac6e001eaa81a5ee4239f709f8bab",
       "branch": "codex/native-window-evidence-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -718,13 +718,13 @@
       "path": "C:\\autopilot-worktrees\\opencode-workstation-20261031",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 115319186,
       "sha": "4ed02806bae9c27bcdc7f3bcda8d9a22f53d51ae",
       "branch": "codex/opencode-workstation-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -732,13 +732,13 @@
       "path": "C:\\autopilot-worktrees\\operaciones",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 3901000,
       "sha": "253e9fbb355058a3f5cbb8d419bb8d3fd7f5b6e6",
       "branch": "ops/quality-marketing-20261017",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -746,13 +746,13 @@
       "path": "C:\\autopilot-worktrees\\ord204g-early-diagnostics-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203615178,
       "sha": "633faa7f9517a6d6edc82158cd125b09a66f6312",
       "branch": "codex/ord204g-early-diagnostics-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -760,13 +760,13 @@
       "path": "C:\\autopilot-worktrees\\ord204g-preflight-handoff-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15605497,
       "sha": "9042122323887939b95ab7c9dc653742e0073517",
       "branch": "codex/ord204g-preflight-handoff-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -774,13 +774,13 @@
       "path": "C:\\autopilot-worktrees\\ord204g-viki-bridge-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203632732,
       "sha": "e034db1dd1e28f71febd895c19d62d20ff5616bd",
       "branch": "codex/ord204g-viki-bridge-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -788,13 +788,13 @@
       "path": "C:\\autopilot-worktrees\\ord204g-window-manager-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203656533,
       "sha": "e2f68d2c9be7423755c2b88d4ab5ee579f1bc65c",
       "branch": "codex/ord204g-window-manager-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -802,13 +802,13 @@
       "path": "C:\\autopilot-worktrees\\permanent-supervisor-p0d-20261114",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 16090486,
       "sha": "3ce7fdf6f3e7ea955a705f20f771a91ec8cb1f14",
       "branch": "codex/permanent-supervisor-p0d-20261114",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -816,13 +816,13 @@
       "path": "C:\\autopilot-worktrees\\plan-cloud-20261111",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15625388,
       "sha": "5f9f47ab6d61c84ababb8440ccea68c2ee68a4cd",
       "branch": "codex/plan-cloud-audit-20261111",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -830,13 +830,13 @@
       "path": "C:\\autopilot-worktrees\\pr-cleanup-168-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203181240,
       "sha": "e3dfe9a185c041e0ab090308945fbf186d87a55c",
       "branch": "codex/pr-cleanup-168-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -844,13 +844,13 @@
       "path": "C:\\autopilot-worktrees\\pr-cleanup-186-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15148078,
       "sha": "64f59f017884cb37ed6d1541bdd02afdcee093f7",
       "branch": "codex/pr-cleanup-186-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -858,13 +858,13 @@
       "path": "C:\\autopilot-worktrees\\pr-cleanup-187-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15157670,
       "sha": "1e22348cb9e1fd703829f23f9c5d229fb07a5480",
       "branch": "codex/pr-cleanup-187-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -872,13 +872,13 @@
       "path": "C:\\autopilot-worktrees\\pr-cleanup-188-20261106",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 206028577,
       "sha": "01953cd7e542624496b35c3fdaf5a0d6c50f2e93",
       "branch": "codex/pr-cleanup-188-20261106",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -886,13 +886,13 @@
       "path": "C:\\autopilot-worktrees\\queue-fencing-20261109",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 203312560,
       "sha": "ccde407db280e11f85ab93e81690ae867b33a002",
       "branch": "codex/queue-fencing-20261109",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -900,13 +900,13 @@
       "path": "C:\\autopilot-worktrees\\readiness-autonomous-demo-20261110\\candidate",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15590596,
       "sha": "426123882ae589a7bc5f64c941d252ae8a6c8590",
       "branch": "codex/readiness-3a5b459f6af2",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -914,13 +914,13 @@
       "path": "C:\\autopilot-worktrees\\readiness-autonomous-final-20261110\\candidate",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 15590597,
       "sha": "3ecc0333a7c4c2fc884df5779df9d56c566b521b",
       "branch": "codex/readiness-ff5566c5becf",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -928,13 +928,13 @@
       "path": "C:\\autopilot-worktrees\\reconcile-pr217-20261111",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 217628993,
       "sha": "8843e0935c239bab88c5b41c3970a117e2da9ec7",
       "branch": "codex/reconcile-pr217-20261111",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -942,13 +942,13 @@
       "path": "C:\\autopilot-worktrees\\reconcile-pr218-20261111",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 217667614,
       "sha": "c2d516e45dc370a323504db9eeab7c7dafeacffa",
       "branch": "codex/reconcile-pr218-20261111",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -956,13 +956,13 @@
       "path": "C:\\autopilot-worktrees\\self-development-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210654843,
       "sha": "7e0a0c0926e7805cb50e397e27cd3586ba6db25b",
       "branch": "codex/self-development-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -970,13 +970,13 @@
       "path": "C:\\autopilot-worktrees\\self-development-f1-20261110",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 210693719,
       "sha": "79c6113f230bde518b1b9dd9c2af22313ff86132",
       "branch": "codex/self-development-f1-20261110",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -984,13 +984,13 @@
       "path": "C:\\autopilot-worktrees\\shared-api-mount-20261108",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 205241048,
       "sha": "039ecf3503cb74b8f7c32b1fd4e8d71b7fa2f72a",
       "branch": "codex/shared-api-mount-20261108",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -998,13 +998,13 @@
       "path": "C:\\autopilot-worktrees\\victoriosas-depth-20261031",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 202679484,
       "sha": "a5961d148ffce7b688e5df862f40d707c2c363f9",
       "branch": "codex/victoriosas-visual-depth-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1012,13 +1012,13 @@
       "path": "C:\\autopilot-worktrees\\victoriosas-preview-20261031",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 200405668,
       "sha": "d1ea28b115d60d7108a770da6a40e91f66f6dc3c",
       "branch": "",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1026,13 +1026,13 @@
       "path": "C:\\autopilot-worktrees\\victoriosas-route-fix-20261031",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 204136091,
       "sha": "6207916e23ed7bf8ca655c7c96488f741da2daef",
       "branch": "codex/technology-direct-route-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1040,13 +1040,13 @@
       "path": "C:\\autopilot-worktrees\\victoriosas-ux-20261031",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 204245393,
       "sha": "de77be8e520233c138db29caa86901a5fefc9a29",
       "branch": "codex/victoriosas-clinical-experience-20261031",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1054,13 +1054,13 @@
       "path": "C:\\codex-worktrees\\victoriosas-consultation-lab",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 212004262,
       "sha": "414b5f6b9630013db9eb95cabb04baab07d438b5",
       "branch": "codex/preview-history-audit-20261104",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1068,13 +1068,13 @@
       "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-ai-circuit\\autopilot",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 13797360,
       "sha": "0b33c978aeb4ac83de42b9632d8b07c121e4cfc5",
       "branch": "claude/consultation-ai-circuit-20261024",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1082,13 +1082,13 @@
       "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-eval\\autopilot",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 19684554,
       "sha": "536c751aeb79d239accef96604b0dfc5d3c5bc34",
       "branch": "codex/consultation-eval-20261024",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1096,13 +1096,13 @@
       "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-phase2\\autopilot",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 208182973,
       "sha": "e1a9e6cbaaba824af3ab825023ba27a4a2987c39",
       "branch": "codex/consultation-intelligence-20261024",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1110,13 +1110,13 @@
       "path": "C:\\Users\\micahael\\.codex\\worktrees\\operational-sync-20261026\\autopilot",
       "exists": true,
       "classification": "CONSOLIDAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 199136569,
       "sha": "71ebf8d842248b6df2bf7d9aa5c54b7f1c0aa4ef",
       "branch": "codex/validated-integration-20261026",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1124,13 +1124,13 @@
       "path": "C:\\Users\\micahael\\.codex\\worktrees\\technical-close-20261029\\autopilot",
       "exists": true,
       "classification": "CONSERVAR",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
       "bytes": 208770157,
       "sha": "74518ed5d8e38fc4c3883581899b4836c0769a0b",
       "branch": "codex/technical-close-20261029",
       "remote": "https://github.com/Victoriosas/autopilot.git",
-      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
+      "reason": "preservar cambios/refs; integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n debe evaluarse por patch y consumidores",
       "owner": "Victoriosas/autopilot",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     },
@@ -1138,9 +1138,9 @@
       "path": "C:\\Users\\micahael\\AppData\\Local\\Temp\\opencode\\pr6-current",
       "exists": false,
       "classification": "DESCONOCIDO",
-      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n autorizada",
+      "backup": "no creado; no eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n autorizada",
       "errors": 0,
-      "reason": "worktree prunable registrado; ubicaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n ausente; conservar metadatos hasta autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
+      "reason": "worktree prunable registrado; ubicaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n ausente; conservar metadatos hasta autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
       "owner": "por confirmar",
       "inventory_ref": "docs/audits/evidence-20261114/resources.json"
     }
@@ -1157,7 +1157,7 @@
         "A\tsrc/storefront/consultationModelGateway.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/admin-auth-upstream-status-20261108",
@@ -1171,7 +1171,7 @@
         "M\tsrc/security/adminAuth.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/admin-lockdown",
@@ -1185,7 +1185,7 @@
         "A\tsrc/security/adminAuth.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/align-cj-mcp-tools",
@@ -1197,7 +1197,7 @@
         "A\tdocs/mcp-sourcing-note.tmp"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/api-404-build-isolation-20261108",
@@ -1219,7 +1219,7 @@
         "M\tsrc/storefront/vercelHealth.test.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/autopilot-core-v4-phase3b",
@@ -1232,7 +1232,7 @@
         "A\tsrc/autopilot/mount.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/autopilot-core-v4",
@@ -1253,7 +1253,7 @@
         "A\tsupabase/migrations/20260912011500_autopilot_core_v4.sql"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/cj-mcp-direct-token-validation",
@@ -1268,7 +1268,7 @@
         "M\tsrc/services/cjSourcingProvider.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/consultation-admin-integration-v1",
@@ -1295,7 +1295,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/consultation-eval-20261024",
@@ -1316,7 +1316,7 @@
         "A\tsrc/storefront/consultationAgentPrompts.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/consultation-price-phase2-20261024",
@@ -1336,7 +1336,7 @@
         "A\tsrc/storefront/consultationSafety.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/consultation-reading-release-20261024",
@@ -1348,7 +1348,7 @@
         "M\tdocs/AUTOPILOT_STATE.md"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/data-truth-revenue-score",
@@ -1366,7 +1366,7 @@
         "M\tsrc/services/productAnalyzer.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/f3-authorized-evaluation-20261106",
@@ -1381,7 +1381,7 @@
         "A\tdocs/consultation-agents/results/development-20261106-42326025668.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/f3-guardian-injection-20261108",
@@ -1396,7 +1396,7 @@
         "M\tsrc/storefront/consultationAgentPrompts.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/harden-v4-task-policy",
@@ -1410,7 +1410,7 @@
         "M\tsrc/autopilot/policyEngine.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/mission-checkpoint-recovery-20261109",
@@ -1420,7 +1420,7 @@
       "merge_base": "1b588f71f3194845f7f5a5e9287d436140a88464",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/mission-native-activation-20261109",
@@ -1446,7 +1446,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/mission-native-host-20261109",
@@ -1472,7 +1472,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/native-window-evidence-20261110",
@@ -1487,7 +1487,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/ord204g-early-diagnostics-20261110",
@@ -1514,7 +1514,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/ord204g-preflight-handoff-20261110",
@@ -1526,7 +1526,7 @@
         "M\tdocs/AUTOPILOT_STATE.md"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/ord204g-viki-bridge-20261110",
@@ -1557,7 +1557,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/ord204g-window-manager-20261110",
@@ -1592,7 +1592,7 @@
         "M\tvercel.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/payment-hardening",
@@ -1608,7 +1608,7 @@
         "M\tsrc/services/revenue.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/permanent-supervisor-p0d-20261114",
@@ -1622,7 +1622,7 @@
         "A\tsrc/autopilot/permanentSupervisor.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/pricing-engine-v2",
@@ -1632,7 +1632,7 @@
       "merge_base": "255cb6fc6f5266caa106243a9a2cc85416ed9e69",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/queue-fencing-20261109",
@@ -1648,7 +1648,7 @@
         "A\ttests/six-agent-recovery.test.mjs"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/revenue-sprint-1",
@@ -1663,7 +1663,7 @@
         "A\tsrc/services/revenue.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/service-discovery-20261031",
@@ -1686,7 +1686,7 @@
         "A\tsrc/storefront/serviceSearch.test.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/shared-api-mount-20261108",
@@ -1702,7 +1702,7 @@
         "M\tsrc/storefront/vercelHealth.test.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/social-profile-alignment-20261019",
@@ -1715,7 +1715,7 @@
         "A\tdocs/SOCIAL_PROFILE_ALIGNMENT_20261019.md"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/vercel-boot-fix",
@@ -1727,7 +1727,7 @@
         "M\tsrc/lib/supabase.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/victoriosas-copy-remoto-20261018",
@@ -1778,7 +1778,7 @@
         "M\tvite.config.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "codex/victoriosas-functional-audit-20261017",
@@ -1844,7 +1844,7 @@
         "M\tvite.config.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "dependabot/npm_and_yarn/multi-766765435e",
@@ -1857,7 +1857,7 @@
         "M\tpackage.json"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "docs/consultation-activation-20261023",
@@ -1869,7 +1869,7 @@
         "M\tdocs/AUTOPILOT_STATE.md"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "feat/editorial-hero-reference",
@@ -1886,7 +1886,7 @@
         "M\tsrc/components/store/StoreHeader.tsx"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "feature/consultas-menu-web-whatsapp-20261023",
@@ -1899,7 +1899,7 @@
         "M\tsrc/components/admin/ConsultationInbox.tsx"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "feature/victoriosas-agents-catalog-email-20261024",
@@ -1924,7 +1924,7 @@
         "M\tsrc/storefront/serviceConsultation.test.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "fix/approved-evidence-disclaimers-20261105",
@@ -1934,7 +1934,7 @@
       "merge_base": "8f1afe45035358b2accbee735c11061fef45652f",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "fix/seo-retired-routes-82",
@@ -1946,7 +1946,7 @@
         "A\tdocs/SEO_RETIRED_ROUTES_82.md"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "main",
@@ -1956,7 +1956,7 @@
       "merge_base": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
       "changed_paths": [],
       "classification": "CONSERVAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "owner/authorized-keyword-shadow",
@@ -1968,7 +1968,7 @@
         "M\tsrc/autopilot/shadowRunAuthorization.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "owner/market-memory-bilingual",
@@ -1978,7 +1978,7 @@
       "merge_base": "ac0d70ed6bf3157aa32ed6fb41db42d55d08a7a9",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "owner/one-shot-keyword-campaign",
@@ -1988,7 +1988,7 @@
       "merge_base": "99fcfa31da9e2341c4ca6adc52b257562a5f6059",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "owner/production-promotion-manual-release",
@@ -1998,7 +1998,7 @@
       "merge_base": "48b45641f6fd9a6dfce208e44e0502a41d335202",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "owner/shadow-campaign-authorizations",
@@ -2008,7 +2008,7 @@
       "merge_base": "99fcfa31da9e2341c4ca6adc52b257562a5f6059",
       "changed_paths": [],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     },
     {
       "name": "v0/fix-supabase-env",
@@ -2021,7 +2021,7 @@
         "M\tvite.config.ts"
       ],
       "classification": "CONSOLIDAR",
-      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de borrado"
+      "reason": "conservar ref hasta reconciliar commits, patches y consumidores; no autorizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de borrado"
     }
   ],
   "pull_requests": [
@@ -2045,8 +2045,8 @@
       "cherry": [
         "+ 3ce7fdf6f3e7ea955a705f20f771a91ec8cb1f14"
       ],
-      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
-      "decision_reason": "Pura y sin integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n; 8/8 unitarias. Una observaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n con state inesperado devuelve propose_resume. Validar frontera runtime antes de conectar."
+      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
+      "decision_reason": "Pura y sin integraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n; 8/8 unitarias. Una observaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n con state inesperado devuelve propose_resume. Validar frontera runtime antes de conectar."
     },
     {
       "number": 229,
@@ -2095,7 +2095,7 @@
         "+ d666cccfc49f6fea183b1cb5f8e028f839628881"
       ],
       "classification": "En conflicto",
-      "decision_reason": "UI material pendiente; main ya incluye #225ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ#227. Reconciliar solo la UI y contratos actuales, sin reintroducir lÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³gica anterior."
+      "decision_reason": "UI material pendiente; main ya incluye #225ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“#227. Reconciliar solo la UI y contratos actuales, sin reintroducir lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³gica anterior."
     },
     {
       "number": 224,
@@ -2113,7 +2113,7 @@
         "+ 9042122323887939b95ab7c9dc653742e0073517"
       ],
       "classification": "Integrable",
-      "decision_reason": "Solo evidencia histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rica de preflight. Integrable documentalmente tras actualizar referencias, no acredita host recuperado."
+      "decision_reason": "Solo evidencia histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rica de preflight. Integrable documentalmente tras actualizar referencias, no acredita host recuperado."
     },
     {
       "number": 223,
@@ -2237,7 +2237,7 @@
         "+ e2f68d2c9be7423755c2b88d4ab5ee579f1bc65c"
       ],
       "classification": "Dependiente de otra",
-      "decision_reason": "#220; gestor de ventanas no sustituye ledger ni garantiza recuperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Windows."
+      "decision_reason": "#220; gestor de ventanas no sustituye ledger ni garantiza recuperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Windows."
     },
     {
       "number": 220,
@@ -2285,7 +2285,7 @@
         "+ 633faa7f9517a6d6edc82158cd125b09a66f6312"
       ],
       "classification": "Dependiente de otra",
-      "decision_reason": "#213; diagnÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³sticos del host, no ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n recuperada comprobada."
+      "decision_reason": "#213; diagnÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³sticos del host, no ejecuciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n recuperada comprobada."
     },
     {
       "number": 219,
@@ -2378,7 +2378,7 @@
         "+ eb92a0cef9c5d50ea578f4a532e7b56cb600cdab"
       ],
       "classification": "Ya incorporada funcionalmente",
-      "decision_reason": "#204 estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en main; ambos archivos de cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo de la propuesta son idÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©nticos al main observado."
+      "decision_reason": "#204 estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en main; ambos archivos de cÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³digo de la propuesta son idÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©nticos al main observado."
     },
     {
       "number": 201,
@@ -2424,7 +2424,7 @@
         "+ 7da72d3634c378d4cd1f6b41aa99b30f0a6001ce"
       ],
       "classification": "Ya incorporada funcionalmente",
-      "decision_reason": "#204 incorpora 404 y builds separados; 5/7 archivos de cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo idÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©nticos, restantes evolucionaron. Base formal #200."
+      "decision_reason": "#204 incorpora 404 y builds separados; 5/7 archivos de cÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³digo idÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©nticos, restantes evolucionaron. Base formal #200."
     },
     {
       "number": 200,
@@ -2453,7 +2453,7 @@
         "+ 039ecf3503cb74b8f7c32b1fd4e8d71b7fa2f72a"
       ],
       "classification": "Ya incorporada funcionalmente",
-      "decision_reason": "#204 incorpora montaje comÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºn; src/http/createApp.ts y smoke actual acreditan el comportamiento. Diferencias posteriores no son razÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n para reintegrar."
+      "decision_reason": "#204 incorpora montaje comÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºn; src/http/createApp.ts y smoke actual acreditan el comportamiento. Diferencias posteriores no son razÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n para reintegrar."
     },
     {
       "number": 199,
@@ -2477,7 +2477,7 @@
         "+ 2607a427d77f3b523de120a2d41ae1f1898b146f"
       ],
       "classification": "En conflicto",
-      "decision_reason": "GuardiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡n F3; cambios exclusivos y base divergente. RevisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n semÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ntica focalizada pendiente, no reemplazar main con variante antigua."
+      "decision_reason": "GuardiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n F3; cambios exclusivos y base divergente. RevisiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n semÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ntica focalizada pendiente, no reemplazar main con variante antigua."
     },
     {
       "number": 198,
@@ -2497,8 +2497,8 @@
       "cherry": [
         "+ 9d7edf1cfe90562cad29771738b038f06f7f3696"
       ],
-      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
-      "decision_reason": "Evidencia histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rica F3; preservar documentos exclusivos. No prueba aprobaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n completa vigente de 40+6."
+      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
+      "decision_reason": "Evidencia histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rica F3; preservar documentos exclusivos. No prueba aprobaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n completa vigente de 40+6."
     },
     {
       "number": 169,
@@ -2520,7 +2520,7 @@
         "+ f9924558237d033cfae7f530524fa72348ea4297"
       ],
       "classification": "En conflicto",
-      "decision_reason": "Git mergeable/behind pero validate FAILURE: migraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Express 5 sin contrato verificado. Conflicto tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©cnico, no textual."
+      "decision_reason": "Git mergeable/behind pero validate FAILURE: migraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Express 5 sin contrato verificado. Conflicto tÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©cnico, no textual."
     },
     {
       "number": 124,
@@ -2584,7 +2584,7 @@
         "+ 253309a253d7c467d1286710c391817a87339d9e"
       ],
       "classification": "Obsoleta",
-      "decision_reason": "Alcance mixto catÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡logo/correos/agentes histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rico, fuera de direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n actual. Tiene trabajo exclusivo; no cerrar ni borrar automÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ticamente."
+      "decision_reason": "Alcance mixto catÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡logo/correos/agentes histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rico, fuera de direcciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n actual. Tiene trabajo exclusivo; no cerrar ni borrar automÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ticamente."
     },
     {
       "number": 122,
@@ -2619,8 +2619,8 @@
         "+ fcd1f127fa1a0afa3350521f4f645fb341cfa3c0",
         "+ 0623fbc41b1c0aba0a1c6131698acbdb106fd0e5"
       ],
-      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
-      "decision_reason": "Precios/GuardiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡n fase2 histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ricos; hay trabajo exclusivo y conflicto. Tarifas actuales no aprobadas; mantener borrador."
+      "classification": "Requiere investigaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
+      "decision_reason": "Precios/GuardiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n fase2 histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ricos; hay trabajo exclusivo y conflicto. Tarifas actuales no aprobadas; mantener borrador."
     },
     {
       "number": 90,
@@ -2641,63 +2641,63 @@
         "+ b12c7da28b7b862d656681465954e48dfa8932b1"
       ],
       "classification": "Obsoleta",
-      "decision_reason": "PreparaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n social fuera de fase actual. Contenido exclusivo se conserva; no publicar perfiles ni cerrar por antigÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼edad."
+      "decision_reason": "PreparaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n social fuera de fase actual. Contenido exclusivo se conserva; no publicar perfiles ni cerrar por antigÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼edad."
     }
   ],
-  "backup_policy": "Sin nuevas copias de secretos ni eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de originales; refs/archivos conservados no equivalen a respaldo externo verificado. Respaldar cifrado y ensayar recuperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n antes de eliminar.",
+  "backup_policy": "Sin nuevas copias de secretos ni eliminaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de originales; refs/archivos conservados no equivalen a respaldo externo verificado. Respaldar cifrado y ensayar recuperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n antes de eliminar.",
   "decisions": [
     {
       "id": "KEEP-ALL-EXISTING",
       "action": "preserve",
-      "reason": "cambios exclusivos, consumidores incompletos o aprobaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n especÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­fica necesaria"
+      "reason": "cambios exclusivos, consumidores incompletos o aprobaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n especÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­fica necesaria"
     },
     {
       "id": "ONE-CHAIN",
       "action": "consolidate-docs",
-      "reason": "direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ supervisor existente propuesto ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ executor ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ verificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ mismo ledger/checkpoint"
+      "reason": "direcciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ supervisor existente propuesto ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ executor ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ verificaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ mismo ledger/checkpoint"
     },
     {
       "id": "NO-NEW-SCHEDULER",
       "action": "preserve-existing-cadences",
-      "reason": "monitor Codex, workflows, cron SQL y Vercel tienen ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡mbitos diferentes; no desinstalar sin consumidores"
+      "reason": "monitor Codex, workflows, cron SQL y Vercel tienen ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡mbitos diferentes; no desinstalar sin consumidores"
     },
     {
       "id": "CLEAN-OWN-INTERMEDIATE",
       "action": "removed_generated_intermediate",
       "path": "docs/audits/evidence-20261114/cloud-metadata.json",
-      "reason": "reemplazado por cloud-verified-summary.json minimizado; creado exclusivamente durante esta auditorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a",
+      "reason": "reemplazado por cloud-verified-summary.json minimizado; creado exclusivamente durante esta auditorÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a",
       "recovery": "recolectar metadatos con SELECT; ninguna evidencia previa eliminada"
     }
   ],
   "authorization_proposals": [
     {
       "group": "A",
-      "operation": "eliminar worktrees integrados y refs redundantes despuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©s de respaldo cifrado y prueba de restauraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
-      "status": "pendiente de selecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n por propietario; no ejecutado",
+      "operation": "eliminar worktrees integrados y refs redundantes despuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©s de respaldo cifrado y prueba de restauraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
+      "status": "pendiente de selecciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n por propietario; no ejecutado",
       "impact": "recuperar espacio sin perder commits ni cambios",
       "evidence": "resources.json, branch-comparisons.json, pr-reconciliation.json",
       "rollback": "restaurar bundle/copia cifrada verificada y volver a registrar worktree"
     },
     {
       "group": "B",
-      "operation": "cierres PR #200/#201/#202 tras conservar enlace #204 y notas histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ricas exclusivas",
+      "operation": "cierres PR #200/#201/#202 tras conservar enlace #204 y notas histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ricas exclusivas",
       "status": "propuesta preparada; no cerradas",
-      "impact": "retirar duplicaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n funcional de cola",
+      "impact": "retirar duplicaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n funcional de cola",
       "recovery": "reabrir PR; ramas/commits conservados"
     },
     {
       "group": "C",
-      "operation": "cualquier cambio de automatizaciones, plugins, recursos alojados o producciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n",
-      "status": "sin propuesta destructiva justificada; no autorizado por auditorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a",
-      "reason": "configuraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n presente no demuestra falta de consumidores"
+      "operation": "cualquier cambio de automatizaciones, plugins, recursos alojados o producciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n",
+      "status": "sin propuesta destructiva justificada; no autorizado por auditorÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a",
+      "reason": "configuraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n presente no demuestra falta de consumidores"
     }
   ],
   "limits": [
-    "No instantÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡nea atÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³mica del sistema vivo",
-    "No asociaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n exhaustiva PID/cwd ni certificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de escritor ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico entre PCs",
-    "No restauraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de backups ni lectura de historiales/credenciales Codex",
-    "No revisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n manual exhaustiva de cada lÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nea de todos los mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³dulos",
-    "No factura de costes ni canario de recepciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n humana",
-    "No recuperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n interhost de efectos alojados probada"
+    "No instantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡nea atÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³mica del sistema vivo",
+    "No asociaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n exhaustiva PID/cwd ni certificaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de escritor ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºnico entre PCs",
+    "No restauraciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de backups ni lectura de historiales/credenciales Codex",
+    "No revisiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n manual exhaustiva de cada lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea de todos los mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³dulos",
+    "No factura de costes ni canario de recepciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n humana",
+    "No recuperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n interhost de efectos alojados probada"
   ]
 }

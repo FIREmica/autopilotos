@@ -14,7 +14,7 @@ Se inspeccionaron 83 rutas únicas (95 registros iniciales normalizados), 72 wor
 
 Se leyeron AGENTS local/global pertinente, dirección, checkpoint, instrucciones Copilot y skills de coordinación/seguridad/fases. Se usaron Git/gh, metadatos Windows, lectura de configuración con lista permitida de campos y MCP autenticados. El inventario no es una imagen forense atómica: tamaños/estados pueden variar durante la medición; la fila del propio worktree precede instalación de dependencias y generación de informes.
 
-Los tamaños son bytes lógicos, sin seguir enlaces/junctions; raíces anidadas se solapan y NO deben sumarse. Dos errores de acceso pertenecen al proyecto ExpressJobs ajeno; se conserva. Paths ausentes quedan desconocidos, no eliminables. No se ejecutó clean/reset/force/prune, stash, migración remota, dispatch, modelo, envío ni deploy. Un proceso visible no prueba escritura; no fue posible asociar todos los PID a cwd/archivos ni descartar otros hosts.
+Los tamaños son bytes lógicos, sin seguir enlaces/junctions; raíces anidadas se solapan y NO deben sumarse. Dos errores de acceso pertenecen al proyecto ExpressJobs ajeno; se conserva. Paths ausentes quedan desconocidos, no eliminables. No se ejecutó clean/reset/force/prune, stash, migración remota, dispatch, modelo, envío, deploy manual ni promoción productiva. El push documental de PR235 sí generó previews automáticos de Vercel, separados de producción. Un proceso visible no prueba escritura; no fue posible asociar todos los PID a cwd/archivos ni descartar otros hosts.
 
 ## 3. Inventario de recursos
 
