@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T12:34:48Z",
+  "updated_at": "2026-11-15T12:45:00Z",
   "execution_id": "codex-p1-per-effect-authorization-20261115",
   "repository": {
     "branch": "codex/p1-per-effect-authorization-20261115",
-    "head_sha": "3c703384e15e889eb66d262c1f1994151f61ee66",
+    "head_sha": "7318fc1760ca4510d0fc9964a0ac50b51ab6afcb",
     "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
     "worktree": "C:/autopilot-worktrees/p1-per-effect-authorization-20261115",
-    "note": "Este checkpoint se actualiza desde el head PR #240 3c703384e15e889eb66d262c1f1994151f61ee66. El commit que lo contenga sera un hijo documental; recuperar head y CI final directamente de la PR.",
+    "note": "Este checkpoint se actualiza desde el head PR #240 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb. El commit que lo contenga sera un hijo documental; recuperar head y CI final directamente de la PR.",
     "pr_number": 240,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/240"
   },
@@ -17,7 +17,7 @@
     "linear_phase": "P1",
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
-    "last_verified_step": "PR239 integrada en main 44dbaeeb6384740da81db2357fb003c7de42d33b. PR240 draft abierta; corrección publicada en head 3c703384e15e889eb66d262c1f1994151f61ee66. Ese SHA tiene validate/postgres/browser y CodeQL iniciados, algunos queued; Vercel pending y Supabase Preview SKIPPED. CI del padre 64d212d mostró postgres FAILED en dos jobs por misión planner legacy. RED local reprodujo; GREEN restaura solo permiso sintético explícito del contexto para ledger sin authorizeEffect y añade negativos claim-only. Focal 27/27, lint y verify exit0. Sin entorno PostgreSQL local; CI exacta del nuevo SHA sigue pendiente.",
+    "last_verified_step": "PR239 integrada en main 44dbaeeb6384740da81db2357fb003c7de42d33b. PR240 draft abierta; head 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb con validate/postgres (dos ejecuciones), CodeQL, public-browser-smoke y Vercel SUCCESS; Supabase Preview SKIPPED. El padre 64d212d mostró postgres FAILED en dos jobs por planner legacy. RED local reprodujo; GREEN restaura solo permiso sintético explícito del contexto para ledger sin authorizeEffect y añade negativos claim-only. Focal 27/27, lint y verify exit0. CI exacta del nuevo head cubre PostgreSQL desechable en runner; no es Supabase alojado. Lista de reviews vacía y no hay merge; update documental posterior requiere consultar el SHA final que genere.",
     "limits": [
       "Autorización y verificador son callbacks host in-process; no certifican identidad remota ni se revocan atómicamente con SQL.",
       "Solo operaciones sintéticas locales: execute_step puede recibir únicamente synthetic_worktree con local_synthetic_only, no_network y no_send; no dispatch externo, red ni envío.",
@@ -128,6 +128,10 @@
     {
       "operation": "Publicar correccion legacy y mantener PR240 en revision",
       "detection": "Commit 3c703384e15e889eb66d262c1f1994151f61ee66 pushed fast-forward a la misma rama PR240. Fetch confirma open/draft/mergeable/no-merged, sin reviews. CI del SHA exacto iniciada: validate/postgres/browser/CodeQL queued o running; Vercel pending; Supabase Preview skipped. Body de la misma PR actualizado. Sin merge/deploy/SQL/dispatch."
+    },
+    {
+      "operation": "Verificar CI exacta de la correccion P1",
+      "detection": "En head 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb validate SUCCESS (ambos runs), postgres SUCCESS (ambos reports), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS y Vercel Preview SUCCESS. Supabase Preview SKIPPED. Fetch PR confirma abierta/draft/mergeable/no-merged; sin review. No hosted SQL, ejecucion ni deploy."
     }
   ],
   "evidence_refs": [
@@ -168,8 +172,8 @@
     "El callback de autorización/revocación y el verificador son in-process; la política durable no está ligada atómicamente con SQL y la identidad remota no está acreditada.",
     "Falta review y CI validate/postgres/CodeQL/checks relevantes por el SHA final de esta propuesta.",
     "Sin permiso para merge, deploy, SQL alojado, CLI/scheduler dispatch o P2.",
-    "CI postgres falló en el padre 64d212d; el nuevo SHA 3c703384e15e889eb66d262c1f1994151f61ee66 aún espera CI exacta.",
-    "No hay review humana registrada en PR #240."
+    "Falta review humana de PR #240 antes de cualquier integración; no auto-merge.",
+    "Supabase Preview permanece SKIPPED y no constituye cobertura alojada."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
@@ -192,7 +196,7 @@
       "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
       "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ],
-    "next_action": "Consultar de nuevo validate, postgres, CodeQL, public-browser-smoke y Vercel del SHA exacto PR240 3c703384e15e889eb66d262c1f1994151f61ee66. Si hay fallo, inspeccionar solo su log; si todos pasan, dejar PR draft para review humana. Supabase Preview SKIPPED no es prueba. Mantener P1 parcial; no fusionar, promover, ejecutar SQL, conectar CLI/scheduler ni activar P2.",
+    "next_action": "Mantener PR #240 en borrador para revisión humana. Si cambia su head o llegan comentarios, recuperar evidencia nueva para el SHA exacto y responder en la misma propuesta. No fusionar, promover, ejecutar SQL, conectar CLI/scheduler ni activar P2.",
     "permissions": {
       "status": "bounded",
       "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
@@ -200,13 +204,13 @@
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Misma orden P1, PR draft #240 y heartbeat existente. Revalidar head/checks exactos al reanudar; rama codex/p1-per-effect-authorization-20261115 y worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115, synced a 3c703384e15e889eb66d262c1f1994151f61ee66. Commit y push de corrección completados; no repetir efectos. No reabrir #237–#239."
+    "mechanism": "Misma orden P1, PR draft #240 y heartbeat existente. Revalidar head/checks exactos al reanudar; rama codex/p1-per-effect-authorization-20261115 y worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115, synced a 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb antes del checkpoint documental. Commit/push del código completados; no repetir efectos. No reabrir #237–#239."
   },
   "resume_instructions": "Leer AGENTS.md, PROJECT_DIRECTION, plan, prompt y este JSON. Confirmar main, rama/head, PR y CI exactos y escritores. Revisar el candidato único por efecto. No repetir ejecución/SQL ni afirmar dispatch; la revocación durable/atómica y la identidad remota siguen pendientes. Continuar la misma orden P1; P2 permanece inactiva.",
   "supervision": {
     "verdict": "P1_PER_EFFECT_CANDIDATE_REVIEW_REQUIRED",
     "scope": "Autorización por efecto local sintético y atestación independiente in-process sobre runtime/ledger existentes; no está conectado a CLI/scheduler ni a recursos alojados.",
-    "evidence": "PR239 integrada y checks exactos SUCCESS. PR240 sigue abierta/draft, mergeable, sin merge ni reviews; head 3c703384e15e889eb66d262c1f1994151f61ee66. En padre 64d212d validate/CodeQL/browser/Vercel success y postgres fallo dos veces por permiso legacy; corrección RED/GREEN aplicada. Focal 27/27, lint y verify exit0. Check exacto nuevo SHA: validate/postgres/browser/CodeQL en cola o ejecución; Vercel pending; Supabase Preview skipped. Consultar otra vez; solo éxito postgres aislado de este SHA valida esa ruta."
+    "evidence": "PR239 integrada y checks exactos SUCCESS. PR240 abierta/draft/mergeable, sin merge ni reviews; head 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb. En el padre 64d212d postgres falló dos veces por permiso legacy; corrección RED/GREEN aplicada y publicada. Focal 27/27, lint y verify exit0. En head 7318fc validate y postgres SUCCESS en ambos runs reportados, CodeQL sin alertas nuevas, public-browser-smoke SUCCESS y Vercel Preview SUCCESS; Supabase Preview SKIPPED. El checkpoint actual es hijo documental; reconsultar el head y CI final generado por él."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",

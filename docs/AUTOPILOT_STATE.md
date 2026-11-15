@@ -1501,3 +1501,9 @@ Commit `3c703384e15e889eb66d262c1f1994151f61ee66` se publicó fast-forward en la
 El checkpoint JSON fue actualizado al padre remoto `3c703384…` con nota de que el commit que lo contenga será hijo documental; al reanudar, volver a buscar el SHA real del PR. Pruebas locales RED/GREEN focales 27/27, lint exit 0 y verify exit 0 corresponden al contenido técnico `3c703384…`. No hay PostgreSQL local: no Docker/URL de test y conexión loopback pide contraseña; el único test Postgres pendiente/posible es la CI aislada. Sin ejecución hosted, misión, dispatch, merge o despliegue; P1 queda parcial y P2 inactiva.
 
 **Próximo paso único:** volver a consultar CI por el SHA exacto que muestre PR #240 al reanudar; si falla, leer logs del job correspondiente. Si checks relevantes pasan, conservar la draft para revisión humana; no marcar integrada ni desplegada. Bloqueo durable aún abierto: callbacks de autorización/verificador in-process y revisión humana ausente.
+
+## 2026-11-15 12:45 UTC · P1: CI de la corrección pasó
+
+La consulta de checks de GitHub para el head exacto `7318fc1760ca4510d0fc9964a0ac50b51ab6afcb` mostró validate SUCCESS (dos runs), postgres SUCCESS (dos jobs/run reports), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS. `Supabase Preview` siguió SKIPPED porque no hay rama asociada; no es evidencia de backend alojado. Esto resuelve la regresión reproducida del padre `64d212d…` en el entorno PostgreSQL desechable de CI, sin declarar ejecución de Supabase.
+
+El checkpoint JSON/este registro actualizan el branch desde el padre verificado `7318fc…`; el nuevo commit será solamente documental y modificará el SHA del head PR. Consultar de nuevo checks del SHA exacto resultante. PR #240 permanece borrador, abierta, mergeable, sin review y sin merge. No integrar, ejecutar SQL alojado, activar CLI/scheduler ni P2; esperar revisión humana tras el check del hijo documental.
