@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T02:48:35.765134+00:00",
+  "updated_at": "2026-11-15T02:56:26.035057+00:00",
   "execution_id": "codex-p0-close-p1-supervisor-20261114",
   "repository": {
     "branch": "codex/linear-p0-p1-20261114",
@@ -13,8 +13,8 @@
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Reutilizar el supervisor #234 y validar adaptaci?n estricta de estados/claims del runtime existente sin introducir despachos.",
-    "status": "in_progress_candidate_not_merged",
-    "last_verified_step": "PR236 fusionada; prompt heartbeat local actualizado y re-le?do sin tocar id/intervalo/destino; P0 cerrada con l?mites en esta propuesta; no hay evidencia de ejecuci?n recurrente.",
+    "status": "candidate_implemented_local_ci_pending",
+    "last_verified_step": "Reuso exacto de 3 archivos PR234; adaptador de estado host-bound de solo lectura, binding y fase; 20/20 pruebas focales; TypeScript lint 0; verify previo de 534/534 y ambos builds correctos antes de la guardia de fase final.",
     "limits": [
       "P1 no activa en main hasta fusi?n revisada; hist?rico Git sin purgar",
       "Respaldo DPAPI no equivale a recuperaci?n fuera de equipo"
@@ -84,6 +84,10 @@
     {
       "operation": "Cerrar P0 t?cnicamente con l?mites documentados y comenzar candidato P1",
       "detection": "PR236 fusionada; recursos con recuperaci?n incompleta CONSERVAR; plan y checkpoint cambian juntos en propuesta revisable; no automatizaci?n nueva."
+    },
+    {
+      "operation": "Comenzar P1 con supervisor de PR234 y status host-bound",
+      "detection": "3 archivos historicos recuperados por SHA; status adaptado a LocalMissionStore, rechazos de binding, fase, estados y lease; 20 pruebas focales, lint TypeScript correcto."
     }
   ],
   "evidence_refs": [
@@ -121,7 +125,7 @@
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Revisar y adaptar el supervisor puro de #234 a los estados internos mediante una entrada estrictamente tipada de solo lectura",
-    "status": "in_progress_candidate_not_merged",
+    "status": "candidate_implemented_local_ci_pending",
     "executor": "Codex",
     "environment": "worktree aislado, sin escritores compartidos, main verificado",
     "dependencies": [
@@ -138,7 +142,7 @@
       "Checks y pruebas exactos del candidato; mismo ledger como autoridad",
       "No segundo scheduler, supervisor operativo ni cola"
     ],
-    "next_action": "Implementar adaptador de observaci?n puro ligado a runtime existente y pruebas negativas; publicar PR y verificar CI."
+    "next_action": "Publicar PR unica, verificar checks validate/postgres/CodeQL del head exacto; revisar fronteras de evidencias y si pasa, integrar por autorizacion revisada. Main continua P0 hasta la integracion."
   },
   "resumption": {
     "status": "manual_verified",
