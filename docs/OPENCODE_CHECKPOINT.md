@@ -1,3 +1,16 @@
+# Continuidad vigente · auditoría lineal · 14/11/2026
+Codex ejecutor principal; Autopilot coordina dentro de permisos. Base main a4ca9dd.
+Una fase técnica activa P0, bajo PROJECT_DIRECTION; estado único CODEX_CONTINUATION.json.
+Entrada CODEX_LINEAR_CONTINUATION_PROMPT.md; plan MASTER_LINEAR_DEVELOPMENT_PLAN.md.
+Informe y manifiesto docs/audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md y JSON asociado.
+83 rutas únicas/72 worktrees/49 ramas/17 PR; conservar cambios locales y otros proyectos.
+verify final local516/516; primer fallo conservado y causa no confirmada. CI propia en PR.
+Producción health/Vercel9d6bbdb; P0C en main, #234 draft sin adaptador runtime.
+Sin borrados preexistentes, dispatch, SQL remoto, envíos, deploy ni nueva automatización.
+24 fuentes cloud-ledger-adapter/autonomy-continuity ya conservadas en main/historia salvo whitespace.
+Siguiente P0: consumidores/propietario/recuperación de cambios alignment-audit/diseno antes de retirar.
+Las entradas posteriores a este encabezado preservan historia; revalidar cada afirmación.
+
 # Continuidad P0C hosted ledger - 12/11/2026
 Codex principal; F0/N2 soporte F1-F4. Worktree hosted-ledger-20261112,
 rama codex/hosted-ledger-20261112 desde main a63ed47 (P0B/PR231), contrastado por conector.

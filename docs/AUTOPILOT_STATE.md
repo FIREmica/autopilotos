@@ -1,3 +1,15 @@
+# Continuidad · auditoría y cadena lineal · 14/11/2026
+
+F0/N0, fase técnica P0 activa. Auditoría exclusiva `codex/forensic-audit-20261114` desde main remoto `a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c`; SHA contenedor y CI finales se consultan en su PR, no se predice el hash propio del checkpoint. Inventario: 83 rutas únicas, 72 worktrees registrados, 49 ramas remotas y 17 PR abiertas. Se preservan cambios locales (260 entradas en C:/autopilot), backups, sesiones y recursos externos. Marketplace/ExpressJobs son otros repositorios y quedan fuera de limpieza.
+
+Documentos canónicos: `MASTER_LINEAR_DEVELOPMENT_PLAN.md` y `CODEX_LINEAR_CONTINUATION_PROMPT.md`; mismo JSON de continuidad, sin scheduler ni ledger nuevo. Informes/manifiesto en `docs/audits/`. P0C fusionado; #234 DRAFT y no conectado al runtime. #200/#201/#202 ya incorporadas funcionalmente por #204; sin cerrar sus propuestas. PLAN Cloud workflow_run sigue fallando cerrado intencionalmente; no se habilita por existir el adaptador cloud.
+
+Verificación actual: segundo verify completo 516/516, tipos/builds/API; primer intento falló un archivo (512 pass/1 fail), luego pasó aislado4/4; causa no confirmada. P0D8/8 y probe de state inesperado devuelve propose_resume; revisar frontera runtime en la PR existente antes de conectar. Main validate/postgres aprobados al SHA base; CI de esta documentación se registra por su propio head. fsck de conectividad aprobado. GET PowerShell health200 commit9d6bbdb, config200 enabled/v1/30d y admin401; monitor Node remoto tuvo timeout. No canario/envíos ni QA visual nuevos.
+
+Supabase principal41 migraciones, 17 últimas fichas aprobadas/vigentes, cero tarifas; ledger aislado4 tablas RLS, rol mínimo sin membresías, 1 tarea/7 eventos. Metadatos leídos, sin mutación ni PII. camelRun/viki mismo inventario9 agentes sin herramientas conectadas; automatización6h ACTIVE configura intención, no continuidad demostrada. Coste total y recuperación interhost de efectos NO COMPROBADOS.
+
+Limpieza: solo reemplazado un intermedio generado por la propia auditoría por resumen minimizado. Ningún recurso preexistente eliminado. Ya comparadas24 fuentes de cloud-ledger-adapter/autonomy-continuity:8 iguales a main con CRLF normalizado,13 iguales a historia de main y3 con línea vacía adicional; no reintegrar. Faltan consumidores y respaldo/restauración de otros árboles. Próxima tarea P0: atribuir y preservar cambios exclusivos de alignment-audit-20261105 y diseno con lectura/diff selectivo y recuperación verificable; no repetir fuentes anteriores sin cambio de hash. No merge, dispatch, deploy, SQL alojado, credenciales, automatizaciones ni mensajes modificados.
+
 # Continuidad · corrección del adaptador CLI para claims de misión · 10/11/2026
 
 PR #216, rama `codex/autopilot-next-safe-20261110`. Base incorporada: `origin/main` `7476839080f3a576ab3606c13051c544d0e01f29`. El run `42748841655` aprobó `validate`, pero falló `postgres` en `tests/mission-operator-postgres.test.ts`: el CLI emitió `claimed:false`, `reason:"claim_failed"` y conservó la misión sintética en `queued`.

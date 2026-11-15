@@ -1,5 +1,9 @@
 # Continuidad técnica de Codex
 
+## Entrada canónica desde el 14/11/2026
+
+Para nuevas sesiones usar [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md) y el único [MASTER_LINEAR_DEVELOPMENT_PLAN.md](MASTER_LINEAR_DEVELOPMENT_PLAN.md). El estado operativo sigue en el mismo [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json); no se crea otro checkpoint ni runtime. La fase técnica activa es P0 hasta su cierre probado. El protocolo V5 que sigue se conserva como antecedente compatible de recuperación; sus observaciones fechadas no prevalecen sobre mediciones actuales. La visión sigue en PROJECT_DIRECTION.md.
+
 Este protocolo aplica la directiva V5 con las habilidades existentes. La dirección sigue en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md), el historial en [AUTOPILOT_STATE.md](AUTOPILOT_STATE.md) y la orden recuperable en [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). El JSON registra una orden técnica a la vez y sus dependencias. Se actualiza únicamente ante un avance o bloqueo material mediante rama revisable.
 
 ## Recuperación y decisión

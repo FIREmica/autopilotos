@@ -2,6 +2,7 @@
 
 ## Dirección y fases del producto
 - **Fuente principal de visión**: `docs/PROJECT_DIRECTION.md`, con roles, límites, fases F0–F8, criterios de salida y prioridad activa; leerla antes de crear trabajo nuevo.
+- **Secuencia técnica única**: `docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md`; recuperar la única orden en `docs/CODEX_CONTINUATION.json` usando `docs/CODEX_LINEAR_CONTINUATION_PROMPT.md`. Una sola fase P0–P6 activa, subordinada a las puertas F0–F8 de producto. No crear planes ni cadenas paralelas.
 - **Estado auditado 3–4/11/2026**: `docs/AUDITORIA_DIRECCION_20261104.md`. Confirmar HEAD y servicios: el informe es una foto, no un estado permanente.
 - **PC/GitHub**: `docs/SYNC_PC_GITHUB_SEGURO.md`. Si Desktop Commander está desconectado, no afirmar PC sincronizada.
 - Usar `$victoriosas-control-de-fases` para impedir que tareas laterales desplacen la ruta crítica. Codex, OpenCode y Work comparten el objetivo, pero no comparten necesariamente sesiones, permisos o estado de ejecución.
