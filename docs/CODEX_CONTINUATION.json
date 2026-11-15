@@ -4,10 +4,12 @@
   "execution_id": "codex-p1-claim-authorization-20261115",
   "repository": {
     "branch": "codex/p1-authorization-20261115",
-    "head_sha": "4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34",
+    "head_sha": "01e717d226b8c51760d55da5f86c83ed7e677bd3",
     "base_sha": "4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34",
     "worktree": "WORKTREE:p1-authorization-20261115",
-    "note": "Verified remote main after PR238 merge; reviewed parent, not the containing commit. Resolve candidate head and exact CI from this branch PR."
+    "note": "Reviewed application commit before this documentation-only PR reference update. Resolve the containing commit and final exact CI at PR239 head; do not inherit main or prior-head CI.",
+    "pr_number": 239,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/239"
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
@@ -131,7 +133,8 @@
     "https://github.com/Victoriosas/autopilot/pull/238",
     "src/autopilot/missionAuthorization.ts",
     "src/autopilot/missionAuthorization.test.ts",
-    "tests/mission-operator-postgres.test.ts"
+    "tests/mission-operator-postgres.test.ts",
+    "https://github.com/Victoriosas/autopilot/pull/239"
   ],
   "blockers": [
     "Candidate review and exact-head CI are required before any authorized integration.",
@@ -232,7 +235,7 @@
       ]
     },
     "current_pr_head_checks": {
-      "lookup": "Resolve existing PR for head codex/p1-authorization-20261115 and inspect exact head SHA checks; do not inherit main/PR238 results.",
+      "lookup": "https://github.com/Victoriosas/autopilot/pull/239/checks",
       "required": [
         "validate",
         "postgres"
@@ -297,7 +300,7 @@
       "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
       "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
     ],
-    "integration_state": "PROPOSED and locally TESTED; not merged, hosted, scheduled or generally executable"
+    "integration_state": "PROPOSED in draft PR239 and locally TESTED; not merged, hosted, scheduled or generally executable"
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
