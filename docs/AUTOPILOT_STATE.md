@@ -1521,3 +1521,14 @@ El checkpoint JSON/este registro actualizan el branch desde el padre verificado 
 **Límites y permiso:** P1 permanece parcial. Los callbacks/verificador siguen in-process; no demuestran revocación atómica durable ni identidad remota. Sin autorización para integrar, desplegar, usar SQL alojado, conectar CLI/scheduler o activar P2. Rollback documental: revertir solo este commit si fuera necesario; preservar PR, código y evidencias anteriores.
 
 **Siguiente misión exacta:** recuperar el SHA real del hijo documental y revisar validate/postgres/CodeQL/checks relevantes para ese SHA; mantener PR #240 en draft. Si llegan comentarios, corregirlos en la misma PR, repetir pruebas proporcionales y revisar CI del head final. Sin review/autorización humana, no integrar ni saltar a P2; si no hay novedades, registrar BLOQUEADO/SIN CAMBIOS sin inventar trabajo.
+## 2026-11-15 17:51 UTC - P1: CI del checkpoint y continuidad
+
+Estado: continúa únicamente ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 técnica / F0 producto. origin/main sigue en 44dbaeeb6384740da81db2357fb003c7de42d33b. PR #240 permanece abierta, draft, mergeable, sin reviews ni merge. La revisión del head anterior 45f9709 confirmó 625214f2e935eaaca7d917cb8ddb24270ae0380d como head exacto y sincronizado antes de este checkpoint documental.
+
+CI exacta del SHA 625214f: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Vercel Preview Comments SUCCESS (sin feedback pendiente). Supabase Preview SKIPPED por no tener branch asociada; no acredita integración alojada. No reutilizar estos resultados para el commit documental de esta entrada: consultar PR #240 y checks por el SHA hijo real.
+
+Acción: se registran los resultados en docs/CODEX_CONTINUATION.json y aquí, en la misma PR #240. Cambio solo documental; no se repitieron pruebas de aplicación. Las pruebas focales 27/27, npm run lint, npm run verify y git diff --check exit 0 pertenecen al código ya verificado y continúan referenciadas. La descripción de la PR se actualizará al head documental resultante.
+
+Límites: no hubo misión/claim, SQL local/alojado, dispatch, envío, merge, deploy ni gasto; no hay efecto incierto que conciliar. Callback y verificador continúan in-process, sin revocación atómica durable ni identidad remota demostrada. Sin permiso para integrar o activar P2. Rollback: revertir únicamente el checkpoint si hiciera falta; preservar la candidata y su historia.
+
+Siguiente paso: recuperar SHA del hijo documental, reviews y CI exacta; actualizar el body de la misma PR con esos resultados. Mantenerla en draft. Si aparecen comentarios, resolver dentro de PR #240 con pruebas y CI del SHA final. Sin revisión/autorización humana no integrar, desplegar, ejecutar SQL alojado ni activar CLI/scheduler/P2; sin novedades, registrar BLOQUEADO/SIN CAMBIOS.
