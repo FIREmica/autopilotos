@@ -108,3 +108,10 @@ en el environment existente; una futura rotación sigue requiriendo autorizació
 Fuentes oficiales consultadas:
 [conexiones y Session Pooler](https://supabase.com/docs/guides/database/connecting-to-postgres),
 [configuración Supavisor: upstream_ssl/upstream_verify frente a enforce_ssl](https://github.com/supabase/supavisor/blob/main/docs/configuration/tenants.md).
+
+## Evidencia adicional: GitHub Actions IPv6 (14/11/2026 UY)
+
+Prueba manual sin secretos ni checkout en el workflow `plan-cloud.yml`, modo `ipv6-probe`.
+Commit `e7e3cd0`; run https://github.com/Victoriosas/autopilot/actions/runs/43656109953.
+Runner `ubuntu-latest`: DNS AAAA resolvió 1 dirección, conexión IPv6 TCP/5432 devolvió `OSError 101` (network unreachable). Job finalizó failure como se esperaba al no existir ruta; otros jobs omitidos. No se intentó autenticar ni acceder al ledger.
+Conclusión acotada: el runner GitHub-hosted probado no permite conexión directa IPv6. No habilitar `hosted-ledger`, no bajar guardas TLS ni asumir que todos los runners carecen de IPv6. Próximo transporte requiere conectividad IPv6 verificada o TLS upstream demostrado por proveedor.
