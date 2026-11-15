@@ -1,3 +1,15 @@
+# P1 · autorización independiente de claim · 15/11/2026
+
+Main remoto contrastado `4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34`: #237 y #238 FUSIONADAS. Observación runtime/CLI ya integrada; no volver a revisarla como propuesta pendiente. P0 cerrada técnicamente con límites conservados; P1 ACTIVA/PARCIAL, misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`. Las entradas inferiores son historia, no órdenes vigentes.
+
+Incremento actual en `codex/p1-authorization-20261115`: autorización independiente del host para un único claim sintético fresco. Identidad de instancia del ejecutor, F0, binding, objetivo, versiones, caducidad y revisión comprobados. Política releída antes del claim; snapshot/fecha comprobados bajo el mismo lock/transacción SQL. Cambio de objetivo, versión o cancelación rechaza sin mutar el ledger; concurrencia permite un claim. El resultado no incluye permisos de ejecución ni métodos de checkpoint/finalización. CLI `supervise` permanece de lectura. CloudMissionStore rechazado por esta API; ninguna SQL alojada.
+
+Límite: el callback de política y la instancia son dependencias confiables del host, no autenticación remota. Una revocación externa posterior al callback no queda ligada atómicamente a SQL. Siguiente carencia P1: autorización de efectos, vigencia/revocación tras claim y evidencia independiente antes de finalizar. No se habilita dispatch ni P2. Main PLAN Cloud conserva el fallo cerrado `cloud_ledger_adapter_not_configured` (run43674217791); no ampliar permisos para pasar esa puerta.
+
+Validación local:39/39 focalizadas, verify547/547, tipos/skills/builds/API correctos. Un fallo previo de proceso en payments/safety.test.ts (sin causa confirmada) quedó conservado; aislado7/7 y repetición completa547/547 aprobaron. PostgreSQL18 desechable final aprobó denegación, cambios de objetivo/versión/identidad/cancelación y concurrencia, sin permisos de ejecución.
+
+Validación y SHA/PR recuperables: mismo [checkpoint](CODEX_CONTINUATION.json) y checks del head exacto de la PR de esta rama. Automatización existente ACTIVE/6h solo inspeccionada, sin cambios ni ejecución programada acreditada. Sin tocar producción, Supabase, recursos previos ni apoyo local100c7df.
+
 # P1 · correcciones de revisión de PR237 · 15/11/2026
 
 Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114; misma PR237, sin nueva rama/PR. Padre revisado cd407e1 tenía validate/postgres/CodeQL/browser aprobados; los checks del head corregido se verifican aparte por SHA. No se afirma CI nueva por herencia del padre.

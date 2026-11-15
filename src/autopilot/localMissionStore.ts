@@ -3,6 +3,15 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { hostBinding, localProcessEnvironment, validateLocalConfig, type LocalMissionConfig } from './localMissionConfig';
 import { authorizedObjective } from './missionPlanner';
 import { ManagedProcesses } from './managedProcesses';
+import type { ExecutorAdapter } from './executorAdapter';
+import type { AgentId } from './sixAgentControlPlane';
+
+export interface MissionClaimGuard {
+  expected: { missionId: string; binding: string; goalVersion: number; checkpointVersion: number;
+    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string };
+  authorizeExecutor(executor: ExecutorAdapter): Promise<void>;
+  beforeClaim(agentId: AgentId): Promise<void>;
+}
 
 const literal = (v: unknown) => `'${(typeof v === 'object' ? JSON.stringify(v) : String(v)).replaceAll("'", "''")}'`;
 export function missionId(value: string): string {
@@ -84,8 +93,11 @@ export class LocalMissionStore {
     if (!this.config.permissions.cancel) throw Error('host_permission_required');
     missionId(id); return await this.query(`select public.local_mission_cancel(${literal(id)},${literal(this.binding)});`, 'cancel') === 't';
   }
-  client(id: string, runId: string): SupabaseClient {
+  client(id: string, runId: string, guard?: MissionClaimGuard): SupabaseClient {
     missionId(id);
+    const expected=guard ? structuredClone(guard.expected) : undefined;
+    if (expected && (this.constructor!==LocalMissionStore || expected.missionId!==id || expected.binding!==this.binding))
+      throw Error('mission_authorization_scope_mismatch');
     const parameters: Record<string, string[]> = {
       six_agent_checkpoint: ['p_task_id','p_mission_id','p_token','p_checkpoint_version','p_operation_id','p_executor_id','p_checkpoint'],
       six_agent_complete: ['p_task_id','p_token','p_evidence'], six_agent_fail: ['p_task_id','p_token','p_reason'],
@@ -97,7 +109,32 @@ export class LocalMissionStore {
       try {
         if (rpc === 'six_agent_claim_mission') {
           if (args.p_agent !== 'software') throw Error('agent_not_allowed');
-          const data = JSON.parse(await this.query(`select coalesce(json_agg(c),'[]'::json) from public.local_mission_claim(${literal(id)},${literal(this.binding)},${literal(runId)}::uuid,${this.config.leaseSeconds}) c;`, 'claim'));
+          if (guard) await guard.beforeClaim('software');
+          // Same transaction and row lock as the claim: no read/claim TOCTOU.
+          // Deliberately only fresh queued synthetic missions; no resume or lease takeover.
+          const precondition=expected ? `begin; do $authorization$ begin
+            perform 1 from public.agent_tasks t where t.id=${literal(id)} and t.mission_id=${literal(id)}
+              and t.goal='Verify synthetic mission recovery' and t.input->>'mission_schema_version'='1'
+              and t.actor='autopilot-local-cli'
+              and t.agent_id='software' and t.input->>'host_binding'=${literal(expected.binding)}
+              and t.status='queued' and t.attempt_count=0 and t.execution_token is null and t.lease_until is null
+              and t.mission_checkpoint->>'mission_state'='queued'
+              and t.mission_checkpoint_version=${literal(expected.checkpointVersion)}::integer
+              and coalesce((t.input->>'plan_version')::integer,0)=${literal(expected.planVersion)}::integer
+              and (t.input->>'goal_version')::integer=${literal(expected.goalVersion)}::integer
+              and t.input->'objective'=${literal(expected.objective)}::jsonb
+              and clock_timestamp()<to_timestamp(${literal(expected.expiresAt)}::double precision/1000)
+              for update;
+            if not found or clock_timestamp()>=to_timestamp(${literal(expected.expiresAt)}::double precision/1000)
+              then raise exception 'mission_authorization_stale'; end if;
+          end $authorization$;` : '';
+          const audit=expected ? `insert into public.agent_audit_events(task_id,event_type,details)
+            select ${literal(id)},'mission_authorized_claim',jsonb_build_object('grant_id',${literal(expected.id)},
+              'revision',${literal(expected.revision)}::integer,'executor_id',${literal(expected.executorId)},'run_id',${literal(runId)})
+            where exists(select 1 from public.agent_tasks where id=${literal(id)} and local_run_id=${literal(runId)}::uuid and status='running'); commit;` : '';
+          const data = JSON.parse(await this.query(`${precondition}
+            select coalesce(json_agg(c),'[]'::json) from public.local_mission_claim(${literal(id)},${literal(this.binding)},${literal(runId)}::uuid,${this.config.leaseSeconds}) c;
+            ${audit}`, 'claim'));
           if (data[0]) { this.claim = { id, token: data[0].claim_token }; this.report({ event: 'claimed', missionId: id, runId }); }
           return { data, error: null };
         }
