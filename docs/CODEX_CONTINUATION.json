@@ -1,26 +1,24 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T03:21:44.355312+00:00",
-  "execution_id": "codex-pr237-review-fixes-20261115",
+  "updated_at": "2026-11-15T03:44:36.525347+00:00",
+  "execution_id": "codex-p1-runtime-observation-20261115",
   "repository": {
-    "branch": "codex/linear-p0-p1-20261114",
-    "head_sha": "cd407e18d4a9eb5de32673c6e028693e0cbbadbf",
-    "worktree": "WORKTREE:linear-p0-p1-20261114",
-    "note": "head_sha identifica el padre revisado antes de estas correcciones, no el hash del commit que contiene este checkpoint. Resolver el head vigente de PR237 y sus checks por SHA; main mantiene su fase registrada hasta integración autorizada.",
-    "base_sha": "ce1027e5ed8f3a3580b0be182c7a1b212a43b39d",
-    "pr_number": 237
+    "branch": "codex/linear-p1-runtime-20261115",
+    "head_sha": "f9c6ce681cd7a888ec80b7c64272fd62e9a31380",
+    "worktree": "WORKTREE:linear-p1-runtime-20261115",
+    "note": "base_sha main after PR237 merge, not SHA of this future candidate commit. Confirm PR head/CI on publication."
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Reutilizar el supervisor conservado y validar observaciones estrictas del runtime, sin introducir despachos.",
-    "status": "candidate_review_required",
-    "last_verified_step": "Corregido enabled: solo booleanos primitivos y selección estricta true. Dos regresiones RED antes del arreglo; 22/22 focalizadas y verify538/538, tipos, skills, ambos builds y smoke API aprobados localmente. El padre cd407e1 tenía validate/postgres/CodeQL/browser SUCCESS; esa CI no acredita las correcciones del nuevo head.",
+    "status": "p1_readonly_runtime_candidate",
+    "last_verified_step": "PR237 merged f9c6ce68; runtime read-only supervision in PersistentMissionOrchestrator and same CLI via status SQL; RED to GREEN 3/3 targeted, npm run verify exit0 with 541/541 tests, 0 fail, 0 skipped, TypeScript and both builds/api smoke OK. Isolated PostgreSQL regression staged; CI final SHA pending.",
     "limits": [
-      "P1 es un incremento de observación en esta propuesta; no está montado como consumidor operativo de PersistentMissionOrchestrator ni completa supervisor→runtime→ledger/claim SQL.",
-      "P0 cerrada técnicamente con límites en este candidato; no certifica purga histórica, recuperación offsite o ejecución programada del heartbeat.",
-      "Sin claim, dispatch, migraciones alojadas, envíos, automatización nueva ni activación de P2 por estas correcciones."
+      "P1 is partial: the new runtime inspection does not gate claims or create an executor/dispatch and has no independent effect attestation.",
+      "SQL status is a host-bound read from the existing ledger; PostgreSQL assertion awaits isolated CI and does not establish hosted SQL behavior.",
+      "Historical Git metadata not purged, offsite DPAPI recovery and scheduled heartbeat execution unverified; all affected resources retained."
     ]
   },
   "completed_operations": [
@@ -95,6 +93,10 @@
     {
       "operation": "Corregir revisión de PR237 sin duplicar misión",
       "detection": "enabled no booleano rechazado antes de leer el host; false real no selecciona objetivo. Plan y checkpoint reconciliados para la misma orden P1; integración operativa sigue pendiente."
+    },
+    {
+      "operation": "Integrate read-only supervisor observation into existing mission runtime",
+      "detection": "PR237 merged; static PersistentMissionOrchestrator.inspectPermanentMission uses existing LocalMissionStore.status and strict host binding/phase, CLI supervise reads but cannot claim, execute, complete or resume."
     }
   ],
   "evidence_refs": [
@@ -123,9 +125,10 @@
     "https://github.com/Victoriosas/autopilot/pull/237#issuecomment-6888369056"
   ],
   "blockers": [
-    "P1: integración operativa supervisor→runtime→ledger/claim SQL aún pendiente; el adaptador actual solo observa un status suministrado por el host.",
-    "P1: revisión de las correcciones y CI del head exacto antes de considerar una integración específicamente autorizada.",
-    "Ejecución programada del heartbeat y recuperación offsite no certificadas; no se infieren del cierre técnico limitado de P0."
+    "P1 remaining: integrate independently authorized and verified claims through existing PersistentMissionOrchestrator and SQL ledger; current read-only command cannot grant execution.",
+    "P1 current candidate: PostgreSQL SQL status no-write assertion and CI final SHA must pass before merging.",
+    "Heartbeat 6h prompt updated locally but no scheduled runtime receipt proven; no new scheduler.",
+    "Historical Git metadata remains accessible and DPAPI backups lack offsite verification; resources retained."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
@@ -133,13 +136,13 @@
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Revisar las correcciones de PR237 y continuar la integración pendiente de P1 en la misma orden, sin avanzar a P2.",
-    "status": "candidate_review_required",
+    "status": "p1_readonly_runtime_candidate",
     "executor": "Codex",
     "environment": "worktree aislado, sin escritores compartidos, main verificado",
     "dependencies": [
-      "Cierre técnico limitado de P0 documentado en este candidato, con recursos y riesgos residuales conservados.",
-      "PR237 ya publicada: revisar las correcciones y sus checks del SHA vigente; la CI del padre no se atribuye al nuevo código.",
-      "Revisión e integración específicamente autorizada antes de afirmar la transición de fase en main."
+      "PR237 merged main f9c6ce68; P0 technical closure with preserved limitations already in main.",
+      "P1 read-only runtime candidate: 541/541 local tests and builds OK; isolated PostgreSQL CI and exact new SHA review still required.",
+      "No production deployment, SQL hosted execution, new scheduler, token handling or broad executor authorized."
     ],
     "permissions": {
       "status": "bounded",
@@ -151,17 +154,17 @@
       "Checks y pruebas exactos del candidato; mismo ledger como autoridad",
       "No segundo scheduler, supervisor operativo ni cola"
     ],
-    "next_action": "Usar la misma PR237: verificar CI del head exacto y revisión de enabled/checkpoint/plan. No fusionar por iniciativa propia. Después de una integración específicamente autorizada, continuar P1 con el consumidor runtime/ledger y su verificación independiente; no iniciar P2."
+    "next_action": "Review this same P1 runtime/CLI observation increment and CI by SHA; then integrate only after authorization/review. P1 next needs a guarded, independently verified supervisor-to-claim contract using the existing ledger, no P2 or dispatch enabled by read-only status."
   },
   "resumption": {
-    "status": "manual_verified",
-    "mechanism": "Recuperar la misma orden P1 de este candidato y contrastar main/PR/CI; P0 técnica cerrada aquí con límites. El heartbeat fue alineado en la transición previa, pero no hay recibo nuevo de ejecución programada por esta corrección."
+    "status": "candidate_review_required",
+    "mechanism": "Same single order P1; main source is PR237 merger; new runtime read-only CLI candidate in isolated worktree. Existing heartbeat schedule and target unchanged, run receipt unverified."
   },
-  "resume_instructions": "Leer dirección, plan lineal, contrato canónico y este mismo JSON. Recuperar ORD-P1-SUPERVISOR-ADAPTER-20261114 en PR237, verificar head/CI y escritores. Revisar las correcciones y continuar la integración pendiente supervisor→runtime→ledger dentro de P1; no repetir P0, crear otro checkpoint, fusionar sin autorización ni activar P2.",
+  "resume_instructions": "Read AGENTS.md, linear plan, PROJECT_DIRECTION and this JSON; verify main/PR/CI and active writers. Continue the same ORD-P1-SUPERVISOR-ADAPTER-20261114; review the read-only runtime/status ledger integration and negative tests. Claims/dispatch and P2 remain disabled; no duplicate workflow or PR.",
   "supervision": {
-    "verdict": "P1_CANDIDATE_REVIEW_REQUIRED",
-    "scope": "P0 técnica cerrada con límites solo en este candidato; P1 parcial y en revisión. La observación read-only no certifica integración con claims reales, recuperación interhost ni autonomía.",
-    "evidence": "Regresiones enabled RED→GREEN; focalizadas22/22 y verify538/538 locales. CI por SHA del padre registrada separadamente; comprobar el head vigente de PR237 antes de integración."
+    "verdict": "P1_READ_ONLY_RUNTIME_CANDIDATE",
+    "scope": "P1 active on main, one incremental read-only consumer of the same host-bound SQL ledger; no dispatch, claim, attestation, recovery or P2 activation.",
+    "evidence": "Base f9c6ce68. Three focused RED/GREEN tests and verify 541/541 pass with no skipped locally. Host-bound SQL status regression staged for postgres CI; remote live SQL/heartbeat not executed."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",

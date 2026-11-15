@@ -3,6 +3,8 @@ import type { AgentId } from './sixAgentControlPlane';
 import type { ExecutorAdapter, ExecutorContext, MissionCheckpoint, MissionLedger, MissionOrchestrator, MissionSpecification } from './executorAdapter';
 import { claimPersistedMissionTask, completePersistedTask, failPersistedTask, saveMissionCheckpoint, type ClaimedAgentTask } from './sixAgentPersistence';
 import { authorizedObjective, PlanPolicyError, safeObservation, validatePlanProposal, type MissionPlanner, type PlanProposal } from './missionPlanner';
+import { missionId, type LocalMissionStore } from './localMissionStore';
+import { decidePermanentObjectiveForLocalStore, type SupervisorDecision } from './permanentSupervisor';
 
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -118,6 +120,23 @@ export function createMissionLedger(client: SupabaseClient, permissions: readonl
 }
 
 export class PersistentMissionOrchestrator implements MissionOrchestrator {
+  /**
+   * Read-only operational observation of a bound synthetic mission.
+   * Reuses the LocalMissionStore/CloudMissionStore status query against the same
+   * SQL ledger; never claims, checkpoints, resumes or invokes an executor.
+   * This inspection cannot grant execution authority or independent evidence.
+   */
+  static async inspectPermanentMission(
+    store: Pick<LocalMissionStore, 'binding' | 'status'>,
+    rawId: string,
+    expectedBinding: string,
+  ): Promise<SupervisorDecision | null> {
+    const id = missionId(rawId);
+    return decidePermanentObjectiveForLocalStore(
+      [{ id: 'permanent-objective', missionId: id, phase: 'F0', priority: 0, enabled: true }],
+      store, expectedBinding, 'F0',
+    );
+  }
   constructor(readonly ledger: MissionLedger, private readonly deadlineMs = 45000, private readonly planner?: MissionPlanner) {
     if (!Number.isInteger(deadlineMs) || deadlineMs < 1 || deadlineMs > 45000) throw Error('invalid_deadline');
   }

@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**Fase P0 cerrada con limites en el candidato de transicion; P1 es la unica fase tecnica propuesta. Main permanece en P0 hasta integrar y verificar esta propuesta.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada tecnicamente con limites en main f9c6ce68; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -12,7 +12,7 @@ Solo avanzar una fase mediante evidencia de sus criterios y actualización revis
 
 Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse como CONSERVAR con razón, propietario y recuperación. Una duplicación con riesgo de escritura o autorización sí bloquea hasta resolverla. No forzar una reducción de carpetas ni usar un plan nuevo como prueba de progreso.
 
-## P0 - Reconciliacion y limpieza - CERRADA CON LIMITES (candidato)
+## P0 - Reconciliacion y limpieza - CERRADA CON LIMITES EN MAIN
 
 **Objetivo verificable:** una base de verdad trazable, recursos preservados, una fuente de estado y cero escritores conflictivos en el ámbito del siguiente cambio.
 
@@ -38,7 +38,7 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Evidencia de cierre:** #235 y #236 integradas, manifiesto minimizado, fuentes preservadas y recuperación en memoria documentada; #237 conserva la transición técnica revisable. **P0 CERRADA CON LÍMITES en este candidato**, con los recursos de recuperación incompleta retenidos. Main conserva su fase registrada hasta una integración autorizada de la transición. Este cierre no certifica recuperación offsite, recepción del heartbeat ni culminación de la fase de producto F0.
 
-## P1 - Consolidacion del nucleo Autopilot - INICIADA EN CANDIDATO
+## P1 - Consolidacion del nucleo Autopilot - ACTIVA, PARCIAL
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
@@ -165,3 +165,11 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 PR #236 integrada en main ce1027e5. Los recursos con recuperacion incompleta permanecen CONSERVAR; evidencia DPAPI CurrentUser verificada en memoria pero no offsite ni archivos ignorados. Metadatos de auditoria minimizados en el arbol vigente, versiones historicas accesibles; no se confirmo fuga de credenciales en revision acotada, no se purga historia ni se elimina respaldo. El heartbeat de Codex victoriosa-autopilot-6h mantiene identidad, estado ACTIVE, intervalo de seis horas y destino; solo el prompt local fue sustituido, verificado mediante relectura y copia anterior cifrada; NO esta demostrado que un run programado haya recargado el prompt. Estos limites son riesgos conservados que no obligan a borrar recursos ni rehacer auditorias generales. No cierran las puertas de producto F0-F8.
 
 Unica prioridad nueva P1: recuperar de #234 el supervisor puro e introducir adaptacion explicita a estados verificables del runtime, evitando propose_resume ante datos arbitrarios, sin reivindicar integracion operativa SQL/cloud. La transicion P0 a P1 solo sera vigente en main cuando esta PR pase revision y CI y se fusione; no activar dispatch.
+
+## Incremento P1 de observacion runtime (candidato 15/11/2026)
+
+Main f9c6ce68 contiene el supervisor puro PR237. En esta propuesta, PersistentMissionOrchestrator ofrece inspeccion estrictamente read-only de una mision sintetica F0: valida ID, usa la funcion preservada decidePermanentObjectiveForLocalStore, binding del host y estado SQL de LocalMissionStore/CloudMissionStore. El comando existente mission:local supervise expone la decision sin cargar payload de usuarios, claim, dispatch, replay, checkpoint ni efecto. La fase F0 se fija en el host y no se lee del texto de la mision.
+
+Pruebas focalizadas RED/GREEN cubren lectura unica, binding/ID negativos, failed/retry y completed sin auto-certificacion; se agrega asercion de SQL PostgreSQL aislado comparando status, attempts, checkpoint version y auditoria antes/despues de la inspeccion. Los tests SQL, verify y CI se reportan por SHA final en la PR. Esta observacion no constituye el consumidor operativo que autorice claim, ni certifica cierre P1, P2, nube o heartbeat periodico.
+
+Siguiente unico trabajo P1 tras este incremento: contrato de autorizacion y verificacion independiente antes de claims mediante runtime/ledger existentes, sin segundo scheduler ni ejecucion por lectura de status.
