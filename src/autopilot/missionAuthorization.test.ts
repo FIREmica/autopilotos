@@ -63,6 +63,14 @@ test('runtime checks ledger authorization before claiming or invoking an executo
   assert.equal(claims,0);
 });
 
+test('claim-only authorization cannot be mistaken for per-effect execution authority', async () => {
+  const events:string[]=[];
+  const ledger = { authorizeExecutor: async () => { events.push('authorize-claim'); },
+    claimMission: async () => { events.push('claim'); return null; } } as unknown as MissionLedger;
+  await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission(executor,'software'),/mission_effect_authorization_required/);
+  assert.deepEqual(events,['authorize-claim']);
+});
+
 test('every post-claim effect is bound to the live policy revision and exact operation',async()=>{
   let revision=1; let allowed=true;
   const context={mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,

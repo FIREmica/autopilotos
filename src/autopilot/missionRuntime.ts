@@ -255,7 +255,9 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       // Only the host selects steps. An executor cannot mark several steps passed in one call.
       let result;
       const effectPermissions=await authorizeEffect({kind:'execute_step',operationId:`runtime:execute:${context.mission.missionId}:${context.checkpointVersion}:${next.id}`,stepId:next.id});
-      if(planned && !effectPermissions.includes('synthetic_worktree')) throw Error('mission_effect_authorization_required');
+      const stepPermission=this.ledger.authorizeEffect ? effectPermissions.includes('synthetic_worktree')
+        : context.permissions.includes('synthetic_worktree');
+      if(planned && !stepPermission) throw Error('mission_effect_authorization_required');
       const snapshot = structuredClone(context);
       snapshot.checkpoint.current_step_id = next.id;
       snapshot.permissions=this.ledger.authorizeEffect ? [...effectPermissions] : [...context.permissions];

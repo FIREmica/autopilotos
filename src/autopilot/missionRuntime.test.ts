@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { missionFromTask, PersistentMissionOrchestrator } from './missionRuntime';
 import { SyntheticMissionExecutor, SYNTHETIC_GOAL, SYNTHETIC_PLAN } from './syntheticMissionExecutor';
+import { SYNTHETIC_ACCEPTANCE, SYNTHETIC_RESOURCES, SYNTHETIC_RESTRICTIONS, type PlanProposal } from './missionPlanner';
 import type { ExecutorAdapter, ExecutorContext, MissionLedger } from './executorAdapter';
 
 function context(): ExecutorContext {
@@ -89,6 +90,25 @@ test('effect denial after execution stops before checkpoint write', async () => 
     execute: async () => { events.push('execute'); return { checkpoint, events: [], evidence: [] }; } }, 'software'),
   /mission_effect_authorization_denied/);
   assert.deepEqual(events, ['authorize:execute_step', 'execute', 'authorize:write_checkpoint']);
+});
+test('legacy planned ledger uses its explicitly scoped local synthetic permission', async () => {
+  const candidate=context();
+  const objective={version:1 as const,kind:'synthetic.ensure_verified_artifact' as const,expected:'canonical_synthetic_result' as const,
+    restrictions:[...SYNTHETIC_RESTRICTIONS],resources:[...SYNTHETIC_RESOURCES],acceptance:[...SYNTHETIC_ACCEPTANCE],limits:{maxReplans:1,maxSteps:8}};
+  const steps=[{id:'prepare-v1',task:'synthetic.prepare',depends_on:[]}];
+  const proposal:PlanProposal={version:1,objective,steps,resources:[...objective.resources],restrictions:[...objective.restrictions],
+    reason:'initial_state',observation:{worktree:'missing',result:'missing',test:'missing'},evidence:'legacy-local-fixture'};
+  candidate.mission.objective=objective; candidate.mission.plan=steps; candidate.mission.planVersion=1; candidate.mission.planHistory=[proposal];
+  candidate.checkpoint.mission_state='in_progress'; candidate.checkpoint.pending_steps=['prepare-v1']; candidate.checkpoint.current_step_id='prepare-v1';
+  const {ledger,events}=ledgerFor(candidate);
+  const executor:ExecutorAdapter={executorId:'synthetic-unit',observe:async()=>({worktree:'missing',result:'missing',test:'missing'}),execute:async snapshot=>({
+    checkpoint:{mission_state:'ready_to_complete',current_step_id:null,completed_steps:['prepare-v1'],pending_steps:[],
+      results:[{step_id:'prepare-v1',status:'passed',summary:'synthetic'}],artifacts:[],test_evidence:['prepare-v1:verified'],
+      worktree:{branch:'synthetic',sha:'a'.repeat(40)}},events:[],evidence:[],
+  })};
+  const planner={plannerId:'legacy-test-planner',propose:async()=>{throw Error('planner_should_not_run');}};
+  await new PersistentMissionOrchestrator(ledger,45_000,planner).runMission(executor,'software');
+  assert.deepEqual(events,['save','complete']);
 });
 test('post-claim policy revocation blocks the executor before it can run', async () => {
   const candidate=context(); const {ledger,events}=ledgerFor(candidate);
