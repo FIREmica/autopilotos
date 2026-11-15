@@ -1,3 +1,5 @@
+> Actualización P0: el inventario público actual está minimizado; [revisión y recuperación](P0_RECONCILIATION_REVIEW_20261114.md). Rutas personales/configuración compartida de la captura original se conservan cifradas localmente. Los commits históricos siguen accesibles. Los apartados históricos no certifican el estado posterior.
+
 # Auditoría forense Victoriosas Autopilot · 14/11/2026
 
 Fecha de referencia y comunicación: America/Montevideo. Las capturas JSON usan UTC; parte corresponde a 15/11 UTC y sigue siendo 14/11 en Uruguay. Base contrastada: `a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c`. Rama exclusiva `codex/forensic-audit-20261114`. Auditoría de evidencia realizada por Codex; no certificación externa ni garantía de ausencia de vulnerabilidades.
@@ -14,99 +16,99 @@ Se inspeccionaron 83 rutas únicas (95 registros iniciales normalizados), 72 wor
 
 Se leyeron AGENTS local/global pertinente, dirección, checkpoint, instrucciones Copilot y skills de coordinación/seguridad/fases. Se usaron Git/gh, metadatos Windows, lectura de configuración con lista permitida de campos y MCP autenticados. El inventario no es una imagen forense atómica: tamaños/estados pueden variar durante la medición; la fila del propio worktree precede instalación de dependencias y generación de informes.
 
-Los tamaños son bytes lógicos, sin seguir enlaces/junctions; raíces anidadas se solapan y NO deben sumarse. Dos errores de acceso pertenecen al proyecto ExpressJobs ajeno; se conserva. Paths ausentes quedan desconocidos, no eliminables. No se ejecutó clean/reset/force/prune, stash, migración remota, dispatch, modelo, envío, deploy manual ni promoción productiva. El push documental de PR235 sí generó previews automáticos de Vercel, separados de producción. Un proceso visible no prueba escritura; no fue posible asociar todos los PID a cwd/archivos ni descartar otros hosts.
+Los tamaños son bytes lógicos, sin seguir enlaces/junctions; raíces anidadas se solapan y NO deben sumarse. Dos errores de acceso pertenecen a un proyecto ajeno; se conserva. Paths ausentes quedan desconocidos, no eliminables. No se ejecutó clean/reset/force/prune, stash, migración remota, dispatch, modelo, envío, deploy manual ni promoción productiva. El push documental de PR235 sí generó previews automáticos de Vercel, separados de producción. Un proceso visible no prueba escritura; no fue posible asociar todos los PID a cwd/archivos ni descartar otros hosts.
 
 ## 3. Inventario de recursos
 
 Manifiesto: [AUTOPILOT_RESOURCE_MANIFEST_20261114.json](AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Detalle verificable con SHA, rama, remoto, estado, diferencias exclusivas, hashes de fuentes locales seleccionadas y respaldo: [resources.json](evidence-20261114/resources.json).
 
-`C:/victoriosa` y `C:/victoriosa-autopilot-admin-control-center` usan otro remoto (Victoriosa-marketplace); no pertenecen a este Git. `C:/autopilot-audit-ready-updated` no tiene .git: 157 diferencias en los árboles de fuentes seleccionados frente a main; contiene configuración de entorno que no se leyó. No se puede tratar como copia redundante. E:/AutopilotTemp, QA y Recovery quedan DESCONOCIDO hasta acreditar propietario/contenido/recuperación. El worktree temporal `pr6-current` está registrado como prunable y ausente; no se borró su metadato.
+Dos repositorios locales ajenos usan otro remoto; no pertenecen a este Git y no se publica su identidad local. `C:/autopilot-audit-ready-updated` no tiene .git: 157 diferencias en los árboles de fuentes seleccionados frente a main; contiene configuración de entorno que no se leyó. No se puede tratar como copia redundante. E:/AutopilotTemp, QA y Recovery quedan DESCONOCIDO hasta acreditar propietario/contenido/recuperación. El worktree temporal `pr6-current` está registrado como prunable y ausente; no se borró su metadato.
 
-| Ruta | Decisión | MiB lógicos | Entradas Git locales | Errores de acceso |
-| --- | --- | ---: | ---: | ---: |
-| `C:/autopilot` | CONSERVAR | 435.6 | 260 | 0 |
-| `C:/autopilot-worktrees` | CONSERVAR | 8081.1 | 0 | 0 |
-| `C:/autopilot-backups` | CONSERVAR | 691.8 | 0 | 0 |
-| `C:/autopilot-audit-ready-updated` | DESCONOCIDO | 2.6 | 0 | 0 |
-| `C:/autopilot-mission-20261025` | CONSOLIDAR | 13.3 | 0 | 0 |
-| `C:/codex-worktrees` | CONSERVAR | 202.2 | 0 | 0 |
-| `C:/victoriosa` | CONSERVAR | 285.7 | 52 | 0 |
-| `C:/victoriosa-autopilot-admin-control-center` | CONSERVAR | 384.9 | 3 | 0 |
-| `C:/Users/micahael/.codex` | CONSERVAR | 4954.3 | 0 | 0 |
-| `C:/CODEX-expressjobs-repo` | CONSERVAR | 2047.5 | 0 | 2 |
-| `E:/autopilot-continuation-v5-20261109` | CONSOLIDAR | 14.6 | 0 | 0 |
-| `E:/autopilot-f3-guardian-injection-20261108` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `E:/autopilot-public-health-20261106` | CONSOLIDAR | 193.8 | 0 | 0 |
-| `E:/autopilot-victoriosas-skills-v2` | CONSOLIDAR | 14.6 | 0 | 0 |
-| `E:/AutopilotTemp` | DESCONOCIDO | 1.4 | 0 | 0 |
-| `E:/Victoriosas_QA_20261104` | DESCONOCIDO | 25.4 | 0 | 0 |
-| `E:/Victoriosas_Recovery_20261108` | DESCONOCIDO | 85.1 | 0 | 0 |
-| `C:/autopilot-worktrees/activation-preservation-20261110` | CONSOLIDAR | 14.8 | 0 | 0 |
-| `C:/autopilot-worktrees/admin-auth-upstream-status-20261108` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `C:/autopilot-worktrees/alignment-audit-20261105` | CONSERVAR | 191.8 | 13 | 0 |
-| `C:/autopilot-worktrees/api-404-build-isolation-20261108` | CONSOLIDAR | 200.9 | 0 | 0 |
-| `C:/autopilot-worktrees/auth-test-review-20261109` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `C:/autopilot-worktrees/autonomy-continuity-20261112` | CONSERVAR | 207.8 | 8 | 0 |
-| `C:/autopilot-worktrees/beauty` | CONSOLIDAR | 3.7 | 0 | 0 |
-| `C:/autopilot-worktrees/clinical-final-qa-20261031` | CONSOLIDAR | 191.2 | 0 | 0 |
-| `C:/autopilot-worktrees/clinical-navigation-20261031` | CONSERVAR | 73.1 | 2 | 0 |
-| `C:/autopilot-worktrees/cloud-ledger-adapter-20261112` | CONSERVAR | 207.6 | 16 | 0 |
-| `C:/autopilot-worktrees/comercio` | CONSOLIDAR | 3.7 | 0 | 0 |
-| `C:/autopilot-worktrees/configuration-decisions-20261110` | CONSOLIDAR | 14.6 | 0 | 0 |
-| `C:/autopilot-worktrees/consultation-admin-d-20261111` | CONSOLIDAR | 307.6 | 0 | 0 |
-| `C:/autopilot-worktrees/continuity-validation-20261106` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `C:/autopilot-worktrees/copy-remoto` | CONSOLIDAR | 10.2 | 0 | 0 |
-| `C:/autopilot-worktrees/discovery-20261031` | CONSOLIDAR | 19.5 | 0 | 0 |
-| `C:/autopilot-worktrees/discovery-plan` | CONSERVAR | 42.2 | 38 | 0 |
-| `C:/autopilot-worktrees/diseno` | CONSERVAR | 194.0 | 48 | 0 |
-| `C:/autopilot-worktrees/f1-api-auth-review-20261109` | CONSOLIDAR | 201.0 | 0 | 0 |
-| `C:/autopilot-worktrees/f1-public-health-redaction-20261110` | CONSOLIDAR | 200.8 | 0 | 0 |
-| `C:/autopilot-worktrees/f1-readiness-20261110` | CONSOLIDAR | 200.6 | 0 | 0 |
-| `C:/autopilot-worktrees/f3-authorized-evaluation-20261106` | CONSOLIDAR | 14.6 | 0 | 0 |
-| `C:/autopilot-worktrees/f3-quality-recovery-20261106` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `C:/autopilot-worktrees/forensic-audit-20261114` | CONSERVAR | 15.3 | 3 | 0 |
-| `C:/autopilot-worktrees/github-maintenance-20261031` | CONSOLIDAR | 191.1 | 0 | 0 |
-| `C:/autopilot-worktrees/glm53-opencode-20261031` | CONSERVAR | 13.8 | 16 | 0 |
-| `C:/autopilot-worktrees/hosted-ledger-20261112` | CONSOLIDAR | 207.8 | 0 | 0 |
-| `C:/autopilot-worktrees/integracion-local-20261029` | CONSOLIDAR | 202.4 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-native-activation-20261109` | CONSOLIDAR | 14.8 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-native-host-20261109` | CONSOLIDAR | 194.2 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-operator-20261109` | CONSOLIDAR | 200.8 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-planner-20261109` | CONSOLIDAR | 200.8 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-runner-20261109` | CONSOLIDAR | 200.7 | 0 | 0 |
-| `C:/autopilot-worktrees/mission-trigger-20261109` | CONSOLIDAR | 194.2 | 0 | 0 |
-| `C:/autopilot-worktrees/native-window-evidence-20261110` | CONSOLIDAR | 14.9 | 0 | 0 |
-| `C:/autopilot-worktrees/opencode-workstation-20261031` | CONSOLIDAR | 110.0 | 0 | 0 |
-| `C:/autopilot-worktrees/operaciones` | CONSOLIDAR | 3.7 | 0 | 0 |
-| `C:/autopilot-worktrees/ord204g-early-diagnostics-20261110` | CONSOLIDAR | 194.2 | 0 | 0 |
-| `C:/autopilot-worktrees/ord204g-preflight-handoff-20261110` | CONSOLIDAR | 14.9 | 0 | 0 |
-| `C:/autopilot-worktrees/ord204g-viki-bridge-20261110` | CONSOLIDAR | 194.2 | 0 | 0 |
-| `C:/autopilot-worktrees/ord204g-window-manager-20261110` | CONSOLIDAR | 194.2 | 0 | 0 |
-| `C:/autopilot-worktrees/permanent-supervisor-p0d-20261114` | CONSOLIDAR | 15.3 | 0 | 0 |
-| `C:/autopilot-worktrees/plan-cloud-20261111` | CONSOLIDAR | 14.9 | 0 | 0 |
-| `C:/autopilot-worktrees/pr-cleanup-168-20261106` | CONSOLIDAR | 193.8 | 0 | 0 |
-| `C:/autopilot-worktrees/pr-cleanup-186-20261106` | CONSOLIDAR | 14.4 | 0 | 0 |
-| `C:/autopilot-worktrees/pr-cleanup-187-20261106` | CONSOLIDAR | 14.5 | 0 | 0 |
-| `C:/autopilot-worktrees/pr-cleanup-188-20261106` | CONSOLIDAR | 196.5 | 0 | 0 |
-| `C:/autopilot-worktrees/queue-fencing-20261109` | CONSOLIDAR | 193.9 | 0 | 0 |
-| `C:/autopilot-worktrees/readiness-autonomous-demo-20261110/candidate` | CONSOLIDAR | 14.9 | 0 | 0 |
-| `C:/autopilot-worktrees/readiness-autonomous-final-20261110/candidate` | CONSOLIDAR | 14.9 | 0 | 0 |
-| `C:/autopilot-worktrees/reconcile-pr217-20261111` | CONSOLIDAR | 207.5 | 0 | 0 |
-| `C:/autopilot-worktrees/reconcile-pr218-20261111` | CONSOLIDAR | 207.6 | 0 | 0 |
-| `C:/autopilot-worktrees/self-development-20261110` | CONSOLIDAR | 200.9 | 0 | 0 |
-| `C:/autopilot-worktrees/self-development-f1-20261110` | CONSOLIDAR | 200.9 | 0 | 0 |
-| `C:/autopilot-worktrees/shared-api-mount-20261108` | CONSOLIDAR | 195.7 | 0 | 0 |
-| `C:/autopilot-worktrees/victoriosas-depth-20261031` | CONSERVAR | 193.3 | 4 | 0 |
-| `C:/autopilot-worktrees/victoriosas-preview-20261031` | CONSOLIDAR | 191.1 | 0 | 0 |
-| `C:/autopilot-worktrees/victoriosas-route-fix-20261031` | CONSERVAR | 194.7 | 4 | 0 |
-| `C:/autopilot-worktrees/victoriosas-ux-20261031` | CONSERVAR | 194.8 | 4 | 0 |
-| `C:/codex-worktrees/victoriosas-consultation-lab` | CONSOLIDAR | 202.2 | 0 | 0 |
-| `C:/Users/micahael/.codex/worktrees/consultation-ai-circuit/autopilot` | CONSERVAR | 13.2 | 1 | 0 |
-| `C:/Users/micahael/.codex/worktrees/consultation-eval/autopilot` | CONSOLIDAR | 18.8 | 0 | 0 |
-| `C:/Users/micahael/.codex/worktrees/consultation-phase2/autopilot` | CONSERVAR | 198.5 | 27 | 0 |
-| `C:/Users/micahael/.codex/worktrees/operational-sync-20261026/autopilot` | CONSOLIDAR | 189.9 | 0 | 0 |
-| `C:/Users/micahael/.codex/worktrees/technical-close-20261029/autopilot` | CONSERVAR | 199.1 | 16 | 0 |
-| `C:/Users/micahael/AppData/Local/Temp/opencode/pr6-current` | DESCONOCIDO | 0.0 | 0 | 0 |
+| Recurso lógico | Decisión | Estado local contado |
+| --- | --- | ---: |
+| `R001 worktree:autopilot` | CONSERVAR | 260 |
+| `R002 unclassified-or-container:R002` | CONSERVAR | 0 |
+| `R003 existing-backup-container` | CONSERVAR | 0 |
+| `R004 unclassified-or-container:R004` | DESCONOCIDO | 0 |
+| `R005 worktree:autopilot-mission-20261025` | CONSOLIDAR | 0 |
+| `R006 unclassified-or-container:R006` | CONSERVAR | 0 |
+| `R007 unrelated-project:R007` | CONSERVAR | 52 |
+| `R008 unrelated-project:R008` | CONSERVAR | 3 |
+| `R009 shared-tool-state` | CONSERVAR | 0 |
+| `R010 unrelated-project:R010` | CONSERVAR | 0 |
+| `R011 worktree:autopilot-continuation-v5-20261109` | CONSOLIDAR | 0 |
+| `R012 worktree:autopilot-f3-guardian-injection-20261108` | CONSOLIDAR | 0 |
+| `R013 worktree:autopilot-public-health-20261106` | CONSOLIDAR | 0 |
+| `R014 worktree:autopilot-victoriosas-skills-v2` | CONSOLIDAR | 0 |
+| `R015 unclassified-or-container:R015` | DESCONOCIDO | 0 |
+| `R016 unclassified-or-container:R016` | DESCONOCIDO | 0 |
+| `R017 unclassified-or-container:R017` | DESCONOCIDO | 0 |
+| `R018 worktree:activation-preservation-20261110` | CONSOLIDAR | 0 |
+| `R019 worktree:admin-auth-upstream-status-20261108` | CONSOLIDAR | 0 |
+| `R020 worktree:alignment-audit-20261105` | CONSERVAR | 13 |
+| `R021 worktree:api-404-build-isolation-20261108` | CONSOLIDAR | 0 |
+| `R022 worktree:auth-test-review-20261109` | CONSOLIDAR | 0 |
+| `R023 worktree:autonomy-continuity-20261112` | CONSERVAR | 8 |
+| `R024 worktree:beauty` | CONSOLIDAR | 0 |
+| `R025 worktree:clinical-final-qa-20261031` | CONSOLIDAR | 0 |
+| `R026 worktree:clinical-navigation-20261031` | CONSERVAR | 2 |
+| `R027 worktree:cloud-ledger-adapter-20261112` | CONSERVAR | 16 |
+| `R028 worktree:comercio` | CONSOLIDAR | 0 |
+| `R029 worktree:configuration-decisions-20261110` | CONSOLIDAR | 0 |
+| `R030 worktree:consultation-admin-d-20261111` | CONSOLIDAR | 0 |
+| `R031 worktree:continuity-validation-20261106` | CONSOLIDAR | 0 |
+| `R032 worktree:copy-remoto` | CONSOLIDAR | 0 |
+| `R033 worktree:discovery-20261031` | CONSOLIDAR | 0 |
+| `R034 worktree:discovery-plan` | CONSERVAR | 38 |
+| `R035 worktree:diseno` | CONSERVAR | 48 |
+| `R036 worktree:f1-api-auth-review-20261109` | CONSOLIDAR | 0 |
+| `R037 worktree:f1-public-health-redaction-20261110` | CONSOLIDAR | 0 |
+| `R038 worktree:f1-readiness-20261110` | CONSOLIDAR | 0 |
+| `R039 worktree:f3-authorized-evaluation-20261106` | CONSOLIDAR | 0 |
+| `R040 worktree:f3-quality-recovery-20261106` | CONSOLIDAR | 0 |
+| `R041 worktree:forensic-audit-20261114` | CONSERVAR | 3 |
+| `R042 worktree:github-maintenance-20261031` | CONSOLIDAR | 0 |
+| `R043 worktree:glm53-opencode-20261031` | CONSERVAR | 16 |
+| `R044 worktree:hosted-ledger-20261112` | CONSOLIDAR | 0 |
+| `R045 worktree:integracion-local-20261029` | CONSOLIDAR | 0 |
+| `R046 worktree:mission-native-activation-20261109` | CONSOLIDAR | 0 |
+| `R047 worktree:mission-native-host-20261109` | CONSOLIDAR | 0 |
+| `R048 worktree:mission-operator-20261109` | CONSOLIDAR | 0 |
+| `R049 worktree:mission-planner-20261109` | CONSOLIDAR | 0 |
+| `R050 worktree:mission-runner-20261109` | CONSOLIDAR | 0 |
+| `R051 worktree:mission-trigger-20261109` | CONSOLIDAR | 0 |
+| `R052 worktree:native-window-evidence-20261110` | CONSOLIDAR | 0 |
+| `R053 worktree:opencode-workstation-20261031` | CONSOLIDAR | 0 |
+| `R054 worktree:operaciones` | CONSOLIDAR | 0 |
+| `R055 worktree:ord204g-early-diagnostics-20261110` | CONSOLIDAR | 0 |
+| `R056 worktree:ord204g-preflight-handoff-20261110` | CONSOLIDAR | 0 |
+| `R057 worktree:ord204g-viki-bridge-20261110` | CONSOLIDAR | 0 |
+| `R058 worktree:ord204g-window-manager-20261110` | CONSOLIDAR | 0 |
+| `R059 worktree:permanent-supervisor-p0d-20261114` | CONSOLIDAR | 0 |
+| `R060 worktree:plan-cloud-20261111` | CONSOLIDAR | 0 |
+| `R061 worktree:pr-cleanup-168-20261106` | CONSOLIDAR | 0 |
+| `R062 worktree:pr-cleanup-186-20261106` | CONSOLIDAR | 0 |
+| `R063 worktree:pr-cleanup-187-20261106` | CONSOLIDAR | 0 |
+| `R064 worktree:pr-cleanup-188-20261106` | CONSOLIDAR | 0 |
+| `R065 worktree:queue-fencing-20261109` | CONSOLIDAR | 0 |
+| `R066 worktree:candidate` | CONSOLIDAR | 0 |
+| `R067 worktree:candidate` | CONSOLIDAR | 0 |
+| `R068 worktree:reconcile-pr217-20261111` | CONSOLIDAR | 0 |
+| `R069 worktree:reconcile-pr218-20261111` | CONSOLIDAR | 0 |
+| `R070 worktree:self-development-20261110` | CONSOLIDAR | 0 |
+| `R071 worktree:self-development-f1-20261110` | CONSOLIDAR | 0 |
+| `R072 worktree:shared-api-mount-20261108` | CONSOLIDAR | 0 |
+| `R073 worktree:victoriosas-depth-20261031` | CONSERVAR | 4 |
+| `R074 worktree:victoriosas-preview-20261031` | CONSOLIDAR | 0 |
+| `R075 worktree:victoriosas-route-fix-20261031` | CONSERVAR | 4 |
+| `R076 worktree:victoriosas-ux-20261031` | CONSERVAR | 4 |
+| `R077 worktree:victoriosas-consultation-lab` | CONSOLIDAR | 0 |
+| `R078 worktree:autopilot` | CONSERVAR | 1 |
+| `R079 worktree:autopilot` | CONSOLIDAR | 0 |
+| `R080 worktree:autopilot` | CONSERVAR | 27 |
+| `R081 worktree:autopilot` | CONSOLIDAR | 0 |
+| `R082 worktree:autopilot` | CONSERVAR | 16 |
+| `R083 unavailable-registration:R083` | DESCONOCIDO | 0 |
 
 ## 4. Arquitectura comprobada y dependencias
 
@@ -184,11 +186,11 @@ Artifacts/caches completos observados:88 y55 respectivamente; se inventariaron m
 
 ## 7. Codex, skills, MCP, procesos y cadencias
 
-CLI0.167.0, Node24.15.0, gh2.92.0. Config global: gpt-6.1-sol, approval_policy never, danger-full-access. Son permisos del host; no sustituyen las restricciones del proyecto. Config de proyecto `.codex/config.toml` ausente en este checkout. Se extrajeron solo claves, nombres, transportes y flags: [codex.json](evidence-20261114/codex.json). No se leyó auth.json, .env, valores env, secretos, contenido de sesiones ni logs de clientes.
+CLI0.167.0, Node24.15.0, gh2.92.0. La configuración global del host se revisó en privado y no se publica; no sustituye restricciones del proyecto. Config de proyecto `.codex/config.toml` ausente en este checkout. Se extrajeron solo claves, nombres, transportes y flags: [codex.json](evidence-20261114/codex.json). No se leyó auth.json, .env, valores env, secretos, contenido de sesiones ni logs de clientes.
 
 14 skills del repositorio, 6 en .codex/skills y 5 en .agents/skills; plugins tienen sus propios paquetes adicionales y no están incluidos en esos conteos. Principales: desarrollo-autonomo coordina ejecución y control-de-fases decide prioridad bajo PROJECT_DIRECTION. Auxiliares: safety, core, roles, ahorro y skills específicas a demanda. plan describe inventario cloud, no autoridad de producto. Las dos skills de ahorro se solapan en propósito; conservarlas y dirigir nuevas órdenes al coordinador existente. No desinstalar paquetes compartidos. No se acredita análisis exhaustivo de consumidores de todas las skills/plugin caches.
 
-MCP globales configurados: viki, camelrun, victoriosas-supabase, node_repl, tinyfish, dsers, paw, mercadolibre. El hecho de estar enabled no acredita conexión. Supabase/Vercel/GitHub/camelRun/viki se consultaron con éxito; los conectores comerciales restantes no se activaron. camelRun/viki devolvieron los mismos nueve agentes, todos loaded=false/toolsConnected=false; no son dos motores distintos demostrados. Schedules consultados para supervisor y dos agentes ORD-204G: vacíos. No se invocó ningún modelo ni se examinó conversación remota.
+La configuración MCP compartida no se publica en el inventario minimizado. El hecho de estar enabled no acredita conexión. Supabase/Vercel/GitHub/camelRun/viki se consultaron con éxito; los conectores comerciales restantes no se activaron. camelRun/viki devolvieron los mismos nueve agentes, todos loaded=false/toolsConnected=false; no son dos motores distintos demostrados. Schedules consultados para supervisor y dos agentes ORD-204G: vacíos. No se invocó ningún modelo ni se examinó conversación remota.
 
 Automatización local victoriosa-autopilot-6h ACTIVE, de tipo heartbeat con target_thread_id; configuración leída y tarjeta view solicitada. No usa cwds/project_id en su TOML: su destino es un chat, no un nuevo proyecto. Intención programada no demuestra recibo de esta rama ni ejecución futura. Su prompt conserva prioridades históricas de marketing #84/#81 (ambas issues siguen OPEN), referencia a octubre y una orden de mantener formularios cerrados, mientras la configuración pública actual está habilitada. AGENTS/dirección actuales prevalecen; el prompt activo requiere reconciliación explícita antes de considerarlo alineado con este plan. No se lo modificó ni se presume que ejecutó esas instrucciones.
 

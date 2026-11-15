@@ -2505,5 +2505,6 @@
       "title": "Preparar alineación revisable de perfiles sociales",
       "url": "https://github.com/Victoriosas/autopilot/pull/90"
     }
-  ]
+  ],
+  "snapshot_semantics": "Historical initial open-PR snapshot, not current state; all17 closed externally during P0 follow-up; see p0-pending-prs-baseline.json"
 }

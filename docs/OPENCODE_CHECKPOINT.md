@@ -1,3 +1,20 @@
+# Decisión del propietario · cierres externos registrados
+
+Respuesta explícita: registrar los cierres externos y conservar las ramas. Decisión P0-EXTERNAL-CLOSURES-REGISTERED guardada en el mismo checkpoint/manifiesto. Mantener estados CLOSED y preservar refs/heads disponibles; no reabrir PR ni recrear la rama remota ausente169. Sus17 heads/refs locales y pack cifrado permanecen como evidencia de conservación. Este punto deja de ser decisión pendiente; P0 sigue activa y conserva los demás gates de privacidad/revisión/heartbeat.
+
+# Continuidad P0 · privacidad y recuperación verificadas · 14/11/2026
+
+Intervención externa posterior: las17 PR inicialmente abiertas, incluida234, se cerraron sin merge durante esta orden;16 ramas remotas siguen presentes, Dependabot169 ausente. Los17 commits/refs locales y un pack de historias cifrado quedaron preservados; no close/merge/delete ni reapertura por esta orden. Decisión pendiente en la siguiente orden P0.
+
+
+ORD-P0-RECONCILE-LOCAL-20261114 ejecutada con límites; P0 sigue activa, sin P1. PR235/head0f2482f se fusionó externamente durante la revisión, mainf2129e9 con validate/postgres/CodeQL SUCCESS; continuation permanece cerrado. Esta orden no fusionó ni promovió producción. La continuación se prepara en rama propia sobre ese main, sin duplicar el supervisor234 ni otras propuestas.
+
+alignment-audit/diseno: propietario de proyecto y custodia Windows contrastados; autor humano de cambios locales no inferido.13/48 paths locales y13/47 blobs no encontrados en main; snapshots cifrados y recuperación en memoria745/405 archivos en proceso nuevo, más historias Git cifradas y validación dry-run sin objetos plaintext. Originales estables. Ignorados y recuperación offsite no certificados; ambos CONSERVAR, sin propuesta de eliminación.
+
+Inventarios públicos minimizados; originales cifrados privados y commits históricos preservados. El cambio no purga la exposición de metadatos anterior. Revisión actual: docs/audits/P0_RECONCILIATION_REVIEW_20261114.md. Heartbeat existente leído/view y texto preparado, sin cambiar prompt/configuración/cadencia/destino/estado: docs/P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md. Contrato ya integrado en main; preparación no equivale a aplicación ni ejecución comprobada.
+
+Siguiente orden única: ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114, revisión de esta remediación/CI por SHA, aceptación del límite histórico y decisión sobre el prompt preparado. Mismo CODEX_CONTINUATION.json. No repetir reconciliación sin cambio de hashes; no eliminar, merge, activar cloud, enviar ni iniciar P1.
+
 # Continuidad vigente · auditoría lineal · 14/11/2026
 Codex ejecutor principal; Autopilot coordina dentro de permisos. Base main a4ca9dd.
 Una fase técnica activa P0, bajo PROJECT_DIRECTION; estado único CODEX_CONTINUATION.json.
