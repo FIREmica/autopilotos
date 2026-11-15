@@ -1,73 +1,88 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-12T23:18:00.073Z",
-  "execution_id": "codex-cloud-ledger-p0b-20261112",
+  "updated_at": "2026-11-15T00:11:01.931Z",
+  "execution_id": "codex-hosted-ledger-cloud-20261114",
   "repository": {
-    "branch": "codex/cloud-ledger-adapter-20261112",
-    "head_sha": "678e41a8c98953ff0de5be797913d1cda6660936",
-    "worktree": "C:/autopilot-worktrees/cloud-ledger-adapter-20261112",
-    "note": "SHA remoto de implementacion P0B, padre del ajuste documental. HEAD local permanece en main 30e9f41 con archivos conservados; publicacion por conector."
+    "branch": "codex/hosted-ledger-20261112",
+    "head_sha": "acba5f7aee737383b73ef7fede54e963f84e64e9",
+    "worktree": "C:/autopilot-worktrees/hosted-ledger-20261112",
+    "note": "Padre verificado del checkpoint TLS resuelto; commit contenedor y CI final en PR232."
   },
   "current_order": {
-    "id": "ORD-P0B-CLOUD-LEDGER-20261112",
+    "id": "ORD-P0C-CLOUD-CONFIG-20261114",
     "phase": "F0",
-    "objective": "Adaptador durable de ledger y recuperacion entre runners para misiones sinteticas aisladas",
-    "status": "completed",
-    "last_verified_step": "verify 512/512, TLS PostgreSQL desechable 1/1, token antiguo rechazado durante lease B, privilegios negativos, sin activar cloud"
+    "objective": "Completar credenciales y verificar compatibilidad cloud del proyecto aislado",
+    "status": "pending_environment_review",
+    "last_verified_step": "SSL Enforcement habilitado; CloudMissionStore verify-full backend_tls=true; cinco ACL denegadas; synthetic-p0c-cloud-check completed/intento1/checkpoint5 por CLI PC con ledger alojado."
   },
   "completed_operations": [
     {
-      "operation": "Reutilizar transporte e interfaz PR230 sin duplicar scheduler",
-      "detection": "CloudMissionStore hereda LocalMissionStore y usa la misma CLI/orquestador/RPC"
+      "operation": "Rotacion SCRAM y secrets aislados",
+      "detection": "psql verify-full autenticado; metadatos SCRAM y gh secret list, sin recuperar valores"
     },
     {
-      "operation": "Recuperar misma mision tras SIGKILL real",
-      "detection": "tests/cloud-ledger-postgres.test.ts: dos runs, intento 2 completed, mtime conservado y token obsoleto rechazado"
+      "operation": "Comprobar incompatibilidad TLS upstream y conservar cierre seguro",
+      "detection": "pg_stat_ssl=false; unauthorized_cloud_session; fixture negativo aprobado"
+    },
+    {
+      "operation": "Autorizacion sintetica expresa",
+      "detection": "Respuesta del propietario permite synthetic-p0c-cloud-check solo tras resolver TLS y revisar codigo; no admitida aun"
+    },
+    {
+      "operation": "Resolver TLS y ejecutar mision autorizada",
+      "detection": "CloudMissionStore real SSL backend true; CLI y consulta independiente completed intento1 checkpoint5"
     }
   ],
   "evidence_refs": [
-    "docs/CLOUD_LEDGER_P0B_20261112.md",
+    "docs/HOSTED_LEDGER_P0C_20261112.md",
+    "docs/OPENCODE_CHECKPOINT.md",
     "docs/AUTOPILOT_STATE.md",
     "tests/cloud-ledger-postgres.test.ts",
-    "https://github.com/Victoriosas/autopilot/pull/230",
-    "https://github.com/Victoriosas/autopilot/pull/231"
+    "supabase/staged/hosted_synthetic_ledger_p0c.sql",
+    "https://github.com/Victoriosas/autopilot/pull/232",
+    "docs/HOSTED_LEDGER_CLOUD_20261114.md",
+    "docs/HOSTED_LEDGER_TLS_RESOLVED_20261114.md"
   ],
   "blockers": [
-    "No hay host cloud ni persistencia remota de artefactos autorizados; dos procesos de fixture no acreditan dos maquinas cloud"
+    "CI/revision/integracion de PR232 y SHA exacto main antes de dispatch protegido.",
+    "Environment exige revision humana; no usar bypass ni autoaprobar.",
+    "Persistencia de artefactos entre hosts no acreditada."
   ],
-  "next_order_id": "ORD-P0B-REVIEW-20261112",
+  "next_order_id": "ORD-P0C-CLOUD-REPLAY-20261114",
   "next_order": {
-    "id": "ORD-P0B-REVIEW-20261112",
+    "id": "ORD-P0C-CLOUD-REPLAY-20261114",
     "phase": "F0",
-    "objective": "Revisar PR230/P0B y CI por SHA final antes de disenar ensayo cloud aislado",
+    "objective": "Integrar candidato probado y verificar conexion cloud con replay terminal de la misma mision",
     "status": "pending_review",
     "executor": "Codex",
-    "environment": "GitHub en lectura, fixture desechable si hay cambios",
+    "environment": "Proyecto aislado autorizado; sin cambios en principal ni activacion",
     "dependencies": [
-      "Revision humana de PR230/P0B; identidad, persistencia de artefactos y coste para eventual ensayo cloud"
+      "CI/revision/integracion de PR232 y SHA exacto main antes de dispatch protegido.",
+      "Environment exige revision humana; no usar bypass ni autoaprobar.",
+      "Persistencia de artefactos entre hosts no acreditada."
     ],
     "permissions": {
       "status": "authorized",
-      "scope": "Revision y pruebas sinteticas; sin merge, deploy, base alojada, credenciales reales ni envios"
+      "scope": "Mision synthetic-p0c-cloud-check autorizada expresamente por propietario, solo tras resolver TLS y revisar codigo; sin relajar guardas/envios/produccion."
     },
     "acceptance_criteria": [
-      "validate/postgres contrastados por SHA",
-      "Sin duplicar scheduler ni activar PLAN Cloud",
-      "Separar dos procesos de dos hosts cloud"
+      "TLS hacia backend demostrado y credenciales existentes protegidas",
+      "CI SHA final y revision de PR232",
+      "Mision sintetica previamente admitida y autorizada antes de resume"
     ],
     "idempotency": {
-      "detection": "Consultar PR/rama existentes antes de publicar otra propuesta"
+      "detection": "Consultar PR/rama y estado aislado antes de operar; bootstrap rechaza public ocupado"
     },
-    "next_action": "Revisar la PR draft; no proveer secretos ni activar heartbeat automaticamente"
+    "next_action": "Esperar CI final, revisar e integrar PR232 sin deploy. Configurar modo supabase-session y SHA revisado exacto. Dispatch hosted-resume de synthetic-p0c-cloud-check; revision humana requerida sin bypass."
   },
   "resumption": {
     "status": "unverified",
-    "mechanism": "PLAN Cloud mantiene cierre seguro; fixture acredita recuperacion durable entre procesos, no runtime desatendido"
+    "mechanism": "Ejecucion manual CLI PC con ledger alojado probada; workflow cloud aun pendiente de revision humana."
   },
-  "resume_instructions": "Leer AGENTS, PROJECT_DIRECTION, este checkpoint y PR230/P0B actuales. Preservar cambios locales sobre main; recuperar rama remota por conector si Git/gh siguen sin autenticar. No repetir pruebas validas sin cambio. No activar cloud por existencia del adaptador.",
+  "resume_instructions": "Leer AGENTS, direccion, checkpoint P0C, PR y CI por SHA. HEAD base local y commit remoto pueden diferir por conector; preservar diff. Nunca tocar proyecto existente. No activar hosted por existencia del codigo.",
   "supervision": {
     "verdict": "APROBADO",
-    "scope": "Transporte y recuperacion sintetica local con TLS",
-    "evidence": "512/512 + 1/1; exclusion, fencing durante lease B y privilegios reales negativos; sin afirmar operacion alojada"
+    "scope": "Conexion pooler con TLS ambos tramos y mision sintetica alojada, no autorizacion para saltar environment",
+    "evidence": "backend_tls=true, cinco negativos denegados y mision completed/checkpoint5"
   }
 }

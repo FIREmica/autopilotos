@@ -8,28 +8,41 @@ import { ManagedProcesses } from './managedProcesses';
 export interface CloudMissionConfig extends Omit<LocalMissionConfig, 'mode' | 'database'> {
   mode: 'cloud_synthetic_lab';
   ledgerId: string;
-  database: { host: string; port: number; name: 'victoriosa_mission_operator_lab'; user: 'autopilot_cloud_runner';
-    sslRootCert: string; passFile: string };
+  database: { host: string; port: number; name: 'victoriosa_mission_operator_lab' | 'postgres'; user: 'autopilot_cloud_runner';
+    sslRootCert: string; passFile: string; connectionMode?: 'direct' | 'supabase-session' };
 }
 const exact = (v: unknown, keys: string[]) => !!v && typeof v === 'object' && !Array.isArray(v)
   && Object.keys(v).sort().join(',') === [...keys].sort().join(',');
 export function localCloudResources(c: CloudMissionConfig): LocalMissionConfig {
   return { version:c.version, mode:'local_synthetic_lab', database:{host:'127.0.0.1',port:c.database.port,
-    name:c.database.name,user:c.database.user},resources:c.resources,permissions:c.permissions,
+    name:'victoriosa_mission_operator_lab',user:c.database.user},resources:c.resources,permissions:c.permissions,
     leaseSeconds:c.leaseSeconds,deadlineMs:c.deadlineMs,queryTimeoutMs:c.queryTimeoutMs };
 }
 export function validateCloudConfig(value: unknown): CloudMissionConfig {
   const c = value as CloudMissionConfig;
   if (!exact(c,['version','mode','ledgerId','database','resources','permissions','leaseSeconds','deadlineMs','queryTimeoutMs'])
     || c.mode !== 'cloud_synthetic_lab' || !/^synthetic-[a-z0-9-]{8,64}$/.test(c.ledgerId)
-    || !exact(c.database,['host','port','name','user','sslRootCert','passFile'])
+    || !exact(c.database,['host','port','name','user','sslRootCert','passFile',
+      ...(c.database?.connectionMode === undefined ? [] : ['connectionMode'])])
+    || (c.database.connectionMode !== undefined && !['direct','supabase-session'].includes(c.database.connectionMode))
     || typeof c.database.host !== 'string' || !/^[a-z0-9][a-z0-9.-]{0,252}$/.test(c.database.host)
     || c.database.host.includes('..') || c.database.user !== 'autopilot_cloud_runner'
+    || c.database.host.includes('jfjzpwlrhzqbcrvqxhzf')
+    || (c.database.name !== 'victoriosa_mission_operator_lab' && !(c.database.name === 'postgres'
+      && c.database.host === (c.database.connectionMode === 'supabase-session'
+        ? 'aws-0-ca-central-1.pooler.supabase.com' : 'db.juyowvmtluxfetgkckjd.supabase.co') && c.database.port === 5432))
+    || (c.database.connectionMode === 'supabase-session' && c.database.name !== 'postgres')
+    || (c.database.name === 'victoriosa_mission_operator_lab' && /supabase\.(co|com)$/.test(c.database.host))
     || typeof c.database.sslRootCert !== 'string' || !path.isAbsolute(c.database.sslRootCert)
     || typeof c.database.passFile !== 'string' || !path.isAbsolute(c.database.passFile)
     || !c.permissions || c.permissions.admit !== false) throw Error('cloud_ledger_adapter_not_configured');
   validateLocalConfig(localCloudResources(c));
   return c;
+}
+export function cloudConnectionUser(c: CloudMissionConfig): string {
+  validateCloudConfig(c);
+  return c.database.connectionMode === 'supabase-session'
+    ? 'autopilot_cloud_runner.juyowvmtluxfetgkckjd' : c.database.user;
 }
 export function cloudBinding(c: CloudMissionConfig): string {
   // Runner paths, DNS aliases and rotating credentials are not ledger identity.
@@ -65,6 +78,7 @@ export class CloudMissionStore extends LocalMissionStore {
     super(localCloudResources(copy),p,s,r); this.cloud=copy;
   }
   override get binding() { return cloudBinding(this.cloud); }
+  protected override get databaseName() { return this.cloud.database.name; }
   override async initialize(): Promise<void> { throw Error('cloud_provisioning_not_allowed'); }
   override async admit(_value:unknown): Promise<string> { throw Error('cloud_admission_not_allowed'); }
   protected override async execute(query:string,operation:string): Promise<string> {
@@ -78,12 +92,13 @@ export class CloudMissionStore extends LocalMissionStore {
     const prelude=`set statement_timeout=${c.queryTimeoutMs};set lock_timeout=${c.queryTimeoutMs};
       set idle_in_transaction_session_timeout=${c.queryTimeoutMs};set request.jwt.claim.role='service_role';
       do $cloud$ begin if session_user<>'autopilot_cloud_runner'
+        ${c.database.name === 'postgres' ? "or not exists(select 1 from public.autopilot_hosted_lab where project_ref='juyowvmtluxfetgkckjd')" : ''}
         or exists(select 1 from pg_roles where rolname=session_user and (rolsuper or rolcreatedb or rolcreaterole or rolreplication or rolbypassrls))
         or exists(select 1 from pg_auth_members where member=(select oid from pg_roles where rolname=session_user))
         or not exists(select 1 from pg_stat_ssl where pid=pg_backend_pid() and ssl)
         then raise exception 'unauthorized_cloud_session';end if;end $cloud$;`;
     const result=await this.processes.exec(process.env.PSQL_PATH||'psql',
-      ['-h',c.database.host,'-p',String(c.database.port),'-U',c.database.user,'-d',c.database.name,'-w','-X','-qAt','-v','ON_ERROR_STOP=1'],
+      ['-h',c.database.host,'-p',String(c.database.port),'-U',cloudConnectionUser(c),'-d',c.database.name,'-w','-X','-qAt','-v','ON_ERROR_STOP=1'],
       {env:cloudProcessEnvironment(c),timeout:c.queryTimeoutMs+7000,signal:this.signal,input:`${prelude}\n${query}`,operation});
     return result.stdout.trim();
   }
