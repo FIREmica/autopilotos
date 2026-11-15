@@ -1507,3 +1507,17 @@ El checkpoint JSON fue actualizado al padre remoto `3c703384…` con nota de que
 La consulta de checks de GitHub para el head exacto `7318fc1760ca4510d0fc9964a0ac50b51ab6afcb` mostró validate SUCCESS (dos runs), postgres SUCCESS (dos jobs/run reports), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS. `Supabase Preview` siguió SKIPPED porque no hay rama asociada; no es evidencia de backend alojado. Esto resuelve la regresión reproducida del padre `64d212d…` en el entorno PostgreSQL desechable de CI, sin declarar ejecución de Supabase.
 
 El checkpoint JSON/este registro actualizan el branch desde el padre verificado `7318fc…`; el nuevo commit será solamente documental y modificará el SHA del head PR. Consultar de nuevo checks del SHA exacto resultante. PR #240 permanece borrador, abierta, mergeable, sin review y sin merge. No integrar, ejecutar SQL alojado, activar CLI/scheduler ni P2; esperar revisión humana tras el check del hijo documental.
+
+## 2026-11-15 17:44 UTC · P1: revisión exacta del head y checkpoint
+
+**Estado y recuperación:** sigue activa solo la orden `ORD-P1-SUPERVISOR-ADAPTER-20261114`, fase técnica P1 / producto F0. `origin/main` verificada en `44dbaeeb6384740da81db2357fb003c7de42d33b`; PR #240 continúa abierta, draft, mergeable y sin reviews ni merge. Rama `codex/p1-per-effect-authorization-20261115` limpia y sincronizada antes de este registro en `45f970943561c7274b7fed5025d8f78f56889530`. Se preservó `C:\autopilot` y no se encontraron otros escritores de esta rama/worktree.
+
+**CI del SHA exacto 45f9709:** validate SUCCESS, postgres SUCCESS (dos reportes), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS; Supabase Preview SKIPPED porque no hay branch asociada. Este skipped no es prueba alojada. No transferir estos checks al commit documental que registra esta evidencia: recuperar su SHA real desde PR #240 y verificarlo por separado.
+
+**Cambio en esta ejecución:** no cambió código. Se actualizó el body de la misma PR para reemplazar el estado obsoleto por resultados del head exacto, y se actualizan este ledger y `docs/CODEX_CONTINUATION.json` desde el padre verificado 45f9709; el commit resultante es un hijo documental. El worktree estaba limpio antes de editar. La revisión humana continúa pendiente.
+
+**Pruebas/operaciones:** no se repitieron pruebas porque no hubo cambio de aplicación; se conserva la evidencia ya registrada para este contenido: focal RED/GREEN 27/27, `npm run lint` exit 0, `npm run verify` exit 0 y `git diff --check` limpio. En este ciclo no hubo misión, claim, SQL local/alojado, dispatch, envío, merge, deploy ni gasto; no hay efecto externo incierto que conciliar.
+
+**Límites y permiso:** P1 permanece parcial. Los callbacks/verificador siguen in-process; no demuestran revocación atómica durable ni identidad remota. Sin autorización para integrar, desplegar, usar SQL alojado, conectar CLI/scheduler o activar P2. Rollback documental: revertir solo este commit si fuera necesario; preservar PR, código y evidencias anteriores.
+
+**Siguiente misión exacta:** recuperar el SHA real del hijo documental y revisar validate/postgres/CodeQL/checks relevantes para ese SHA; mantener PR #240 en draft. Si llegan comentarios, corregirlos en la misma PR, repetir pruebas proporcionales y revisar CI del head final. Sin review/autorización humana, no integrar ni saltar a P2; si no hay novedades, registrar BLOQUEADO/SIN CAMBIOS sin inventar trabajo.
