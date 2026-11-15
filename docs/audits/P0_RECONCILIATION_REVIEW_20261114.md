@@ -6,7 +6,7 @@ Fecha de referencia: 14/11/2026, America/Montevideo. Los recibos técnicos usan 
 
 **Orden local ejecutada con límites explícitos. P0 preparada para revisión, todavía no declarada cerrada.** Los dos worktrees tienen propietario de proyecto, propósito y consumidores acotados identificados; sus fuentes y cambios se conservaron cifrados y se recuperaron en memoria desde un proceso nuevo. Ambos quedan **CONSERVAR**. No se propone su eliminación.
 
-Los gates pendientes de P0 son la revisión/CI de esta remediación de privacidad, la aceptación del riesgo residual en versiones históricas del inventario, la decisión sobre la alineación preparada del heartbeat y la reconciliación de los cierres externos observados durante la orden. La implementación de P0D y la recuperación cloud de efectos pertenecen a P1/P3: no se usan como falsos bloqueos para impedir cerrar una reconciliación documental, ni se activan aquí.
+Los gates pendientes de P0 son la revisión/CI de esta remediación de privacidad, la aceptación del riesgo residual en versiones históricas del inventario y la decisión sobre la alineación preparada del heartbeat. **El propietario resolvió el punto de los cierres externos: registrarlos y conservar las ramas**, sin reapertura ni recreación remota. La implementación de P0D y la recuperación cloud de efectos pertenecen a P1/P3: no se usan como falsos bloqueos para impedir cerrar una reconciliación documental, ni se activan aquí.
 
 ## Cambio de estado remoto durante la orden
 
@@ -63,6 +63,6 @@ Si el material contiene configuración sensible, la restauración a disco exige 
 
 ## Próxima orden exacta y heartbeat
 
-**ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114**: revisar y verificar CI del SHA final de esta continuación, reconciliar la decisión sobre los17 cierres externos sin ejecutarla por inferencia, decidir aceptación del riesgo histórico de metadatos y revisar el [texto preparado del heartbeat](../P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md). El contrato maestro ya está en main, pero la actualización del heartbeat no se ejecutó: conservar mismo ID/tipo/nombre/estado/destino/cadencia/notificaciones. Si se autoriza aplicarla, usar la herramienta existente y verificar que solo cambió el prompt. Hasta entonces registrar PREPARADO, no CONFIGURADO ni EJECUTADO.
+**ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114**: revisar y verificar CI del SHA final de esta continuación, decidir aceptación del riesgo histórico de metadatos y revisar el [texto preparado del heartbeat](../P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md). La decisión sobre los17 cierres quedó registrada por respuesta explícita del propietario: conservar estados cerrados y refs/heads disponibles, sin reabrir ni recrear la rama ausente169. El contrato maestro ya está en main, pero la actualización del heartbeat no se ejecutó: conservar mismo ID/tipo/nombre/estado/destino/cadencia/notificaciones. Si se autoriza aplicarla, usar la herramienta existente y verificar que solo cambió el prompt. Hasta entonces registrar PREPARADO, no CONFIGURADO ni EJECUTADO.
 
 No se inicia P1, no se fusiona esta propuesta por iniciativa del agente y no se repiten las reconciliaciones ya verificadas salvo cambio de hashes o nueva evidencia. Un eventual cierre P0 debe registrar la decisión y sus límites en el **mismo CODEX_CONTINUATION.json**; no crear otro plan o checkpoint.

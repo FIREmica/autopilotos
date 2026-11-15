@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T01:57:29.426099+00:00",
+  "updated_at": "2026-11-15T02:12:49.195351+00:00",
   "execution_id": "codex-p0-privacy-recovery-20261114",
   "repository": {
     "branch": "codex/p0-privacy-recovery-20261114",
@@ -73,6 +73,10 @@
     {
       "operation": "Conservar heads y refs de17 PR cerradas externamente",
       "detection": "17 commits y refs de seguimiento locales intactos; pack de historias cifrado y strict dry-run exit0;16 ramas remotas presentes, Dependabot169 ausente. Sin close/merge/delete de esta orden."
+    },
+    {
+      "operation": "Registrar decisión del propietario sobre cierres externos",
+      "detection": "Respuesta explícita: registrar los cierres y conservar ramas; ninguna reapertura ni recreación remota ejecutada."
     }
   ],
   "evidence_refs": [
@@ -102,23 +106,21 @@
   "blockers": [
     "P0: revisión y CI del SHA final de la remediación documental de privacidad; la evidencia de base no se atribuye al nuevo commit.",
     "P0: aceptar explícitamente el límite de exposición histórica de metadatos; la minimización actual no purga commits previos.",
-    "P0: alineación del heartbeat PREPARADA, no aplicada por esta solicitud; necesita decisión de aplicación y verificación preservando todos los campos excepto prompt.",
-    "P0: las17 PR inicialmente abiertas fueron cerradas externamente; se conservan17 heads y refs locales,16 refs remotas. Registrar decisión sobre esos cierres sin revertirlos por inferencia."
+    "P0: alineación del heartbeat PREPARADA, no aplicada por esta solicitud; necesita decisión de aplicación y verificación preservando todos los campos excepto prompt."
   ],
   "next_order_id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
   "next_order": {
     "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
     "phase": "F0",
     "linear_phase": "P0",
-    "objective": "Revisar evidencia P0/privacidad, reconciliar decisión sobre cierres externos y decidir aceptación del riesgo histórico y alineación futura del heartbeat preparado",
+    "objective": "Revisar evidencia P0/privacidad y decidir aceptación del riesgo histórico y alineación futura del heartbeat preparado; cierres externos registrados según decisión del propietario",
     "status": "prepared_for_review",
     "executor": "Codex",
     "environment": "authorized audit worktree; target worktrees remain read-only",
     "dependencies": [
       "CI final por SHA y revisión de esta propuesta sin merge autónomo",
       "Contrato canónico sigue integrado en main; verificar su blob actual al aplicar",
-      "Decisión específica de aplicar el prompt preparado; preparación no equivale a configuración realizada",
-      "Decisión del propietario sobre los cierres externos; no restaurar estado remoto por inferencia."
+      "Decisión específica de aplicar el prompt preparado; preparación no equivale a configuración realizada"
     ],
     "permissions": {
       "status": "bounded",
@@ -132,7 +134,7 @@
     "idempotency": {
       "detection": "Comparar heads, hashes de fuentes y configuración; no repetir backup/reconciliación ni actualizar heartbeat si ya coincide con el texto autorizado"
     },
-    "next_action": "Revisar esta propuesta y la preparación de heartbeat, verificar CI del head final, registrar decisión. No ejecutar actualización ni comenzar P1 por la mera integración del contrato."
+    "next_action": "Revisar esta propuesta y la preparación de heartbeat, verificar CI del head final y registrar decisiones restantes. Mantener cierres externos y conservar refs; no reabrir ni recrear ramas remotas por esta decisión. No aplicar heartbeat ni comenzar P1."
   },
   "resumption": {
     "status": "manual_verified",
@@ -158,5 +160,16 @@
   "deferred_phase_requirements": {
     "P1": "Revisión e integración segura de P0D existente, no activa ni bloqueo de la reconciliación local",
     "P3": "Recuperación cloud de efectos entre hosts, no ejecutada ni activada en P0"
-  }
+  },
+  "owner_decisions": [
+    {
+      "id": "P0-EXTERNAL-CLOSURES-REGISTERED",
+      "source": "explicit owner reply in current chat",
+      "recorded_utc": "2026-11-15T02:12:49.195351+00:00",
+      "instruction": "Registrar los cierres externos y conservar las ramas",
+      "disposition": "retain external closed PR states; preserve available remote branches, all17 local heads/tracking refs and encrypted history pack; no reopening or remote ref recreation authorized",
+      "missing_remote_ref": "Dependabot/#169 remains recorded absent; head and local tracking ref preserved",
+      "scope": "resolves decision about external closures only; does not close P0, authorize merge/deletion/P1 or apply heartbeat changes"
+    }
+  ]
 }

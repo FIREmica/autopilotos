@@ -2754,7 +2754,7 @@
     {
       "group": "B",
       "operation": "cierres PR #200/#201/#202 tras conservar enlace #204 y notas histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ricas exclusivas",
-      "status": "superseded by external closures; not executed by this order; reopening pending user direction",
+      "status": "external closures recorded per explicit owner decision; preserve branches/heads; no reopening requested",
       "impact": "retirar duplicaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n funcional de cola",
       "recovery": "reabrir PR; ramas/commits conservados"
     },
@@ -2794,8 +2794,18 @@
     "remaining_gates": [
       "review and CI of this scoped follow-up",
       "review of residual historical metadata exposure; no secret or customer payload detected by bounded scan",
-      "review of prepared heartbeat alignment; actual update deferred, same cadence/target required",
-      "Decisión sobre cierres externos de17 PR y ausencia remota de Dependabot169; heads y refs locales preservados, sin reversión automática."
+      "review of prepared heartbeat alignment; actual update deferred, same cadence/target required"
     ]
-  }
+  },
+  "owner_decisions": [
+    {
+      "id": "P0-EXTERNAL-CLOSURES-REGISTERED",
+      "source": "explicit owner reply in current chat",
+      "recorded_utc": "2026-11-15T02:12:49.195351+00:00",
+      "instruction": "Registrar los cierres externos y conservar las ramas",
+      "disposition": "retain external closed PR states; preserve available remote branches, all17 local heads/tracking refs and encrypted history pack; no reopening or remote ref recreation authorized",
+      "missing_remote_ref": "Dependabot/#169 remains recorded absent; head and local tracking ref preserved",
+      "scope": "resolves decision about external closures only; does not close P0, authorize merge/deletion/P1 or apply heartbeat changes"
+    }
+  ]
 }

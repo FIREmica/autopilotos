@@ -1,3 +1,7 @@
+# Decisión del propietario · cierres externos registrados
+
+Respuesta explícita: registrar los cierres externos y conservar las ramas. Decisión P0-EXTERNAL-CLOSURES-REGISTERED guardada en el mismo checkpoint/manifiesto. Mantener estados CLOSED y preservar refs/heads disponibles; no reabrir PR ni recrear la rama remota ausente169. Sus17 heads/refs locales y pack cifrado permanecen como evidencia de conservación. Este punto deja de ser decisión pendiente; P0 sigue activa y conserva los demás gates de privacidad/revisión/heartbeat.
+
 # Continuidad P0 · privacidad y recuperación verificadas · 14/11/2026
 
 Intervención externa posterior: las17 PR inicialmente abiertas, incluida234, se cerraron sin merge durante esta orden;16 ramas remotas siguen presentes, Dependabot169 ausente. Los17 commits/refs locales y un pack de historias cifrado quedaron preservados; no close/merge/delete ni reapertura por esta orden. Decisión pendiente en la siguiente orden P0.

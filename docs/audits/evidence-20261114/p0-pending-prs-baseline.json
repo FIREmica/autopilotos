@@ -297,7 +297,7 @@
   "heads_unchanged": true,
   "main_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
   "actor_attribution": "not inferred; this order made no close/merge/delete calls",
-  "disposition": "preserve remote/local refs; record external changes; reopening not executed and pending user direction",
+  "disposition": "External closures registered per explicit owner reply; conserve available remote branches, all17 local heads/tracking refs and encrypted history. No reopening or remote branch recreation.",
   "preservation_proof": {
     "observed_utc": "2026-11-15T02:00:57.803757+00:00",
     "heads_available_locally": 17,
@@ -310,5 +310,14 @@
     "new_or_deleted_remote_refs": 0,
     "local_original_tracking_refs_not_pruned": true,
     "limits": "DPAPI identity/machine required; no plaintext full-checkout/offsite recovery certified; remote PR state not restored"
+  },
+  "owner_decision": {
+    "id": "P0-EXTERNAL-CLOSURES-REGISTERED",
+    "source": "explicit owner reply in current chat",
+    "recorded_utc": "2026-11-15T02:12:49.195351+00:00",
+    "instruction": "Registrar los cierres externos y conservar las ramas",
+    "disposition": "retain external closed PR states; preserve available remote branches, all17 local heads/tracking refs and encrypted history pack; no reopening or remote ref recreation authorized",
+    "missing_remote_ref": "Dependabot/#169 remains recorded absent; head and local tracking ref preserved",
+    "scope": "resolves decision about external closures only; does not close P0, authorize merge/deletion/P1 or apply heartbeat changes"
   }
 }
