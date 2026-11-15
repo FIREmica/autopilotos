@@ -1,24 +1,23 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T02:12:49.195351+00:00",
-  "execution_id": "codex-p0-privacy-recovery-20261114",
+  "updated_at": "2026-11-15T02:48:35.765134+00:00",
+  "execution_id": "codex-p0-close-p1-supervisor-20261114",
   "repository": {
-    "branch": "codex/p0-privacy-recovery-20261114",
-    "head_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
-    "worktree": "WORKTREE:p0-privacy-recovery-20261114",
-    "worktree_resolution": "Resolve with git worktree list in the authorized repository; do not execute an unresolved logical alias. No profile paths are published.",
-    "note": "Verified main contains PR235; this is the base before the documentary commit, not its own future hash. Read final PR head and CI at recovery."
+    "branch": "codex/linear-p0-p1-20261114",
+    "head_sha": "ce1027e5ed8f3a3580b0be182c7a1b212a43b39d",
+    "worktree": "WORKTREE:linear-p0-p1-20261114",
+    "note": "head_sha es main base verificada, no SHA del commit contenedor; main conserva P0 hasta integrar esta propuesta revisada."
   },
   "current_order": {
-    "id": "ORD-P0-RECONCILE-LOCAL-20261114",
+    "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
-    "linear_phase": "P0",
-    "objective": "Atribuir consumidores/custodia, preservar y verificar recuperación de alignment-audit y diseno; minimizar inventarios publicados",
-    "status": "completed_with_limits",
-    "last_verified_step": "13/48 paths locales, 13/47 blobs ausentes de main; recuperación en memoria en proceso nuevo de745/405 archivos y packs de historia cifrados validados en dry-run. Originales estables, sin eliminación. Inventarios minimizados y heartbeat preparado, no aplicado.",
+    "linear_phase": "P1",
+    "objective": "Reutilizar el supervisor #234 y validar adaptaci?n estricta de estados/claims del runtime existente sin introducir despachos.",
+    "status": "in_progress_candidate_not_merged",
+    "last_verified_step": "PR236 fusionada; prompt heartbeat local actualizado y re-le?do sin tocar id/intervalo/destino; P0 cerrada con l?mites en esta propuesta; no hay evidencia de ejecuci?n recurrente.",
     "limits": [
-      "Custodia local y proyecto confirmados; autor humano de cambios sin commit no inferido",
-      "No cobertura de ignorados, offsite/full checkout recovery ni exclusión global de escritores"
+      "P1 no activa en main hasta fusi?n revisada; hist?rico Git sin purgar",
+      "Respaldo DPAPI no equivale a recuperaci?n fuera de equipo"
     ]
   },
   "completed_operations": [
@@ -77,6 +76,14 @@
     {
       "operation": "Registrar decisión del propietario sobre cierres externos",
       "detection": "Respuesta explícita: registrar los cierres y conservar ramas; ninguna reapertura ni recreación remota ejecutada."
+    },
+    {
+      "operation": "Alinear localmente heartbeat existente y revalidar campos",
+      "detection": "ID/kind/name/status/rrule/target sin modificaci?n; prompt_sha256 nuevo 30dd23ac85993c98d3475b3b3f0237e1698f19fa86a75d2b39d99bbc5498bee4; backup DPAPI local; no evidencia de run programado."
+    },
+    {
+      "operation": "Cerrar P0 t?cnicamente con l?mites documentados y comenzar candidato P1",
+      "detection": "PR236 fusionada; recursos con recuperaci?n incompleta CONSERVAR; plan y checkpoint cambian juntos en propuesta revisable; no automatizaci?n nueva."
     }
   ],
   "evidence_refs": [
@@ -104,58 +111,57 @@
     "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   ],
   "blockers": [
-    "P0: revisión y CI del SHA final de la remediación documental de privacidad; la evidencia de base no se atribuye al nuevo commit.",
-    "P0: aceptar explícitamente el límite de exposición histórica de metadatos; la minimización actual no purga commits previos.",
-    "P0: alineación del heartbeat PREPARADA, no aplicada por esta solicitud; necesita decisión de aplicación y verificación preservando todos los campos excepto prompt."
+    "P1: integraci?n real con claim SQL y ledger aun no probada; este cambio solo prepara la observaci?n/read-only.",
+    "P1: ninguna prueba programada posterior al cambio de prompt del heartbeat; no afirmar recepci?n desatendida.",
+    "P0 residual conservado: commits hist?ricos con metadatos accesibles; sin filtraci?n de secretos confirmada, no reescribir historia ni eliminar backups sin revisi?n espec?fica."
   ],
-  "next_order_id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+  "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
-    "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+    "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
-    "linear_phase": "P0",
-    "objective": "Revisar evidencia P0/privacidad y decidir aceptación del riesgo histórico y alineación futura del heartbeat preparado; cierres externos registrados según decisión del propietario",
-    "status": "prepared_for_review",
+    "linear_phase": "P1",
+    "objective": "Revisar y adaptar el supervisor puro de #234 a los estados internos mediante una entrada estrictamente tipada de solo lectura",
+    "status": "in_progress_candidate_not_merged",
     "executor": "Codex",
-    "environment": "authorized audit worktree; target worktrees remain read-only",
+    "environment": "worktree aislado, sin escritores compartidos, main verificado",
     "dependencies": [
-      "CI final por SHA y revisión de esta propuesta sin merge autónomo",
-      "Contrato canónico sigue integrado en main; verificar su blob actual al aplicar",
-      "Decisión específica de aplicar el prompt preparado; preparación no equivale a configuración realizada"
+      "P0 documentada/cerrada con riesgos residuales en este candidato",
+      "CI exacta, revisi?n e integraci?n antes de proclamar P1 activa en main"
     ],
     "permissions": {
       "status": "bounded",
-      "scope": "Lectura, validación y preparación documental. No P1, eliminación, merge, nuevo scheduler/automatización, cambio de cadencia/destino/estado ni aplicación del prompt por esta orden de preparación."
+      "scope": "Edici?n y tests locales sint?ticos, PR borrador; sin dispatch, SQL remoto, producci?n, gasto, env?os, auto-merge ni limpiar backups."
     },
     "acceptance_criteria": [
-      "Inventario público minimizado con historia residual explícita y evidencia privada cifrada",
-      "Dos recursos conservados con recuperación y límites verificables",
-      "Decisión de revisión registrada en este JSON; si se autoriza aplicar heartbeat, solo prompt cambia y readback confirma todos los otros campos intactos"
+      "Estados del runtime traducidos con rechazo estricto a desconocidos",
+      "Ninguna entrada no verificada propone reanudaci?n ejecutable",
+      "Checks y pruebas exactos del candidato; mismo ledger como autoridad",
+      "No segundo scheduler, supervisor operativo ni cola"
     ],
-    "idempotency": {
-      "detection": "Comparar heads, hashes de fuentes y configuración; no repetir backup/reconciliación ni actualizar heartbeat si ya coincide con el texto autorizado"
-    },
-    "next_action": "Revisar esta propuesta y la preparación de heartbeat, verificar CI del head final y registrar decisiones restantes. Mantener cierres externos y conservar refs; no reabrir ni recrear ramas remotas por esta decisión. No aplicar heartbeat ni comenzar P1."
+    "next_action": "Implementar adaptador de observaci?n puro ligado a runtime existente y pruebas negativas; publicar PR y verificar CI."
   },
   "resumption": {
     "status": "manual_verified",
-    "mechanism": "Single documentary checkpoint; local backup recovery proved within explicit scope. Historical heartbeat still unchanged; no unattended receipt of this order claimed."
+    "mechanism": "P0 candidato cerrado y P1 en preparaci?n; automatizaci?n local alineada por readback, ejecuci?n programada no observada."
   },
   "resume_instructions": "Read direction/linear plan/canonical contract and this same JSON; verify main, final PR CI and writers. Continue P0 review order; no repeated local reconciliation if hashes intact, no automatic merge or heartbeat update.",
   "supervision": {
-    "verdict": "PREPARADO_PARA_REVISION",
-    "scope": "Orden de reconciliación ejecutada con límites; P0 no declarada cerrada ni P1 activada",
-    "evidence": "p0-target-consumers, p0-local-recovery-proof and heartbeat-preparation; final CI still belongs to the future containing commit"
+    "verdict": "P0_CLOSED_WITH_LIMITS_P1_CANDIDATE",
+    "scope": "Cierre P0 t?cnico limitado a reconciliaci?n de recursos y una sola orden documental; no certifica purga hist?rica, recuperaci?n offsite, ejecuci?n programada o fase de producto F0.",
+    "evidence": "PR235+236 merge; local heartbeat readback; manifest/recovery proof en #236. P1 requiere adaptador, pruebas y CI exacta."
   },
-  "linear_phase": "P0",
+  "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
   "continuation_prompt": "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
   "previous_order_close": {
-    "id": "ORD-FORENSIC-LINEAR-20261114",
-    "status": "merged_documentary_result",
-    "reference_pr": 235,
-    "head_sha": "0f2482fab0f04b5fc58e2d7fc94c0e8d12923bda",
-    "merge_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
-    "merge_performed_by_this_order": false
+    "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+    "status": "closed_with_recorded_limits_in_candidate",
+    "reference_pr": 236,
+    "head_sha": "b99cb712a7edca2119ede379d58128148d90d19a",
+    "merge_sha": "ce1027e5ed8f3a3580b0be182c7a1b212a43b39d",
+    "heartbeat": "local_config_prompt_aligned_readback_verified; scheduled_execution_not_observed",
+    "historical_metadata": "minimized_current_tree; prior_commits_remain_accessible; no confirmed leaked credential in bounded audit; do_not_purge",
+    "recoverability": "DPAPI current-user in-memory verification; ignored files and offsite recovery unverified; keep worktrees"
   },
   "deferred_phase_requirements": {
     "P1": "Revisión e integración segura de P0D existente, no activa ni bloqueo de la reconciliación local",
@@ -170,6 +176,14 @@
       "disposition": "retain external closed PR states; preserve available remote branches, all17 local heads/tracking refs and encrypted history pack; no reopening or remote ref recreation authorized",
       "missing_remote_ref": "Dependabot/#169 remains recorded absent; head and local tracking ref preserved",
       "scope": "resolves decision about external closures only; does not close P0, authorize merge/deletion/P1 or apply heartbeat changes"
+    },
+    {
+      "id": "P0-RESIDUAL-TECHNICAL-RISK-DISPOSITION",
+      "source": "petici?n actual de decidir y continuar el desarrollo seg?n auditor?a",
+      "recorded_utc": "2026-11-15T02:48:35.765134+00:00",
+      "instruction": "No purgar commits ni eliminar recursos; documentar limitaciones hist?ricas y cerrar solo la reconciliaci?n t?cnica P0.",
+      "disposition": "retain Git history and all worktrees/backup refs; review only confirmed sensitive exposure; preserve DPAPI limitation; P1 code candidate allowed in isolation.",
+      "scope": "No aceptaci?n de exposici?n de secretos, no autorizaci?n de eliminar datos, modificar producci?n o ejecutar misiones cloud."
     }
   ]
 }
