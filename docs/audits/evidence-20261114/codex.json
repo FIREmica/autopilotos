@@ -168,7 +168,20 @@
       "rrule": "FREQ=HOURLY;INTERVAL=6",
       "cwds": null,
       "prompt_sha256": "b125e7118f957e9e3530aaee205764f997544dc3e8f36e82f9fb7e5ab522ecda",
-      "related_to_autopilot": true
+      "related_to_autopilot": true,
+      "kind": "heartbeat",
+      "target_thread_configured": true,
+      "prompt_review": {
+        "historical_priorities": [
+          84,
+          81
+        ],
+        "issues_observed_open": true,
+        "historical_form_closed_instruction": true,
+        "public_form_currently_enabled": true,
+        "canonical_linear_prompt_referenced": false,
+        "mutation_performed": false
+      }
     }
   ],
   "skills": {

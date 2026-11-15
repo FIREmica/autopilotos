@@ -33,7 +33,7 @@ PR234 continúa DRAFT sin adaptador runtime; las17 PR originales se conservaron.
 
 P0C fusionado #232/#233; hosted-status43657434746 SUCCESS histórico, permiso excepcional no reutilizable. PLAN Cloud workflow_run sigue cerrado; diagnóstico fijo pendiente de revisión futura. Producción real sigue9d6bbdb, anterior a main. Estado futuro de Git deployments no expuesto por vista MCP reducida; no se alteró.
 
-El monitor local6h ACTIVE y la tarea Windows Disabled son configuración, no evidencia de recepción futura de esta rama. camelRun/viki devuelven los mismos9 agentes sin herramientas conectadas. Coste total, recepción humana actual, escritor único global y recuperación interhost de efectos quedan NO COMPROBADOS.
+El monitor local6h ACTIVE y la tarea Windows Disabled son configuración, no evidencia de recepción futura de esta rama. El monitor es un heartbeat dirigido a otro chat y su prompt aún prioriza marketing #84/#81 y formularios cerrados; requiere reconciliación con la dirección actual y este plan. Se conserva sin cambios de ejecución/cadencia/destino. camelRun/viki devuelven los mismos9 agentes sin herramientas conectadas. Coste total, recepción humana actual, escritor único global y recuperación interhost de efectos quedan NO COMPROBADOS.
 
 ## Próxima tarea exacta y recuperación
 
