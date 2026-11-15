@@ -1,3 +1,13 @@
+# P1 · correcciones de revisión de PR237 · 15/11/2026
+
+Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114; misma PR237, sin nueva rama/PR. Padre revisado cd407e1 tenía validate/postgres/CodeQL/browser aprobados; los checks del head corregido se verifican aparte por SHA. No se afirma CI nueva por herencia del padre.
+
+enabled exige booleano primitivo y selección ===true. Las dos regresiones fallaron antes del arreglo; después22/22 focalizadas y npm run verify538/538, sin fallos/omisiones, tipos/skills/builds/API aprobados. Flags falsificados y false real no alcanzan el lector de status. No cambia autoridad de claims o dispatch.
+
+Checkpoint y plan coinciden: P0 técnica CERRADA CON LÍMITES en el candidato; P1 es el único incremento de esta propuesta. Main mantiene su fase registrada hasta integración autorizada. El consumidor operativo supervisor→PersistentMissionOrchestrator→ledger/claim SQL y su verificador siguen pendientes de P1. No se inicia P2 ni se promete recuperación offsite/heartbeat ejecutado.
+
+Siguiente: revisar correcciones y CI exacta de PR237; no auto-merge ni fusión por iniciativa propia. Luego continuar P1 dentro de la misma secuencia. Sin SQL alojado, producción, envíos, automatización, eliminación de recursos ni cambios al apoyo local100c7df. Las entradas siguientes son históricas y no sustituyen esta orden.
+
 # Decisión del propietario · cierres externos registrados
 
 Respuesta explícita: registrar los cierres externos y conservar las ramas. Decisión P0-EXTERNAL-CLOSURES-REGISTERED guardada en el mismo checkpoint/manifiesto. Mantener estados CLOSED y preservar refs/heads disponibles; no reabrir PR ni recrear la rama remota ausente169. Sus17 heads/refs locales y pack cifrado permanecen como evidencia de conservación. Este punto deja de ser decisión pendiente; P0 sigue activa y conserva los demás gates de privacidad/revisión/heartbeat.
@@ -1431,3 +1441,11 @@ Orden expresa solucionalo. La documentacion oficial de SSL Enforcement confirma 
 ## 2026-11-14 · P0C configuracion cloud completada y verificada
 
 PR232 integrada en main0337d47, CI validate/postgres/CodeQL aprobada. GitHub Actions hosted-status run43657434746 SUCCESS: mismo binding y state completed. Propietario autorizo expresamente aprobacion administrativa excepcional solo de ese run porque unica cuenta era iniciadora/revisora y prevent_self_review=true. Se audito la excepcion puntual; politicas permanentes intactas y sin permiso para repetir bypass. Mision mantiene intento1/checkpoint5/audit7/updated_at identico; sin nuevos efectos. Ambos secrets y modo supabase-session configurados. Claves privadas temporales eliminadas. Sin produccion, envios, pagos, scheduler ni ejecucion continua. Evidencia docs/HOSTED_LEDGER_TLS_RESOLVED_20261114.md. Configuracion solicitada COMPLETADA; futuros runs requieren revision propia. El cierre documental no autoriza otro dispatch.
+
+## 2026-11-14 - Cierre tecnico P0 con limites y comienzo candidato P1
+
+PR #236 integrada en main ce1027e5; los dos worktrees QA y sus ramas/heads cifrados conservados. Metadatos historicos aun accesibles, sin evidencias de credenciales en revision acotada; no purgar historia. Respaldo DPAPI verificado solo en identidad Windows actual; ignorados y recuperacion externa no probados. La automatizacion existente 6h conserva id/estado/rrule/destino, prompt local sustituido y re-leido; recarga y recepcion de run periodico NO COMPROBADAS. Aprobacion de cierre limitada a reconciliacion tecnica; F0 de producto no se declara cerrado. Unica siguiente fase propuesta: P1 supervisor read-only reutilizando codigo de #234. Todo en PR revisable, sin dispatch ni produccion.
+
+### Evidencia de candidato P1 (misma fase/orden)
+
+Fuente recuperada: PR234 head 3ce7fdf; se reutilizan permanentSupervisor.ts, test y documento. Nuevo adaptador solo consulta LocalMissionStore.status una vez y valida binding/fase; estados inesperados, booleanos y versiones falsificados rechazados, lease sin vigencia no coordina ejecucion. Una fila completed no se considera evidencia independiente; failed/retry_wait no autorizan replay. 20/20 pruebas focales, lint TypeScript aprobado. npm run verify aprobado con 534/534 y ambos builds antes de introducir la ultima guardia de fase; despues se aprobaron pruebas focales y tsc. CI final por SHA todavia pendiente. No hay SQL remoto, dispatch, deploy, merge ni ejecucion automatica confirmada.

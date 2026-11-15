@@ -1,24 +1,26 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T02:12:49.195351+00:00",
-  "execution_id": "codex-p0-privacy-recovery-20261114",
+  "updated_at": "2026-11-15T03:21:44.355312+00:00",
+  "execution_id": "codex-pr237-review-fixes-20261115",
   "repository": {
-    "branch": "codex/p0-privacy-recovery-20261114",
-    "head_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
-    "worktree": "WORKTREE:p0-privacy-recovery-20261114",
-    "worktree_resolution": "Resolve with git worktree list in the authorized repository; do not execute an unresolved logical alias. No profile paths are published.",
-    "note": "Verified main contains PR235; this is the base before the documentary commit, not its own future hash. Read final PR head and CI at recovery."
+    "branch": "codex/linear-p0-p1-20261114",
+    "head_sha": "cd407e18d4a9eb5de32673c6e028693e0cbbadbf",
+    "worktree": "WORKTREE:linear-p0-p1-20261114",
+    "note": "head_sha identifica el padre revisado antes de estas correcciones, no el hash del commit que contiene este checkpoint. Resolver el head vigente de PR237 y sus checks por SHA; main mantiene su fase registrada hasta integración autorizada.",
+    "base_sha": "ce1027e5ed8f3a3580b0be182c7a1b212a43b39d",
+    "pr_number": 237
   },
   "current_order": {
-    "id": "ORD-P0-RECONCILE-LOCAL-20261114",
+    "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
-    "linear_phase": "P0",
-    "objective": "Atribuir consumidores/custodia, preservar y verificar recuperación de alignment-audit y diseno; minimizar inventarios publicados",
-    "status": "completed_with_limits",
-    "last_verified_step": "13/48 paths locales, 13/47 blobs ausentes de main; recuperación en memoria en proceso nuevo de745/405 archivos y packs de historia cifrados validados en dry-run. Originales estables, sin eliminación. Inventarios minimizados y heartbeat preparado, no aplicado.",
+    "linear_phase": "P1",
+    "objective": "Reutilizar el supervisor conservado y validar observaciones estrictas del runtime, sin introducir despachos.",
+    "status": "candidate_review_required",
+    "last_verified_step": "Corregido enabled: solo booleanos primitivos y selección estricta true. Dos regresiones RED antes del arreglo; 22/22 focalizadas y verify538/538, tipos, skills, ambos builds y smoke API aprobados localmente. El padre cd407e1 tenía validate/postgres/CodeQL/browser SUCCESS; esa CI no acredita las correcciones del nuevo head.",
     "limits": [
-      "Custodia local y proyecto confirmados; autor humano de cambios sin commit no inferido",
-      "No cobertura de ignorados, offsite/full checkout recovery ni exclusión global de escritores"
+      "P1 es un incremento de observación en esta propuesta; no está montado como consumidor operativo de PersistentMissionOrchestrator ni completa supervisor→runtime→ledger/claim SQL.",
+      "P0 cerrada técnicamente con límites en este candidato; no certifica purga histórica, recuperación offsite o ejecución programada del heartbeat.",
+      "Sin claim, dispatch, migraciones alojadas, envíos, automatización nueva ni activación de P2 por estas correcciones."
     ]
   },
   "completed_operations": [
@@ -77,6 +79,22 @@
     {
       "operation": "Registrar decisión del propietario sobre cierres externos",
       "detection": "Respuesta explícita: registrar los cierres y conservar ramas; ninguna reapertura ni recreación remota ejecutada."
+    },
+    {
+      "operation": "Alinear localmente heartbeat existente y revalidar campos",
+      "detection": "ID/kind/name/status/rrule/target sin modificaci?n; prompt_sha256 nuevo 30dd23ac85993c98d3475b3b3f0237e1698f19fa86a75d2b39d99bbc5498bee4; backup DPAPI local; no evidencia de run programado."
+    },
+    {
+      "operation": "Cerrar P0 t?cnicamente con l?mites documentados y comenzar candidato P1",
+      "detection": "PR236 fusionada; recursos con recuperaci?n incompleta CONSERVAR; plan y checkpoint cambian juntos en propuesta revisable; no automatizaci?n nueva."
+    },
+    {
+      "operation": "Comenzar P1 con supervisor de PR234 y status host-bound",
+      "detection": "3 archivos historicos recuperados por SHA; status adaptado a LocalMissionStore, rechazos de binding, fase, estados y lease; 20 pruebas focales, lint TypeScript correcto."
+    },
+    {
+      "operation": "Corregir revisión de PR237 sin duplicar misión",
+      "detection": "enabled no booleano rechazado antes de leer el host; false real no selecciona objetivo. Plan y checkpoint reconciliados para la misma orden P1; integración operativa sigue pendiente."
     }
   ],
   "evidence_refs": [
@@ -101,64 +119,64 @@
     "docs/audits/evidence-20261114/p0-reference-state.json",
     "docs/audits/evidence-20261114/p0-heartbeat-preparation.json",
     "docs/P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md",
-    "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
+    "docs/audits/evidence-20261114/p0-pending-prs-baseline.json",
+    "https://github.com/Victoriosas/autopilot/pull/237#issuecomment-6888369056"
   ],
   "blockers": [
-    "P0: revisión y CI del SHA final de la remediación documental de privacidad; la evidencia de base no se atribuye al nuevo commit.",
-    "P0: aceptar explícitamente el límite de exposición histórica de metadatos; la minimización actual no purga commits previos.",
-    "P0: alineación del heartbeat PREPARADA, no aplicada por esta solicitud; necesita decisión de aplicación y verificación preservando todos los campos excepto prompt."
+    "P1: integración operativa supervisor→runtime→ledger/claim SQL aún pendiente; el adaptador actual solo observa un status suministrado por el host.",
+    "P1: revisión de las correcciones y CI del head exacto antes de considerar una integración específicamente autorizada.",
+    "Ejecución programada del heartbeat y recuperación offsite no certificadas; no se infieren del cierre técnico limitado de P0."
   ],
-  "next_order_id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+  "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
-    "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+    "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
-    "linear_phase": "P0",
-    "objective": "Revisar evidencia P0/privacidad y decidir aceptación del riesgo histórico y alineación futura del heartbeat preparado; cierres externos registrados según decisión del propietario",
-    "status": "prepared_for_review",
+    "linear_phase": "P1",
+    "objective": "Revisar las correcciones de PR237 y continuar la integración pendiente de P1 en la misma orden, sin avanzar a P2.",
+    "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "authorized audit worktree; target worktrees remain read-only",
+    "environment": "worktree aislado, sin escritores compartidos, main verificado",
     "dependencies": [
-      "CI final por SHA y revisión de esta propuesta sin merge autónomo",
-      "Contrato canónico sigue integrado en main; verificar su blob actual al aplicar",
-      "Decisión específica de aplicar el prompt preparado; preparación no equivale a configuración realizada"
+      "Cierre técnico limitado de P0 documentado en este candidato, con recursos y riesgos residuales conservados.",
+      "PR237 ya publicada: revisar las correcciones y sus checks del SHA vigente; la CI del padre no se atribuye al nuevo código.",
+      "Revisión e integración específicamente autorizada antes de afirmar la transición de fase en main."
     ],
     "permissions": {
       "status": "bounded",
-      "scope": "Lectura, validación y preparación documental. No P1, eliminación, merge, nuevo scheduler/automatización, cambio de cadencia/destino/estado ni aplicación del prompt por esta orden de preparación."
+      "scope": "Correcciones y pruebas locales/sintéticas en la misma PR237. Sin merge por iniciativa propia, dispatch, SQL remoto, producción, gasto, envíos, cambios de automatización ni eliminación de recursos. No activar P2."
     },
     "acceptance_criteria": [
-      "Inventario público minimizado con historia residual explícita y evidencia privada cifrada",
-      "Dos recursos conservados con recuperación y límites verificables",
-      "Decisión de revisión registrada en este JSON; si se autoriza aplicar heartbeat, solo prompt cambia y readback confirma todos los otros campos intactos"
+      "Estados del runtime traducidos con rechazo estricto a desconocidos",
+      "Ninguna entrada no verificada propone reanudaci?n ejecutable",
+      "Checks y pruebas exactos del candidato; mismo ledger como autoridad",
+      "No segundo scheduler, supervisor operativo ni cola"
     ],
-    "idempotency": {
-      "detection": "Comparar heads, hashes de fuentes y configuración; no repetir backup/reconciliación ni actualizar heartbeat si ya coincide con el texto autorizado"
-    },
-    "next_action": "Revisar esta propuesta y la preparación de heartbeat, verificar CI del head final y registrar decisiones restantes. Mantener cierres externos y conservar refs; no reabrir ni recrear ramas remotas por esta decisión. No aplicar heartbeat ni comenzar P1."
+    "next_action": "Usar la misma PR237: verificar CI del head exacto y revisión de enabled/checkpoint/plan. No fusionar por iniciativa propia. Después de una integración específicamente autorizada, continuar P1 con el consumidor runtime/ledger y su verificación independiente; no iniciar P2."
   },
   "resumption": {
     "status": "manual_verified",
-    "mechanism": "Single documentary checkpoint; local backup recovery proved within explicit scope. Historical heartbeat still unchanged; no unattended receipt of this order claimed."
+    "mechanism": "Recuperar la misma orden P1 de este candidato y contrastar main/PR/CI; P0 técnica cerrada aquí con límites. El heartbeat fue alineado en la transición previa, pero no hay recibo nuevo de ejecución programada por esta corrección."
   },
-  "resume_instructions": "Read direction/linear plan/canonical contract and this same JSON; verify main, final PR CI and writers. Continue P0 review order; no repeated local reconciliation if hashes intact, no automatic merge or heartbeat update.",
+  "resume_instructions": "Leer dirección, plan lineal, contrato canónico y este mismo JSON. Recuperar ORD-P1-SUPERVISOR-ADAPTER-20261114 en PR237, verificar head/CI y escritores. Revisar las correcciones y continuar la integración pendiente supervisor→runtime→ledger dentro de P1; no repetir P0, crear otro checkpoint, fusionar sin autorización ni activar P2.",
   "supervision": {
-    "verdict": "PREPARADO_PARA_REVISION",
-    "scope": "Orden de reconciliación ejecutada con límites; P0 no declarada cerrada ni P1 activada",
-    "evidence": "p0-target-consumers, p0-local-recovery-proof and heartbeat-preparation; final CI still belongs to the future containing commit"
+    "verdict": "P1_CANDIDATE_REVIEW_REQUIRED",
+    "scope": "P0 técnica cerrada con límites solo en este candidato; P1 parcial y en revisión. La observación read-only no certifica integración con claims reales, recuperación interhost ni autonomía.",
+    "evidence": "Regresiones enabled RED→GREEN; focalizadas22/22 y verify538/538 locales. CI por SHA del padre registrada separadamente; comprobar el head vigente de PR237 antes de integración."
   },
-  "linear_phase": "P0",
+  "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
   "continuation_prompt": "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
   "previous_order_close": {
-    "id": "ORD-FORENSIC-LINEAR-20261114",
-    "status": "merged_documentary_result",
-    "reference_pr": 235,
-    "head_sha": "0f2482fab0f04b5fc58e2d7fc94c0e8d12923bda",
-    "merge_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
-    "merge_performed_by_this_order": false
+    "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
+    "status": "closed_with_recorded_limits_in_candidate",
+    "reference_pr": 236,
+    "head_sha": "b99cb712a7edca2119ede379d58128148d90d19a",
+    "merge_sha": "ce1027e5ed8f3a3580b0be182c7a1b212a43b39d",
+    "heartbeat": "local_config_prompt_aligned_readback_verified; scheduled_execution_not_observed",
+    "historical_metadata": "minimized_current_tree; prior_commits_remain_accessible; no confirmed leaked credential in bounded audit; do_not_purge",
+    "recoverability": "DPAPI current-user in-memory verification; ignored files and offsite recovery unverified; keep worktrees"
   },
   "deferred_phase_requirements": {
-    "P1": "Revisión e integración segura de P0D existente, no activa ni bloqueo de la reconciliación local",
     "P3": "Recuperación cloud de efectos entre hosts, no ejecutada ni activada en P0"
   },
   "owner_decisions": [
@@ -170,6 +188,55 @@
       "disposition": "retain external closed PR states; preserve available remote branches, all17 local heads/tracking refs and encrypted history pack; no reopening or remote ref recreation authorized",
       "missing_remote_ref": "Dependabot/#169 remains recorded absent; head and local tracking ref preserved",
       "scope": "resolves decision about external closures only; does not close P0, authorize merge/deletion/P1 or apply heartbeat changes"
+    },
+    {
+      "id": "P0-RESIDUAL-TECHNICAL-RISK-DISPOSITION",
+      "source": "petici?n actual de decidir y continuar el desarrollo seg?n auditor?a",
+      "recorded_utc": "2026-11-15T02:48:35.765134+00:00",
+      "instruction": "No purgar commits ni eliminar recursos; documentar limitaciones hist?ricas y cerrar solo la reconciliaci?n t?cnica P0.",
+      "disposition": "retain Git history and all worktrees/backup refs; review only confirmed sensitive exposure; preserve DPAPI limitation; P1 code candidate allowed in isolation.",
+      "scope": "No aceptaci?n de exposici?n de secretos, no autorizaci?n de eliminar datos, modificar producci?n o ejecutar misiones cloud."
     }
+  ],
+  "validation": {
+    "reviewed_predecessor": {
+      "sha": "cd407e18d4a9eb5de32673c6e028693e0cbbadbf",
+      "checks": "validate/postgres/CodeQL/public-browser-smoke SUCCESS; Supabase Preview SKIPPED",
+      "scope": "predecessor only, not evidence for modified code"
+    },
+    "local_review_fix": {
+      "focused_tests": 22,
+      "focused_pass": 22,
+      "red_regressions_before_fix": 2,
+      "verify_tests": 538,
+      "verify_pass": 538,
+      "verify_fail": 0,
+      "verify_skipped": 0,
+      "verify_exit_code": 0,
+      "includes": [
+        "skills",
+        "TypeScript",
+        "Node build",
+        "Vercel build",
+        "compiled API smoke"
+      ]
+    },
+    "current_pr_head_checks": {
+      "lookup": "https://github.com/Victoriosas/autopilot/pull/237/checks",
+      "required": [
+        "validate",
+        "postgres"
+      ],
+      "additional": [
+        "CodeQL",
+        "public-browser-smoke"
+      ],
+      "policy": "Verificar el SHA exacto del head al recuperar; no copiar estados de CI entre commits ni inferir aprobación de Supabase Preview omitida."
+    }
+  },
+  "p1_remaining_work": [
+    "Montar un consumidor operativo y autorizado del supervisor en el runtime existente sin otra cola ni scheduler.",
+    "Probar el contrato completo supervisor→runtime→MissionLedger/claim SQL con autorización, identidad/binding y verificador independiente.",
+    "Conservar la separación entre decisión read-only, permiso de ejecutar y evidencia del efecto. Este trabajo sigue dentro de P1."
   ]
 }
