@@ -1,5 +1,10 @@
 # P0C: TLS y prueba sintética alojada resueltos
 
+**Cierre verificado:** PR232 integrada en main `0337d47c84239d05fc574967315700bf4de9d428`.
+CI validate/postgres/CodeQL aprobada en ese SHA. GitHub Actions
+[run 43657434746](https://github.com/Victoriosas/autopilot/actions/runs/43657434746)
+terminó SUCCESS: hosted-status del ledger real devolvió state completed.
+
 14/11/2026, America/Montevideo. Continuación expresa del propietario: «solucionalo».
 Proyecto exclusivo `juyowvmtluxfetgkckjd`; principal intacto. PR232 existente,
 base de esta continuación `acba5f7aee737383b73ef7fede54e963f84e64e9`.
@@ -70,3 +75,36 @@ acción mínima para completar esa puerta, conservando el trabajo ya probado.
 Reversión de activación: retirar SHA revisado; no bajar TLS, borrar ledger,
 resetear checkpoints ni readmitir la misión. La continuación automática permanece
 bloqueada; no se configura schedule ni se afirma operación continua.
+
+## Resultado final de GitHub Actions
+
+Variables configuradas tras revisar e integrar: modo `supabase-session` y SHA
+revisado exacto. Se despachó únicamente hosted-status para la misma misión terminal.
+El job pasó todas las comprobaciones del adaptador (incluida SSL backend) y emitió:
+
+```json
+{"event":"hosted_runner_finished","action":"status","completed":true,"state":"completed"}
+```
+
+La revisión normal estaba bloqueada porque `prevent_self_review=true` y la única
+cuenta iniciadora/revisora era Victoriosas. El propietario **autorizó expresamente
+en el chat una aprobación administrativa excepcional solo del run 43657434746**.
+Se aplicó Start all waiting jobs únicamente a ese environment/run y se dejó
+comentario de alcance en su auditoría. Esta autorización posterior y específica
+es la excepción a la prohibición de bypass indicada en la preparación anterior;
+no es permiso para futuras ejecuciones ni una aprobación automática de Codex.
+Reviewers, prevent_self_review, política main y capacidad administrativa preexistente
+permanecen sin cambios. Un futuro run requiere su propia revisión/autorización.
+
+Después del run: una misión, completed, intento1, checkpoint5, siete eventos de
+auditoría y updated_at idéntico al anterior. El replay local anterior también
+devolvió continuation_skipped sin nuevas escrituras. No se disparó hosted-resume
+desde GitHub ni se afirma recuperación de efectos entre hosts.
+Las claves privadas temporales de transferencia se eliminaron con GPG; no quedan
+secret keys en ese homedir. Los dos secrets siguen en el environment protegido.
+
+La entrada Deployment de GitHub corresponde a `p0c-hosted-ledger`, no a una
+publicación web. Git deployments de Vercel main/rama siguen deshabilitados.
+El ajuste documental de cierre puede cambiar el SHA de main; solo actualizar el
+SHA revisado después de comprobar CI y que los archivos runtime son idénticos a
+0337d47. No ejecutar otro job por ese cambio documental.
