@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada tecnicamente con limites en main f9c6ce68; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada tecnicamente con limites en main 4ceb541; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -24,7 +24,7 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Orden local ya ejecutada:** `alignment-audit-20261105` y `diseno` tienen procedencia/custodia de proyecto identificada, búsqueda de consumidores y preservación cifrada con recuperación en memoria de745/405 archivos verificada por un proceso nuevo. Historias Git completas cifradas y validación strict dry-run; ningún original modificado. Ignorados, autoría humana y recuperación offsite no certificados: ambos CONSERVAR, sin propuesta de eliminación. [Veredicto P0](audits/P0_RECONCILIATION_REVIEW_20261114.md).
 
-**Disposición de los gates P0 en este candidato:** la minimización quedó integrada por #236. El riesgo residual de metadatos en commits históricos queda registrado con conservación de historia y recursos; no se afirma purga ni ausencia de secretos en todo el historial. El heartbeat existente fue alineado y releído en la transición previa, sin que eso demuestre una ejecución programada; esta corrección no lo modifica. Los cierres externos de17 PR se registraron por decisión del propietario: conservar ramas/heads disponibles, no reabrir PR ni recrear la rama remota ausente por inferencia. Ignorados y recuperación offsite no certificados mantienen los recursos en CONSERVAR, sin impedir el cierre técnico limitado de P0 en esta propuesta. No repetir reconciliaciones sin cambio de evidencia ni abrir otro supervisor.
+**Disposición integrada de los gates P0:** la minimización quedó integrada por #236. El riesgo residual de metadatos en commits históricos queda registrado con conservación de historia y recursos; no se afirma purga ni ausencia de secretos en todo el historial. El heartbeat existente fue alineado y releído en la transición previa, sin que eso demuestre una ejecución programada; esta corrección no lo modifica. Los cierres externos de17 PR se registraron por decisión del propietario: conservar ramas/heads disponibles, no reabrir PR ni recrear la rama remota ausente por inferencia. Ignorados y recuperación offsite no certificados mantienen los recursos en CONSERVAR, sin impedir el cierre técnico limitado de P0 ya integrado. No repetir reconciliaciones sin cambio de evidencia ni abrir otro supervisor.
 
 **Retiradas futuras, fuera de esta orden:** mantener como CONSERVAR los recursos de propietario/consumidor incierto. Antes de una eliminación expresamente autorizada, clasificar también ignorados y verificar una recuperación acorde al fallo que se pretende tolerar; la prueba DPAPI en esta máquina no certifica recuperación ante pérdida de perfil/equipo. No borrar exportaciones sin Git, refs, caches compartidas o worktrees por falta de uso observado.
 
@@ -36,19 +36,19 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Rollback:** revertir solo esta propuesta documental por PR; conservar árbol ajeno, refs y bases cloud. No limpiar metadatos prunable por iniciativa propia.
 
-**Evidencia de cierre:** #235 y #236 integradas, manifiesto minimizado, fuentes preservadas y recuperación en memoria documentada; #237 conserva la transición técnica revisable. **P0 CERRADA CON LÍMITES en este candidato**, con los recursos de recuperación incompleta retenidos. Main conserva su fase registrada hasta una integración autorizada de la transición. Este cierre no certifica recuperación offsite, recepción del heartbeat ni culminación de la fase de producto F0.
+**Evidencia de cierre:** #235 y #236 integradas, manifiesto minimizado, fuentes preservadas y recuperación en memoria documentada; #237 integró la transición técnica. **P0 CERRADA CON LÍMITES en main tras #237**, con los recursos de recuperación incompleta retenidos. #238 integra la observación runtime/CLI en main 4ceb541; P1 sigue parcial. Este cierre no certifica recuperación offsite, recepción del heartbeat ni culminación de la fase de producto F0.
 
 ## P1 - Consolidacion del nucleo Autopilot - ACTIVA, PARCIAL
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
-**Dependencias:** cierre técnico limitado de P0 en esta propuesta y revisión del código conservado de #234 dentro de la misma PR #237. No reabrir #234 ni duplicar su implementación. Verificar main y CI del head exacto antes de considerar una integración autorizada.
+**Dependencias:** cierre técnico limitado de P0 y supervisor #237 ya integrados; observación runtime/CLI #238 integrada en main 4ceb541. Conservar #234 y sus refs; no reabrir ni duplicar. Cada incremento P1 requiere revisión y CI de su propio SHA antes de una integración autorizada.
 
 **Reutilizar:** permanentSupervisor de #234; missionRuntime, executorAdapter, missionPlanner, sixAgentPersistence, LocalMissionStore y CloudMissionStore. Retener DevelopmentLedger únicamente para su laboratorio acotado.
 
 **Cambios mínimos:** validar entradas externas al supervisor en runtime; mapear estados de tarea/checkpoint/lease explícitamente; ligar observación a ID, binding, versión, fase y evidencia verificable. Resolver la observación de state inesperado y running sin lease sin crear otro reconciliador. Mantener propuesta de resume separada de permiso de ejecutar. Describir el adaptador de observación antes de habilitar cualquier efecto.
 
-**Incremento de #237:** función pura y adaptador de lectura `LocalMissionStore.status()` con binding/fase proporcionados por el llamador; `enabled` solo admite booleanos primitivos y un valor inválido no llega a leer el host. **P1 sigue incompleta:** el adaptador aún no está montado como consumidor operativo de `PersistentMissionOrchestrator` ni prueba el contrato completo supervisor→runtime→ledger/claim SQL. Esa integración y su verificador independiente permanecen dentro de P1; no son un avance a P2 ni permiso para dispatch.
+**Incremento de #237:** función pura y adaptador de lectura `LocalMissionStore.status()` con binding/fase proporcionados por el llamador; `enabled` solo admite booleanos primitivos y un valor inválido no llega a leer el host. **P1 sigue incompleta:** #238 ya monta la observación read-only en `PersistentMissionOrchestrator` y CLI; todavía no acredita el contrato completo de autorización de ejecución y verificación independiente supervisor→runtime→ledger. Esa integración y su verificador independiente permanecen dentro de P1; no son un avance a P2 ni permiso para dispatch.
 
 **Pruebas:** entradas desconocidas/booleanos falsificados, estado blocked/retry_wait/ready_to_complete, lease activa/expirada, versión antigua, prioridades y fase no autorizada, misión terminal, evidencia ausente; casos de componente y SQL aislado. Ningún estado desconocido puede producir dispatch. Verify y CI por SHA.
 
@@ -160,16 +160,24 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Cierre:** acta operativa con versiones, permisos, responsables, pruebas, riesgos residuales, coste y decisión humana. Solo entonces evaluar el siguiente objetivo dentro de PROJECT_DIRECTION.
 
-## Decision de transicion P0 a P1 (candidata, 14/11/2026 UY)
+## Historia: decisión de transición P0 a P1 (propuesta del 14/11/2026 UY; integrada por #237)
 
 PR #236 integrada en main ce1027e5. Los recursos con recuperacion incompleta permanecen CONSERVAR; evidencia DPAPI CurrentUser verificada en memoria pero no offsite ni archivos ignorados. Metadatos de auditoria minimizados en el arbol vigente, versiones historicas accesibles; no se confirmo fuga de credenciales en revision acotada, no se purga historia ni se elimina respaldo. El heartbeat de Codex victoriosa-autopilot-6h mantiene identidad, estado ACTIVE, intervalo de seis horas y destino; solo el prompt local fue sustituido, verificado mediante relectura y copia anterior cifrada; NO esta demostrado que un run programado haya recargado el prompt. Estos limites son riesgos conservados que no obligan a borrar recursos ni rehacer auditorias generales. No cierran las puertas de producto F0-F8.
 
-Unica prioridad nueva P1: recuperar de #234 el supervisor puro e introducir adaptacion explicita a estados verificables del runtime, evitando propose_resume ante datos arbitrarios, sin reivindicar integracion operativa SQL/cloud. La transicion P0 a P1 solo sera vigente en main cuando esta PR pase revision y CI y se fusione; no activar dispatch.
+Texto histórico de la propuesta, superado por las integraciones #237/#238; no es una orden pendiente. Unica prioridad entonces propuesta P1: recuperar de #234 el supervisor puro e introducir adaptacion explicita a estados verificables del runtime, evitando propose_resume ante datos arbitrarios, sin reivindicar integracion operativa SQL/cloud. La transicion P0 a P1 solo sera vigente en main cuando esta PR pase revision y CI y se fusione; no activar dispatch.
 
-## Incremento P1 de observacion runtime (candidato 15/11/2026)
+## Historia: observación runtime (propuesta del 15/11/2026; integrada por #238)
 
-Main f9c6ce68 contiene el supervisor puro PR237. En esta propuesta, PersistentMissionOrchestrator ofrece inspeccion estrictamente read-only de una mision sintetica F0: valida ID, usa la funcion preservada decidePermanentObjectiveForLocalStore, binding del host y estado SQL de LocalMissionStore/CloudMissionStore. El comando existente mission:local supervise expone la decision sin cargar payload de usuarios, claim, dispatch, replay, checkpoint ni efecto. La fase F0 se fija en el host y no se lee del texto de la mision.
+Texto histórico, integrado por #238 en main4ceb541; no volver a implementar. Main f9c6ce68 contenía el supervisor puro PR237. En esa propuesta, PersistentMissionOrchestrator ofrece inspeccion estrictamente read-only de una mision sintetica F0: valida ID, usa la funcion preservada decidePermanentObjectiveForLocalStore, binding del host y estado SQL de LocalMissionStore/CloudMissionStore. El comando existente mission:local supervise expone la decision sin cargar payload de usuarios, claim, dispatch, replay, checkpoint ni efecto. La fase F0 se fija en el host y no se lee del texto de la mision.
 
 Pruebas focalizadas RED/GREEN cubren lectura unica, binding/ID negativos, failed/retry y completed sin auto-certificacion; se agrega asercion de SQL PostgreSQL aislado comparando status, attempts, checkpoint version y auditoria antes/despues de la inspeccion. Los tests SQL, verify y CI se reportan por SHA final en la PR. Esta observacion no constituye el consumidor operativo que autorice claim, ni certifica cierre P1, P2, nube o heartbeat periodico.
 
 Siguiente unico trabajo P1 tras este incremento: contrato de autorizacion y verificacion independiente antes de claims mediante runtime/ledger existentes, sin segundo scheduler ni ejecucion por lectura de status.
+
+## Incremento P1 · autorización de claim (15/11/2026, propuesta)
+
+Sobre main4ceb541, una autorización del host distinta de la observación permite solicitar un único claim sintético fresco mediante los componentes existentes. No se conecta al CLI ni a un scheduler. Identidad por instancia, faseF0, binding, objetivo, revisión y vigencia se comprueban antes; objetivo/versiones/fecha/estado queued se comparan bajo row lock en la misma transacción que local_mission_claim. El ledger sigue controlando token, lease, fencing, intentos y auditoría. Dos candidatos concurrentes no pueden obtener dos claims de esa misión.
+
+La API devuelve únicamente claim/validación de identidad y un contexto sin permisos de ejecución. No devuelve escrituras ni finalización. No constituye autorización para un efecto, autenticación criptográfica de un ejecutor remoto ni operación alojada. La revisión vigente del callback no está transaccionalmente almacenada con SQL: ligar revocación y autorización de efectos durables es la siguiente carencia de P1, junto con atestación independiente antes de completar. P1 parcial, P2 inactiva.
+
+Pruebas: RED de falta de consulta de autorización; regresiones de caducidad/revocación/booleanos/instancia/concurrencia local; PostgreSQL18 desechable con denegación, objetivo/versión/cancelación cambiados y un solo claim. Resultados numéricos y CI exacta en el checkpoint y la única PR del incremento. Rollback: revertir el incremento de esta PR; preservar ledger, grants inciertos y recursos; el camino CLI manual anterior y supervise no se cambian.

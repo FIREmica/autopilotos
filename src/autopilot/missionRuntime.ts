@@ -3,8 +3,9 @@ import type { AgentId } from './sixAgentControlPlane';
 import type { ExecutorAdapter, ExecutorContext, MissionCheckpoint, MissionLedger, MissionOrchestrator, MissionSpecification } from './executorAdapter';
 import { claimPersistedMissionTask, completePersistedTask, failPersistedTask, saveMissionCheckpoint, type ClaimedAgentTask } from './sixAgentPersistence';
 import { authorizedObjective, PlanPolicyError, safeObservation, validatePlanProposal, type MissionPlanner, type PlanProposal } from './missionPlanner';
-import { missionId, type LocalMissionStore } from './localMissionStore';
+import { missionId, LocalMissionStore } from './localMissionStore';
 import { decidePermanentObjectiveForLocalStore, type SupervisorDecision } from './permanentSupervisor';
+import { createMissionClaimGuard, type MissionClaimAuthorization } from './missionAuthorization';
 
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -120,6 +121,24 @@ export function createMissionLedger(client: SupabaseClient, permissions: readonl
 }
 
 export class PersistentMissionOrchestrator implements MissionOrchestrator {
+  /** Opt-in host construction only; supervise/CLI/schedulers never invoke this. */
+  static async authorizedPermanentMissionClaim(
+    store: LocalMissionStore, grant: MissionClaimAuthorization, runId: string,
+    executor: ExecutorAdapter,
+    verifyAuthorization: (grant: Readonly<MissionClaimAuthorization>) => Promise<boolean>,
+  ): Promise<Pick<MissionLedger, 'claimMission' | 'authorizeExecutor'>> {
+    if (store.constructor!==LocalMissionStore) throw Error('mission_authorization_scope_mismatch');
+    const guard=createMissionClaimGuard(grant,executor,verifyAuthorization);
+    await guard.authorizeExecutor(executor);
+    // Observation remains a proposal. Only an independent host policy can permit a claim.
+    const decision=await this.inspectPermanentMission(store,guard.expected.missionId,guard.expected.binding);
+    if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
+      throw Error('mission_not_fresh_for_authorization');
+    // A claim grant carries NO execution capability and exposes no write/completion methods.
+    // A later P1 increment must independently authorize effects and attest completion.
+    const ledger=createMissionLedger(store.client(guard.expected.missionId,runId,guard),[]);
+    return {claimMission:agent=>ledger.claimMission(agent),authorizeExecutor:candidate=>guard.authorizeExecutor(candidate)};
+  }
   /**
    * Read-only operational observation of a bound synthetic mission.
    * Reuses the LocalMissionStore/CloudMissionStore status query against the same
@@ -143,6 +162,8 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
   async runMission(executor: ExecutorAdapter, agentId: AgentId, signal?: AbortSignal): Promise<void> {
     signal = signal ? AbortSignal.any([signal, AbortSignal.timeout(this.deadlineMs)]) : AbortSignal.timeout(this.deadlineMs);
     signal?.throwIfAborted();
+    if (this.ledger.authorizeExecutor) await bounded(()=>this.ledger.authorizeExecutor!(executor),signal);
+    signal.throwIfAborted();
     const context = await this.ledger.claimMission(agentId);
     signal.throwIfAborted();
     if (!context) return;

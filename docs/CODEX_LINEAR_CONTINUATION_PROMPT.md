@@ -22,11 +22,13 @@ Lee los permisos de la orden y los del usuario vigente. Una autorización histó
 
 Recupera primero una operación propia pendiente y verifica si ya ocurrió antes de repetir. Compara checkpoint, ledger, GitHub y efectos. Un resultado externo incierto exige reconciliación; nunca envíes de nuevo por suponer fallo. Una misión terminal se conserva y no se readmite.
 
-Identifica `linear_phase` en el JSON y contrástala con el plan. Solo una fase P0–P6 está activa. Actualmente la base del contrato es **P0 reconciliación**; revalida su estado en la sesión nueva. Las F0–F8 del producto siguen su orden y no se dan por completas por avanzar una P. Si JSON/plan/código se contradicen, conserva evidencia y resuelve esa contradicción dentro de la misma fase antes de desarrollar.
+Identifica `linear_phase` en el JSON y contrástala con el plan. Solo una fase P0–P6 está activa. La fase vigente se recupera del JSON y se contrasta con main; las referencias históricas a P0 no la sustituyen. Las F0–F8 del producto siguen su orden y no se dan por completas por avanzar una P. Si JSON/plan/código se contradicen, conserva evidencia y resuelve esa contradicción dentro de la misma fase antes de desarrollar.
 
 Busca issues, PR, ramas y cambios locales equivalentes antes de crear trabajo. Retoma la propuesta existente si corresponde. No crees otro supervisor, ledger, scheduler, plan maestro ni cadena de automatización. Los dos proyectos Supabase tienen fines separados: principal `jfjzpwlrhzqbcrvqxhzf` y ledger aislado `juyowvmtluxfetgkckjd`; no mezcles sus datos ni permisos.
 
 Elige una tarea verificable de la fase activa y escribe: objetivo, evidencia que falta, archivos/recursos permitidos, permisos, criterios de aceptación, pruebas, límite/coste y rollback. Si hay un bloqueo, registra la dependencia y trabaja en su resolución dentro de esa misma fase; usa tareas independientes de la fase cuando sean seguras. No saltes a una fase posterior para evitar una puerta pendiente.
+
+Determina la primera dependencia técnica no satisfecha de la fase activa. Corrige primero seguridad/integridad y contradicciones runtime/ledger/checkpoint; después completa la siguiente capacidad reutilizando código existente. Ejecuta y verifica las decisiones técnicas rutinarias seguras sin esperar una nueva indicación humana. Continúa dentro de la misma fase mientras permisos y entorno lo permitan; una integración o efecto que requiera autorización específica se prepara para revisión y no se ejecuta por autonomía general.
 
 ### 3. Ejecutar, verificar y revisar
 

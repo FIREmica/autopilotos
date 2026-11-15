@@ -93,6 +93,8 @@ export interface ModelProvider {
 }
 
 export interface MissionLedger {
+  /** Optional host policy gate; checked before any claim, never selected by a task. */
+  authorizeExecutor?(executor: ExecutorAdapter): Promise<void>;
   claimMission(agentId: AgentId): Promise<ExecutorContext | null>;
   saveCheckpoint(
     context: ExecutorContext,

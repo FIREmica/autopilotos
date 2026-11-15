@@ -6,6 +6,11 @@ import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { randomUUID } from 'node:crypto';
+import { LocalMissionStore, type LocalMissionStatus } from '../src/autopilot/localMissionStore';
+import { ManagedProcesses } from '../src/autopilot/managedProcesses';
+import { PersistentMissionOrchestrator } from '../src/autopilot/missionRuntime';
+import type { LocalMissionConfig } from '../src/autopilot/localMissionConfig';
 const database=process.env.OPERATOR_TEST_DATABASE_URL;
 const exec=promisify(execFile);
 test('standalone operator CLI proves admission execution supervision cancellation and persistent relaunch',
@@ -54,5 +59,55 @@ test('standalone operator CLI proves admission execution supervision cancellatio
       decision:{goalId:'permanent-objective',missionId:normalMissionId,action:'verify',
         reason:'completion_evidence_missing'}});
     assert.equal(await snapshot(),beforeSupervisor,'supervisor inspection must not mutate SQL ledger');
+    // Same local SQL ledger; authorization comes from a separate host callback.
+    const hostConfig=JSON.parse(await readFile(config,'utf8')) as LocalMissionConfig;
+    const managed=new ManagedProcesses(); const savedPassword=process.env.PGPASSWORD;
+    process.env.PGPASSWORD=decodeURIComponent(url.password);
+    try {
+      const store=new LocalMissionStore(hostConfig,managed);
+      const objective={version:1,kind:'synthetic.ensure_verified_artifact',expected:'canonical_synthetic_result',
+        restrictions:['local_synthetic_only','no_network','no_send'],resources:['synthetic_worktree','result_artifact','verification_fixture'],
+        acceptance:['artifact_matches','synthetic_test_passed'],limits:{maxReplans:1,maxSteps:8}};
+      const executor={executorId:'synthetic-authorization-test',execute:async()=>{throw Error('must_not_execute');}};
+      const authorize=async(id:string,verify=async()=>true)=>PersistentMissionOrchestrator.authorizedPermanentMissionClaim(store,{
+        id:'synthetic-grant',revision:1,missionId:id,binding:store.binding,phase:'F0',executorId:executor.executorId,
+        goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+30000,
+      },randomUUID(),executor,verify);
+      const untouched=(s:LocalMissionStatus)=>({state:s.state,attempts:s.attempts,version:s.checkpointVersion,audit:s.audit});
+      const denied='synthetic-auth-denied'; await store.admit({id:denied,objective});
+      const baseline=untouched(await store.status(denied));
+      await assert.rejects(authorize(denied,async()=>false),/mission_authorization_denied/);
+      assert.deepEqual(untouched(await store.status(denied)),baseline);
+      for (const [suffix,change] of [
+        ['goal',"input=jsonb_set(input,'{objective,limits,maxSteps}','7')"],
+        ['version','mission_checkpoint_version=mission_checkpoint_version+1'],
+        ['mission',"mission_id='synthetic-foreign-mission'"],
+        ['goal-version',"input=jsonb_set(input,'{goal_version}','2')"],
+        ['cancel',"status='blocked',mission_checkpoint=jsonb_set(mission_checkpoint,'{mission_state}','\"cancelled\"')"],
+      ]) {
+        const id=`synthetic-auth-${suffix}`;await store.admit({id,objective});
+        const ledger=await authorize(id);
+        await runSql(`update public.agent_tasks set ${change} where id='${id}'`);
+        const before=untouched(await store.status(id));
+        await assert.rejects(ledger.claimMission('software'),/claim_failed/);
+        assert.deepEqual(untouched(await store.status(id)),before,'stale authorization must not mutate ledger');
+      }
+      const id='synthetic-auth-race';await store.admit({id,objective});
+      const ledgers=await Promise.all([authorize(id),authorize(id)]);
+      const claims=await Promise.allSettled(ledgers.map(ledger=>ledger.claimMission('software')));
+      assert.equal(claims.filter(r=>r.status==='fulfilled' && r.value!==null).length,1);
+      for (const claim of claims) if(claim.status==='fulfilled' && claim.value) assert.deepEqual(claim.value.permissions,[]);
+      for (const ledger of ledgers) {
+        assert.equal('saveCheckpoint' in ledger,false);
+        assert.equal('completeMission' in ledger,false);
+      }
+      const state=await store.status(id);assert.equal(state.attempts,1);
+      assert.equal(state.audit.filter((e:unknown)=>(e as {event:string}).event==='mission_authorized_claim').length,1);
+      for(const ledger of ledgers) await assert.rejects(ledger.claimMission('software'),/claim_failed/);
+      assert.equal((await store.status(id)).attempts,1);
+    } finally {
+      if(savedPassword===undefined) delete process.env.PGPASSWORD; else process.env.PGPASSWORD=savedPassword;
+      await managed.close();
+    }
     console.log(result.stdout.trim());
   });
