@@ -1532,3 +1532,14 @@ Acción: se registran los resultados en docs/CODEX_CONTINUATION.json y aquí, en
 Límites: no hubo misión/claim, SQL local/alojado, dispatch, envío, merge, deploy ni gasto; no hay efecto incierto que conciliar. Callback y verificador continúan in-process, sin revocación atómica durable ni identidad remota demostrada. Sin permiso para integrar o activar P2. Rollback: revertir únicamente el checkpoint si hiciera falta; preservar la candidata y su historia.
 
 Siguiente paso: recuperar SHA del hijo documental, reviews y CI exacta; actualizar el body de la misma PR con esos resultados. Mantenerla en draft. Si aparecen comentarios, resolver dentro de PR #240 con pruebas y CI del SHA final. Sin revisión/autorización humana no integrar, desplegar, ejecutar SQL alojado ni activar CLI/scheduler/P2; sin novedades, registrar BLOQUEADO/SIN CAMBIOS.
+## 2026-11-15 17:57 UTC - P1: verificación exacta de CI y continuidad
+
+Estado: orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 técnica / F0 producto. origin/main sigue en 44dbaeeb6384740da81db2357fb003c7de42d33b. PR #240 está abierta, draft, mergeable, sin reviews ni merge; el head previo a este checkpoint es baa8d4e00a51516234f83c3393458c424689987b. Worktree aislado y branch remota sincronizados antes de la edición.
+
+CI del SHA exacto baa8d4e00a51516234f83c3393458c424689987b: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Vercel Preview Comments SUCCESS sin feedback pendiente. Supabase Preview SKIPPED al no haber branch vinculada; no demuestra integración alojada. Estos resultados no se heredan por el commit documental de esta entrada.
+
+Operación de push conciliada: el primer intento falló al resolver github.com antes de conectar. La lectura de GitHub confirmó que PR/remote seguían en 625214f; luego el push normal fast-forward completó y ls-remote confirmó baa8d4e. No se usó force push. Se actualizan el JSON y este registro en la misma PR. No se cambió código ni se repitieron pruebas: la evidencia local vigente del código sigue focal 27/27, lint, verify y diff-check exitosos.
+
+Límites: no hubo misión, claim, SQL, dispatch, envío, merge, deploy ni gasto. No existe efecto externo incierto pendiente. P1 sigue parcial; callbacks/verificador in-process no demuestran revocación durable atómica ni identidad remota. Sin permiso para integrar ni activar P2.
+
+Siguiente paso: verificar SHA real y checks exactos del hijo documental; sincronizar el body de PR #240 con la evidencia del head final. Mantener la draft. Si no hay review/comentarios, registrar BLOQUEADO/SIN CAMBIOS y esperar la barrera humana; si aparecen, corregir en la misma PR y revalidar. No ejecutar SQL alojado, dispatch, CLI/scheduler, merge, deploy o P2.
