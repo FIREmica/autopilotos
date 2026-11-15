@@ -35,7 +35,7 @@ export function decidePermanentObjective(
   if (goals.length > 100 || observations.length > 100) throw Error('supervisor_budget_exceeded');
   const seen = new Set<string>();
   for (const goal of goals) {
-    if (!validId(goal.id) || !validId(goal.missionId) || !Number.isSafeInteger(goal.priority) || goal.priority < 0 || goal.priority > 1000 || typeof goal.phase !== 'string' || !/^F[0-8]$/.test(goal.phase))
+    if (!goal || typeof goal.enabled !== 'boolean' || !validId(goal.id) || !validId(goal.missionId) || !Number.isSafeInteger(goal.priority) || goal.priority < 0 || goal.priority > 1000 || typeof goal.phase !== 'string' || !/^F[0-8]$/.test(goal.phase))
       throw Error('invalid_supervisor_goal');
     if (seen.has(goal.id)) throw Error('duplicate_supervisor_goal');
     seen.add(goal.id);
@@ -49,7 +49,7 @@ export function decidePermanentObjective(
       throw Error('invalid_supervisor_observation');
     missions.set(observation.missionId, observation);
   }
-  const goal = [...goals].filter(g => g.enabled).sort((a,b) => a.priority-b.priority || a.id.localeCompare(b.id))[0];
+  const goal = [...goals].filter(g => g.enabled === true).sort((a,b) => a.priority-b.priority || a.id.localeCompare(b.id))[0];
   if (!goal) return null;
   const obs = missions.get(goal.missionId);
   const decision = (action: SupervisorDecision['action'], reason: string): SupervisorDecision =>

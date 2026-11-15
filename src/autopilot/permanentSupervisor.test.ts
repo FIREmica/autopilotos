@@ -116,3 +116,31 @@ test('invalid goal phase rejected before accessing store',async()=>{
   await assert.rejects(decidePermanentObjectiveForLocalStore([{...goal,phase:'F9'}],store,binding,'F0'),/invalid_supervisor_goal/);
   assert.equal(reads,0);
 });
+
+const forgedEnabledValues: unknown[] = ['false', 'true', '', 0, 1, null, undefined, [], {}, new Boolean(false)];
+
+test('enabled accepts only primitive booleans before selecting an objective', () => {
+  for (const enabled of forgedEnabledValues) {
+    assert.throws(
+      () => decidePermanentObjective([{ ...goal, enabled } as never], []),
+      /invalid_supervisor_goal/,
+    );
+  }
+  assert.equal(decidePermanentObjective([{ ...goal, enabled: false }], []), null);
+  assert.equal(decidePermanentObjective([{ ...goal, enabled: true }], [])?.action, 'inspect');
+});
+
+test('forged or disabled enabled flags cannot reach the host status reader', async () => {
+  let reads = 0;
+  const store = { binding, status: async (_id: string) => { reads++; return { ...baseStatus }; } };
+  for (const enabled of forgedEnabledValues) {
+    await assert.rejects(
+      decidePermanentObjectiveForLocalStore([{ ...goal, enabled } as never], store, binding, 'F0'),
+      /invalid_supervisor_goal/,
+    );
+  }
+  assert.equal(await decidePermanentObjectiveForLocalStore([{ ...goal, enabled: false }], store, binding, 'F0'), null);
+  assert.equal(reads, 0);
+  assert.equal((await decidePermanentObjectiveForLocalStore([goal], store, binding, 'F0'))?.action, 'wait');
+  assert.equal(reads, 1);
+});

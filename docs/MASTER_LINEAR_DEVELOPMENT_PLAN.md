@@ -24,7 +24,7 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Orden local ya ejecutada:** `alignment-audit-20261105` y `diseno` tienen procedencia/custodia de proyecto identificada, búsqueda de consumidores y preservación cifrada con recuperación en memoria de745/405 archivos verificada por un proceso nuevo. Historias Git completas cifradas y validación strict dry-run; ningún original modificado. Ignorados, autoría humana y recuperación offsite no certificados: ambos CONSERVAR, sin propuesta de eliminación. [Veredicto P0](audits/P0_RECONCILIATION_REVIEW_20261114.md).
 
-**Gates actuales de revisión:** validar y revisar la minimización de inventarios, aceptar explícitamente el límite de metadatos ya publicados en commits históricos y decidir sobre la [alineación preparada del heartbeat](P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md), cuyo contrato ya se integró en main por una fusión externa de #235. La automatización no se modificó. Durante la orden se observaron cierres externos de las17 PR inicialmente abiertas, incluida #234: heads conservados localmente y en un pack cifrado,16 ramas remotas aún presentes; la rama Dependabot no aparece. **Decisión explícita del propietario ya registrada:** registrar los cierres y conservar las ramas/heads disponibles; no reabrir PR ni recrear la rama remota ausente por esta decisión. No repetir las reconciliaciones anteriores si los hashes siguen intactos ni abrir un segundo supervisor.
+**Disposición de los gates P0 en este candidato:** la minimización quedó integrada por #236. El riesgo residual de metadatos en commits históricos queda registrado con conservación de historia y recursos; no se afirma purga ni ausencia de secretos en todo el historial. El heartbeat existente fue alineado y releído en la transición previa, sin que eso demuestre una ejecución programada; esta corrección no lo modifica. Los cierres externos de17 PR se registraron por decisión del propietario: conservar ramas/heads disponibles, no reabrir PR ni recrear la rama remota ausente por inferencia. Ignorados y recuperación offsite no certificados mantienen los recursos en CONSERVAR, sin impedir el cierre técnico limitado de P0 en esta propuesta. No repetir reconciliaciones sin cambio de evidencia ni abrir otro supervisor.
 
 **Retiradas futuras, fuera de esta orden:** mantener como CONSERVAR los recursos de propietario/consumidor incierto. Antes de una eliminación expresamente autorizada, clasificar también ignorados y verificar una recuperación acorde al fallo que se pretende tolerar; la prueba DPAPI en esta máquina no certifica recuperación ante pérdida de perfil/equipo. No borrar exportaciones sin Git, refs, caches compartidas o worktrees por falta de uso observado.
 
@@ -36,17 +36,19 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Rollback:** revertir solo esta propuesta documental por PR; conservar árbol ajeno, refs y bases cloud. No limpiar metadatos prunable por iniciativa propia.
 
-**Evidencia de cierre:** informe de consolidación actualizado, SHA/PR/CI exactos y decisión trazable sobre los cambios exclusivos. Actualmente PREPARADO, no cerrado: consumidores/recuperación de recursos locales aún incompletos.
+**Evidencia de cierre:** #235 y #236 integradas, manifiesto minimizado, fuentes preservadas y recuperación en memoria documentada; #237 conserva la transición técnica revisable. **P0 CERRADA CON LÍMITES en este candidato**, con los recursos de recuperación incompleta retenidos. Main conserva su fase registrada hasta una integración autorizada de la transición. Este cierre no certifica recuperación offsite, recepción del heartbeat ni culminación de la fase de producto F0.
 
 ## P1 - Consolidacion del nucleo Autopilot - INICIADA EN CANDIDATO
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
-**Dependencias:** P0 cerrada; revisión de #234 y main actual. No fusionar #234 solo por tener ocho pruebas verdes.
+**Dependencias:** cierre técnico limitado de P0 en esta propuesta y revisión del código conservado de #234 dentro de la misma PR #237. No reabrir #234 ni duplicar su implementación. Verificar main y CI del head exacto antes de considerar una integración autorizada.
 
 **Reutilizar:** permanentSupervisor de #234; missionRuntime, executorAdapter, missionPlanner, sixAgentPersistence, LocalMissionStore y CloudMissionStore. Retener DevelopmentLedger únicamente para su laboratorio acotado.
 
 **Cambios mínimos:** validar entradas externas al supervisor en runtime; mapear estados de tarea/checkpoint/lease explícitamente; ligar observación a ID, binding, versión, fase y evidencia verificable. Resolver la observación de state inesperado y running sin lease sin crear otro reconciliador. Mantener propuesta de resume separada de permiso de ejecutar. Describir el adaptador de observación antes de habilitar cualquier efecto.
+
+**Incremento de #237:** función pura y adaptador de lectura `LocalMissionStore.status()` con binding/fase proporcionados por el llamador; `enabled` solo admite booleanos primitivos y un valor inválido no llega a leer el host. **P1 sigue incompleta:** el adaptador aún no está montado como consumidor operativo de `PersistentMissionOrchestrator` ni prueba el contrato completo supervisor→runtime→ledger/claim SQL. Esa integración y su verificador independiente permanecen dentro de P1; no son un avance a P2 ni permiso para dispatch.
 
 **Pruebas:** entradas desconocidas/booleanos falsificados, estado blocked/retry_wait/ready_to_complete, lease activa/expirada, versión antigua, prioridades y fase no autorizada, misión terminal, evidencia ausente; casos de componente y SQL aislado. Ningún estado desconocido puede producir dispatch. Verify y CI por SHA.
 

@@ -1,3 +1,13 @@
+# P1 · correcciones de revisión de PR237 · 15/11/2026
+
+Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114; misma PR237, sin nueva rama/PR. Padre revisado cd407e1 tenía validate/postgres/CodeQL/browser aprobados; los checks del head corregido se verifican aparte por SHA. No se afirma CI nueva por herencia del padre.
+
+enabled exige booleano primitivo y selección ===true. Las dos regresiones fallaron antes del arreglo; después22/22 focalizadas y npm run verify538/538, sin fallos/omisiones, tipos/skills/builds/API aprobados. Flags falsificados y false real no alcanzan el lector de status. No cambia autoridad de claims o dispatch.
+
+Checkpoint y plan coinciden: P0 técnica CERRADA CON LÍMITES en el candidato; P1 es el único incremento de esta propuesta. Main mantiene su fase registrada hasta integración autorizada. El consumidor operativo supervisor→PersistentMissionOrchestrator→ledger/claim SQL y su verificador siguen pendientes de P1. No se inicia P2 ni se promete recuperación offsite/heartbeat ejecutado.
+
+Siguiente: revisar correcciones y CI exacta de PR237; no auto-merge ni fusión por iniciativa propia. Luego continuar P1 dentro de la misma secuencia. Sin SQL alojado, producción, envíos, automatización, eliminación de recursos ni cambios al apoyo local100c7df. Las entradas siguientes son históricas y no sustituyen esta orden.
+
 # Decisión del propietario · cierres externos registrados
 
 Respuesta explícita: registrar los cierres externos y conservar las ramas. Decisión P0-EXTERNAL-CLOSURES-REGISTERED guardada en el mismo checkpoint/manifiesto. Mantener estados CLOSED y preservar refs/heads disponibles; no reabrir PR ni recrear la rama remota ausente169. Sus17 heads/refs locales y pack cifrado permanecen como evidencia de conservación. Este punto deja de ser decisión pendiente; P0 sigue activa y conserva los demás gates de privacidad/revisión/heartbeat.
