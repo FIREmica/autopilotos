@@ -1449,3 +1449,9 @@ PR #236 integrada en main ce1027e5; los dos worktrees QA y sus ramas/heads cifra
 ### Evidencia de candidato P1 (misma fase/orden)
 
 Fuente recuperada: PR234 head 3ce7fdf; se reutilizan permanentSupervisor.ts, test y documento. Nuevo adaptador solo consulta LocalMissionStore.status una vez y valida binding/fase; estados inesperados, booleanos y versiones falsificados rechazados, lease sin vigencia no coordina ejecucion. Una fila completed no se considera evidencia independiente; failed/retry_wait no autorizan replay. 20/20 pruebas focales, lint TypeScript aprobado. npm run verify aprobado con 534/534 y ambos builds antes de introducir la ultima guardia de fase; despues se aprobaron pruebas focales y tsc. CI final por SHA todavia pendiente. No hay SQL remoto, dispatch, deploy, merge ni ejecucion automatica confirmada.
+
+## 2026-11-15 - P1: integracion de observacion runtime read-only
+
+PR237 fusionada en main f9c6ce68; la unica orden es ORD-P1-SUPERVISOR-ADAPTER-20261114. Candidato aislado anade PersistentMissionOrchestrator.inspectPermanentMission con LocalMissionStore.status y CLI supervise, F0 fijo, binding y ID obligatorios; decision informativa, nunca claim, dispatch, resume, checkpoint ni envio. RED/GREEN en tres pruebas nuevas; lint aprobado; prueba PG desechable de ausencia de mutacion anadida. La verificacion completa/CI del head final se documentara en PR. P1 sigue parcial; no P2, SQL alojado, produccion ni nuevo scheduler. Heartbeat ya alineado localmente, ejecucion programada no observada. Los respaldos e historia P0 siguen conservados.
+
+Validacion incremental: tres pruebas nuevas de observacion RED/GREEN, npm run verify exit0 con 541/541 tests, cero fallos y omitidas; tipos, skills, ambos builds y smoke API aprobados. PostgreSQL de operador aislado se comprobara en CI por SHA final; no afirmar ejecucion local PG alojada. P1 continua parcial y en PR revisable.

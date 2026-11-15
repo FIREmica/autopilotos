@@ -14,8 +14,8 @@ const emit = (event: object) => process.stdout.write(`${JSON.stringify(event)}\n
 async function main() {
   const [command, ...rest] = process.argv.slice(2);
   if (command === '--help') { emit({ commands: ['init --config FILE','admit --config FILE --request FILE',
-    'run --config FILE --id ID','resume --config FILE --id ID','status --config FILE --id ID','cancel --config FILE --id ID'], scope: 'local_synthetic_only' }); return; }
-  if (!['init','admit','run','resume','status','cancel'].includes(command)) throw Error('invalid_command');
+    'run --config FILE --id ID','resume --config FILE --id ID','status --config FILE --id ID','supervise --config FILE --id ID','cancel --config FILE --id ID'], scope: 'local_synthetic_only' }); return; }
+  if (!['init','admit','run','resume','status','supervise','cancel'].includes(command)) throw Error('invalid_command');
   const args: Record<string,string> = {};
   for (let i = 0; i < rest.length; i += 2) {
     if (!['--config','--request','--id'].includes(rest[i]) || !rest[i+1] || args[rest[i]]) throw Error('invalid_arguments');
@@ -36,6 +36,10 @@ async function main() {
     }
     const id = missionId(args['--id']);
     if (command === 'status') { emit({ event:'status', mission:await control.status(id) }); return; }
+    if (command === 'supervise') {
+      const decision = await PersistentMissionOrchestrator.inspectPermanentMission(control, id, control.binding);
+      emit({ event:'supervisor_decision', readOnly:true, scope:'F0_local_synthetic', decision }); return;
+    }
     if (command === 'cancel') { const changed=await control.cancel(id); emit({ event:'cancellation', changed, mission:await control.status(id) }); return; }
     if (!config.permissions.execute) throw Error('host_permission_required');
     const before = await control.status(id); // Reject unknown/unbound tasks before spawning any executor.

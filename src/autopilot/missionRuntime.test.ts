@@ -89,3 +89,41 @@ test('deadline stops a nonresponsive adapter without accepting subsequent writes
     assert.deepEqual(events, []);
   } finally { clearTimeout(keepAlive); }
 });
+
+
+test('P1 supervisor runtime reads only one host-bound ledger status', async () => {
+  let reads=0;
+  const binding='synthetic-bound-ledger-verified';
+  const store={
+    binding,
+    status: async (id:string) => {
+      reads++;
+      assert.equal(id,'synthetic-runtime-check');
+      return { id, queueState:'running', state:'in_progress', reason:null,
+        runId:'fake-run', leaseActive:true, attempts:1, maxAttempts:2,
+        checkpointVersion:3, planVersion:1, checkpoint:{mission_state:'in_progress'},
+        plans:[],audit:[] };
+    },
+  };
+  const result=await PersistentMissionOrchestrator.inspectPermanentMission(store,'synthetic-runtime-check',binding);
+  assert.deepEqual(result,{goalId:'permanent-objective',missionId:'synthetic-runtime-check',action:'wait',reason:'active_owner'});
+  assert.equal(reads,1);
+});
+test('P1 supervisor runtime refuses unbound or invalid IDs without reading', async () => {
+  let reads=0;
+  const binding='synthetic-bound-ledger-verified';
+  const store={binding,status:async()=>{reads++;throw Error('unexpected_read')}};
+  await assert.rejects(PersistentMissionOrchestrator.inspectPermanentMission(store,'synthetic-bounded','incorrect-binding-value'),/supervisor_binding_mismatch/);
+  await assert.rejects(PersistentMissionOrchestrator.inspectPermanentMission(store,'synthetic-..-invalid',binding),/invalid_mission_id/);
+  assert.equal(reads,0);
+});
+test('P1 supervisor runtime refuses replay on unverified retry or completion', async () => {
+  const binding='synthetic-bound-ledger-verified';
+  const status={id:'synthetic-runtime-check',queueState:'failed',state:'retry_wait',reason:'interrupted',runId:null,
+    leaseActive:false,attempts:1,maxAttempts:2,checkpointVersion:3,planVersion:1,
+    checkpoint:{mission_state:'retry_wait'},plans:[],audit:[]};
+  const store={binding,status:async()=>status};
+  assert.equal((await PersistentMissionOrchestrator.inspectPermanentMission(store,status.id,binding))?.action,'inspect');
+  status.queueState='completed';status.state='completed';status.checkpoint={mission_state:'completed'};
+  assert.equal((await PersistentMissionOrchestrator.inspectPermanentMission(store,status.id,binding))?.action,'verify');
+});

@@ -36,5 +36,23 @@ test('standalone operator CLI proves admission execution supervision cancellatio
       {env,windowsHide:true,timeout:140000,maxBuffer:65536});
     const evidence=JSON.parse(await readFile(output,'utf8'));assert.equal(evidence.cases.length,6);assert.equal(evidence.unattendedStart,false);
     assert.equal(evidence.cases[1].effectsReconciled,true);assert.equal(evidence.cases[3].childTerminated,true);assert.equal(evidence.cases[4].childTerminated,true);
+    // The supervisor observes the same host-bound SQL ledger as the operator.
+    // Inspection never claims, updates the checkpoint, changes attempts or emits messages.
+    const normalMissionId: string = evidence.cases[0].mission.id;
+    assert.match(normalMissionId,/^synthetic-cli-normal-[a-z0-9-]+$/);
+    const snapshot=async()=>runSql(`select json_build_object('status',t.status,
+      'attempts',t.attempt_count,'version',t.mission_checkpoint_version,
+      'audit',(select count(*) from public.agent_audit_events a where a.task_id=t.id)
+      ) from public.agent_tasks t where t.id='${normalMissionId}'`);
+    const beforeSupervisor=await snapshot();
+    const observed=await exec(process.execPath,
+      ['--import','tsx',fileURLToPath(new URL('../scripts/autopilot-mission.ts',import.meta.url)),
+        'supervise','--config',config,'--id',normalMissionId],
+      {env,windowsHide:true,timeout:20000});
+    const event=JSON.parse(observed.stdout.trim());
+    assert.deepEqual(event,{event:'supervisor_decision',readOnly:true,scope:'F0_local_synthetic',
+      decision:{goalId:'permanent-objective',missionId:normalMissionId,action:'verify',
+        reason:'completion_evidence_missing'}});
+    assert.equal(await snapshot(),beforeSupervisor,'supervisor inspection must not mutate SQL ledger');
     console.log(result.stdout.trim());
   });
