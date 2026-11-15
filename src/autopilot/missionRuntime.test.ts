@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { missionFromTask, PersistentMissionOrchestrator } from './missionRuntime';
 import { SyntheticMissionExecutor, SYNTHETIC_GOAL, SYNTHETIC_PLAN } from './syntheticMissionExecutor';
-import type { ExecutorContext, MissionLedger } from './executorAdapter';
+import type { ExecutorAdapter, ExecutorContext, MissionLedger } from './executorAdapter';
 
 function context(): ExecutorContext {
   return { mission: { missionId: 'synthetic-unit', goal: SYNTHETIC_GOAL, goalVersion: 1, planVersion: 1,
@@ -70,6 +70,51 @@ test('recovery after ready checkpoint completes without invoking the executor ag
   const { ledger, events } = ledgerFor(candidate);
   await new PersistentMissionOrchestrator(ledger).runMission({ executorId: 'replacement', execute: async () => { throw Error('must not execute'); } }, 'software');
   assert.deepEqual(events, ['complete']);
+});
+test('effect denial after execution stops before checkpoint write', async () => {
+  const candidate = context(); candidate.mission.plan = [{ id: 'prepare', depends_on: [], task: 'synthetic.prepare' }];
+  const { ledger, events } = ledgerFor(candidate);
+  const authorization = ledger as MissionLedger & { authorizeEffect: (executor: ExecutorAdapter, context: ExecutorContext, effect: { kind: string; operationId: string; stepId?: string }) => Promise<readonly string[]> };
+  authorization.authorizeEffect = async (_executor, _context, effect) => {
+    events.push(`authorize:${effect.kind}`);
+    if (effect.kind === 'write_checkpoint') throw Error('mission_effect_authorization_denied');
+    return effect.kind==='execute_step'?['synthetic_worktree']:[];
+  };
+  authorization.attestCompletion = async () => ({});
+  const checkpoint = { mission_state: 'ready_to_complete' as const, current_step_id: null,
+    completed_steps: ['prepare'], pending_steps: [],
+    results: [{ step_id: 'prepare', status: 'passed' as const, summary: 'synthetic verification' }],
+    artifacts: [], test_evidence: ['prepare:verified'], worktree: { branch: 'synthetic', sha: 'a'.repeat(40) } };
+  await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission({ executorId: 'synthetic-unit',
+    execute: async () => { events.push('execute'); return { checkpoint, events: [], evidence: [] }; } }, 'software'),
+  /mission_effect_authorization_denied/);
+  assert.deepEqual(events, ['authorize:execute_step', 'execute', 'authorize:write_checkpoint']);
+});
+test('post-claim policy revocation blocks the executor before it can run', async () => {
+  const candidate=context(); const {ledger,events}=ledgerFor(candidate);
+  const guarded=ledger as MissionLedger & {
+    authorizeEffect:(executor:ExecutorAdapter,context:ExecutorContext,effect:{kind:string;operationId:string;stepId?:string})=>Promise<readonly string[]>;
+    attestCompletion:(executor:ExecutorAdapter,context:ExecutorContext)=>Promise<unknown>;
+  };
+  guarded.authorizeEffect=async(_executor,_context,effect)=>{events.push(`authorize:${effect.kind}`);throw Error('mission_effect_authorization_denied');};
+  guarded.attestCompletion=async()=>({});
+  await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission({executorId:'synthetic-unit',
+    execute:async()=>{events.push('execute');throw Error('must_not_execute');}},'software'),/mission_effect_authorization_denied/);
+  assert.deepEqual(events,['authorize:execute_step']);
+});
+test('ready_to_complete recovery requires an independent verifier before completion', async () => {
+  const candidate = context(); candidate.checkpoint.mission_state = 'ready_to_complete';
+  const { ledger, events } = ledgerFor(candidate);
+  const guarded = ledger as MissionLedger & {
+    authorizeEffect: (executor: ExecutorAdapter, context: ExecutorContext, effect: { kind: string; operationId: string }) => Promise<readonly string[]>;
+    attestCompletion: (executor: ExecutorAdapter, context: ExecutorContext) => Promise<unknown>;
+  };
+  guarded.authorizeEffect = async (_executor, _context, effect) => { events.push(`authorize:${effect.kind}`); return []; };
+  guarded.attestCompletion = async () => { events.push('attest'); throw Error('mission_completion_unverified'); };
+  await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission({ executorId: 'synthetic-unit',
+    execute: async () => { events.push('execute'); throw Error('must not execute'); } }, 'software'),
+  /mission_completion_unverified/);
+  assert.deepEqual(events, ['authorize:attest_completion', 'attest']);
 });
 test('abort stops the host before any task claim', async () => {
   const { ledger, events } = ledgerFor(context());

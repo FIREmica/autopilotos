@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createMissionClaimGuard } from './missionAuthorization';
+import { createAuthorizedMissionLedger, createMissionClaimGuard, createMissionEffectGuard } from './missionAuthorization';
 import { PersistentMissionOrchestrator } from './missionRuntime';
-import type { ExecutorAdapter, MissionLedger } from './executorAdapter';
+import type { ExecutorAdapter, ExecutorContext, MissionLedger } from './executorAdapter';
 
 const objective = { version: 1, kind: 'synthetic.ensure_verified_artifact', expected: 'canonical_synthetic_result',
   restrictions: ['local_synthetic_only','no_network','no_send'], resources: ['synthetic_worktree','result_artifact','verification_fixture'],
@@ -61,4 +61,100 @@ test('runtime checks ledger authorization before claiming or invoking an executo
     claimMission:async()=>{claims++;return null;} } as unknown as MissionLedger;
   await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission(executor,'software'),/mission_authorization_denied/);
   assert.equal(claims,0);
+});
+
+test('every post-claim effect is bound to the live policy revision and exact operation',async()=>{
+  let revision=1; let allowed=true;
+  const context={mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective},
+    checkpointVersion:0,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'queued' as const,completed_steps:[],pending_steps:[],results:[],artifacts:[],test_evidence:[]}};
+  const guard=createMissionEffectGuard(grant(),executor,async(_grant,_context,effect)=>({
+    allowed,revision,operationId:effect.operationId,permissions:effect.kind==='execute_step'?['synthetic_worktree']:[],
+  }),{verifierId:'synthetic-verifier',verify:async()=>true});
+  await guard.beforeEffect(executor,context,{kind:'execute_step',operationId:'synthetic:effect:1',stepId:'prepare'});
+  revision++;
+  await assert.rejects(guard.beforeEffect(executor,context,{kind:'write_checkpoint',operationId:'synthetic:effect:2'}),/mission_effect_authorization_denied/);
+  revision--;
+  allowed=false;
+  await assert.rejects(guard.beforeEffect(executor,context,{kind:'write_checkpoint',operationId:'synthetic:effect:3'}),/mission_effect_authorization_denied/);
+  await assert.rejects(guard.beforeEffect({...executor},context,{kind:'execute_step',operationId:'synthetic:effect:4',stepId:'prepare'}),/mission_effect_authorization_denied/);
+  const substituted=structuredClone(context); substituted.mission.goalVersion=2; allowed=true;
+  await assert.rejects(guard.beforeEffect(executor,substituted,{kind:'execute_step',operationId:'synthetic:effect:5',stepId:'prepare'}),/mission_effect_authorization_denied/);
+});
+
+test('effect authorization that crosses grant expiry fails closed',async()=>{
+  const expiring={...grant(),expiresAt:Date.now()+120};
+  const context={mission:{missionId:expiring.missionId,goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective},
+    checkpointVersion:0,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'queued' as const,completed_steps:[],pending_steps:[],results:[],artifacts:[],test_evidence:[]}};
+  const guard=createMissionEffectGuard(expiring,executor,async(_grant,_context,effect)=>{
+    await new Promise(resolve=>setTimeout(resolve,150)); return {allowed:true,revision:expiring.revision,operationId:effect.operationId,
+      permissions:effect.kind==='execute_step'?['synthetic_worktree']:[]};
+  },{verifierId:'synthetic-verifier',verify:async()=>true});
+  await assert.rejects(guard.beforeEffect(executor,context,{kind:'execute_step',operationId:'synthetic:expiry:1',stepId:'prepare'}),/mission_effect_authorization_denied/);
+});
+
+test('completion requires a distinct verifier and a one-use context-bound attestation',async()=>{
+  const context={mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective},
+    checkpointVersion:3,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'ready_to_complete' as const,completed_steps:['prepare'],pending_steps:[],
+      results:[{step_id:'prepare',status:'passed' as const,summary:'verified'}],artifacts:[],test_evidence:['prepare:verified']}};
+  const decision=async(_grant:unknown,_context:unknown,effect:{operationId:string})=>({allowed:true,revision:1,operationId:effect.operationId,permissions:[]});
+  assert.throws(()=>createMissionEffectGuard(grant(),executor,decision,{verifierId:executor.executorId,verify:async()=>true}),/invalid_mission_effect_authorization/);
+  assert.throws(()=>createMissionEffectGuard({...grant(),expiresAt:Date.now()-1},executor,decision,{verifierId:'synthetic-verifier',verify:async()=>true}),/invalid_mission_authorization/);
+  const unverified=createMissionEffectGuard(grant(),executor,decision,{verifierId:'synthetic-verifier',verify:async()=>false});
+  await assert.rejects(unverified.attestCompletion(context),/mission_completion_unverified/);
+  const malformed=structuredClone(context);
+  malformed.checkpoint.results.push({step_id:'prepare',status:'passed',summary:'duplicate'});
+  const rejectsMalformed=createMissionEffectGuard(grant(),executor,decision,{verifierId:'synthetic-verifier',verify:async()=>true});
+  await assert.rejects(rejectsMalformed.attestCompletion(malformed),/mission_completion_unverified/);
+  const guard=createMissionEffectGuard(grant(),executor,decision,{verifierId:'synthetic-verifier',verify:async snapshot=>snapshot.checkpoint.mission_state==='ready_to_complete'});
+  const token=await guard.attestCompletion(context);
+  const changed={...context,checkpointVersion:4};
+  assert.throws(()=>guard.consumeAttestation(changed,token),/mission_completion_attestation_required/);
+  guard.consumeAttestation(context,token);
+  assert.throws(()=>guard.consumeAttestation(context,token),/mission_completion_attestation_required/);
+});
+
+test('authorized ledger gates direct writes and persists only independent one-use completion evidence',async()=>{
+  const context:ExecutorContext={mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective},
+    checkpointVersion:3,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'ready_to_complete',completed_steps:['prepare'],pending_steps:[],
+      results:[{step_id:'prepare',status:'passed',summary:'verified'}],artifacts:[],test_evidence:['prepare:verified']}};
+  const writes:string[]=[];
+  const base:MissionLedger={claimMission:async()=>context,saveCheckpoint:async()=>true,
+    completeMission:async(_context,evidence)=>{writes.push(evidence);},failMission:async()=>{}};
+  const effectGuard=createMissionEffectGuard(grant(),executor,async(_grant,_context,effect)=>({
+    allowed:true,revision:1,operationId:effect.operationId,permissions:effect.kind==='execute_step'?['synthetic_worktree']:[],
+  }),{verifierId:'synthetic-verifier',verify:async snapshot=>snapshot.checkpoint.mission_state==='ready_to_complete'});
+  assert.throws(()=>createAuthorizedMissionLedger(base,executor,grant(),effectGuard,'unverified-verifier'),/mission_completion_verifier_mismatch/);
+  const ledger=createAuthorizedMissionLedger(base,executor,grant(),effectGuard,'synthetic-verifier');
+  await assert.rejects(ledger.completeMission(context,'executor-supplied-evidence'),/mission_completion_attestation_required/);
+  const token=await ledger.attestCompletion!(executor,context);
+  await ledger.completeMission(context,'executor-supplied-evidence',token);
+  assert.deepEqual(writes,['independent:synthetic-verifier:synthetic-grant:1:3']);
+  await assert.rejects(ledger.completeMission(context,'replay',token),/mission_completion_attestation_required/);
+  assert.equal(writes.length,1);
+});
+
+test('policy revocation between attestation and completion prevents the ledger write',async()=>{
+  let allowed=true; const writes:string[]=[];
+  const context:ExecutorContext={mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective},
+    checkpointVersion:3,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'ready_to_complete',completed_steps:['prepare'],pending_steps:[],
+      results:[{step_id:'prepare',status:'passed',summary:'verified'}],artifacts:[],test_evidence:['prepare:verified']}};
+  const base:MissionLedger={claimMission:async()=>context,saveCheckpoint:async()=>true,
+    completeMission:async(_context,evidence)=>{writes.push(evidence);},failMission:async()=>{}};
+  const effectGuard=createMissionEffectGuard(grant(),executor,async(_grant,_context,effect)=>({
+    allowed,revision:1,operationId:effect.operationId,permissions:effect.kind==='execute_step'?['synthetic_worktree']:[],
+  }),{verifierId:'synthetic-verifier',verify:async()=>true});
+  const ledger=createAuthorizedMissionLedger(base,executor,grant(),effectGuard,'synthetic-verifier');
+  const token=await ledger.attestCompletion!(executor,context); allowed=false;
+  await assert.rejects(ledger.completeMission(context,'untrusted',token),/mission_effect_authorization_denied/);
+  assert.deepEqual(writes,[]);
 });

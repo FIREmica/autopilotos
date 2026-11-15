@@ -1,27 +1,35 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T04:06:06.542231+00:00",
-  "execution_id": "codex-p1-claim-authorization-20261115",
+  "updated_at": "2026-11-15T11:42:26.619Z",
+  "execution_id": "codex-p1-per-effect-authorization-20261115",
   "repository": {
-    "branch": "codex/p1-authorization-20261115",
-    "head_sha": "01e717d226b8c51760d55da5f86c83ed7e677bd3",
-    "base_sha": "4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34",
-    "worktree": "WORKTREE:p1-authorization-20261115",
-    "note": "Reviewed application commit before this documentation-only PR reference update. Resolve the containing commit and final exact CI at PR239 head; do not inherit main or prior-head CI.",
-    "pr_number": 239,
-    "pr_url": "https://github.com/Victoriosas/autopilot/pull/239"
+    "branch": "codex/p1-per-effect-authorization-20261115",
+    "head_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
+    "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
+    "worktree": "C:/autopilot-worktrees/p1-per-effect-authorization-20261115",
+    "note": "Candidato local preparado sobre origin/main verificada; SHA de main es el padre. Reemplazar head_sha por el commit candidato y registrar PR/CI solo después de publicarlos y verificarlos.",
+    "pr_number": null,
+    "pr_url": null
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Contrato independiente de autorización para un claim sintético fresco en el runtime y ledger existentes.",
+    "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
-    "last_verified_step": "PR238 merged in main 4ceb541; parent 888cbda and main validate/postgres/CodeQL SUCCESS. Claim-only host grant and atomic scoped SQL claim implemented and tested locally; candidate CI must be verified by its own SHA. Local focused39/39 and verify547/547 with types/builds/API passed; preceding payment-file failure retained as unconfirmed transient evidence.",
+    "last_verified_step": "PR239 integrada en main 44dbaeeb6384740da81db2357fb003c7de42d33b; validate/postgres/CodeQL y demás checks relevantes de PR239 verificados en su head exacto. Candidato local añade autorización por operación, permiso sintético local, contexto y checkpoint validados, y atestación de verificador distinto y de un solo uso. RED/GREEN focal 25/25, npm run lint y npm run verify 555/555 aprobados; CI del nuevo SHA aún pendiente.",
     "limits": [
-      "Only a fresh queued synthetic F0 claim is authorized; no execution permissions or checkpoint/completion methods are returned.",
-      "Host verifier and executor instance are trusted in-process dependencies, not remote identity certification. SQL atomically checks expiry, objective, binding and versions; external policy revocation after the last callback is not atomically coupled to SQL.",
-      "Per-effect authorization, durable policy revision/revocation and independent effect/finalization attestation remain P1 work. No CLI dispatch, scheduler or P2 activation."
+      "Autorización y verificador son callbacks host in-process; no certifican identidad remota ni se revocan atómicamente con SQL.",
+      "Solo operaciones sintéticas locales: execute_step puede recibir únicamente synthetic_worktree con local_synthetic_only, no_network y no_send; no dispatch externo, red ni envío.",
+      "La nueva fábrica de runtime no está conectada al CLI ni a un scheduler. El claim SQL, lease, token, fencing y ledger existentes se reutilizan; no se creó otro ledger/cola/scheduler.",
+      "P1 permanece parcial y P2 inactiva. No hubo ejecución de misión, SQL alojado, merge, deploy ni operación con clientes."
+    ],
+    "acceptance_criteria": [
+      "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
+      "Ningún permiso fuera de synthetic_worktree para ejecutar un paso; sin red/envío.",
+      "Finalización requiere resultados completos, únicos y aprobados, evidencia suficiente y verificador host distinto; atestación vinculada al contexto y consumida una sola vez antes de completar.",
+      "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
+      "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ]
   },
   "completed_operations": [
@@ -104,6 +112,10 @@
     {
       "operation": "Reconcile PR238 merge and prove independent claim authorization",
       "detection": "Remote main 4ceb541; read-only runtime/CLI is merged, not a pending PR. RED missing authorization rejection reproduced; fresh scoped claim rejects denial, stale objective/version/cancellation and duplicate claim in PostgreSQL18 disposable local lab."
+    },
+    {
+      "operation": "Continuar ORD-P1-SUPERVISOR-ADAPTER-20261114 con autorización por efecto y atestación independiente",
+      "detection": "Worktree aislado sobre main 44dbae; RED reproduce denegación post-claim y completion sin verificador, más checkpoint terminal duplicado. GREEN focal 25/25, lint aprobado y verify 555/555 aprobado. Sin efecto remoto/SQL/dispatch."
     }
   ],
   "evidence_refs": [
@@ -134,47 +146,53 @@
     "src/autopilot/missionAuthorization.ts",
     "src/autopilot/missionAuthorization.test.ts",
     "tests/mission-operator-postgres.test.ts",
-    "https://github.com/Victoriosas/autopilot/pull/239"
+    "https://github.com/Victoriosas/autopilot/pull/239",
+    "src/autopilot/executorAdapter.ts",
+    "src/autopilot/localMissionStore.ts",
+    "src/autopilot/missionRuntime.ts",
+    "src/autopilot/missionRuntime.test.ts"
   ],
   "blockers": [
-    "Candidate review and exact-head CI are required before any authorized integration.",
-    "P1 closure requires independent execution/effect authorization and completion attestation, including policy changes after claim; claim-only grant is insufficient."
+    "El callback de autorización/revocación y el verificador son in-process; la política durable no está ligada atómicamente con SQL y la identidad remota no está acreditada.",
+    "Falta review y CI validate/postgres/CodeQL/checks relevantes por el SHA final de esta propuesta.",
+    "Sin permiso para merge, deploy, SQL alojado, CLI/scheduler dispatch o P2."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Contrato independiente de autorización para un claim sintético fresco en el runtime y ledger existentes.",
+    "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "worktree aislado, sin escritores compartidos, main verificado",
+    "environment": "worktree aislado codex/p1-per-effect-authorization-20261115 sobre origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b",
     "dependencies": [
-      "PR237 and PR238 already merged; main 4ceb541 verified.",
-      "Use the existing runtime, mission ledger, LocalMissionStore and supervisor; no equivalent queue or scheduler.",
-      "Current candidate is claim-only and local disposable lab only; CloudMissionStore is explicitly rejected."
+      "PR237, #238 y #239 ya están integradas; la candidata de claim-only #239 no se debe recrear.",
+      "Reutilizar runtime, MissionLedger, LocalMissionStore, SQL claim/lease/fencing y supervisor; no duplicar cola/scheduler/ledger.",
+      "Permiso vigente: código/pruebas/docs locales y una PR draft; sin merge, hosted SQL, producción, clientes, gastos, cambios a automatización ni P2."
     ],
+    "acceptance_criteria": [
+      "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
+      "Ningún permiso fuera de synthetic_worktree para ejecutar un paso; sin red/envío.",
+      "Finalización requiere resultados completos, únicos y aprobados, evidencia suficiente y verificador host distinto; atestación vinculada al contexto y consumida una sola vez antes de completar.",
+      "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
+      "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
+    ],
+    "next_action": "Publicar una sola PR draft para el worktree existente; reconciliar número/head en este JSON y AUTOPILOT_STATE en la misma PR; comprobar validate, postgres, CodeQL y checks relevantes del SHA final exacto. Mantener revisión humana requerida y P1 parcial; después, primera dependencia futura es revocación/autorización durables atómicas con SQL e identidad/verificación fuera de proceso. No conectar CLI/scheduler ni activar P2.",
     "permissions": {
       "status": "bounded",
-      "scope": "Local reversible synthetic code/tests/docs and one draft PR. No merge, hosted SQL, production, customer messages, paid services, automation changes, pre-existing resource deletion or P2."
-    },
-    "acceptance_criteria": [
-      "Independent strict-boolean host approval before a scoped fresh claim; supervisor observation cannot grant it.",
-      "Executor instance, phase, binding, objective, expiry and checkpoint/plan/goal versions checked; atomic SQL snapshot and one successful concurrent claim.",
-      "Claim grants no execution permission or completion methods; no automatic dispatch or P2.",
-      "Local regressions, verify and exact candidate SHA CI pass, followed by review."
-    ],
-    "next_action": "Review this claim-only candidate and its exact-head CI. Preserve one PR. After specifically authorized integration, continue the same P1 order with independent per-effect execution authorization, revocation and completion attestation; do not activate P2."
+      "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
+    }
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Same P1 order, one checkpoint and existing heartbeat unchanged. Recover branch PR by head name; do not reopen merged PR237/238."
+    "mechanism": "Misma orden P1 y automatización existente. Retomar C:/autopilot-worktrees/p1-per-effect-authorization-20261115; recuperar PR por rama tras crearla. No reabrir #237–#239."
   },
-  "resume_instructions": "Read AGENTS, PROJECT_DIRECTION, linear plan and this JSON. Verify remote main, candidate branch PR/head/CI and writers. Review the claim-only increment, preserve its diff and avoid duplicate PR. Continue ORD-P1-SUPERVISOR-ADAPTER-20261114 only; execution/revocation/independent finalization remain P1, no P2 or remote dispatch.",
+  "resume_instructions": "Leer AGENTS.md, PROJECT_DIRECTION, plan, prompt y este JSON. Confirmar main, rama/head, PR y CI exactos y escritores. Revisar el candidato único por efecto. No repetir ejecución/SQL ni afirmar dispatch; la revocación durable/atómica y la identidad remota siguen pendientes. Continuar la misma orden P1; P2 permanece inactiva.",
   "supervision": {
-    "verdict": "P1_CLAIM_ONLY_CANDIDATE_REVIEW_REQUIRED",
-    "scope": "Host-independent policy callback and atomic local synthetic claim; no execution capability, attestation or P1 closure.",
-    "evidence": "PR238 integrated, RED/GREEN and local disposable PostgreSQL passed. Exact candidate CI is recorded in the candidate PR; main PLAN Cloud continuation remains intentionally fail-closed cloud_ledger_adapter_not_configured."
+    "verdict": "P1_PER_EFFECT_CANDIDATE_REVIEW_REQUIRED",
+    "scope": "Autorización por efecto local sintético y atestación independiente in-process sobre runtime/ledger existentes; no está conectado a CLI/scheduler ni a recursos alojados.",
+    "evidence": "RED/GREEN focal 25/25; lint y npm run verify 555/555 aprobados localmente en worktree aislado. CI del SHA candidato y revisión siguen pendientes. PR239 integrada y no duplicada."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
