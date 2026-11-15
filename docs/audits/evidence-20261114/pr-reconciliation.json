@@ -20,7 +20,11 @@
       "+ 3ce7fdf6f3e7ea955a705f20f771a91ec8cb1f14"
     ],
     "classification": "Requiere investigación",
-    "decision_reason": "Pura y sin integración; 8/8 unitarias. Una observación con state inesperado devuelve propose_resume. Validar frontera runtime antes de conectar."
+    "decision_reason": "Pura y sin integración; 8/8 unitarias. Una observación con state inesperado devuelve propose_resume. Validar frontera runtime antes de conectar.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 229,
@@ -69,7 +73,11 @@
       "+ d666cccfc49f6fea183b1cb5f8e028f839628881"
     ],
     "classification": "En conflicto",
-    "decision_reason": "UI material pendiente; main ya incluye #225–#227. Reconciliar solo la UI y contratos actuales, sin reintroducir lógica anterior."
+    "decision_reason": "UI material pendiente; main ya incluye #225–#227. Reconciliar solo la UI y contratos actuales, sin reintroducir lógica anterior.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 224,
@@ -87,7 +95,11 @@
       "+ 9042122323887939b95ab7c9dc653742e0073517"
     ],
     "classification": "Integrable",
-    "decision_reason": "Solo evidencia histórica de preflight. Integrable documentalmente tras actualizar referencias, no acredita host recuperado."
+    "decision_reason": "Solo evidencia histórica de preflight. Integrable documentalmente tras actualizar referencias, no acredita host recuperado.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 223,
@@ -144,7 +156,11 @@
       "+ e034db1dd1e28f71febd895c19d62d20ff5616bd"
     ],
     "classification": "Dependiente de otra",
-    "decision_reason": "#220; bridge read-only y misma cuenta camelRun/viki. Sin herramientas conectadas hoy."
+    "decision_reason": "#220; bridge read-only y misma cuenta camelRun/viki. Sin herramientas conectadas hoy.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 222,
@@ -211,7 +227,11 @@
       "+ e2f68d2c9be7423755c2b88d4ab5ee579f1bc65c"
     ],
     "classification": "Dependiente de otra",
-    "decision_reason": "#220; gestor de ventanas no sustituye ledger ni garantiza recuperación Windows."
+    "decision_reason": "#220; gestor de ventanas no sustituye ledger ni garantiza recuperación Windows.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 220,
@@ -259,7 +279,11 @@
       "+ 633faa7f9517a6d6edc82158cd125b09a66f6312"
     ],
     "classification": "Dependiente de otra",
-    "decision_reason": "#213; diagnósticos del host, no ejecución recuperada comprobada."
+    "decision_reason": "#213; diagnósticos del host, no ejecución recuperada comprobada.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 219,
@@ -282,7 +306,11 @@
       "+ ca7f4237211ac6e001eaa81a5ee4239f709f8bab"
     ],
     "classification": "En conflicto",
-    "decision_reason": "Evidencia ORD-204G y script con trabajo exclusivo. Conservar; no usar como arranque actual."
+    "decision_reason": "Evidencia ORD-204G y script con trabajo exclusivo. Conservar; no usar como arranque actual.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 213,
@@ -325,7 +353,11 @@
       "+ 15720289647da59c19cc2c19c7f123ee84259a31"
     ],
     "classification": "En conflicto",
-    "decision_reason": "Base del host nativo ORD-204G. Resolver frente al runtime actual antes de #220/#222/#223."
+    "decision_reason": "Base del host nativo ORD-204G. Resolver frente al runtime actual antes de #220/#222/#223.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 202,
@@ -352,7 +384,11 @@
       "+ eb92a0cef9c5d50ea578f4a532e7b56cb600cdab"
     ],
     "classification": "Ya incorporada funcionalmente",
-    "decision_reason": "#204 está en main; ambos archivos de código de la propuesta son idénticos al main observado."
+    "decision_reason": "#204 está en main; ambos archivos de código de la propuesta son idénticos al main observado.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 201,
@@ -398,7 +434,11 @@
       "+ 7da72d3634c378d4cd1f6b41aa99b30f0a6001ce"
     ],
     "classification": "Ya incorporada funcionalmente",
-    "decision_reason": "#204 incorpora 404 y builds separados; 5/7 archivos de código idénticos, restantes evolucionaron. Base formal #200."
+    "decision_reason": "#204 incorpora 404 y builds separados; 5/7 archivos de código idénticos, restantes evolucionaron. Base formal #200.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 200,
@@ -427,7 +467,11 @@
       "+ 039ecf3503cb74b8f7c32b1fd4e8d71b7fa2f72a"
     ],
     "classification": "Ya incorporada funcionalmente",
-    "decision_reason": "#204 incorpora montaje común; src/http/createApp.ts y smoke actual acreditan el comportamiento. Diferencias posteriores no son razón para reintegrar."
+    "decision_reason": "#204 incorpora montaje común; src/http/createApp.ts y smoke actual acreditan el comportamiento. Diferencias posteriores no son razón para reintegrar.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 199,
@@ -451,7 +495,11 @@
       "+ 2607a427d77f3b523de120a2d41ae1f1898b146f"
     ],
     "classification": "En conflicto",
-    "decision_reason": "Guardián F3; cambios exclusivos y base divergente. Revisión semántica focalizada pendiente, no reemplazar main con variante antigua."
+    "decision_reason": "Guardián F3; cambios exclusivos y base divergente. Revisión semántica focalizada pendiente, no reemplazar main con variante antigua.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 198,
@@ -472,7 +520,11 @@
       "+ 9d7edf1cfe90562cad29771738b038f06f7f3696"
     ],
     "classification": "Requiere investigación",
-    "decision_reason": "Evidencia histórica F3; preservar documentos exclusivos. No prueba aprobación completa vigente de 40+6."
+    "decision_reason": "Evidencia histórica F3; preservar documentos exclusivos. No prueba aprobación completa vigente de 40+6.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 169,
@@ -494,7 +546,11 @@
       "+ f9924558237d033cfae7f530524fa72348ea4297"
     ],
     "classification": "En conflicto",
-    "decision_reason": "Git mergeable/behind pero validate FAILURE: migración Express 5 sin contrato verificado. Conflicto técnico, no textual."
+    "decision_reason": "Git mergeable/behind pero validate FAILURE: migración Express 5 sin contrato verificado. Conflicto técnico, no textual.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 124,
@@ -558,7 +614,11 @@
       "+ 253309a253d7c467d1286710c391817a87339d9e"
     ],
     "classification": "Obsoleta",
-    "decision_reason": "Alcance mixto catálogo/correos/agentes histórico, fuera de dirección actual. Tiene trabajo exclusivo; no cerrar ni borrar automáticamente."
+    "decision_reason": "Alcance mixto catálogo/correos/agentes histórico, fuera de dirección actual. Tiene trabajo exclusivo; no cerrar ni borrar automáticamente.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 122,
@@ -594,7 +654,11 @@
       "+ 0623fbc41b1c0aba0a1c6131698acbdb106fd0e5"
     ],
     "classification": "Requiere investigación",
-    "decision_reason": "Precios/Guardián fase2 históricos; hay trabajo exclusivo y conflicto. Tarifas actuales no aprobadas; mantener borrador."
+    "decision_reason": "Precios/Guardián fase2 históricos; hay trabajo exclusivo y conflicto. Tarifas actuales no aprobadas; mantener borrador.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   },
   {
     "number": 90,
@@ -615,6 +679,10 @@
       "+ b12c7da28b7b862d656681465954e48dfa8932b1"
     ],
     "classification": "Obsoleta",
-    "decision_reason": "Preparación social fuera de fase actual. Contenido exclusivo se conserva; no publicar perfiles ni cerrar por antigüedad."
+    "decision_reason": "Preparación social fuera de fase actual. Contenido exclusivo se conserva; no publicar perfiles ni cerrar por antigüedad.",
+    "state_at_p0_followup": "CLOSED",
+    "state_changed_externally": true,
+    "head_unchanged": true,
+    "current_evidence": "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   }
 ]

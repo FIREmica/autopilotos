@@ -209,9 +209,5 @@
       "status": "completed"
     }
   ],
-  "logs_external_to_git": [
-    "C:/autopilot-worktrees/forensic-audit-verify.log",
-    "C:/autopilot-worktrees/forensic-audit-verify-retry.log",
-    "C:/autopilot-worktrees/forensic-public-health.log"
-  ]
+  "logs_preservation": "local evidence retained; raw local paths omitted"
 }

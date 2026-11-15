@@ -1,3 +1,16 @@
+# Continuidad P0 · privacidad y recuperación verificadas · 14/11/2026
+
+Intervención externa posterior: las17 PR inicialmente abiertas, incluida234, se cerraron sin merge durante esta orden;16 ramas remotas siguen presentes, Dependabot169 ausente. Los17 commits/refs locales y un pack de historias cifrado quedaron preservados; no close/merge/delete ni reapertura por esta orden. Decisión pendiente en la siguiente orden P0.
+
+
+ORD-P0-RECONCILE-LOCAL-20261114 ejecutada con límites; P0 sigue activa, sin P1. PR235/head0f2482f se fusionó externamente durante la revisión, mainf2129e9 con validate/postgres/CodeQL SUCCESS; continuation permanece cerrado. Esta orden no fusionó ni promovió producción. La continuación se prepara en rama propia sobre ese main, sin duplicar el supervisor234 ni otras propuestas.
+
+alignment-audit/diseno: propietario de proyecto y custodia Windows contrastados; autor humano de cambios locales no inferido.13/48 paths locales y13/47 blobs no encontrados en main; snapshots cifrados y recuperación en memoria745/405 archivos en proceso nuevo, más historias Git cifradas y validación dry-run sin objetos plaintext. Originales estables. Ignorados y recuperación offsite no certificados; ambos CONSERVAR, sin propuesta de eliminación.
+
+Inventarios públicos minimizados; originales cifrados privados y commits históricos preservados. El cambio no purga la exposición de metadatos anterior. Revisión actual: docs/audits/P0_RECONCILIATION_REVIEW_20261114.md. Heartbeat existente leído/view y texto preparado, sin cambiar prompt/configuración/cadencia/destino/estado: docs/P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md. Contrato ya integrado en main; preparación no equivale a aplicación ni ejecución comprobada.
+
+Siguiente orden única: ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114, revisión de esta remediación/CI por SHA, aceptación del límite histórico y decisión sobre el prompt preparado. Mismo CODEX_CONTINUATION.json. No repetir reconciliación sin cambio de hashes; no eliminar, merge, activar cloud, enviar ni iniciar P1.
+
 # Continuidad · auditoría y cadena lineal · 14/11/2026
 
 F0/N0, fase técnica P0 activa. Auditoría exclusiva `codex/forensic-audit-20261114` desde main remoto `a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c`; SHA contenedor y CI finales se consultan en su PR, no se predice el hash propio del checkpoint. Inventario: 83 rutas únicas, 72 worktrees registrados, 49 ramas remotas y 17 PR abiertas. Se preservan cambios locales (260 entradas en C:/autopilot), backups, sesiones y recursos externos. Marketplace/ExpressJobs son otros repositorios y quedan fuera de limpieza.

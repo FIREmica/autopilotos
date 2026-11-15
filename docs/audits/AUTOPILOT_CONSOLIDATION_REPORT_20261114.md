@@ -1,3 +1,5 @@
+> Informe histórico de la entrega235. Para estado P0 posterior y recuperación probada leer [P0_RECONCILIATION_REVIEW_20261114.md](P0_RECONCILIATION_REVIEW_20261114.md). PR235 se integró externamente; su condición DRAFT y los bloqueos descritos abajo son la captura anterior. El único estado operativo sigue en CODEX_CONTINUATION.json.
+
 # Informe de consolidación · 14/11/2026
 
 America/Montevideo. Base main contrastada: `a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c`. Rama/worktree: `codex/forensic-audit-20261114` / `C:/autopilot-worktrees/forensic-audit-20261114`. El SHA final de entrega se resuelve desde el head de la [PR235 en borrador](https://github.com/Victoriosas/autopilot/pull/235) y su recibo local posterior al commit; el documento no pretende contener su propio hash. No se fusionó ni promovió a producción. El push generó previews automáticos de Vercel; no hubo deploy manual. El recibo distingue sus checks del SHA de producción.

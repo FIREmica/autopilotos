@@ -1,20 +1,25 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T01:19:26.111551+00:00",
-  "execution_id": "codex-forensic-audit-20261114",
+  "updated_at": "2026-11-15T01:57:29.426099+00:00",
+  "execution_id": "codex-p0-privacy-recovery-20261114",
   "repository": {
-    "branch": "codex/forensic-audit-20261114",
-    "head_sha": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
-    "worktree": "C:\\autopilot-worktrees\\forensic-audit-20261114",
-    "note": "SHA contrastado de base/padre documental, no hash propio del commit contenedor; resolver head de PR y CI al recuperar. Producción sigue9d6bbdb."
+    "branch": "codex/p0-privacy-recovery-20261114",
+    "head_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
+    "worktree": "WORKTREE:p0-privacy-recovery-20261114",
+    "worktree_resolution": "Resolve with git worktree list in the authorized repository; do not execute an unresolved logical alias. No profile paths are published.",
+    "note": "Verified main contains PR235; this is the base before the documentary commit, not its own future hash. Read final PR head and CI at recovery."
   },
   "current_order": {
-    "id": "ORD-FORENSIC-LINEAR-20261114",
+    "id": "ORD-P0-RECONCILE-LOCAL-20261114",
     "phase": "F0",
     "linear_phase": "P0",
-    "objective": "Auditar, preservar recursos y consolidar una única cadena técnica documental",
-    "status": "prepared_for_review",
-    "last_verified_step": "83 rutas únicas/72 worktrees/49 ramas/17 PR; verify516/516, metadatos cloud y GET público; CI propia pendiente de publicar/observar."
+    "objective": "Atribuir consumidores/custodia, preservar y verificar recuperación de alignment-audit y diseno; minimizar inventarios publicados",
+    "status": "completed_with_limits",
+    "last_verified_step": "13/48 paths locales, 13/47 blobs ausentes de main; recuperación en memoria en proceso nuevo de745/405 archivos y packs de historia cifrados validados en dry-run. Originales estables, sin eliminación. Inventarios minimizados y heartbeat preparado, no aplicado.",
+    "limits": [
+      "Custodia local y proyecto confirmados; autor humano de cambios sin commit no inferido",
+      "No cobertura de ignorados, offsite/full checkout recovery ni exclusión global de escritores"
+    ]
   },
   "completed_operations": [
     {
@@ -48,6 +53,26 @@
     {
       "operation": "Reconciliar24 fuentes locales cloud y continuidad",
       "detection": "8 iguales a main CRLF normalizado,13 iguales a historia de main y3 solo línea final vacía; evidencia local-cloud-reconciliation.json; sin mutar recursos"
+    },
+    {
+      "operation": "Confirmar PR235/CI y detectar integración externa",
+      "detection": "Head0f2482f con checks requeridos SUCCESS; mergef2129e9 observado externamente; main validate/postgres/CodeQL SUCCESS, continuation cerrado"
+    },
+    {
+      "operation": "Preservar y recuperar dos worktrees sin mutarlos",
+      "detection": "DPAPI CurrentUser; proceso nuevo compara745/405 archivos; historia completa cifrada y unpack-objects -n --strict exit0 sin objetos plaintext escritos"
+    },
+    {
+      "operation": "Minimizar evidencia pública sin borrar historia",
+      "detection": "IDs/alias/conteos en lugar de rutas de perfil, PIDs, plugins y destinos; originales cifrados, versiones previas Git conservadas"
+    },
+    {
+      "operation": "Preparar alineación de heartbeat existente",
+      "detection": "Contrato ya en main; solo view/lectura y texto listo; hash de configuración completa intacto, cadencia/destino/estado sin cambio"
+    },
+    {
+      "operation": "Conservar heads y refs de17 PR cerradas externamente",
+      "detection": "17 commits y refs de seguimiento locales intactos; pack de historias cifrado y strict dry-run exit0;16 ramas remotas presentes, Dependabot169 ausente. Sin close/merge/delete de esta orden."
     }
   ],
   "evidence_refs": [
@@ -65,61 +90,73 @@
     "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
     "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
     "docs/audits/evidence-20261114/verification-summary.json",
-    "docs/audits/evidence-20261114/local-cloud-reconciliation.json"
+    "docs/audits/evidence-20261114/local-cloud-reconciliation.json",
+    "docs/audits/P0_RECONCILIATION_REVIEW_20261114.md",
+    "docs/audits/evidence-20261114/p0-local-recovery-proof.json",
+    "docs/audits/evidence-20261114/p0-target-consumers.json",
+    "docs/audits/evidence-20261114/p0-reference-state.json",
+    "docs/audits/evidence-20261114/p0-heartbeat-preparation.json",
+    "docs/P0_HEARTBEAT_ALIGNMENT_PREPARATION_20261114.md",
+    "docs/audits/evidence-20261114/p0-pending-prs-baseline.json"
   ],
   "blockers": [
-    "P0: falta atribución completa de consumidores/escritores y prueba de respaldo/restauración de cambios locales antes de retirar recursos.",
-    "P0/P1: PR234 sin adaptador runtime y frontera de estados pendiente; no iniciar desarrollo P1 mientras P0 no cierre.",
-    "Continuidad cloud automática y recuperación de efectos entre hosts no demostradas; sin autorización nueva de dispatch."
+    "P0: revisión y CI del SHA final de la remediación documental de privacidad; la evidencia de base no se atribuye al nuevo commit.",
+    "P0: aceptar explícitamente el límite de exposición histórica de metadatos; la minimización actual no purga commits previos.",
+    "P0: alineación del heartbeat PREPARADA, no aplicada por esta solicitud; necesita decisión de aplicación y verificación preservando todos los campos excepto prompt.",
+    "P0: las17 PR inicialmente abiertas fueron cerradas externamente; se conservan17 heads y refs locales,16 refs remotas. Registrar decisión sobre esos cierres sin revertirlos por inferencia."
   ],
-  "next_order_id": "ORD-P0-RECONCILE-LOCAL-20261114",
+  "next_order_id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
   "next_order": {
-    "id": "ORD-P0-RECONCILE-LOCAL-20261114",
+    "id": "ORD-P0-REVIEW-PRIVACY-ALIGN6H-20261114",
     "phase": "F0",
     "linear_phase": "P0",
-    "objective": "Atribuir consumidores/propietario y preservar cambios exclusivos de alignment-audit-20261105 y diseno con recuperación verificable",
-    "status": "ready_read_only",
+    "objective": "Revisar evidencia P0/privacidad, reconciliar decisión sobre cierres externos y decidir aceptación del riesgo histórico y alineación futura del heartbeat preparado",
+    "status": "prepared_for_review",
     "executor": "Codex",
-    "environment": "worktree exclusivo; recursos ajenos solo lectura",
+    "environment": "authorized audit worktree; target worktrees remain read-only",
     "dependencies": [
-      "Revalidar main, heads de PR y estados locales; verificar ámbito sin escritor conflictivo antes de editar.",
-      "Para eliminación: selección explícita, copia cifrada cuando proceda y restauración ensayada."
+      "CI final por SHA y revisión de esta propuesta sin merge autónomo",
+      "Contrato canónico sigue integrado en main; verificar su blob actual al aplicar",
+      "Decisión específica de aplicar el prompt preparado; preparación no equivale a configuración realizada",
+      "Decisión del propietario sobre los cierres externos; no restaurar estado remoto por inferencia."
     ],
     "permissions": {
-      "status": "authorized",
-      "scope": "Lectura y documentación reversible de la auditoría; sin borrados, integración de código, dispatch, SQL remoto, envíos, credenciales ni producción."
+      "status": "bounded",
+      "scope": "Lectura, validación y preparación documental. No P1, eliminación, merge, nuevo scheduler/automatización, cambio de cadencia/destino/estado ni aplicación del prompt por esta orden de preparación."
     },
     "acceptance_criteria": [
-      "Contenido exclusivo y consumidores atribuidos o recurso retenido con incertidumbre explícita",
-      "No pérdida de cambios ni copia de secretos a Git o backup en claro",
-      "Orden única P0 actualizada con evidencia y próxima acción verificable"
+      "Inventario público minimizado con historia residual explícita y evidencia privada cifrada",
+      "Dos recursos conservados con recuperación y límites verificables",
+      "Decisión de revisión registrada en este JSON; si se autoriza aplicar heartbeat, solo prompt cambia y readback confirma todos los otros campos intactos"
     ],
     "idempotency": {
-      "detection": "Comparar hashes de fuentes y estado actual con resources.json antes de repetir; comprobar efecto y checkpoint antes de cualquier acción."
+      "detection": "Comparar heads, hashes de fuentes y configuración; no repetir backup/reconciliación ni actualizar heartbeat si ya coincide con el texto autorizado"
     },
-    "next_action": "Revalidar los13 y48 estados locales del manifiesto, leer diffs selectivos sin mutar los árboles y registrar decisión de conservar/recuperación. No repetir las24 fuentes cloud ya comparadas si sus hashes no cambiaron."
+    "next_action": "Revisar esta propuesta y la preparación de heartbeat, verificar CI del head final, registrar decisión. No ejecutar actualización ni comenzar P1 por la mera integración del contrato."
   },
   "resumption": {
     "status": "manual_verified",
-    "mechanism": "Checkpoint documental único relecturable; CLI/hosted-status históricos no acreditan recuperación de efectos entre hosts ni recepción desatendida de esta rama."
+    "mechanism": "Single documentary checkpoint; local backup recovery proved within explicit scope. Historical heartbeat still unchanged; no unattended receipt of this order claimed."
   },
-  "resume_instructions": "Leer AGENTS/dirección/plan/prompt y este JSON; verificar head publicado, CI exacta, recursos y escritores; continuar P0. No usar autorización puntual43657434746 ni readmitir misión terminal.",
+  "resume_instructions": "Read direction/linear plan/canonical contract and this same JSON; verify main, final PR CI and writers. Continue P0 review order; no repeated local reconciliation if hashes intact, no automatic merge or heartbeat update.",
   "supervision": {
-    "verdict": "INCOMPLETO",
-    "scope": "Consolidación documental preparada; limpieza histórica y cierre P0 no certificados",
-    "evidence": "Inventario/evidencia actual; verificar CI propia después de publicación. No cambios de runtime ni cloud."
+    "verdict": "PREPARADO_PARA_REVISION",
+    "scope": "Orden de reconciliación ejecutada con límites; P0 no declarada cerrada ni P1 activada",
+    "evidence": "p0-target-consumers, p0-local-recovery-proof and heartbeat-preparation; final CI still belongs to the future containing commit"
   },
   "linear_phase": "P0",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
   "continuation_prompt": "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
   "previous_order_close": {
-    "execution_id": "codex-hosted-ledger-cloud-20261114",
-    "current_order": {
-      "id": "ORD-P0C-CLOUD-CONFIG-20261114",
-      "phase": "F0",
-      "objective": "Completar credenciales y verificar compatibilidad cloud del proyecto aislado",
-      "status": "completed",
-      "last_verified_step": "TLS ambos tramos y mision completada/intento1/checkpoint5; cloud hosted-status43657434746 SUCCESS con excepcion administrativa puntual expresamente autorizada por propietario. Politicas permanentes intactas."
-    }
+    "id": "ORD-FORENSIC-LINEAR-20261114",
+    "status": "merged_documentary_result",
+    "reference_pr": 235,
+    "head_sha": "0f2482fab0f04b5fc58e2d7fc94c0e8d12923bda",
+    "merge_sha": "f2129e9dadf73978b91974d26b39fe0bd297dcb7",
+    "merge_performed_by_this_order": false
+  },
+  "deferred_phase_requirements": {
+    "P1": "Revisión e integración segura de P0D existente, no activa ni bloqueo de la reconciliación local",
+    "P3": "Recuperación cloud de efectos entre hosts, no ejecutada ni activada en P0"
   }
 }
