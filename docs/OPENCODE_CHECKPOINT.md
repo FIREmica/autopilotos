@@ -29,3 +29,8 @@ PROBADO: verify exit0 516/516 sin omisiones, tipos/skills/builds/API. Fixture TL
 
 
 Autorizacion expresa posterior del propietario (14/11/2026): admitir una unica mision synthetic-p0c-cloud-check sin envios/produccion, solo despues de resolver TLS y revisar codigo. Permiso concedido; admision aun NO ejecutada. CI de 9af06c3: validate/postgres aprobados; checks del commit documental final en PR.
+
+
+## 2026-11-14 · P0C TLS resuelto y mision alojada completada
+
+Orden expresa solucionalo. La documentacion oficial de SSL Enforcement confirma ambos tramos del pooler; la conclusion previa era incorrecta. Opcion activada unicamente en juyowvmtluxfetgkckjd, reinicio breve, sin produccion. CloudMissionStore real con verify-full y CA conserva guardas y confirma backend_tls=true, rol/binding correctos. Cinco negativos ACL nuevamente denegados. Rotacion cifrada coordinada y secret actualizado sin exponer valor. Mision autorizada synthetic-p0c-cloud-check admitida administrativamente y ejecutada por CLI desde PC contra ledger alojado: completed/intento1/checkpoint5/error null. No es aun ejecucion originada en GitHub. Reporte docs/HOSTED_LEDGER_TLS_RESOLVED_20261114.md. Siguiente: CI final y revision, integrar PR232 sin deploy, configurar SHA/modo y dispatch terminal de la misma ID; respetar revision humana del environment sin bypass.

@@ -1,5 +1,10 @@
 # P0C cloud: credenciales verificadas, transporte operativo bloqueado
 
+> **Bloqueo TLS resuelto posteriormente en esta misma fecha.** El diagnóstico y
+> las mediciones iniciales siguientes se conservan como historial. Véase
+> [HOSTED_LEDGER_TLS_RESOLVED_20261114.md](HOSTED_LEDGER_TLS_RESOLVED_20261114.md):
+> SSL Enforcement habilitado, backend TLS real y misión sintética completed.
+
 Fecha: 14/11/2026 (America/Montevideo). F0/N2, soporte de F1–F4.
 Orden: misión del propietario para completar el ledger alojado y GitHub Actions.
 PR existente: [232](https://github.com/Victoriosas/autopilot/pull/232), sin duplicarla.

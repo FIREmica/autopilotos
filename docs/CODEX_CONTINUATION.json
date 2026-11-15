@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T23:49:49Z",
+  "updated_at": "2026-11-15T00:11:01.931Z",
   "execution_id": "codex-hosted-ledger-cloud-20261114",
   "repository": {
     "branch": "codex/hosted-ledger-20261112",
-    "head_sha": "9af06c3a4901107731ba873134915d749b2f71b0",
+    "head_sha": "acba5f7aee737383b73ef7fede54e963f84e64e9",
     "worktree": "C:/autopilot-worktrees/hosted-ledger-20261112",
-    "note": "Padre verificado del checkpoint con autorizacion sintetica; CI validate/postgres de este padre aprobados. SHA contenedor final en PR232."
+    "note": "Padre verificado del checkpoint TLS resuelto; commit contenedor y CI final en PR232."
   },
   "current_order": {
     "id": "ORD-P0C-CLOUD-CONFIG-20261114",
     "phase": "F0",
     "objective": "Completar credenciales y verificar compatibilidad cloud del proyecto aislado",
-    "status": "blocked",
-    "last_verified_step": "SCRAM y ambos secrets configurados; psql autentica por pooler verify-full, cinco ACL denegadas; backend ssl=false bloqueado. Verify516/516 + fixtureTLS1/1."
+    "status": "pending_environment_review",
+    "last_verified_step": "SSL Enforcement habilitado; CloudMissionStore verify-full backend_tls=true; cinco ACL denegadas; synthetic-p0c-cloud-check completed/intento1/checkpoint5 por CLI PC con ledger alojado."
   },
   "completed_operations": [
     {
@@ -27,6 +27,10 @@
     {
       "operation": "Autorizacion sintetica expresa",
       "detection": "Respuesta del propietario permite synthetic-p0c-cloud-check solo tras resolver TLS y revisar codigo; no admitida aun"
+    },
+    {
+      "operation": "Resolver TLS y ejecutar mision autorizada",
+      "detection": "CloudMissionStore real SSL backend true; CLI y consulta independiente completed intento1 checkpoint5"
     }
   ],
   "evidence_refs": [
@@ -36,24 +40,25 @@
     "tests/cloud-ledger-postgres.test.ts",
     "supabase/staged/hosted_synthetic_ledger_p0c.sql",
     "https://github.com/Victoriosas/autopilot/pull/232",
-    "docs/HOSTED_LEDGER_CLOUD_20261114.md"
+    "docs/HOSTED_LEDGER_CLOUD_20261114.md",
+    "docs/HOSTED_LEDGER_TLS_RESOLVED_20261114.md"
   ],
   "blockers": [
-    "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
-    "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
+    "CI/revision/integracion de PR232 y SHA exacto main antes de dispatch protegido.",
+    "Environment exige revision humana; no usar bypass ni autoaprobar.",
     "Persistencia de artefactos entre hosts no acreditada."
   ],
-  "next_order_id": "ORD-P0C-TLS-REVIEW-20261114",
+  "next_order_id": "ORD-P0C-CLOUD-REPLAY-20261114",
   "next_order": {
-    "id": "ORD-P0C-TLS-REVIEW-20261114",
+    "id": "ORD-P0C-CLOUD-REPLAY-20261114",
     "phase": "F0",
-    "objective": "Resolver ruta TLS sin rebajar seguridad y revisar PR232 antes de mision sintetica",
-    "status": "blocked",
+    "objective": "Integrar candidato probado y verificar conexion cloud con replay terminal de la misma mision",
+    "status": "pending_review",
     "executor": "Codex",
     "environment": "Proyecto aislado autorizado; sin cambios en principal ni activacion",
     "dependencies": [
-      "Directo solo IPv6; Windows sin ruta ::/0. Pooler backend ssl=false rechazado sin relajar guarda.",
-      "PR232 sigue draft sin integrar en main; revision humana y CI SHA final antes de activacion.",
+      "CI/revision/integracion de PR232 y SHA exacto main antes de dispatch protegido.",
+      "Environment exige revision humana; no usar bypass ni autoaprobar.",
       "Persistencia de artefactos entre hosts no acreditada."
     ],
     "permissions": {
@@ -68,16 +73,16 @@
     "idempotency": {
       "detection": "Consultar PR/rama y estado aislado antes de operar; bootstrap rechaza public ocupado"
     },
-    "next_action": "Resolver IPv6 directa o TLS upstream, revisar candidato y despues admitir exclusivamente synthetic-p0c-cloud-check. No fijar SHA ni despachar mientras persista bloqueo."
+    "next_action": "Esperar CI final, revisar e integrar PR232 sin deploy. Configurar modo supabase-session y SHA revisado exacto. Dispatch hosted-resume de synthetic-p0c-cloud-check; revision humana requerida sin bypass."
   },
   "resumption": {
     "status": "unverified",
-    "mechanism": "PLAN Cloud conserva cierre seguro; ningun modo hosted ejecutado"
+    "mechanism": "Ejecucion manual CLI PC con ledger alojado probada; workflow cloud aun pendiente de revision humana."
   },
   "resume_instructions": "Leer AGENTS, direccion, checkpoint P0C, PR y CI por SHA. HEAD base local y commit remoto pueden diferir por conector; preservar diff. Nunca tocar proyecto existente. No activar hosted por existencia del codigo.",
   "supervision": {
-    "verdict": "BLOQUEADO",
-    "scope": "Credenciales y diagnostico aprobados; runtime alojado incompatible con TLS upstream observado",
-    "evidence": "516/516 + fixtureTLS1/1; login real/CA/ACL comprobados; backend sin TLS rechazado"
+    "verdict": "APROBADO",
+    "scope": "Conexion pooler con TLS ambos tramos y mision sintetica alojada, no autorizacion para saltar environment",
+    "evidence": "backend_tls=true, cinco negativos denegados y mision completed/checkpoint5"
   }
 }
