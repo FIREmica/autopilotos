@@ -1,0 +1,234 @@
+{
+  "global": {
+    "present": true,
+    "model": "gpt-6.1-sol",
+    "approval_policy": "never",
+    "sandbox_mode": "danger-full-access",
+    "top_level_keys": [
+      "model",
+      "model_reasoning_effort",
+      "personality",
+      "approval_policy",
+      "sandbox_mode",
+      "service_tier",
+      "notify",
+      "marketplaces",
+      "plugins",
+      "windows",
+      "projects",
+      "features",
+      "memories",
+      "desktop",
+      "mcp_servers",
+      "shell_environment_policy",
+      "hooks",
+      "tui",
+      "sandbox_workspace_write"
+    ],
+    "mcp_servers": {
+      "viki": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "node_repl": {
+        "enabled": true,
+        "transport": "stdio",
+        "env_names": [
+          "NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS",
+          "NODE_REPL_NODE_MODULE_DIRS",
+          "NODE_REPL_NODE_PATH",
+          "NODE_REPL_TRUSTED_CODE_PATHS",
+          "CODEX_HOME",
+          "BROWSER_USE_AVAILABLE_BACKENDS",
+          "BROWSER_USE_TINYSKY_ENABLED",
+          "NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER",
+          "NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME",
+          "BROWSER_USE_CODEX_APP_BUILD_FLAVOR",
+          "BROWSER_USE_CODEX_APP_VERSION",
+          "NODE_REPL_TRUSTED_SERVICES",
+          "SKY_CUA_NATIVE_PIPE",
+          "SKY_CUA_NATIVE_PIPE_DIRECTORY",
+          "CODEX_CLI_PATH",
+          "NODE_REPL_UNTRUSTED_ENV_ALLOWLIST",
+          "NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE"
+        ]
+      },
+      "mercadolibre-mcp-server": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "dsers": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "paw": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "tinyfish": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "camelrun": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      },
+      "victoriosas-supabase": {
+        "enabled": true,
+        "transport": "url",
+        "env_names": []
+      }
+    },
+    "plugins": {
+      "github@openai-curated": {
+        "enabled": true
+      },
+      "expo@openai-curated": {
+        "enabled": true
+      },
+      "cloudinary@openai-curated": {
+        "enabled": true
+      },
+      "canva@openai-curated": {
+        "enabled": true
+      },
+      "vercel@openai-curated": {
+        "enabled": true
+      },
+      "supabase@openai-curated": {
+        "enabled": true
+      },
+      "neon-postgres@openai-curated": {
+        "enabled": true
+      },
+      "chatgpt-apps@openai-curated": {
+        "enabled": true
+      },
+      "openai-developers@openai-curated": {
+        "enabled": true
+      },
+      "google-drive@openai-curated": {
+        "enabled": true
+      },
+      "shopify@openai-curated": {
+        "enabled": true
+      },
+      "chrome@openai-bundled": {
+        "enabled": true
+      },
+      "visualize@openai-bundled": {
+        "enabled": true
+      },
+      "browser@openai-bundled": {
+        "enabled": true
+      },
+      "documents@openai-primary-runtime": {
+        "enabled": true
+      },
+      "pdf@openai-primary-runtime": {
+        "enabled": true
+      },
+      "spreadsheets@openai-primary-runtime": {
+        "enabled": true
+      },
+      "presentations@openai-primary-runtime": {
+        "enabled": true
+      },
+      "template-creator@openai-primary-runtime": {
+        "enabled": true
+      },
+      "codex-app-tools@openai-bundled": {
+        "enabled": true
+      },
+      "unified-computer-use@openai-bundled": {
+        "enabled": true
+      },
+      "ecc@ecc": {
+        "enabled": true
+      },
+      "computer-use@openai-bundled": {
+        "enabled": true
+      }
+    }
+  },
+  "project": {
+    "present": false
+  },
+  "automations": [
+    {
+      "id": "victoriosa-autopilot-6h",
+      "name": "Victoriosa Autopilot 6h",
+      "status": "ACTIVE",
+      "rrule": "FREQ=HOURLY;INTERVAL=6",
+      "cwds": null,
+      "prompt_sha256": "b125e7118f957e9e3530aaee205764f997544dc3e8f36e82f9fb7e5ab522ecda",
+      "related_to_autopilot": true,
+      "kind": "heartbeat",
+      "target_thread_configured": true,
+      "prompt_review": {
+        "historical_priorities": [
+          84,
+          81
+        ],
+        "issues_observed_open": true,
+        "historical_form_closed_instruction": true,
+        "public_form_currently_enabled": true,
+        "canonical_linear_prompt_referenced": false,
+        "mutation_performed": false
+      }
+    }
+  ],
+  "skills": {
+    "C:\\autopilot-worktrees\\forensic-audit-20261114\\.agents\\skills": [
+      "ahorro-continuidad-autopilot",
+      "autopilot-core",
+      "autopilot-roles",
+      "autopilot-safety",
+      "plan",
+      "victoriosas-autopilot-operational-audit",
+      "victoriosas-camelrun-laboratorio",
+      "victoriosas-codex-ahorro-tokens",
+      "victoriosas-conocimiento-tratamientos",
+      "victoriosas-consultas-e2e",
+      "victoriosas-control-de-fases",
+      "victoriosas-desarrollo-autonomo",
+      "victoriosas-privacidad-seguridad",
+      "victoriosas-publicacion-verificada"
+    ],
+    "C:\\Users\\micahael\\.codex\\skills": [
+      "playwright",
+      ".system\\imagegen",
+      ".system\\openai-docs",
+      ".system\\review-agent",
+      ".system\\skill-creator",
+      ".system\\skill-installer"
+    ],
+    "C:\\Users\\micahael\\.agents\\skills": [
+      "tinyfish-automation",
+      "tinyfish-browser",
+      "tinyfish-monitor",
+      "tinyfish-research",
+      "tinyfish-web"
+    ]
+  },
+  "locks": {
+    "mcp-oauth-locks": {
+      "entries": 7,
+      "last_modified": "2026-11-04T03:33:31.234296+00:00"
+    },
+    "project-metadata-locks": {
+      "entries": 0,
+      "last_modified": "2026-11-09T06:17:23.816711+00:00"
+    },
+    "thread-writer-locks": {
+      "entries": 2,
+      "last_modified": "2026-11-15T00:57:25.198741+00:00"
+    }
+  }
+}

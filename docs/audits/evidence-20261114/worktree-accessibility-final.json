@@ -1,0 +1,438 @@
+{
+  "observed_utc": "2026-11-15T01:19:26.111551+00:00",
+  "worktrees": [
+    {
+      "path": "C:\\autopilot",
+      "accessible": true,
+      "recorded_sha": "a6cff5aba04e752cb010926b88c24fd4abfe84b6",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-mission-20261025",
+      "accessible": true,
+      "recorded_sha": "5882da4eb3ead7560f5d2f73a020eaa85c8e4f03",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\activation-preservation-20261110",
+      "accessible": true,
+      "recorded_sha": "cc7f753605f3e718e727d7c151f5e1af321b79ad",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\admin-auth-upstream-status-20261108",
+      "accessible": true,
+      "recorded_sha": "8b8929ab964b249d856d0a4e0e4cfa9f26da1c0a",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\alignment-audit-20261105",
+      "accessible": true,
+      "recorded_sha": "48a6f2f3fde5ac48e7664f0b47143ac385dcae7d",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\api-404-build-isolation-20261108",
+      "accessible": true,
+      "recorded_sha": "7da72d3634c378d4cd1f6b41aa99b30f0a6001ce",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\auth-test-review-20261109",
+      "accessible": true,
+      "recorded_sha": "eb92a0cef9c5d50ea578f4a532e7b56cb600cdab",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\autonomy-continuity-20261112",
+      "accessible": true,
+      "recorded_sha": "30e9f41c0713ee1692aeefe0a26e16931d0fe4b1",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\beauty",
+      "accessible": true,
+      "recorded_sha": "a69788be6966dd3818030d47a34da36cce25c2cb",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\clinical-final-qa-20261031",
+      "accessible": true,
+      "recorded_sha": "c6ee2f41f33ecdd40872987224f72db93504b824",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\clinical-navigation-20261031",
+      "accessible": true,
+      "recorded_sha": "c6ee2f41f33ecdd40872987224f72db93504b824",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\cloud-ledger-adapter-20261112",
+      "accessible": true,
+      "recorded_sha": "30e9f41c0713ee1692aeefe0a26e16931d0fe4b1",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\comercio",
+      "accessible": true,
+      "recorded_sha": "a69788be6966dd3818030d47a34da36cce25c2cb",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\configuration-decisions-20261110",
+      "accessible": true,
+      "recorded_sha": "564ca2a9142e86e69e0e7a0a00fca1243d83d11c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\consultation-admin-d-20261111",
+      "accessible": true,
+      "recorded_sha": "d666cccfc49f6fea183b1cb5f8e028f839628881",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\continuity-validation-20261106",
+      "accessible": true,
+      "recorded_sha": "d3bd06684d17eef9c4f594f007cf96048c67b629",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\copy-remoto",
+      "accessible": true,
+      "recorded_sha": "965f1c8a43c2568db458401c56547fe885bcb638",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\discovery-20261031",
+      "accessible": true,
+      "recorded_sha": "ad30a5758c4bbc6e3cda8c3c6ffa1d2885e87d7e",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\discovery-plan",
+      "accessible": true,
+      "recorded_sha": "344b4f0b6996383437bb187584fba22717663f15",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\diseno",
+      "accessible": true,
+      "recorded_sha": "c132ed0efcad02593f9b348141d96c28b25c9af7",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\f1-api-auth-review-20261109",
+      "accessible": true,
+      "recorded_sha": "d4bc0bbbc96736538830ed057125d056d87bf6a6",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\f1-public-health-redaction-20261110",
+      "accessible": true,
+      "recorded_sha": "50f35fb77c9dd635310d468e4be884450c8b09af",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\f1-readiness-20261110",
+      "accessible": true,
+      "recorded_sha": "c52d3a70e98de9b53f19b404579e22bcc285c7bb",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\f3-authorized-evaluation-20261106",
+      "accessible": true,
+      "recorded_sha": "9d7edf1cfe90562cad29771738b038f06f7f3696",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\f3-quality-recovery-20261106",
+      "accessible": true,
+      "recorded_sha": "266bc53091895056ba2460b94e83f13e4034f066",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\forensic-audit-20261114",
+      "accessible": true,
+      "recorded_sha": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\github-maintenance-20261031",
+      "accessible": true,
+      "recorded_sha": "9deefb61ad1083e1eb6cd713390e7ac2f2a1d5bc",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\glm53-opencode-20261031",
+      "accessible": true,
+      "recorded_sha": "677ac2c26e9178981d96a522a9af999d48416fec",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\hosted-ledger-20261112",
+      "accessible": true,
+      "recorded_sha": "a4ca9dd31afa6f576d0bd5e52bc83ffb72e9272c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\integracion-local-20261029",
+      "accessible": true,
+      "recorded_sha": "a6cff5aba04e752cb010926b88c24fd4abfe84b6",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-native-activation-20261109",
+      "accessible": true,
+      "recorded_sha": "bd24d4c8efde7ec24efea05b949b6fb0c8814021",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-native-host-20261109",
+      "accessible": true,
+      "recorded_sha": "15720289647da59c19cc2c19c7f123ee84259a31",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-operator-20261109",
+      "accessible": true,
+      "recorded_sha": "d704d54de5624bc5aeb8931f7a72b2aabe17c1d1",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-planner-20261109",
+      "accessible": true,
+      "recorded_sha": "6a7fe56942fde15890bbf175ea8a117603259e35",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-runner-20261109",
+      "accessible": true,
+      "recorded_sha": "31c158d3ebdd5337d0891eda196444676ef868a4",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\mission-trigger-20261109",
+      "accessible": true,
+      "recorded_sha": "f0b0a0639a49fa91bf51c880772bdab632c6d5b0",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\native-window-evidence-20261110",
+      "accessible": true,
+      "recorded_sha": "ca7f4237211ac6e001eaa81a5ee4239f709f8bab",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\opencode-workstation-20261031",
+      "accessible": true,
+      "recorded_sha": "4ed02806bae9c27bcdc7f3bcda8d9a22f53d51ae",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\operaciones",
+      "accessible": true,
+      "recorded_sha": "253e9fbb355058a3f5cbb8d419bb8d3fd7f5b6e6",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\ord204g-early-diagnostics-20261110",
+      "accessible": true,
+      "recorded_sha": "633faa7f9517a6d6edc82158cd125b09a66f6312",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\ord204g-preflight-handoff-20261110",
+      "accessible": true,
+      "recorded_sha": "9042122323887939b95ab7c9dc653742e0073517",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\ord204g-viki-bridge-20261110",
+      "accessible": true,
+      "recorded_sha": "e034db1dd1e28f71febd895c19d62d20ff5616bd",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\ord204g-window-manager-20261110",
+      "accessible": true,
+      "recorded_sha": "e2f68d2c9be7423755c2b88d4ab5ee579f1bc65c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\permanent-supervisor-p0d-20261114",
+      "accessible": true,
+      "recorded_sha": "3ce7fdf6f3e7ea955a705f20f771a91ec8cb1f14",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\plan-cloud-20261111",
+      "accessible": true,
+      "recorded_sha": "5f9f47ab6d61c84ababb8440ccea68c2ee68a4cd",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\pr-cleanup-168-20261106",
+      "accessible": true,
+      "recorded_sha": "e3dfe9a185c041e0ab090308945fbf186d87a55c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\pr-cleanup-186-20261106",
+      "accessible": true,
+      "recorded_sha": "64f59f017884cb37ed6d1541bdd02afdcee093f7",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\pr-cleanup-187-20261106",
+      "accessible": true,
+      "recorded_sha": "1e22348cb9e1fd703829f23f9c5d229fb07a5480",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\pr-cleanup-188-20261106",
+      "accessible": true,
+      "recorded_sha": "01953cd7e542624496b35c3fdaf5a0d6c50f2e93",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\queue-fencing-20261109",
+      "accessible": true,
+      "recorded_sha": "ccde407db280e11f85ab93e81690ae867b33a002",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\readiness-autonomous-demo-20261110\\candidate",
+      "accessible": true,
+      "recorded_sha": "426123882ae589a7bc5f64c941d252ae8a6c8590",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\readiness-autonomous-final-20261110\\candidate",
+      "accessible": true,
+      "recorded_sha": "3ecc0333a7c4c2fc884df5779df9d56c566b521b",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\reconcile-pr217-20261111",
+      "accessible": true,
+      "recorded_sha": "8843e0935c239bab88c5b41c3970a117e2da9ec7",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\reconcile-pr218-20261111",
+      "accessible": true,
+      "recorded_sha": "c2d516e45dc370a323504db9eeab7c7dafeacffa",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\self-development-20261110",
+      "accessible": true,
+      "recorded_sha": "7e0a0c0926e7805cb50e397e27cd3586ba6db25b",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\self-development-f1-20261110",
+      "accessible": true,
+      "recorded_sha": "79c6113f230bde518b1b9dd9c2af22313ff86132",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\shared-api-mount-20261108",
+      "accessible": true,
+      "recorded_sha": "039ecf3503cb74b8f7c32b1fd4e8d71b7fa2f72a",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\victoriosas-depth-20261031",
+      "accessible": true,
+      "recorded_sha": "a5961d148ffce7b688e5df862f40d707c2c363f9",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\victoriosas-preview-20261031",
+      "accessible": true,
+      "recorded_sha": "d1ea28b115d60d7108a770da6a40e91f66f6dc3c",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\victoriosas-route-fix-20261031",
+      "accessible": true,
+      "recorded_sha": "6207916e23ed7bf8ca655c7c96488f741da2daef",
+      "prunable": false
+    },
+    {
+      "path": "C:\\autopilot-worktrees\\victoriosas-ux-20261031",
+      "accessible": true,
+      "recorded_sha": "de77be8e520233c138db29caa86901a5fefc9a29",
+      "prunable": false
+    },
+    {
+      "path": "C:\\codex-worktrees\\victoriosas-consultation-lab",
+      "accessible": true,
+      "recorded_sha": "414b5f6b9630013db9eb95cabb04baab07d438b5",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-ai-circuit\\autopilot",
+      "accessible": true,
+      "recorded_sha": "0b33c978aeb4ac83de42b9632d8b07c121e4cfc5",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-eval\\autopilot",
+      "accessible": true,
+      "recorded_sha": "536c751aeb79d239accef96604b0dfc5d3c5bc34",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\.codex\\worktrees\\consultation-phase2\\autopilot",
+      "accessible": true,
+      "recorded_sha": "e1a9e6cbaaba824af3ab825023ba27a4a2987c39",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\.codex\\worktrees\\operational-sync-20261026\\autopilot",
+      "accessible": true,
+      "recorded_sha": "71ebf8d842248b6df2bf7d9aa5c54b7f1c0aa4ef",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\.codex\\worktrees\\technical-close-20261029\\autopilot",
+      "accessible": true,
+      "recorded_sha": "74518ed5d8e38fc4c3883581899b4836c0769a0b",
+      "prunable": false
+    },
+    {
+      "path": "C:\\Users\\micahael\\AppData\\Local\\Temp\\opencode\\pr6-current",
+      "accessible": false,
+      "recorded_sha": "2158c0489199971f7e478244623d4de614389cf1",
+      "prunable": true
+    },
+    {
+      "path": "E:\\autopilot-continuation-v5-20261109",
+      "accessible": true,
+      "recorded_sha": "2a34b77f94d09cdacf4e88b141e912a898d99eef",
+      "prunable": false
+    },
+    {
+      "path": "E:\\autopilot-f3-guardian-injection-20261108",
+      "accessible": true,
+      "recorded_sha": "2607a427d77f3b523de120a2d41ae1f1898b146f",
+      "prunable": false
+    },
+    {
+      "path": "E:\\autopilot-public-health-20261106",
+      "accessible": true,
+      "recorded_sha": "50fcea83a6f84acc36cae1da2516690618c91f94",
+      "prunable": false
+    },
+    {
+      "path": "E:\\autopilot-victoriosas-skills-v2",
+      "accessible": true,
+      "recorded_sha": "5b9ceac1f56812a722754fbce873551e9bb9633f",
+      "prunable": false
+    }
+  ],
+  "limits": "accessibility only; not a backup or proof of no concurrent writers"
+}
