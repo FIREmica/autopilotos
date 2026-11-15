@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**Única fase técnica activa: P0.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**Fase P0 cerrada con limites en el candidato de transicion; P1 es la unica fase tecnica propuesta. Main permanece en P0 hasta integrar y verificar esta propuesta.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -12,7 +12,7 @@ Solo avanzar una fase mediante evidencia de sus criterios y actualización revis
 
 Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse como CONSERVAR con razón, propietario y recuperación. Una duplicación con riesgo de escritura o autorización sí bloquea hasta resolverla. No forzar una reducción de carpetas ni usar un plan nuevo como prueba de progreso.
 
-## P0 · Reconciliación y limpieza — ACTIVA
+## P0 - Reconciliacion y limpieza - CERRADA CON LIMITES (candidato)
 
 **Objetivo verificable:** una base de verdad trazable, recursos preservados, una fuente de estado y cero escritores conflictivos en el ámbito del siguiente cambio.
 
@@ -38,7 +38,7 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Evidencia de cierre:** informe de consolidación actualizado, SHA/PR/CI exactos y decisión trazable sobre los cambios exclusivos. Actualmente PREPARADO, no cerrado: consumidores/recuperación de recursos locales aún incompletos.
 
-## P1 · Consolidación del núcleo Autopilot — DEFINIDA
+## P1 - Consolidacion del nucleo Autopilot - INICIADA EN CANDIDATO
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
@@ -157,3 +157,9 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 **Rollback:** desactivar la capacidad nueva con ruta revisada, conservar datos y evidencias; nunca desproteger, resetear ledger ni perder historial.
 
 **Cierre:** acta operativa con versiones, permisos, responsables, pruebas, riesgos residuales, coste y decisión humana. Solo entonces evaluar el siguiente objetivo dentro de PROJECT_DIRECTION.
+
+## Decision de transicion P0 a P1 (candidata, 14/11/2026 UY)
+
+PR #236 integrada en main ce1027e5. Los recursos con recuperacion incompleta permanecen CONSERVAR; evidencia DPAPI CurrentUser verificada en memoria pero no offsite ni archivos ignorados. Metadatos de auditoria minimizados en el arbol vigente, versiones historicas accesibles; no se confirmo fuga de credenciales en revision acotada, no se purga historia ni se elimina respaldo. El heartbeat de Codex victoriosa-autopilot-6h mantiene identidad, estado ACTIVE, intervalo de seis horas y destino; solo el prompt local fue sustituido, verificado mediante relectura y copia anterior cifrada; NO esta demostrado que un run programado haya recargado el prompt. Estos limites son riesgos conservados que no obligan a borrar recursos ni rehacer auditorias generales. No cierran las puertas de producto F0-F8.
+
+Unica prioridad nueva P1: recuperar de #234 el supervisor puro e introducir adaptacion explicita a estados verificables del runtime, evitando propose_resume ante datos arbitrarios, sin reivindicar integracion operativa SQL/cloud. La transicion P0 a P1 solo sera vigente en main cuando esta PR pase revision y CI y se fusione; no activar dispatch.
