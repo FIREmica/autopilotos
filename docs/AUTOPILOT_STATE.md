@@ -1556,3 +1556,14 @@ Operaciones: no hay claim, misión, SQL local/alojado, dispatch, envío, merge, 
 Bloqueo: la revisión humana exigida antes de integrar aún no existe. Callback de autorización/verificador siguen in-process, sin revocación durable atómica ni identidad remota probada. No se habilita P2, CLI/scheduler, hosted SQL o integración por autonomía.
 
 Siguiente misión exacta: obtener el SHA del hijo documental y verificar validate/postgres/CodeQL y checks relevantes de ese SHA. Mantener PR #240 draft. Si llega feedback humano, resolver dentro de esa misma PR y volver a probar. Si no cambia nada, registrar SIN CAMBIOS/BLOQUEADO; no abrir otra tarea, PR, cola, supervisor o automatización.
+## 2026-11-16 11:46 UTC - P1: head verificado, revisión pendiente
+
+Estado: continúa ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 técnica / F0 producto. origin/main = 44dbaeeb6384740da81db2357fb003c7de42d33b. PR #240 abierta, draft, mergeable, sin merge ni review humana. Head aislado/remoto sincronizado en 9605a0757d08e24142f913faca4fba1d7cd24388 antes de este checkpoint. El checkout principal quedó sin tocar: atrasado 95 commits y con múltiples archivos locales sin seguimiento.
+
+CI del SHA exacto 9605a0757d08e24142f913faca4fba1d7cd24388: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED sin branch asociada. Un comentario Vercel automático; reviews y threads humanos vacíos. Preview Ready es preview de PR, no producción.
+
+Acción: checkpoint y estado actualizados en la misma PR. Se actualizó el body de PR con resultados del head 9605a0757d08e24142f913faca4fba1d7cd24388. No hubo cambio de aplicación; no repetir tests. Se preserva la evidencia local previa focal 27/27, lint y verify exit 0, más la CI exacta arriba. JSON validable y diff check antes de commit. Sin operación externa incierta.
+
+Alcance/rollback: ningún claim, misión, SQL local/alojado, dispatch, envío, merge, despliegue de producción o gasto. Callback/verificador siguen in-process, sin revocación atómica durable ni identidad remota probada; P1 parcial, P2 inactiva. Revertir solo este checkpoint si hiciera falta; preservar el candidato y demás worktrees.
+
+Bloqueo y siguiente paso exacto: falta revisión humana para integrar. Publicar este checkpoint como hijo documental, consultar CI de su SHA exacto y actualizar el body de PR240. Mantener draft. Si no aparece feedback, no crear más código u órdenes; si aparece, responder en la misma PR, probar y revisar su CI exacta. Sin permiso para integrar, desplegar, SQL alojado, CLI/scheduler ni P2.
