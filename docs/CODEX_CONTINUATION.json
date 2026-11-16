@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-16T11:46:18Z",
+  "updated_at": "2026-11-16T23:53:01Z",
   "execution_id": "codex-p1-per-effect-authorization-20261115",
   "repository": {
     "branch": "codex/p1-per-effect-authorization-20261115",
-    "head_sha": "9605a0757d08e24142f913faca4fba1d7cd24388",
+    "head_sha": "63495d142c1f46922eede2948f3048addc695d2b",
     "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
     "worktree": "C:/autopilot-worktrees/p1-per-effect-authorization-20261115",
-    "note": "Checkpoint documental creado desde el head PR #240 verificado 9605a0757d08e24142f913faca4fba1d7cd24388. El commit que contiene este checkpoint sera hijo documental; recuperar su SHA real y validar CI exacta.",
+    "note": "El checkpoint de 16/11 se publicó como hijo documental 63495d142c1f46922eede2948f3048addc695d2b de 9605a0757d08e24142f913faca4fba1d7cd24388. Su CI exacta pasó; body PR sincronizado. Este registro será nuevo hijo documental y requiere validar su SHA exacto.",
     "pr_number": 240,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/240"
   },
@@ -17,7 +17,7 @@
     "linear_phase": "P1",
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
-    "last_verified_step": "PR #240 abierta/draft/mergeable, sin merge ni review humana; head previo al checkpoint 9605a0757d08e24142f913faca4fba1d7cd24388. Checks exactos en ese SHA: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED. Un comentario automático de Vercel y cero review threads. Body sincronizado con este head. El commit documental actual será hijo y requiere CI propia.",
+    "last_verified_step": "PR #240 abierta/draft/mergeable, sin merge ni review humana; head documental exacto 63495d142c1f46922eede2948f3048addc695d2b. Checks exactos: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS. Supabase Preview SKIPPED. Reviews y threads humanos vacíos; solo comentario automático de Vercel. Body sincronizado a 63495d1. Este nuevo checkpoint tendrá SHA hijo y necesita CI exacta propia.",
     "limits": [
       "Autorización y verificador son callbacks host in-process; no certifican identidad remota ni se revocan atómicamente con SQL.",
       "Solo operaciones sintéticas locales: execute_step puede recibir únicamente synthetic_worktree con local_synthetic_only, no_network y no_send; no dispatch externo, red ni envío.",
@@ -152,6 +152,10 @@
     {
       "operation": "Registrar verificación del head PR240 y barrera de revisión",
       "detection": "PR #240 head exacto 9605a0757d08e24142f913faca4fba1d7cd24388; validate/postgres SUCCESS en dos informes cada uno; CodeQL, public-browser-smoke, Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews y threads humanas vacías; solo comentario vercel[bot]. PR abierta/draft/mergeable. Body actualizado con el head. Sin código, misión ni efecto alojado."
+    },
+    {
+      "operation": "Completar verificación del checkpoint documental 63495d1 y confirmar barrera",
+      "detection": "GitHub main 44dbaeeb6384740da81db2357fb003c7de42d33b; rama PR y worktree coinciden en 63495d142c1f46922eede2948f3048addc695d2b. PR #240 sigue abierta/draft/mergeable, sin review ni threads humanas; único comentario Vercel. CI exacta del head: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED. No hubo cambios de aplicación ni efectos externos."
     }
   ],
   "evidence_refs": [
@@ -191,7 +195,7 @@
   "blockers": [
     "Falta revisión humana de PR #240 antes de cualquier integración; no auto-merge.",
     "Callbacks host de autorización/revocación/verificación siguen in-process; no hay revocación SQL atómica ni identidad remota probada.",
-    "El hijo documental de este checkpoint necesita checks relevantes del SHA exacto; 9605a0757d08e24142f913faca4fba1d7cd24388 ya pasó los checks enumerados.",
+    "El hijo documental de este checkpoint debe verificarse por SHA exacto antes de cerrar este registro.",
     "Sin permiso para merge, deploy, SQL alojado, CLI/scheduler dispatch o P2.",
     "Supabase Preview SKIPPED no es cobertura alojada."
   ],
@@ -203,10 +207,10 @@
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "PR draft #240; branch codex/p1-per-effect-authorization-20261115; worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115; main 44dbaeeb6384740da81db2357fb003c7de42d33b; padre documental 9605a0757d08e24142f913faca4fba1d7cd24388 (confirmar head hijo y CI exacta).",
+    "environment": "PR draft #240; branch codex/p1-per-effect-authorization-20261115; worktree C:/autopilot-worktrees/p1-per-effect-authorization-20261115; main 44dbaeeb6384740da81db2357fb003c7de42d33b; padre documental verificado 63495d142c1f46922eede2948f3048addc695d2b; este checkpoint será un hijo nuevo y requiere CI exacta.",
     "dependencies": [
       "PR237, #238 y #239 integradas; PR #240 única candidata de la orden.",
-      "Head 9605a0757d08e24142f913faca4fba1d7cd24388 tiene validate/postgres/CodeQL/browser/Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Consultar checks del hijo documental.",
+      "Head documental 63495d142c1f46922eede2948f3048addc695d2b tiene validate/postgres/CodeQL/browser/Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Consultar checks del hijo de este checkpoint.",
       "Falta review humana; comentarios/thread de revisión ausentes.",
       "Callbacks no prueban autorización durable atómica o identidad remota.",
       "Permiso bounded: una PR draft y artefactos locales; sin merge, hosted SQL, producción, gasto, cambios de automatización o P2."
@@ -218,7 +222,7 @@
       "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
       "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ],
-    "next_action": "Mantener PR #240 en borrador. Verificar el SHA real y CI del hijo documental. Si llega feedback humano, resolver en la misma PR y revalidar. Sin review ni cambio material, registrar BLOQUEADO/SIN CAMBIOS; no abrir otra orden, PR, cola, supervisor o automatización. No integrar, ejecutar SQL alojado, despachar ni activar P2.",
+    "next_action": "Mantener PR #240 en borrador. Verificar el SHA real y CI exacta del hijo documental de este checkpoint, y actualizar el body de la misma PR con esos resultados. Si llega feedback humano, resolver en esta PR y revalidar. Si no hay review ni cambio material después de conciliar ese hijo, registrar BLOQUEADO/SIN CAMBIOS sin otro commit rutinario. No integrar, ejecutar SQL alojado, despachar ni activar P2.",
     "permissions": {
       "status": "bounded",
       "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
@@ -226,13 +230,13 @@
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Misma orden, branch y PR #240; head sincronizado en 9605a0757d08e24142f913faca4fba1d7cd24388 antes del checkpoint; origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b. Checks del SHA exacto completados, sin nuevas reviews/comentarios humanos. El checkpoint será un hijo que requiere lookup/CI exactos. No repetir efectos ni reabrir PR históricas."
+    "mechanism": "Misma orden, branch y PR #240; hijo documental 63495d142c1f46922eede2948f3048addc695d2b sincronizado y con CI exacta aprobada; origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b. Sin review humana nueva. Este nuevo checkpoint será hijo documental y requiere lookup/CI exactos; no repetir efectos ni reabrir PR históricas."
   },
   "resume_instructions": "Recuperar el JSON, las instrucciones canónicas y el estado. Verificar main, PR/head/reviews/comentarios/checks exactos y escritores. Mantener PR #240 draft. Si llega review, responder en la misma PR con pruebas y CI exacta. Si no cambia nada, registrar BLOQUEADO/SIN CAMBIOS sin desarrollo paralelo. No ejecutar SQL/dispatch, merge/deploy, conectar scheduler/CLI ni activar P2.",
   "supervision": {
     "verdict": "P1_PER_EFFECT_CANDIDATE_REVIEW_REQUIRED",
     "scope": "Autorización por efecto local sintético y atestación independiente in-process sobre runtime/ledger existentes; no está conectado a CLI/scheduler ni a recursos alojados.",
-    "evidence": "PR #239 integrada y main 44dbaeeb6384740da81db2357fb003c7de42d33b. PR #240 abierta/draft/mergeable, head previo al checkpoint 9605a0757d08e24142f913faca4fba1d7cd24388. Exact-SHA validate/postgres/CodeQL/public-browser-smoke/Vercel Preview/Preview Comments SUCCESS; Supabase Preview SKIPPED. Sin review ni thread humana, solo comentario automático Vercel. El body fue actualizado. Checkpoint hijo requiere su CI; sin misión, SQL alojado, dispatch, merge o deploy."
+    "evidence": "PR #239 integrada y main 44dbaeeb6384740da81db2357fb003c7de42d33b. PR #240 abierta/draft/mergeable, head 63495d142c1f46922eede2948f3048addc695d2b con validate/postgres/CodeQL/public-browser-smoke/Vercel Preview/Preview Comments SUCCESS; Supabase Preview SKIPPED. Sin review ni thread humana, solo comentario Vercel. Body sincronizado a este head. Nuevo checkpoint hijo pendiente de CI; sin misión, SQL alojado, dispatch, merge o deploy."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -303,7 +307,7 @@
         "public-browser-smoke"
       ],
       "policy": "Verificar siempre SHA exacto; skipped/neutral/ausente no son success y Supabase Preview skipped no es integración alojada.",
-      "verified_sha": "9605a0757d08e24142f913faca4fba1d7cd24388",
+      "verified_sha": "63495d142c1f46922eede2948f3048addc695d2b",
       "results": {
         "validate": "SUCCESS (two runs)",
         "postgres": "SUCCESS (two jobs)",
@@ -313,7 +317,7 @@
         "vercel_preview_comments": "SUCCESS; no unresolved feedback",
         "supabase_preview": "SKIPPED; no associated branch"
       },
-      "scope": "Head verificado antes del checkpoint; los checks no se transfieren al hijo."
+      "scope": "Head exacto verificado antes de este checkpoint; los checks no se transfieren al hijo documental."
     },
     "integrated_readonly_runtime": {
       "pr": 238,
@@ -369,21 +373,21 @@
       "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
       "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
     ],
-    "integration_state": "Implemented and locally tested in PR #240 draft; exact checks passed on 9605a0757d08e24142f913faca4fba1d7cd24388; no human review; checkpoint-only child needs exact-SHA CI; not merged, hosted, scheduled or generally executable"
+    "integration_state": "Implemented and locally tested in PR #240 draft; exact checks passed on 63495d142c1f46922eede2948f3048addc695d2b; no human review; next checkpoint-only child needs exact-SHA CI; not merged, hosted, scheduled or generally executable"
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "objective": "Mantener la candidata P1 existente en espera de review humana; resolver feedback en la misma PR y no avanzar a P2.",
     "dependencies": [
-      "PR #240 draft; validar el SHA del hijo documental exacto.",
+      "PR #240 draft; validar y conciliar el SHA/CI del hijo documental que contenga este checkpoint.",
       "Review humana ausente; sin autorización de integración.",
       "Revocación durable/atómica e identidad remota siguen sin demostrarse."
     ],
     "acceptance": [
-      "Head exacto y validate/postgres/checks relevantes reconciliados.",
+      "Head exacto y validate/postgres/checks relevantes reconciliados, sin atribuir CI de un SHA a otro.",
       "Comentarios humanos resueltos en PR #240; revalidación en SHA final.",
       "Sin merge/deploy/SQL alojado/dispatch/P2 por autonomía."
     ],
-    "recoverable_prompt": "Recupera JSON y fuentes canónicas. Verifica PR240 head/reviews/checks exactos. Mantén draft; si llegan comentarios, corrige en la misma PR. Si no hay novedades, registra SIN CAMBIOS/BLOQUEADO. No crees otra orden ni actives P2."
+    "recoverable_prompt": "Recupera JSON y fuentes canónicas. Verifica PR240 head/reviews/checks exactos. Mantén draft; completa CI del hijo documental pendiente y sincroniza el body. Después, si no hay novedades humanas ni técnicas, registrar SIN CAMBIOS/BLOQUEADO sin commits de sondeo. Si llega feedback, corregir en la misma PR. No crees otra orden ni actives P2."
   }
 }
