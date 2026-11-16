@@ -1543,3 +1543,16 @@ Operación de push conciliada: el primer intento falló al resolver github.com a
 Límites: no hubo misión, claim, SQL, dispatch, envío, merge, deploy ni gasto. No existe efecto externo incierto pendiente. P1 sigue parcial; callbacks/verificador in-process no demuestran revocación durable atómica ni identidad remota. Sin permiso para integrar ni activar P2.
 
 Siguiente paso: verificar SHA real y checks exactos del hijo documental; sincronizar el body de PR #240 con la evidencia del head final. Mantener la draft. Si no hay review/comentarios, registrar BLOQUEADO/SIN CAMBIOS y esperar la barrera humana; si aparecen, corregir en la misma PR y revalidar. No ejecutar SQL alojado, dispatch, CLI/scheduler, merge, deploy o P2.
+## 2026-11-16 05:46 UTC - P1: estado sin revisión humana
+
+Estado: continúa únicamente ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 técnica / F0 producto. origin/main sigue en 44dbaeeb6384740da81db2357fb003c7de42d33b. Worktree aislado y branch remota sincronizados en 89bffdae96695e754be71354087bbadfc1fa4807 antes de este checkpoint; C:\autopilot se mantiene intacto. PR #240 abierta, draft, mergeable, sin merge; lista de reviews y review threads vacíos. Solo consta el comentario automático de Vercel.
+
+CI del SHA exacto 89bffdae96695e754be71354087bbadfc1fa4807: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS sin feedback pendiente. Supabase Preview SKIPPED por no existir branch vinculada; no prueba integración alojada. El Preview Ready de Vercel es preview automático de rama, no despliegue de producción.
+
+Acción: se recuperó la única candidata existente; no hubo cambio de código. Se actualizan CODEX_CONTINUATION.json y este registro en PR #240, con SHA padre 89bffda; el commit de este checkpoint tendrá CI separada. No se repitieron pruebas: para el código siguen vigentes focal 27/27, npm run lint y npm run verify exit 0, además de CI exacta del head. No se envió solicitud de review ni mensaje a terceros.
+
+Operaciones: no hay claim, misión, SQL local/alojado, dispatch, envío, merge, deploy de producción o gasto. Ningún efecto externo incierto. Sin coste nuevo observado. Rollback: revertir solo este commit documental; conservar la candidata y la historia.
+
+Bloqueo: la revisión humana exigida antes de integrar aún no existe. Callback de autorización/verificador siguen in-process, sin revocación durable atómica ni identidad remota probada. No se habilita P2, CLI/scheduler, hosted SQL o integración por autonomía.
+
+Siguiente misión exacta: obtener el SHA del hijo documental y verificar validate/postgres/CodeQL y checks relevantes de ese SHA. Mantener PR #240 draft. Si llega feedback humano, resolver dentro de esa misma PR y volver a probar. Si no cambia nada, registrar SIN CAMBIOS/BLOQUEADO; no abrir otra tarea, PR, cola, supervisor o automatización.
