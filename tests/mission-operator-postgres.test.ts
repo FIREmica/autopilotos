@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, lstat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +11,8 @@ import { LocalMissionStore, type LocalMissionStatus } from '../src/autopilot/loc
 import { ManagedProcesses } from '../src/autopilot/managedProcesses';
 import { PersistentMissionOrchestrator } from '../src/autopilot/missionRuntime';
 import type { LocalMissionConfig } from '../src/autopilot/localMissionConfig';
+import { DeterministicSyntheticPlanner } from '../src/autopilot/missionPlanner';
+import { SyntheticMissionExecutor, SYNTHETIC_CONTENTS, SYNTHETIC_TEST_SOURCE } from '../src/autopilot/syntheticMissionExecutor';
 const database=process.env.OPERATOR_TEST_DATABASE_URL;
 const exec=promisify(execFile);
 test('standalone operator CLI proves admission execution supervision cancellation and persistent relaunch',
@@ -105,6 +107,42 @@ test('standalone operator CLI proves admission execution supervision cancellatio
       assert.equal(state.audit.filter((e:unknown)=>(e as {event:string}).event==='mission_authorized_claim').length,1);
       for(const ledger of ledgers) await assert.rejects(ledger.claimMission('software'),/claim_failed/);
       assert.equal((await store.status(id)).attempts,1);
+
+      // Exercise the actual guarded factory, planner, executor and SQL ledger,
+      // rather than a legacy ledger whose context already has execution permission.
+      const effectStore=new LocalMissionStore({...hostConfig,leaseSeconds:60,deadlineMs:45000},managed);
+      for (const scenario of ['verified','denied','unobserved']) {
+        const denyCheckpoint=scenario==='denied',denyObservation=scenario==='unobserved';
+        const missionId=`synthetic-effect-${scenario}`;
+        await effectStore.admit({id:missionId,objective});
+        const effectExecutor=new SyntheticMissionExecutor(`local:${randomUUID()}`,repo,worktrees,hostConfig.resources.baseSha,managed);
+        let verifications=0;
+        const effectLedger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(effectStore,{
+          id:`${missionId}-grant`,revision:1,missionId,binding:effectStore.binding,phase:'F0',executorId:effectExecutor.executorId,
+          goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+60000,
+        },randomUUID(),effectExecutor,async()=>true,async(g,_context,effect)=>({
+          allowed:!(denyCheckpoint && effect.kind==='write_checkpoint') && !(denyObservation && effect.kind==='observe_state'),revision:g.revision,operationId:effect.operationId,
+          permissions:['observe_state','execute_step'].includes(effect.kind)?['synthetic_worktree']:[],
+        }),{verifierId:'independent-fixture-verifier',verify:async context=>{
+          verifications++;
+          const directory=path.join(worktrees,missionId,'.autopilot-synthetic');
+          // Oracle contents are source-owned and outside the candidate worktree.
+          return context.checkpoint.mission_state==='ready_to_complete'
+            && await readFile(path.join(directory,'result.txt'),'utf8')===SYNTHETIC_CONTENTS
+            && await readFile(path.join(directory,'result.test.cjs'),'utf8')===SYNTHETIC_TEST_SOURCE;
+        }});
+        const run=new PersistentMissionOrchestrator(effectLedger,45000,new DeterministicSyntheticPlanner()).runMission(effectExecutor,'software');
+        if(denyCheckpoint || denyObservation) await assert.rejects(run,/mission_effect_authorization_denied/); else await run;
+        const result=await effectStore.status(missionId);
+        assert.equal(result.attempts,1);
+        assert.equal(result.state,denyObservation?'queued':denyCheckpoint?'in_progress':'completed');
+        assert.equal(verifications,denyCheckpoint || denyObservation?0:1);
+        // One plan + three step checkpoints + the existing SQL completion increment.
+        assert.equal(result.checkpointVersion,denyObservation?0:denyCheckpoint?1:5);
+        assert.deepEqual(result.checkpoint.completed_steps,denyCheckpoint || denyObservation?[]:['prepare-v1','modify-v1','verify-v1']);
+        if(denyObservation) await assert.rejects(lstat(path.join(worktrees,missionId)),{code:'ENOENT'});
+        if(scenario==='verified') assert.match(await runSql(`select completed_evidence from public.agent_tasks where id='${missionId}'`),/^independent:independent-fixture-verifier:/);
+      }
     } finally {
       if(savedPassword===undefined) delete process.env.PGPASSWORD; else process.env.PGPASSWORD=savedPassword;
       await managed.close();

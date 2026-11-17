@@ -1,11 +1,11 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { AgentId } from './sixAgentControlPlane';
-import type { ExecutorAdapter, ExecutorContext, MissionCheckpoint, MissionLedger, MissionOrchestrator, MissionSpecification } from './executorAdapter';
+import type { ExecutorAdapter, ExecutorContext, MissionCheckpoint, MissionEffectRequest, MissionLedger, MissionOrchestrator, MissionSpecification } from './executorAdapter';
 import { claimPersistedMissionTask, completePersistedTask, failPersistedTask, saveMissionCheckpoint, type ClaimedAgentTask } from './sixAgentPersistence';
 import { authorizedObjective, PlanPolicyError, safeObservation, validatePlanProposal, type MissionPlanner, type PlanProposal } from './missionPlanner';
 import { missionId, LocalMissionStore } from './localMissionStore';
 import { decidePermanentObjectiveForLocalStore, type SupervisorDecision } from './permanentSupervisor';
-import { createMissionClaimGuard, type MissionClaimAuthorization } from './missionAuthorization';
+import { createAuthorizedMissionLedger, createMissionClaimGuard, createMissionEffectGuard, type MissionClaimAuthorization, type MissionCompletionVerifier, type MissionEffectDecision } from './missionAuthorization';
 
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -139,6 +139,23 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     const ledger=createMissionLedger(store.client(guard.expected.missionId,runId,guard),[]);
     return {claimMission:agent=>ledger.claimMission(agent),authorizeExecutor:candidate=>guard.authorizeExecutor(candidate)};
   }
+  /** Local synthetic-only execution capability; deliberately not connected to CLI or scheduling. */
+  static async authorizedPermanentMissionRuntime(
+    store: LocalMissionStore, grant: MissionClaimAuthorization, runId: string, executor: ExecutorAdapter,
+    verifyAuthorization: (grant: Readonly<MissionClaimAuthorization>) => Promise<boolean>,
+    authorizeEffect: (grant: Readonly<MissionClaimAuthorization>, context: Readonly<ExecutorContext>, effect: Readonly<MissionEffectRequest>) => Promise<MissionEffectDecision>,
+    verifier: MissionCompletionVerifier,
+  ): Promise<MissionLedger> {
+    if (store.constructor!==LocalMissionStore) throw Error('mission_authorization_scope_mismatch');
+    const claimGuard=createMissionClaimGuard(grant,executor,verifyAuthorization);
+    await claimGuard.authorizeExecutor(executor);
+    const decision=await this.inspectPermanentMission(store,claimGuard.expected.missionId,claimGuard.expected.binding);
+    if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
+      throw Error('mission_not_fresh_for_authorization');
+    const base=createMissionLedger(store.client(claimGuard.expected.missionId,runId,claimGuard),[]);
+    const effectGuard=createMissionEffectGuard(claimGuard.expected,executor,authorizeEffect,verifier);
+    return createAuthorizedMissionLedger(base,executor,claimGuard.expected,effectGuard,verifier.verifierId);
+  }
   /**
    * Read-only operational observation of a bound synthetic mission.
    * Reuses the LocalMissionStore/CloudMissionStore status query against the same
@@ -163,29 +180,53 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     signal = signal ? AbortSignal.any([signal, AbortSignal.timeout(this.deadlineMs)]) : AbortSignal.timeout(this.deadlineMs);
     signal?.throwIfAborted();
     if (this.ledger.authorizeExecutor) await bounded(()=>this.ledger.authorizeExecutor!(executor),signal);
+    const guarded=this.ledger.authorizeExecutor!==undefined || this.ledger.authorizeEffect!==undefined || this.ledger.attestCompletion!==undefined;
+    if (guarded && (!this.ledger.authorizeEffect || !this.ledger.attestCompletion))
+      throw Error('mission_effect_authorization_required');
     signal.throwIfAborted();
     const context = await this.ledger.claimMission(agentId);
     signal.throwIfAborted();
     if (!context) return;
     context.executorId = executor.executorId;
     const planned = context.mission.objective !== undefined;
+    const authorizeEffect=async(effect:MissionEffectRequest):Promise<readonly string[]>=>{
+      if(this.ledger.authorizeEffect) return await bounded(()=>this.ledger.authorizeEffect!(executor,structuredClone(context),effect),signal!);
+      return [];
+    };
+    const complete=async()=>{
+      let attestation;
+      if(guarded){
+        await authorizeEffect({kind:'attest_completion',operationId:`runtime:attest:${context.mission.missionId}:${context.checkpointVersion}`});
+        attestation=await bounded(()=>this.ledger.attestCompletion!(executor,structuredClone(context)),signal!);
+        if(!attestation || typeof attestation!=='object') throw Error('mission_completion_attestation_required');
+        await authorizeEffect({kind:'complete_write',operationId:`runtime:complete:${context.mission.missionId}:${context.checkpointVersion}`});
+      }
+      await this.ledger.completeMission(context,`mission:${context.mission.missionId}:verified`,attestation);
+    };
     const block = async (reason: string) => {
       if (!this.ledger.blockMission) throw Error('planning_ledger_required');
       await this.ledger.blockMission(context, reason);
     };
     const observe = async () => {
       if (!executor.observe) throw new PlanPolicyError('planning_components_required');
-      try { return await bounded(() => executor.observe!(structuredClone(context), signal), signal!); }
+      const permissions=await authorizeEffect({kind:'observe_state',operationId:`runtime:observe:${context.mission.missionId}:${context.checkpointVersion}:${context.mission.planVersion}`});
+      const snapshot=structuredClone(context);
+      if(this.ledger.authorizeEffect) {
+        if(!permissions.includes('synthetic_worktree')) throw Error('mission_effect_authorization_required');
+        snapshot.permissions=[...permissions];
+      }
+      try { return {observed:await bounded(() => executor.observe!(structuredClone(snapshot), signal), signal!),snapshot}; }
       catch { signal!.throwIfAborted(); throw new PlanPolicyError('unrecoverable_state'); }
     };
-    const derive = async () => {
+    const derive = async (observation?:Awaited<ReturnType<typeof observe>>) => {
       if (!this.planner || !executor.observe || !this.ledger.savePlan) throw new PlanPolicyError('planning_components_required');
-      const observed = await observe();
+      const {observed,snapshot} = observation ?? await observe();
       safeObservation(observed);
       let proposal: PlanProposal;
-      try { proposal = await bounded(() => this.planner!.propose(structuredClone(context), structuredClone(observed), signal), signal!); }
+      await authorizeEffect({kind:'save_plan',operationId:`runtime:propose:${context.mission.missionId}:${context.mission.planVersion+1}`});
+      try { proposal = await bounded(() => this.planner!.propose(structuredClone(snapshot), structuredClone(observed), signal), signal!); }
       catch (error) { signal!.throwIfAborted(); if (error instanceof PlanPolicyError) throw error; throw new PlanPolicyError('planner_failed'); }
-      validatePlanProposal(context, proposal, observed);
+      validatePlanProposal(snapshot, proposal, observed);
       signal!.throwIfAborted();
       if (!await this.ledger.savePlan(context, proposal, this.planner.plannerId)) throw Error('plan_rejected');
     };
@@ -193,7 +234,6 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     if (planned) {
       try {
         const objective = authorizedObjective(context.mission.objective); maxSteps = objective.limits.maxSteps;
-        if (!context.permissions.includes('synthetic_worktree')) throw new PlanPolicyError('permission_required');
         if (context.mission.planHistory?.some(p => JSON.stringify(p.objective) !== JSON.stringify(objective))) throw new PlanPolicyError('authorization_changed');
         if (!this.planner || !executor.observe) throw new PlanPolicyError('planning_components_required');
         if (!context.mission.planVersion) await derive();
@@ -208,7 +248,7 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     }
     // A crash between the final checkpoint and completion needs no executor action.
     if (context.checkpoint.mission_state === 'ready_to_complete') {
-      await this.ledger.completeMission(context, `mission:${context.mission.missionId}:verified`); return;
+      await complete(); return;
     }
     for (let count = 0; count <= maxSteps + 2; count++) {
       signal?.throwIfAborted();
@@ -219,9 +259,14 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
         && step.depends_on.every(id => completed.includes(id)));
       if (!next) throw Error('no_ready_step');
       // Only the host selects steps. An executor cannot mark several steps passed in one call.
+      let result;
+      const effectPermissions=await authorizeEffect({kind:'execute_step',operationId:`runtime:execute:${context.mission.missionId}:${context.checkpointVersion}:${next.id}`,stepId:next.id});
+      const stepPermission=this.ledger.authorizeEffect ? effectPermissions.includes('synthetic_worktree')
+        : context.permissions.includes('synthetic_worktree');
+      if(planned && !stepPermission) throw Error('mission_effect_authorization_required');
       const snapshot = structuredClone(context);
       snapshot.checkpoint.current_step_id = next.id;
-      let result;
+      snapshot.permissions=this.ledger.authorizeEffect ? [...effectPermissions] : [...context.permissions];
       try {
         result = await bounded(() => executor.execute(snapshot, signal), signal);
       }
@@ -229,7 +274,8 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
         signal?.throwIfAborted();
         if (planned) {
           try {
-            const observed = await observe();
+            const observation = await observe();
+            const {observed} = observation;
             safeObservation(observed);
             if (observed.worktree === 'ready' && observed.result === 'valid' && observed.test === 'valid') {
               await block('unrecoverable_failure'); return;
@@ -237,13 +283,14 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
             if (context.mission.planVersion > authorizedObjective(context.mission.objective).limits.maxReplans) {
               await block('replan_budget_exhausted'); return;
             }
-            await derive(); continue;
+            await derive(observation); continue;
           } catch (error) {
             signal.throwIfAborted();
             if (error instanceof PlanPolicyError) { await block(error.code); return; }
             throw error;
           }
         }
+        await authorizeEffect({kind:'fail',operationId:`runtime:fail:${context.mission.missionId}:${context.checkpointVersion}:executor_failed`});
         await this.ledger.failMission(context, 'executor_failed');
         throw Error('executor_failed');
       }
@@ -264,9 +311,10 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       signal?.throwIfAborted();
       const operationId = `checkpoint:${context.mission.missionId}:${context.checkpointVersion + 1}`;
       // Fencing failure must never be converted into a write from the expired executor.
+      await authorizeEffect({kind:'write_checkpoint',operationId:`runtime:${operationId}`});
       if (!await this.ledger.saveCheckpoint(context, operationId, checkpoint)) throw Error('checkpoint_rejected');
       if (!pending.length) {
-        await this.ledger.completeMission(context, `mission:${context.mission.missionId}:verified`); return;
+        await complete(); return;
       }
     }
     throw Error('step_budget_exhausted');

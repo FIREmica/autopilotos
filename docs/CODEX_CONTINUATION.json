@@ -1,27 +1,36 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T04:06:06.542231+00:00",
-  "execution_id": "codex-p1-claim-authorization-20261115",
+  "updated_at": "2026-11-17T00:44:09.228845+00:00",
+  "execution_id": "codex-pr240-contract-review-20261116",
   "repository": {
-    "branch": "codex/p1-authorization-20261115",
-    "head_sha": "01e717d226b8c51760d55da5f86c83ed7e677bd3",
-    "base_sha": "4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34",
-    "worktree": "WORKTREE:p1-authorization-20261115",
-    "note": "Reviewed application commit before this documentation-only PR reference update. Resolve the containing commit and final exact CI at PR239 head; do not inherit main or prior-head CI.",
-    "pr_number": 239,
-    "pr_url": "https://github.com/Victoriosas/autopilot/pull/239"
+    "branch": "codex/p1-per-effect-authorization-20261115",
+    "head_sha": "bebaf18dc83dcb4703b56b1768146b98a69e9be2",
+    "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
+    "worktree": "WORKTREE:p1-per-effect-authorization-20261115",
+    "note": "Reviewed predecessor bebaf18 before these code/test/documentation corrections. Resolve the containing commit from Git and PR240 head; do not predict its hash or inherit predecessor CI.",
+    "pr_number": 240,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/240"
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Contrato independiente de autorización para un claim sintético fresco en el runtime y ledger existentes.",
+    "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
-    "last_verified_step": "PR238 merged in main 4ceb541; parent 888cbda and main validate/postgres/CodeQL SUCCESS. Claim-only host grant and atomic scoped SQL claim implemented and tested locally; candidate CI must be verified by its own SHA. Local focused39/39 and verify547/547 with types/builds/API passed; preceding payment-file failure retained as unconfirmed transient evidence.",
+    "last_verified_step": "Review reproduced four attestation/content/async-context defects and two guarded positive-path failures. Fixed canonical context binding, async mutation rejection, explicit observe_state authorization and transient planner permissions. Focused41/41 and npm run verify563/563 pass; final local PostgreSQL guarded success and both denials PASS; exact new-head CI must be read separately. Same PR240 remains draft; no merge.",
     "limits": [
-      "Only a fresh queued synthetic F0 claim is authorized; no execution permissions or checkpoint/completion methods are returned.",
-      "Host verifier and executor instance are trusted in-process dependencies, not remote identity certification. SQL atomically checks expiry, objective, binding and versions; external policy revocation after the last callback is not atomically coupled to SQL.",
-      "Per-effect authorization, durable policy revision/revocation and independent effect/finalization attestation remain P1 work. No CLI dispatch, scheduler or P2 activation."
+      "Host policy and verifier remain trusted in-process dependencies; no remote identity or durable atomic policy revocation is certified.",
+      "observe_state and execute_step require explicit host approval with only synthetic_worktree; planner gets a transient authorized snapshot, persistent context retains no execution permission.",
+      "Attestation binds the exact canonical context and rejects changes during verification/authorization or before the one-use SQL completion.",
+      "The factory admits fresh queued missions only. Unit ready_to_complete verification is covered, but a restarted factory with a fresh grant cannot resume an existing SQL checkpoint; do not claim durable recovery.",
+      "Local disposable synthetic execution only; no hosted SQL, scheduler/CLI connection, customer operation, merge/deploy or P2."
+    ],
+    "acceptance_criteria": [
+      "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
+      "Ningún permiso fuera de synthetic_worktree para ejecutar un paso; sin red/envío.",
+      "Finalización requiere resultados completos, únicos y aprobados, evidencia suficiente y verificador host distinto; atestación vinculada al contexto y consumida una sola vez antes de completar.",
+      "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
+      "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ]
   },
   "completed_operations": [
@@ -104,6 +113,54 @@
     {
       "operation": "Reconcile PR238 merge and prove independent claim authorization",
       "detection": "Remote main 4ceb541; read-only runtime/CLI is merged, not a pending PR. RED missing authorization rejection reproduced; fresh scoped claim rejects denial, stale objective/version/cancellation and duplicate claim in PostgreSQL18 disposable local lab."
+    },
+    {
+      "operation": "Continuar ORD-P1-SUPERVISOR-ADAPTER-20261114 con autorización por efecto y atestación independiente",
+      "detection": "Worktree aislado sobre main 44dbae; RED reproduce denegación post-claim y completion sin verificador, más checkpoint terminal duplicado. GREEN focal 25/25, lint aprobado y verify 555/555 aprobado. Sin efecto remoto/SQL/dispatch."
+    },
+    {
+      "operation": "Publicar una PR draft única para la continuación P1 y conciliar el checkpoint",
+      "detection": "PR #240 abierta por el perfil Victoriosas, base 44dbaeeb y head inicial 77c6e3c; rama codex/p1-per-effect-authorization-20261115. No hay fusión. CI final en curso; Vercel Preview fue activado automáticamente por GitHub, sin despliegue manual a producción."
+    },
+    {
+      "operation": "Corregir regresion de permisos sinteticos legacy detectada por postgres CI en PR240",
+      "detection": "En head 64d212d CI postgres fallo dos veces en mission-planner-postgres porque el runtime tomaba permisos de authorizeEffect vacio aun para ledger sin guardas. RED local reprodujo el error; GREEN restaura lectura de context.permissions solo en ruta sin authorizeEffect. Agregadas pruebas positiva legacy y negativa claim-only; focal 27/27, lint y verify exit0. Sin SQL local/hosted, dispatch, merge ni deploy. Correccion y checkpoint documental listos para nuevo SHA/CI."
+    },
+    {
+      "operation": "Publicar correccion legacy y mantener PR240 en revision",
+      "detection": "Commit 3c703384e15e889eb66d262c1f1994151f61ee66 pushed fast-forward a la misma rama PR240. Fetch confirma open/draft/mergeable/no-merged, sin reviews. CI del SHA exacto iniciada: validate/postgres/browser/CodeQL queued o running; Vercel pending; Supabase Preview skipped. Body de la misma PR actualizado. Sin merge/deploy/SQL/dispatch."
+    },
+    {
+      "operation": "Verificar CI exacta de la correccion P1",
+      "detection": "En head 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb validate SUCCESS (ambos runs), postgres SUCCESS (ambos reports), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS y Vercel Preview SUCCESS. Supabase Preview SKIPPED. Fetch PR confirma abierta/draft/mergeable/no-merged; sin review. No hosted SQL, ejecucion ni deploy."
+    },
+    {
+      "operation": "Reconciliar estado actual de PR240 y actualizar continuidad sin cambiar código",
+      "detection": "Head 45f970943561c7274b7fed5025d8f78f56889530 sincronizado con origin; main 44dbaeeb6384740da81db2357fb003c7de42d33b; PR abierta/draft/mergeable y lista de reviews vacía. CI exacta del head: validate/postgres/CodeQL/public-browser-smoke/Vercel Preview SUCCESS, Supabase Preview SKIPPED. Body de la misma PR actualizado. Este commit solo registra checkpoint; no hubo misión, SQL, merge ni deploy."
+    },
+    {
+      "operation": "Verificar CI exacta del checkpoint documental PR240",
+      "detection": "En head 625214f2e935eaaca7d917cb8ddb24270ae0380d validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Vercel Preview Comments SUCCESS. Supabase Preview SKIPPED. PR #240 permanece abierta/draft/mergeable/sin reviews. No se repitió código ni hubo operación externa."
+    },
+    {
+      "operation": "Conciliar y verificar CI del checkpoint PR240 baa8d4e",
+      "detection": "Head exacto baa8d4e00a51516234f83c3393458c424689987b; validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS. Supabase Preview SKIPPED. Push del hijo documental anterior confirmado fast-forward tras error DNS de la primera tentativa; branch remoto coincide."
+    },
+    {
+      "operation": "Revalidar PR240 y registrar espera de revisión humana",
+      "detection": "origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b; branch remota y worktree sincronizados en 89bffdae96695e754be71354087bbadfc1fa4807. PR abierta/draft/mergeable/no-merged; reviews y threads humanos vacíos, único comentario vercel[bot]. CI del SHA exacto aprobada en validate/postgres (dos reportes cada uno), CodeQL, public-browser-smoke, Vercel Preview y Vercel Preview Comments; Supabase Preview SKIPPED. Sin cambios de aplicación ni efectos externos."
+    },
+    {
+      "operation": "Registrar verificación del head PR240 y barrera de revisión",
+      "detection": "PR #240 head exacto 9605a0757d08e24142f913faca4fba1d7cd24388; validate/postgres SUCCESS en dos informes cada uno; CodeQL, public-browser-smoke, Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews y threads humanas vacías; solo comentario vercel[bot]. PR abierta/draft/mergeable. Body actualizado con el head. Sin código, misión ni efecto alojado."
+    },
+    {
+      "operation": "Completar verificación del checkpoint documental 63495d1 y confirmar barrera",
+      "detection": "GitHub main 44dbaeeb6384740da81db2357fb003c7de42d33b; rama PR y worktree coinciden en 63495d142c1f46922eede2948f3048addc695d2b. PR #240 sigue abierta/draft/mergeable, sin review ni threads humanas; único comentario Vercel. CI exacta del head: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED. No hubo cambios de aplicación ni efectos externos."
+    },
+    {
+      "operation": "Review PR240 and correct approval/attestation binding and the real guarded positive path",
+      "detection": "Six RED regressions. Full context canonical fingerprint before/after awaited host callbacks; one-use token consumed immediately before SQL. JSONB key order normalized, observation independently authorized, transient snapshot permissions used for planner without widening persistent permissions. Focused41/41 and verify563/563."
     }
   ],
   "evidence_refs": [
@@ -134,47 +191,52 @@
     "src/autopilot/missionAuthorization.ts",
     "src/autopilot/missionAuthorization.test.ts",
     "tests/mission-operator-postgres.test.ts",
-    "https://github.com/Victoriosas/autopilot/pull/239"
+    "https://github.com/Victoriosas/autopilot/pull/239",
+    "src/autopilot/executorAdapter.ts",
+    "src/autopilot/localMissionStore.ts",
+    "src/autopilot/missionRuntime.ts",
+    "src/autopilot/missionRuntime.test.ts"
   ],
   "blockers": [
-    "Candidate review and exact-head CI are required before any authorized integration.",
-    "P1 closure requires independent execution/effect authorization and completion attestation, including policy changes after claim; claim-only grant is insufficient."
+    "Corrected PR240 requires exact-head CI, review and specific authorization before integration.",
+    "Durable/atomic policy revocation and authorized restart admission are not demonstrated; P1 closure remains blocked, not local review/testing."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Contrato independiente de autorización para un claim sintético fresco en el runtime y ledger existentes.",
+    "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
     "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "worktree aislado, sin escritores compartidos, main verificado",
+    "environment": "Same existing PR240 / codex/p1-per-effect-authorization-20261115; main44dbaeeb verified; private original worktrees untouched.",
     "dependencies": [
-      "PR237 and PR238 already merged; main 4ceb541 verified.",
-      "Use the existing runtime, mission ledger, LocalMissionStore and supervisor; no equivalent queue or scheduler.",
-      "Current candidate is claim-only and local disposable lab only; CloudMissionStore is explicitly rejected."
+      "PR237–239 integrated; PR240 is the only candidate for the active P1 order.",
+      "Review corrections and validate/postgres/relevant checks for the exact new head; reviews/threads were empty at inspection.",
+      "No specific authorization to merge, deploy, execute hosted SQL or activate dispatch."
     ],
+    "acceptance_criteria": [
+      "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
+      "Ningún permiso fuera de synthetic_worktree para ejecutar un paso; sin red/envío.",
+      "Finalización requiere resultados completos, únicos y aprobados, evidencia suficiente y verificador host distinto; atestación vinculada al contexto y consumida una sola vez antes de completar.",
+      "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
+      "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
+    ],
+    "next_action": "Finish exact-head CI and review of corrected PR240, preserving draft. After specifically authorized integration, address the first remaining P1 dependency: define and test durable policy revision/revocation binding in the existing ledger, with no hosted migration or duplicate authorization ledger. Keep P2 inactive.",
     "permissions": {
       "status": "bounded",
-      "scope": "Local reversible synthetic code/tests/docs and one draft PR. No merge, hosted SQL, production, customer messages, paid services, automation changes, pre-existing resource deletion or P2."
-    },
-    "acceptance_criteria": [
-      "Independent strict-boolean host approval before a scoped fresh claim; supervisor observation cannot grant it.",
-      "Executor instance, phase, binding, objective, expiry and checkpoint/plan/goal versions checked; atomic SQL snapshot and one successful concurrent claim.",
-      "Claim grants no execution permission or completion methods; no automatic dispatch or P2.",
-      "Local regressions, verify and exact candidate SHA CI pass, followed by review."
-    ],
-    "next_action": "Review this claim-only candidate and its exact-head CI. Preserve one PR. After specifically authorized integration, continue the same P1 order with independent per-effect execution authorization, revocation and completion attestation; do not activate P2."
+      "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
+    }
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Same P1 order, one checkpoint and existing heartbeat unchanged. Recover branch PR by head name; do not reopen merged PR237/238."
+    "mechanism": "Resume the same PR240 and same P1 order from this JSON. Inspect actual head/CI/reviews before editing; no checkpoint-only polling commits."
   },
-  "resume_instructions": "Read AGENTS, PROJECT_DIRECTION, linear plan and this JSON. Verify remote main, candidate branch PR/head/CI and writers. Review the claim-only increment, preserve its diff and avoid duplicate PR. Continue ORD-P1-SUPERVISOR-ADAPTER-20261114 only; execution/revocation/independent finalization remain P1, no P2 or remote dispatch.",
+  "resume_instructions": "Recover canonical sources and this JSON. Inspect main, PR240 exact head/CI/reviews and writers. Preserve the corrected candidate in this same PR; no duplicate work. Missing human integration authorization is a gate to merge, not a reason to repeat documentation-only commits. The next technical P1 dependency is durable policy revision/revocation in the existing ledger; fresh-only admission/restart limitations must remain explicit. No P2, hosted SQL or unattended dispatch.",
   "supervision": {
-    "verdict": "P1_CLAIM_ONLY_CANDIDATE_REVIEW_REQUIRED",
-    "scope": "Host-independent policy callback and atomic local synthetic claim; no execution capability, attestation or P1 closure.",
-    "evidence": "PR238 integrated, RED/GREEN and local disposable PostgreSQL passed. Exact candidate CI is recorded in the candidate PR; main PLAN Cloud continuation remains intentionally fail-closed cloud_ledger_adapter_not_configured."
+    "verdict": "P1_REVIEW_CORRECTIONS_CANDIDATE",
+    "scope": "Corrected exact-context attestation and asynchronous policy binding; actual guarded synthetic observation/planning/execution/completion under test. One phase P1, one order, same PR240.",
+    "evidence": "RED6, focused41/41, verify563/563, final local PostgreSQL PASS for guarded factory success and observation/checkpoint denials. Exact corrected head CI must be verified at PR240; bebaf18 is predecessor only."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -235,7 +297,7 @@
       ]
     },
     "current_pr_head_checks": {
-      "lookup": "https://github.com/Victoriosas/autopilot/pull/239/checks",
+      "lookup": "https://github.com/Victoriosas/autopilot/pull/240/checks",
       "required": [
         "validate",
         "postgres"
@@ -244,7 +306,18 @@
         "CodeQL",
         "public-browser-smoke"
       ],
-      "policy": "Verificar el SHA exacto del head al recuperar; no copiar estados de CI entre commits ni inferir aprobación de Supabase Preview omitida."
+      "policy": "Verificar siempre SHA exacto; skipped/neutral/ausente no son success y Supabase Preview skipped no es integración alojada.",
+      "verified_sha": "bebaf18dc83dcb4703b56b1768146b98a69e9be2",
+      "results": {
+        "validate": "SUCCESS (two runs)",
+        "postgres": "SUCCESS (two jobs)",
+        "CodeQL": "SUCCESS; no new alerts",
+        "public_browser_smoke": "SUCCESS",
+        "vercel_preview": "SUCCESS",
+        "vercel_preview_comments": "SUCCESS; no unresolved feedback",
+        "supabase_preview": "SKIPPED; no associated branch"
+      },
+      "scope": "Predecessor evidence only. The corrected containing commit must pass its own exact-head checks at PR240/checks; no CI inheritance."
     },
     "integrated_readonly_runtime": {
       "pr": 238,
@@ -270,13 +343,30 @@
       "postgres": "PostgreSQL18 disposable loopback FINAL regression PASS: denial; changed objective, checkpoint version, mission identity, goal version and cancellation; one concurrent claim; replay denied; no execution permissions or write/completion methods.",
       "prior_failed_verification": "One earlier full run: payments/safety.test.ts process failed without internal diagnostic; 540 pass/1 file fail. Isolated rerun7/7 and complete rerun547/547 passed, cause unconfirmed; payment code unchanged.",
       "scope": "Application verify and builds plus focused/SQL suites; no hosted SQL or unattended execution."
+    },
+    "contract_review_20261116": {
+      "predecessor": "bebaf18dc83dcb4703b56b1768146b98a69e9be2",
+      "red_regressions": {
+        "attestation_and_async_context": 4,
+        "guarded_observation_and_json_order": 2
+      },
+      "focused_tests": 41,
+      "focused_pass": 41,
+      "verify_tests": 563,
+      "verify_pass": 563,
+      "verify_fail": 0,
+      "verify_skipped": 0,
+      "verify_exit_code": 0,
+      "checks": "Types,14 skills, Node/Vercel builds, compiled API smoke, route HTML, secret scan, diff check passed.",
+      "postgres": "PASS PostgreSQL18 disposable: actual guarded factory → canonical JSONB objective → authorized observation/planner → synthetic executor → independent verifier → completed (version5); checkpoint denial prevents its SQL write; observation denial creates no worktree; claim/lease/fencing/legacy regressions pass. No hosted SQL.",
+      "prior_sql_test_failure": "New positive guarded fixture reached completed but its test expected version4. Existing six_agent_complete increments the checkpoint too, giving plan1 + steps3 + completion1 =5. Corrected the new assertion against SQL source and readback; no SQL permission or contract changed.",
+      "claim_scope": "Existing claim/lease/token/fencing and same SQL ledger retained; only fixture resources created by this review used."
     }
   },
   "p1_remaining_work": [
-    "Authorize each execution/effect independently of the claim; carry binding, executor identity, phase/objective and current revision through runtime.",
-    "Recheck expiry/revocation after claim and before effects/writes; define the durable policy revision boundary without another ledger.",
-    "Require independent effect attestation before completion, including ready_to_complete recovery; no executor self-certification.",
-    "Only close P1 after reviewed exact-SHA CI and a measured end-to-end negative contract; P2 remains inactive."
+    "Define durable policy revision/expiry/revocation in the existing ledger and its linearization boundary; callbacks alone do not prove atomic revocation.",
+    "Complete a reviewed authorized admission path for an existing ready_to_complete SQL checkpoint after restart; current factory only accepts fresh queued rows. Reuse fencing and independent verifier, never replay effects by loss of context.",
+    "Review the complete local supervisor→runtime→ledger contract by exact SHA before a measured formal P1 closure. No hosted activation or P2 by synthetic success."
   ],
   "preserved_limits": [
     "No scheduled heartbeat receipt established; existing ACTIVE 6h configuration only inspected, unchanged.",
@@ -285,36 +375,35 @@
   ],
   "selected_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Independent claim-only authorization with an atomic local ledger predicate",
-    "priority_reason": "First unmet P1 dependency after merged read-only observation; a supervisor proposal must not authorize a claim or effect.",
+    "objective": "Review and correct the existing per-effect authorization candidate PR240",
+    "priority_reason": "Security/integrity defects first: content not bound to attestation and approvals retargetable across awaits; positive guarded factory also lacked usable authorized observation/planning and JSONB-safe objective comparison.",
     "modified_files": [
       "src/autopilot/missionAuthorization.ts",
       "src/autopilot/missionAuthorization.test.ts",
-      "src/autopilot/executorAdapter.ts",
       "src/autopilot/missionRuntime.ts",
-      "src/autopilot/localMissionStore.ts",
+      "src/autopilot/missionRuntime.test.ts",
+      "src/autopilot/executorAdapter.ts",
       "tests/mission-operator-postgres.test.ts",
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md",
       "docs/OPENCODE_CHECKPOINT.md",
-      "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
-      "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
+      "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md"
     ],
-    "integration_state": "PROPOSED in draft PR239 and locally TESTED; not merged, hosted, scheduled or generally executable"
+    "integration_state": "Implemented and locally tested corrections in the SAME draft PR240; exact new-head CI and review required; not merged or deployed."
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Independently authorize each effect after claim, enforce current revision/expiry/revocation and independent completion attestation",
+    "objective": "P1: durable policy revision/revocation bound to the existing SQL ledger",
     "dependencies": [
-      "Review and specifically authorized integration of this one claim-only candidate",
-      "Existing runtime/ledger and trusted host policy; no second authorization ledger or dispatch scheduler"
+      "Review and specifically authorized integration of corrected PR240; no duplicate PR or competing chain.",
+      "Define the trusted policy owner and minimal existing-ledger authorization boundary without widening production permissions."
     ],
     "acceptance": [
-      "Denial/revocation/expiry after claim prevents executor invocation and subsequent writes.",
-      "Goal/binding/executor substitution rejected; stale claims remain fenced.",
-      "Executor self-reported evidence cannot complete; independent verifier and ready_to_complete recovery tested.",
-      "Existing manual/synthetic regressions and exact-head validate/postgres pass; no P2 or unattended dispatch."
+      "A stale/revoked/expired policy revision cannot authorize a new effect or SQL completion, even if a callback returns true.",
+      "Concurrency and revocation after attestation have explicit tested linearization; existing leases/fencing remain authoritative.",
+      "Use disposable local SQL and reviewed staged changes only; no hosted migration, CLI/scheduler dispatch or P2.",
+      "Preserve explicit fresh-only/restart limitations until independently tested."
     ],
-    "recoverable_prompt": "Recover docs/CODEX_CONTINUATION.json and verify remote main, writers and the existing branch PR. Review the claim-only candidate and exact SHA CI; do not duplicate or merge on initiative. After authorized integration, continue ORD-P1-SUPERVISOR-ADAPTER-20261114 with per-effect authorization, revocation and independent completion using the existing runtime/ledger. Keep P1 partial and P2 inactive."
+    "recoverable_prompt": "Continue ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 only. Verify main/PR240 head/CI/reviews/writers; keep this same candidate and resolve review defects before integration. Do not create polling commits or duplicate PR. After specifically authorized integration, implement the minimal durable revision/revocation contract using the existing ledger and local disposable tests. Keep fresh-only recovery limits explicit; no hosted SQL, dispatch or P2."
   }
 }
