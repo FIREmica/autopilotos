@@ -83,7 +83,7 @@ export interface ExecutorResult {
 
 /** A host-authorized, single-use operation in the existing mission runtime. */
 export interface MissionEffectRequest {
-  kind: 'observe_state' | 'execute_step' | 'write_checkpoint' | 'save_plan' | 'block' | 'fail' | 'attest_completion' | 'complete_write';
+  kind: 'observe_state' | 'execute_step' | 'reconcile_effect' | 'write_checkpoint' | 'save_plan' | 'block' | 'fail' | 'attest_completion' | 'complete_write';
   operationId: string;
   stepId?: string;
 }
@@ -94,6 +94,8 @@ export type MissionCompletionAttestation = object;
 export interface ExecutorAdapter {
   readonly executorId: string;
   execute(context: ExecutorContext, signal?: AbortSignal): Promise<ExecutorResult>;
+  /** Read-only reconciliation of an already applied synthetic effect, never creation. */
+  reconcile?(context: ExecutorContext, signal?: AbortSignal): Promise<ExecutorResult>;
   observe?(context: ExecutorContext, signal?: AbortSignal): Promise<SyntheticObservation>;
 }
 
@@ -103,6 +105,7 @@ export interface ModelProvider {
 }
 
 export interface MissionLedger {
+  readonly recovery?: 'ready_to_complete' | 'reconcile_effect';
   /** Optional host policy gate; checked before any claim, never selected by a task. */
   authorizeExecutor?(executor: ExecutorAdapter): Promise<void>;
   /** Explicitly authorized execution paths must reauthorize every runtime effect. */

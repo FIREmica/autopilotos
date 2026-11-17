@@ -156,6 +156,12 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       if(decision?.action!=='verify' || state.queueState!=='running' || state.state!=='ready_to_complete'
         || state.leaseActive!==false || state.checkpointVersion!==claimGuard.expected.checkpointVersion || state.planVersion!==claimGuard.expected.planVersion
         || state.attempts>=state.maxAttempts) throw Error('mission_recovery_not_authorized');
+    } else if(claimGuard.expected.recovery==='reconcile_effect') {
+      const state=await store.status(claimGuard.expected.missionId);
+      if(decision?.action!=='inspect' || decision.reason!=='mission_state_unverified'
+        || state.queueState!=='running' || state.state!=='in_progress' || state.leaseActive!==false
+        || state.checkpointVersion!==2 || state.planVersion!==1 || state.attempts>=state.maxAttempts)
+        throw Error('mission_recovery_not_authorized');
     } else if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
       throw Error('mission_not_fresh_for_authorization');
     const base=createMissionLedger(store.client(claimGuard.expected.missionId,runId,claimGuard),[]);
@@ -164,7 +170,14 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       // Final admission read after the host callback: true cannot override a durable revoke.
       await store.assertAuthorization(claimGuard.expected);
       return decision;
-    },verifier);
+    },{verifierId:verifier?.verifierId,
+      verify:typeof verifier?.verify==='function' ? context=>verifier.verify(context) : undefined,
+      verifyRecovery:typeof verifier?.verifyRecovery==='function' ? async context=>{
+      const accepted=await verifier.verifyRecovery!(context);
+      // An awaited oracle cannot revive a policy revoked while it was running.
+      await store.assertAuthorization(claimGuard.expected);
+      return accepted;
+    }:undefined});
     return createAuthorizedMissionLedger(base,executor,claimGuard.expected,effectGuard,verifier.verifierId);
   }
   /**
@@ -271,7 +284,8 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       if (!next) throw Error('no_ready_step');
       // Only the host selects steps. An executor cannot mark several steps passed in one call.
       let result;
-      const effectPermissions=await authorizeEffect({kind:'execute_step',operationId:`runtime:execute:${context.mission.missionId}:${context.checkpointVersion}:${next.id}`,stepId:next.id});
+      const reconcile=this.ledger.recovery==='reconcile_effect' && next.task==='synthetic.modify';
+      const effectPermissions=await authorizeEffect({kind:reconcile?'reconcile_effect':'execute_step',operationId:`runtime:${reconcile?'reconcile':'execute'}:${context.mission.missionId}:${context.checkpointVersion}:${next.id}`,stepId:next.id});
       const stepPermission=this.ledger.authorizeEffect ? effectPermissions.includes('synthetic_worktree')
         : context.permissions.includes('synthetic_worktree');
       if(planned && !stepPermission) throw Error('mission_effect_authorization_required');
@@ -279,10 +293,14 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
       snapshot.checkpoint.current_step_id = next.id;
       snapshot.permissions=this.ledger.authorizeEffect ? [...effectPermissions] : [...context.permissions];
       try {
-        result = await bounded(() => executor.execute(snapshot, signal), signal);
+        if(reconcile && !executor.reconcile)throw Error('reconciliation_adapter_required');
+        result = await bounded(() => reconcile ? executor.reconcile!(snapshot,signal) : executor.execute(snapshot, signal), signal);
       }
       catch {
         signal?.throwIfAborted();
+        // A failed read-only reconciliation is uncertain evidence, not permission
+        // to observe/replan or retry the original write-capable modify step.
+        if(reconcile)throw Error('mission_recovery_unverified');
         if (planned) {
           try {
             const observation = await observe();

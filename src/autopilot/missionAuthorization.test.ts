@@ -294,3 +294,65 @@ test('grant executor identity matches the existing SQL checkpoint identifier con
   const executorId='x'.repeat(80);
   assert.doesNotThrow(()=>createMissionClaimGuard({...grant(),executorId},{...executor,executorId},async()=>true));
 });
+
+function effectRecoveryContext(): ExecutorContext {
+  const context=terminalContext();
+  context.mission.goal='Verify synthetic mission recovery';context.mission.planVersion=1;
+  context.mission.plan=[
+    {id:'prepare-v1',task:'synthetic.prepare',depends_on:[]},
+    {id:'modify-v1',task:'synthetic.modify',depends_on:['prepare-v1']},
+    {id:'verify-v1',task:'synthetic.verify',depends_on:['modify-v1']},
+  ];
+  context.checkpointVersion=2;
+  context.checkpoint={mission_state:'in_progress',current_step_id:'modify-v1',completed_steps:['prepare-v1'],
+    pending_steps:['modify-v1','verify-v1'],results:[{step_id:'prepare-v1',status:'passed',summary:'verified'}],
+    artifacts:[],test_evidence:['prepare-v1:verified'],worktree:{branch:'codex/synthetic-authorized',sha:'b'.repeat(40)}};
+  return context;
+}
+const effectRecoveryGrant=()=>({...grant(),checkpointVersion:2,planVersion:1,recovery:'reconcile_effect' as const});
+const recoveryDecision=async(g:{revision:number},_c:unknown,e:{operationId:string;kind:string})=>({
+  allowed:true,revision:g.revision,operationId:e.operationId,
+  permissions:['reconcile_effect','execute_step'].includes(e.kind)?['synthetic_worktree']:[],
+});
+
+test('effect recovery requires its own scope and independent live oracle, never a terminal grant',async()=>{
+  const replacement={...executor,reconcile:executor.execute};
+  assert.doesNotThrow(()=>createMissionClaimGuard(effectRecoveryGrant(),replacement,async()=>true));
+  assert.throws(()=>createMissionEffectGuard(effectRecoveryGrant(),replacement,recoveryDecision,
+    {verifierId:'independent-recovery',verify:async()=>true}),/invalid_mission_effect_authorization/);
+  const guard=createMissionEffectGuard(effectRecoveryGrant(),replacement,recoveryDecision,
+    {verifierId:'independent-recovery',verify:async()=>true,verifyRecovery:async()=>false});
+  await assert.rejects(guard.beforeEffect(replacement,effectRecoveryContext(),
+    {kind:'reconcile_effect',operationId:'recovery:denied',stepId:'modify-v1'}),/mission_recovery_unverified/);
+});
+
+test('effect recovery cannot execute modify, prepare, observe, replan or change the admitted plan',async()=>{
+  const replacement={...executor,reconcile:executor.execute};let oracleCalls=0;
+  const guard=createMissionEffectGuard(effectRecoveryGrant(),replacement,recoveryDecision,
+    {verifierId:'independent-recovery',verify:async()=>true,verifyRecovery:async()=>{oracleCalls++;return true;}});
+  const context=effectRecoveryContext();
+  await guard.beforeEffect(replacement,context,{kind:'reconcile_effect',operationId:'recovery:read',stepId:'modify-v1'});
+  assert.equal(oracleCalls,1);
+  for(const [kind,stepId] of [['execute_step','modify-v1'],['execute_step','prepare-v1'],['execute_step','verify-v1'],
+    ['observe_state',undefined],['save_plan',undefined],['fail',undefined],['block',undefined]] as const){
+    await assert.rejects(guard.beforeEffect(replacement,context,{kind,operationId:`recovery:deny:${kind}:${stepId??'none'}`,stepId}),/mission_effect_authorization_denied/);
+  }
+  const changed=structuredClone(context);changed.mission.planVersion=2;
+  await assert.rejects(guard.beforeEffect(replacement,changed,{kind:'reconcile_effect',operationId:'recovery:changed',stepId:'modify-v1'}),/mission_effect_authorization_denied/);
+  const tampered=structuredClone(context);tampered.mission.plan[1].task='synthetic.prepare';
+  await assert.rejects(guard.beforeEffect(replacement,tampered,{kind:'reconcile_effect',operationId:'recovery:tampered',stepId:'modify-v1'}),/mission_effect_authorization_denied/);
+  assert.equal(oracleCalls,1,'out-of-scope operations do not reach the oracle');
+});
+
+test('runtime retains class verifier methods and their receiver for existing fresh missions',async()=>{
+  class Verifier {
+    get verifierId(){return 'class-host-verifier';}
+    calls=0;
+    async verify(){this.calls++;return true;}
+  }
+  const verifier=new Verifier();
+  const ledger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(policyStore(async()=>{}),grant(),
+    'class-verifier-run',executor,async()=>true,allowEffect,verifier);
+  await ledger.attestCompletion!(executor,terminalContext());
+  assert.equal(verifier.calls,1);
+});

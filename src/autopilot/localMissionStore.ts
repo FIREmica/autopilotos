@@ -8,7 +8,7 @@ import type { AgentId } from './sixAgentControlPlane';
 
 export interface MissionClaimGuard {
   expected: { missionId: string; binding: string; goalVersion: number; checkpointVersion: number;
-    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string; phase: 'F0'; recovery?:'ready_to_complete' };
+    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string; phase: 'F0'; recovery?:'ready_to_complete'|'reconcile_effect' };
   authorizeExecutor(executor: ExecutorAdapter): Promise<void>;
   beforeClaim(agentId: AgentId): Promise<void>;
 }
@@ -138,14 +138,15 @@ export class LocalMissionStore {
           if (args.p_agent !== 'software') throw Error('agent_not_allowed');
           if (guard) await guard.beforeClaim('software');
           // Same transaction and row lock as the claim: no read/claim TOCTOU.
-          // Fresh claims or explicit terminal-only recovery after lease expiry; no live takeover.
+          // Fresh claims or explicit scoped synthetic recovery after lease expiry; no live takeover.
           const precondition=expected ? `begin; set local autopilot.policy_grant=${literal(expected)}; do $authorization$ begin
             perform 1 from public.agent_tasks t where t.id=${literal(id)} and t.mission_id=${literal(id)}
               and t.goal='Verify synthetic mission recovery' and t.input->>'mission_schema_version'='1'
               and t.actor='autopilot-local-cli'
               and t.agent_id='software' and t.input->>'host_binding'=${literal(expected.binding)}
-              and ${expected.recovery==='ready_to_complete'
-                ? "t.status='running' and t.lease_until<clock_timestamp() and t.execution_token is not null and t.mission_checkpoint->>'mission_state'='ready_to_complete'"
+              and ${expected.recovery
+                ? `t.status='running' and t.lease_until<clock_timestamp() and t.execution_token is not null
+                    and t.attempt_count<t.max_attempts and t.mission_checkpoint->>'mission_state'=${literal(expected.recovery==='ready_to_complete'?'ready_to_complete':'in_progress')}`
                 : "t.status='queued' and t.attempt_count=0 and t.execution_token is null and t.lease_until is null and t.mission_checkpoint->>'mission_state'='queued'"}
               and t.mission_checkpoint_version=${literal(expected.checkpointVersion)}::integer
               and coalesce((t.input->>'plan_version')::integer,0)=${literal(expected.planVersion)}::integer
