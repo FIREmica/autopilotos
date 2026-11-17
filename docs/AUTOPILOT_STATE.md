@@ -1,3 +1,13 @@
+# P1 · reconciliación de integración externa y seguimiento de seguridad · 17/11/2026
+
+Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL. GitHub cambió durante la edición: #244 y #245 integradas externamente, main0454ab6, head fusionado245=0a8bf80. No ejecuté esas fusiones. La corrección19f62f9 quedó fuera; su rama original se conserva y se trasladó solo ese delta a codex/p1-policy-transport-20261117 desde main actual. #244 (privacidad/aprobación/pruebas/migración/script npm) queda intacta.
+
+Validación en esta base: verify575/575, cero fallos/omisiones, tipos/builds/API y SQL PostgreSQL18 aislada aprobados. Se preservan las pruebas de aprobación244 y los negativos/revocación/recuperación terminal.
+
+Política durable y recuperación terminal están FUSIONADAS por245; no duplicarlas. El seguimiento reduce el transporte SQL a SET LOCAL/literal escapado y alinea executorId con el contrato de checkpoint (alfabeto existente, máximo80). No expande permisos, roles remotos o scopes de recuperación. Su verificación sobre main nuevo y CI exacta se registran aparte: no heredar567/567 de la base anterior ni los checks de245.
+
+No se abre otra cadena ni se reactiva245. Una PR de seguimiento pequeña es necesaria porque un defecto exclusivo seguía fuera del main fusionado. Mantenerla draft y sin integración automática; después de integración específicamente autorizada, evaluar formalmente la salida P1. Sin P2, SQL alojado, despliegues manuales, clientes, gastos o cambios de automatización6h. [Único checkpoint y prompt recuperable](CODEX_CONTINUATION.json). Las entradas inferiores son historia.
+
 # P1 · política durable y recuperación terminal · 17/11/2026
 
 Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL, productoF0. Main0342d39 incorpora #240–#243, confirmadas en GitHub; validate/postgres/CodeQL/local-stack/beauty-stack aprobaron. PLAN Cloud run44006451388 conserva el fallo cerrado cloud_ledger_adapter_not_configured con source CI success; no se modifica. Las entradas inferiores son históricas.

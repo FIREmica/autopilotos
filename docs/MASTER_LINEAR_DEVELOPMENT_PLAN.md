@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada tecnicamente con limites; main verificado0342d39; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada tecnicamente con limites; main verificado0454ab6; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -203,3 +203,7 @@ Base main0342d39 tras #240–#243. La política reside en agent_tasks.input, con
 La recuperación ready_to_complete es explícita, con lease vencida, versiones exactas y nueva política; conserva claim/lease/fencing y exige atestación independiente nueva sin repetir pasos. Solo admite atestar/finalizar, no observar, replanificar, ejecutar o escribir checkpoints. SQL staged solo local; no migración alojada ni conexión a CLI/scheduler. Pruebas/CAS/carrera observada y recuperación en el mismo checkpoint/PR.
 
 P1 continúa parcial hasta review/integración autorizadas y veredicto formal de salida sobre main real. La siguiente misión de la misma orden es esa evaluación; no se abre P2 por verde sintético ni se declara identidad remota, recuperación general, despliegue o heartbeat ejecutado.
+
+## Reconciliación de integración externa245 · 17/11/2026
+
+#245 integró el núcleo durable y recuperación en main0454ab6 junto con #244. El hardening19f62f9 de transporte/identidad no estaba en ese head; un seguimiento pequeño sobre main actual conserva244 íntegra y lleva solo ese delta. Revisión/CI exacta e integración autorizada antes de evaluación formal de cierre P1. No repetir245, no activar P2, no confundir pruebas de la base previa con el nuevo SHA.
