@@ -284,3 +284,12 @@ test('terminal recovery needs an explicit scope and cannot authorize observation
   assert.equal(decisions,0);
   const token=await guard.attestCompletion(context);guard.consumeAttestation(context,token);
 });
+
+test('grant executor identity matches the existing SQL checkpoint identifier contract',()=>{
+  for(const executorId of ['local:$policy$:$authorization$',"local:quote'",'x'.repeat(81)]) {
+    const candidate={...executor,executorId};
+    assert.throws(()=>createMissionClaimGuard({...grant(),executorId},candidate,async()=>true),/invalid_mission_authorization/);
+  }
+  const executorId='x'.repeat(80);
+  assert.doesNotThrow(()=>createMissionClaimGuard({...grant(),executorId},{...executor,executorId},async()=>true));
+});

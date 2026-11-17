@@ -54,7 +54,7 @@ export function createMissionClaimGuard(
   const grant=structuredClone(input);
   if (!grant || !/^[a-z][a-z0-9-]{2,79}$/.test(grant.id) || !Number.isSafeInteger(grant.revision) || grant.revision<1
     || !/^[a-f0-9]{64}$/.test(grant.binding) || grant.phase!=='F0'
-    || typeof grant.executorId!=='string' || !grant.executorId || grant.executorId!==executor?.executorId
+    || typeof grant.executorId!=='string' || !/^[a-zA-Z0-9._:-]{1,80}$/.test(grant.executorId) || grant.executorId!==executor?.executorId
     || grant.goalVersion!==1
     || (grant.recovery===undefined ? (grant.checkpointVersion!==0 || grant.planVersion!==0)
       : grant.recovery!=='ready_to_complete' || !Number.isSafeInteger(grant.checkpointVersion) || grant.checkpointVersion<1
