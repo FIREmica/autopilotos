@@ -1,3 +1,13 @@
+# P1 integrada; P2 preparada; heartbeat con recepción observada · 17/11/2026
+
+P1_CLOSED_WITH_BOUNDARIES **FUSIONADO** por [PR248](https://github.com/Victoriosas/autopilot/pull/248), merge `8633b3625b2109d21ef313adc168bd54c96ddeb4`, con autorización explícita del propietario para las integraciones. Misma orden ORD-P1-SUPERVISOR-ADAPTER-20261114 concluida técnicamente, productoF0 sin cambio; P2 solo PREPARADA/INACTIVA. No crear una segunda orden activa. Las referencias inferiores a acta pendiente son historia.
+
+CI exacta main8633b36 [run44020226387](https://github.com/Victoriosas/autopilot/actions/runs/44020226387): validate/postgres y tres análisis CodeQL SUCCESS, 575 tests:574 pass/0 fail/1 Windows-only skip. SQL acredita de nuevo recuperación protegida Node, intento2/checkpoint5 y tamperedBlocked. PLAN Cloud44020570320 conserva fallo cerrado; no prueba despliegue alojado.
+
+[Contrato P2 y auditoría](P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md): paquete actual0.2.0 localizado frente a catálogo0.1.0 obsoleto; tres skills/referencias leídas y preflight en lectura ejecutado. Heartbeat existente ACTIVE/6h, configuración intacta. Herramienta oficial confirmó dos turnos recibidos/completados16/11; uno produjo commit documentalbebaf18, ancestro comprobado de main. Esto supera la incertidumbre histórica sobre recepción, pero no acredita misión Codex ligada a claim/efectos SQL, exclusión global, presupuesto o apagado operativo end-to-end.
+
+Próxima misión exacta: decidir autorización de ejecución del primer incremento P2 definido en el contrato, con base/titularidad/presupuesto/verificador confirmados. Preparación e integraciones del repositorio están autorizadas; no se activa P2 ni se cambia heartbeat por esa autorización. No código, fixtures o SQL nuevos, suites locales repetidas, producción, envíos, gastos o borrados. Raíz y procesos ajenos conservados. El [checkpoint único](CODEX_CONTINUATION.json) distingue integración confirmada, preparación pendiente y evidencia operativa limitada.
+
 # P1 — veredicto de cierre técnico con límites · 17/11/2026
 
 **P1_CLOSED_WITH_BOUNDARIES** sobre main `823c2fef706dbe4518bd322afdf6d666c8a1caf8`, con #246 y #247 ya FUSIONADAS externamente. Registro documental propuesto, pendiente de review/CI propia e integración autorizada; no se afirma que este acta ya esté en main. Misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`, producto F0 sin cambio; P2 definida e inactiva. Los estados parciales de las entradas inferiores son historia.

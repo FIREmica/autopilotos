@@ -1,29 +1,29 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T04:44:34+00:00",
-  "execution_id": "p1-exit-verdict-20261117",
+  "updated_at": "2026-11-17T04:59:01+00:00",
+  "execution_id": "p1-integrated-p2-contract-runtime-audit-20261117",
   "repository": {
-    "branch": "codex/p1-exit-verdict-20261117",
-    "base_sha": "823c2fef706dbe4518bd322afdf6d666c8a1caf8",
-    "head_sha": "823c2fef706dbe4518bd322afdf6d666c8a1caf8",
-    "worktree": "WORKTREE:p1-exit-verdict-20261117",
-    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp1-exit-verdict-20261117",
-    "note": "Verified code/main and parent of documentary commit, not the containing commit SHA. Resolve documentary head and its own CI from this branch/PR. PR246/247 already merged externally."
+    "branch": "codex/p2-contract-runtime-audit-20261117",
+    "base_sha": "8633b3625b2109d21ef313adc168bd54c96ddeb4",
+    "head_sha": "8633b3625b2109d21ef313adc168bd54c96ddeb4",
+    "worktree": "WORKTREE:p2-contract-runtime-audit-20261117",
+    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-contract-runtime-audit-20261117",
+    "note": "Verified main and documentary parent, not self-referential final commit. PR248 integrated with owner authorization; resolve containing commit/CI via branch/PR."
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Registrar evaluacion formal de cierre P1 sobre main integrado, con limites y P2 inactiva.",
-    "status": "closure_record_pending_review_and_integration",
-    "last_verified_step": "PR246 merges at0e27b6d, PR247 at823c2fe. Exact main validate/postgres/CodeQL SUCCESS. Main PostgreSQL proof: distinct Node processes, fresh grant, fenced old token, completed attempt2/version5; tampered artifact rejected with checkpoint intact. Technical verdict P1_CLOSED_WITH_BOUNDARIES; this documentary record is proposed, not yet merged.",
+    "objective": "P1 cerrada tecnicamente con limites e integrada; preparar contrato P2 y auditar continuidad existente sin activarla.",
+    "status": "closed_with_boundaries",
+    "last_verified_step": "Owner authorized repository integrations; PR248 merged at8633b36 with expected head8d335bf and no unresolved review threads. Exact main validate/postgres/three CodeQL analyses SUCCESS. P1 closure integrated. P2 contract prepared only. Existing heartbeat received/completed two observed turns on16/11, one documentary commitbebaf18 integrated in history.",
     "limits": [
       "Scope is the local disposable synthetic lab. No hosted schema applied, CLI/scheduler connection, remote dispatch or P2.",
       "The host controller with reviewed admit+execute/cancel permissions explicitly issues/revokes policy; supervisor and executor receive no administration capability or SQL credentials.",
       "Policy revision, active flag and expiry persist inside the same agent_tasks input; CAS and row-locked trigger protect SQL writes. New effect admission checks durable policy after the callback.",
       "A filesystem effect admitted before revocation may finish; its later SQL write is denied after revocation. No atomic filesystem/SQL rollback or remote identity guarantee is claimed.",
       "Recovery is explicit ready_to_complete only: lease expired, exact versions, new durable grant, existing fenced claim, independent artifact verifier. It cannot observe, plan, execute steps or write checkpoints.",
-      "P1 technical closure is bounded to trusted-host local synthetic execution and explicit ready_to_complete recovery. Documentary closure record pending review/integration; P2 and remote/general recovery remain inactive."
+      "P1_CLOSED_WITH_BOUNDARIES integrated via PR248; only trusted-host local synthetic runtime and explicit ready_to_complete recovery. P2 is prepared, not activated; integration authorization does not authorize P2 execution or hosted effects."
     ],
     "acceptance_criteria": [
       "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
@@ -185,6 +185,22 @@
     {
       "operation": "Evaluar cierre P1 con recuperacion protegida en proceso nuevo",
       "detection": "Main job133819836466 logs protected_node_process_recovery_verified: distinct initial/recovery PIDs, completed,attempts2,checkpoint5,oracle1,tamperedBlocked true. Source asserts no observe/plan/execute replay, stale token fence and checkpoint preservation. Formal bounded verdict proposed in same JSON; P2 inactive."
+    },
+    {
+      "operation": "Integrar acta de cierre P1 con autorizacion vigente",
+      "detection": "PR248 ready then explicit merge with expected head8d335bf90a3acede62ee3a60989af44340ce2ffa; merge8633b3625b2109d21ef313adc168bd54c96ddeb4. Exact main run44020226387 validate/postgres SUCCESS and security analyses SUCCESS; no bypass, auto-merge, deletion or manual deployment."
+    },
+    {
+      "operation": "Localizar complemento actual y ejecutar preflight solo lectura",
+      "detection": "Historical catalog0.1.0 path absent; actual package0.2.0 manifest and all three skills/references read. Preflight on root: old HEADa6cff5a,0 tracked changes/140 untracked entries,no checkpoint. Own prior candidate clean/checkpoint present. Preflight does not check remote freshness, concurrent writers or runtime, and grants no authority."
+    },
+    {
+      "operation": "Acreditar recepcion real del heartbeat existente",
+      "detection": "Official automation view plus read of its existing target thread: two completed heartbeat turns16/11 at17:49:24Z and23:53:01Z. Last turn wrote/pushed documentary commitbebaf18dc83dcb4703b56b1768146b98a69e9be2, verified ancestor of main. Not a protected SQL mission or general Codex adapter proof. Configuration untouched."
+    },
+    {
+      "operation": "Preparar siguiente contrato P2 sin ejecutarlo",
+      "detection": "Existing legacy effect-before-checkpoint fixtures mapped separately from protected ready_to_complete proof. New document defines fault matrix, budget, identity, independent oracle, stop/rollback and acceptance. No runtime/test/SQL changes or synthetic P2 execution."
     }
   ],
   "evidence_refs": [
@@ -230,47 +246,52 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44017808255",
     "https://github.com/Victoriosas/autopilot/actions/runs/44017808255/job/133819836164",
     "https://github.com/Victoriosas/autopilot/actions/runs/44017808255/job/133819836466",
-    "https://github.com/Victoriosas/autopilot/actions/runs/44018177216"
+    "https://github.com/Victoriosas/autopilot/actions/runs/44018177216",
+    "docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md",
+    "https://github.com/Victoriosas/autopilot/pull/248",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44020226387",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44020570320"
   ],
   "blockers": [
-    "No unmet technical P1 criterion found within the scoped local synthetic contract. Documentary closure record still requires review, exact candidate CI and specifically authorized integration.",
-    "P2 activation not authorized; no new P phase active. General effect-uncertainty, Windows and cross-host recovery remain outside P1 evidence.",
-    "PLAN Cloud continuation intentionally fails cloud_ledger_adapter_not_configured on main; no remote adapter or dispatch enabled. Not an unmet local P1 gate."
+    "No unmet bounded P1 technical gate; closure integrated in main8633b36.",
+    "P2 execution not activated/authorized by the preparation directive; its first guarded in_progress effect-reconciliation contract must be approved and preflighted before implementation/execution.",
+    "Global writer fencing and a Codex-run-to-SQL mission/effect receipt are not demonstrated by the heartbeat; mission budget and operational stop/recovery are not measured end-to-end.",
+    "Cloud continuation deliberately fails closed; no remote adapter/dispatch authorized."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Revisar e integrar el registro de cierre P1; despues decidir activacion P2 segun el mismo plan, sin ejecutarla implicitamente.",
-    "status": "closure_record_pending_review_and_integration",
+    "objective": "P1 cerrada: revisar/integrar preparacion P2 y auditoria; decidir autorizacion de ejecucion P2 antes de cambiar fase.",
+    "status": "p2_prepared_not_activated",
     "executor": "Codex",
-    "environment": "Isolated documentation worktree on verified code/main 823c2fef706dbe4518bd322afdf6d666c8a1caf8",
+    "environment": "Documentation-only isolated worktree on verified main 8633b3625b2109d21ef313adc168bd54c96ddeb4",
     "dependencies": [
-      "PR246 and PR247 already merged; never recreate their implementation.",
-      "Review and exact SHA CI of this closure record; specifically authorized integration.",
-      "P2 stays defined/inactive until separate activation decision."
+      "P1 closure PR248 integrated and exact main CI verified.",
+      "This preparation record reviewed and integrated under current repository integration authorization.",
+      "Explicit P2 execution activation plus verified scoped writer, budget, cancellation and independent oracle."
     ],
     "acceptance_criteria": [
-      "Single checkpoint/report/plan/prompt/state agree on bounded P1 verdict and inactive P2.",
-      "Evidence links identify exact integrated code SHA and actual main CI including omissions and fail-closed cloud.",
-      "No source, tests, SQL, permissions, runtime or automation configuration changes."
+      "P1 integrated closure and inactive P2 consistent in same checkpoint/plan/prompt/state.",
+      "Prepared fault matrix reuses existing fixtures without claiming legacy recovery is protected recovery.",
+      "Runtime audit distinguishes actual documentary heartbeat cycles from governed SQL missions; no automation/configuration change."
     ],
-    "next_action": "Revisar la unica propuesta documental de codex/p1-exit-verdict-20261117. Integrar solo con autorizacion especifica. Si ya esta integrada, observar su main/CI y someter a decision el primer ensayo P2 de efecto sin checkpoint, sin iniciarlo.",
+    "next_action": "Activar P2 solo mediante autorizacion de ejecucion del contrato local definido en docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md, con SHA/titularidad/presupuesto confirmados. Hasta entonces solo conservar contrato y evidencia; no implementar ni ejecutar recuperacion general.",
     "permissions": {
-      "status": "bounded",
-      "scope": "Documentation and one draft closure PR only. No merge/deploy/hosted SQL/clients/spend/automation changes/deletion/P2 execution."
+      "status": "bounded_preparation",
+      "scope": "Documentation/preflight/read-only runtime audit plus repository integrations explicitly authorized by current user. P2 execution and all hosted/production/automation changes remain excluded."
     }
   },
   "resumption": {
-    "status": "closure_record_pending_review_and_integration",
-    "mechanism": "Read this same JSON from the containing branch/PR; reconcile external integration before repeating anything. No extra checkpoint or routine CI-only commit."
+    "status": "p2_prepared_not_activated",
+    "mechanism": "Same checkpoint in containing branch/main; verify current integration before repeating. Actual16/11 heartbeat documentary turn received canonical prompt and read an isolated-worktree checkpoint. No general SQL-governed Codex receipt or new-phase activation."
   },
-  "resume_instructions": "Recupera docs/CODEX_CONTINUATION.json y docs/P1_EXIT_REVIEW_20261117.md. Misma ORD-P1-SUPERVISOR-ADAPTER-20261114. PR246 y PR247 ya fusionadas; main de codigo evaluado 823c2fef706dbe4518bd322afdf6d666c8a1caf8. Busca la unica PR documental por rama codex/p1-exit-verdict-20261117, verifica su SHA, CI, reviews, escritores y main actual antes de editar. El veredicto P1_CLOSED_WITH_BOUNDARIES cubre solo el nucleo sintetico local: su registro requiere revision e integracion especificamente autorizada; no repetir fixtures ni PR246/247. Si la integracion ya ocurrio, reconciliarla sin otra PR de sondeo. P2 permanece inactiva hasta decision de activacion propia; el siguiente alcance propuesto del plan es recuperacion ante efecto aplicado sin checkpoint con oraculo independiente en laboratorio desechable. No ejecutar ese ensayo todavia. No cloud dispatch, SQL alojado, produccion, envios, gastos, borrados o cambios al heartbeat6h. Mantener cloud_ledger_adapter_not_configured y todos los recursos previos.",
+  "resume_instructions": "Recupera el mismo docs/CODEX_CONTINUATION.json, docs/P1_EXIT_REVIEW_20261117.md y docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md. PR248 ya fusionada con autorizacion del propietario en main 8633b3625b2109d21ef313adc168bd54c96ddeb4; P1_CLOSED_WITH_BOUNDARIES integrado, productoF0 sin cambio. Reconciliar la propuesta documental por rama codex/p2-contract-runtime-audit-20261117 con main/CI y escritores antes de repetir una integracion. La autorizacion vigente permite integraciones revisadas del repositorio con controles exactos aprobados, sin bypass ni auto-merge programado. P2 solo preparada, no activa: falta autorizacion de ejecutar el contrato local de interrupciones y confirmar sus puertas de presupuesto/titularidad. No ampliar recovery ready_to_complete a in_progress como permiso implicito ni llamar al camino legacy para eludir la fabrica protegida. Heartbeat6h ACTIVE con dos turnos recibidos/completados el16/11, uno documental bebaf18; esto no prueba una mision Codex gobernada por SQL ni exclusion global. Complemento0.2.0 localizado y preflight ejecutado; catalogo0.1.0 desactualizado. No modificar automatizacion ni reinstalar plugin. Sin P2 ejecutada, cloud dispatch, SQL alojado, produccion, envios, gastos o borrados. Conservar cloud_ledger_adapter_not_configured. Si no hay evidencia nueva ni feedback, no crear hijos de sondeo.",
   "supervision": {
     "verdict": "P1_CLOSED_WITH_BOUNDARIES",
-    "scope": "Evaluated integrated code 823c2fef706dbe4518bd322afdf6d666c8a1caf8; local synthetic trusted host only. Closure record proposed for review, P2 inactive.",
-    "evidence": "Exact main validate SUCCESS:575 tests,574 pass,0 fail,1 Windows-only skip. PostgreSQL18 SUCCESS, protected operator1/1 pass without skips. CodeQL SUCCESS. Cloud continuation fails closed. No deployment or scheduled runtime certified."
+    "scope": "Integrated P1 closure, P2 preparation only; actual heartbeat documentary cycles observed, not full autonomous development.",
+    "evidence": "PR248 merged with owner authorization; exact main8633b36 validate/postgres/security PASS. Existing heartbeat ACTIVE6h and two completed turns16/11; one commitbebaf18 integrated. Plugin0.2.0/preflight readable/executed; global exclusion/budget/ledger link not certified."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -305,6 +326,11 @@
       "instruction": "No purgar commits ni eliminar recursos; documentar limitaciones hist?ricas y cerrar solo la reconciliaci?n t?cnica P0.",
       "disposition": "retain Git history and all worktrees/backup refs; review only confirmed sensitive exposure; preserve DPAPI limitation; P1 code candidate allowed in isolation.",
       "scope": "No aceptaci?n de exposici?n de secretos, no autorizaci?n de eliminar datos, modificar producci?n o ejecutar misiones cloud."
+    },
+    {
+      "date": "2026-11-17",
+      "decision": "User explicitly authorizes repository integration actions in this continuation.",
+      "scope": "Integrate prepared/reviewed repository proposals after exact checks and unresolved-thread check; use expected head SHA. No bypass/automatic merge scheduling, P2 execution, production deployment, hosted SQL, spending or automation configuration authorized by this integration permission."
     }
   ],
   "validation": {
@@ -331,18 +357,17 @@
       ]
     },
     "current_pr_head_checks": {
-      "lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp1-exit-verdict-20261117",
+      "lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-contract-runtime-audit-20261117",
       "required": [
         "validate",
         "postgres"
       ],
       "additional": [
         "CodeQL",
-        "public-browser-smoke when triggered",
         "Vercel Preview when triggered"
       ],
-      "status": "pending_publication_and_exact_candidate_CI",
-      "scope": "Main evidence below does not substitute for the documentary candidate CI. Resolve final SHA from branch; no self-referential polling commit."
+      "status": "pending_exact_containing_commit_CI",
+      "scope": "Documentation candidate needs own checks; no self-referential CI-only commit."
     },
     "integrated_readonly_runtime": {
       "pr": 238,
@@ -352,12 +377,11 @@
       "supabase_preview": "SKIPPED on PR238, not hosted persistence evidence"
     },
     "main_fail_closed": {
-      "sha": "823c2fef706dbe4518bd322afdf6d666c8a1caf8",
-      "run": 44018177216,
-      "job": 133821025094,
+      "sha": "8633b3625b2109d21ef313adc168bd54c96ddeb4",
+      "run": 44020570320,
       "reason": "cloud_ledger_adapter_not_configured",
       "source_result": "success",
-      "disposition": "Intentional failure in continuation; other cloud jobs skipped. Preserve barrier; not all checks green."
+      "disposition": "Continuation fails deliberately; remote jobs skipped. Barrier preserved."
     },
     "local_claim_authorization": {
       "focused_tests": 39,
@@ -513,45 +537,80 @@
       "source": "docs/P1_EXIT_REVIEW_20261117.md historical247 section",
       "verify": "575/575 pass,0 fail/skip; prior local receipt, not executed again in closure session.",
       "postgres": "First run rejected fixture deadline incompatible with lease before claim. Corrected only fixture to lease10/deadline8000; second isolated PostgreSQL18 run1/1 PASS,0 fail/skip,101693ms,owned lab stopped. No guards relaxed."
+    },
+    "prior_pr248_head_checks": {
+      "lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp1-exit-verdict-20261117",
+      "required": [
+        "validate",
+        "postgres"
+      ],
+      "additional": [
+        "CodeQL",
+        "public-browser-smoke when triggered",
+        "Vercel Preview when triggered"
+      ],
+      "status": "success_required_checks",
+      "scope": "Main evidence below does not substitute for the documentary candidate CI. Resolve final SHA from branch; no self-referential polling commit.",
+      "verified_sha": "8d335bf90a3acede62ee3a60989af44340ce2ffa",
+      "checks": "Both validate/postgres,CodeQL,Vercel Preview SUCCESS; Supabase Preview skipped; browser not triggered for docs."
+    },
+    "p1_closure_integration": {
+      "pr": 248,
+      "head_sha": "8d335bf90a3acede62ee3a60989af44340ce2ffa",
+      "merge_sha": "8633b3625b2109d21ef313adc168bd54c96ddeb4",
+      "authorization": "Current user explicitly authorizes integration actions.",
+      "main_run": 44020226387,
+      "validate_job": 133827688458,
+      "postgres_job": 133827688246,
+      "checks": "validate/postgres/three security analyses SUCCESS for exact main.",
+      "tests": {
+        "total": 575,
+        "pass": 574,
+        "fail": 0,
+        "skipped": 1,
+        "omission": "Windows-only offline preparation in Linux CI."
+      },
+      "postgres": "Protected restart event: distinct initial/replacement Node,completed,attempts2,checkpoint5,oracle1,tamperedBlocked true; legacy interrupted-effect and disposable TLS cases also pass but do not expand protected P1 scope."
     }
   },
   "p1_remaining_work": [],
   "preserved_limits": [
-    "No scheduled heartbeat receipt established; existing ACTIVE 6h configuration only inspected, unchanged.",
+    "Heartbeat receipt now demonstrated for two16/11 turns, one verified documentary cycle; future dispatch, global exclusion and full SQL mission not established.",
     "Historical metadata and offsite DPAPI recovery limitations retained; all pre-existing resources preserved.",
     "P5 hosted material A–C persistence remains unaccredited; no hosted migration authorized."
   ],
   "selected_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Formal bounded P1 exit record after external integration247",
-    "priority_reason": "Actual main now contains the previously missing new-Node protected recovery proof; reconcile stale active checkpoint fields instead of rebuilding it.",
+    "objective": "Prepare P2 contract and audit actual plugin/heartbeat after integrated P1 closure",
+    "priority_reason": "User new directive requests preparation only and read-only runtime audit; do not rebuild already integrated P1 or enable P2.",
     "modified_files": [
-      "docs/P1_EXIT_REVIEW_20261117.md",
+      "docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md",
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md",
       "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
-      "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
+      "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
+      "docs/P1_EXIT_REVIEW_20261117.md"
     ],
-    "integration_state": "Functional code/tests FUSIONADO and PROBADO on main; closure record is documentary candidate pending integration. P2 inactive."
+    "integration_state": "P1 closure FUSIONADO via248; P2 contract documentary candidate, not execution or phase activation."
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Revisar e integrar el registro de cierre P1; despues decidir activacion P2 segun el mismo plan, sin ejecutarla implicitamente.",
+    "objective": "P1 cerrada: revisar/integrar preparacion P2 y auditoria; decidir autorizacion de ejecucion P2 antes de cambiar fase.",
     "dependencies": [
-      "PR246 and PR247 already merged; never recreate their implementation.",
-      "Review and exact SHA CI of this closure record; specifically authorized integration.",
-      "P2 stays defined/inactive until separate activation decision."
+      "P1 closure PR248 integrated and exact main CI verified.",
+      "This preparation record reviewed and integrated under current repository integration authorization.",
+      "Explicit P2 execution activation plus verified scoped writer, budget, cancellation and independent oracle."
     ],
     "acceptance": [
-      "Single checkpoint/report/plan/prompt/state agree on bounded P1 verdict and inactive P2.",
-      "Evidence links identify exact integrated code SHA and actual main CI including omissions and fail-closed cloud.",
-      "No source, tests, SQL, permissions, runtime or automation configuration changes."
+      "P1 integrated closure and inactive P2 consistent in same checkpoint/plan/prompt/state.",
+      "Prepared fault matrix reuses existing fixtures without claiming legacy recovery is protected recovery.",
+      "Runtime audit distinguishes actual documentary heartbeat cycles from governed SQL missions; no automation/configuration change."
     ],
-    "recoverable_prompt": "Recupera docs/CODEX_CONTINUATION.json y docs/P1_EXIT_REVIEW_20261117.md. Misma ORD-P1-SUPERVISOR-ADAPTER-20261114. PR246 y PR247 ya fusionadas; main de codigo evaluado 823c2fef706dbe4518bd322afdf6d666c8a1caf8. Busca la unica PR documental por rama codex/p1-exit-verdict-20261117, verifica su SHA, CI, reviews, escritores y main actual antes de editar. El veredicto P1_CLOSED_WITH_BOUNDARIES cubre solo el nucleo sintetico local: su registro requiere revision e integracion especificamente autorizada; no repetir fixtures ni PR246/247. Si la integracion ya ocurrio, reconciliarla sin otra PR de sondeo. P2 permanece inactiva hasta decision de activacion propia; el siguiente alcance propuesto del plan es recuperacion ante efecto aplicado sin checkpoint con oraculo independiente en laboratorio desechable. No ejecutar ese ensayo todavia. No cloud dispatch, SQL alojado, produccion, envios, gastos, borrados o cambios al heartbeat6h. Mantener cloud_ledger_adapter_not_configured y todos los recursos previos.",
+    "recoverable_prompt": "Recupera el mismo docs/CODEX_CONTINUATION.json, docs/P1_EXIT_REVIEW_20261117.md y docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md. PR248 ya fusionada con autorizacion del propietario en main 8633b3625b2109d21ef313adc168bd54c96ddeb4; P1_CLOSED_WITH_BOUNDARIES integrado, productoF0 sin cambio. Reconciliar la propuesta documental por rama codex/p2-contract-runtime-audit-20261117 con main/CI y escritores antes de repetir una integracion. La autorizacion vigente permite integraciones revisadas del repositorio con controles exactos aprobados, sin bypass ni auto-merge programado. P2 solo preparada, no activa: falta autorizacion de ejecutar el contrato local de interrupciones y confirmar sus puertas de presupuesto/titularidad. No ampliar recovery ready_to_complete a in_progress como permiso implicito ni llamar al camino legacy para eludir la fabrica protegida. Heartbeat6h ACTIVE con dos turnos recibidos/completados el16/11, uno documental bebaf18; esto no prueba una mision Codex gobernada por SQL ni exclusion global. Complemento0.2.0 localizado y preflight ejecutado; catalogo0.1.0 desactualizado. No modificar automatizacion ni reinstalar plugin. Sin P2 ejecutada, cloud dispatch, SQL alojado, produccion, envios, gastos o borrados. Conservar cloud_ledger_adapter_not_configured. Si no hay evidencia nueva ni feedback, no crear hijos de sondeo.",
     "p2_proposal_only": {
-      "source": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
-      "status": "defined_inactive_not_authorized",
-      "scope": "Select one disposable synthetic effect and interrupt after effect applied but before checkpoint; reconcile before replay with source-owned independent oracle, stale-token denial and unchanged ledger. Windows/cloud measured separately. No execution in this order."
+      "source": "docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md",
+      "status": "prepared_inactive_execution_authorization_pending",
+      "scope": "Guarded in_progress effect-before-checkpoint reconciliation, reusing legacy fixture and current policy guards. New protected recovery capability requires reviewed implementation; no general grant or bypass. Full fault/cancellation matrix defined in contract, not run."
     }
   },
   "preservation_refs": {
@@ -562,11 +621,11 @@
   },
   "phase_exit_review": {
     "verdict": "P1_CLOSED_WITH_BOUNDARIES",
-    "record_status": "proposed_pending_review_and_integration",
+    "record_status": "integrated_via_pr248",
     "report": "docs/P1_EXIT_REVIEW_20261117.md",
     "main_sha": "823c2fef706dbe4518bd322afdf6d666c8a1caf8",
     "reviewed_pr_sha": "dfe4a8c31d856f99bd0b9ddbea181112f2785148",
-    "integration": "PR246/247 already merged externally and exact main CI verified. This closure record has not been merged by this session.",
+    "integration": "PR246/247 and closure acta248 integrated. PR248 merged explicitly with current owner authorization and expected head; exact merged main CI verified.",
     "technical_review": "All bounded P1 circuit criteria evidenced in integrated source and exact main unit/SQL CI, including protected terminal recovery in a fresh Node process. No new implementation required.",
     "passed": [
       "Supervisor proposal is read-only and grants no permission; existing runtime consumes it.",
@@ -578,16 +637,15 @@
       "Exact integrated main validate/postgres/CodeQL SUCCESS with Windows-only omission explicitly recorded."
     ],
     "pending": [],
-    "record_pending": [
-      "Review, exact candidate CI and specifically authorized integration of this documentary closure record."
-    ],
+    "record_pending": [],
     "boundaries": [
       "Trusted-host local synthetic domain and explicit ready_to_complete recovery only; not authenticated remote actors.",
       "No filesystem/SQL atomicity; admitted effects may finish after revoke, later SQL write denied.",
       "No protected general in_progress/uncertain effect recovery, Windows recovery or cross-host/host reboot evidence.",
       "No hosted staged-policy migration, production deployment/send, continuous runtime receipt or cost certification.",
       "P2 remains defined and inactive; cloud barrier preserved; product F0-F8 not closed by P1."
-    ]
+    ],
+    "integration_sha": "8633b3625b2109d21ef313adc168bd54c96ddeb4"
   },
   "phase_exit_review_history": [
     {
@@ -616,5 +674,41 @@
         "no hosted SQL, production send/deploy, new scheduler or P2"
       ]
     }
-  ]
+  ],
+  "runtime_audit": {
+    "report": "docs/P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md",
+    "plugin": {
+      "manifest_version": "0.2.0",
+      "catalog_version": "0.1.0",
+      "status": "Located current package and read skills; read-only preflight executed successfully. Automatic discovery of new version in a fresh Codex host not certified; no reinstall or config changes."
+    },
+    "heartbeat": {
+      "id": "victoriosa-autopilot-6h",
+      "status": "ACTIVE",
+      "cadence_hours": 6,
+      "configuration_sha256": "88e378634f053acfa3b85ec063fd346dc56c34b6153a300ce4d831406b75bcbc",
+      "unchanged": true,
+      "last_run_utc": "2026-11-16T23:53:00.899Z",
+      "next_run_reported_utc": "2026-11-17T05:52:31Z",
+      "next_run_disclaimer": "Observed scheduler metadata only, no guarantee of future receipt.",
+      "received_turns": [
+        {
+          "started_utc": "2026-11-16T17:49:24Z",
+          "completed": true,
+          "result": "SIN_CAMBIOS"
+        },
+        {
+          "started_utc": "2026-11-16T23:53:01.934Z",
+          "completed": true,
+          "result": "Documentary checkpoint/push; commitbebaf18 integrated"
+        }
+      ],
+      "receipt_scope": "Official read of existing target thread, completed turns with heartbeat envelope; automation_runs SQL tables empty for this heartbeat, not proof of no runs. No full transcripts/local paths/customer data copied to Git.",
+      "stale_metadata": "Secondary codex-dev registry is stale and prompt differs; active codex registry matches TOML. Neither modified."
+    },
+    "writer_exclusion": "No competing command line identifies own new worktree at observation; no global lease/fence proof for heartbeat Codex writers. Existing SQL runtime fencing not evidence of host-wide Codex lock.",
+    "budget": "No per-mission token/cost meter or spending guarantee established. Observed completed turn durations only; no new paid provider. Local test budget proposed, not executed.",
+    "stop": "Existing managed cancellation/descendant and durable revoke tests prove components only. End-to-end pause/revoke during a heartbeat-owned SQL mission not measured; no pause injected.",
+    "codex_ledger_link": "Heartbeat performed repository/documentary work; no mission_id/claim/effect receipt binds that Codex turn to protected SQL ledger. Generic ExecutorAdapter is an interface, existing development executors remain bounded labs."
+  }
 }
