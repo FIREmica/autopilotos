@@ -149,11 +149,22 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     if (store.constructor!==LocalMissionStore) throw Error('mission_authorization_scope_mismatch');
     const claimGuard=createMissionClaimGuard(grant,executor,verifyAuthorization);
     await claimGuard.authorizeExecutor(executor);
+    await store.assertAuthorization(claimGuard.expected);
     const decision=await this.inspectPermanentMission(store,claimGuard.expected.missionId,claimGuard.expected.binding);
-    if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
+    if(claimGuard.expected.recovery==='ready_to_complete') {
+      const state=await store.status(claimGuard.expected.missionId);
+      if(decision?.action!=='verify' || state.queueState!=='running' || state.state!=='ready_to_complete'
+        || state.leaseActive!==false || state.checkpointVersion!==claimGuard.expected.checkpointVersion || state.planVersion!==claimGuard.expected.planVersion
+        || state.attempts>=state.maxAttempts) throw Error('mission_recovery_not_authorized');
+    } else if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
       throw Error('mission_not_fresh_for_authorization');
     const base=createMissionLedger(store.client(claimGuard.expected.missionId,runId,claimGuard),[]);
-    const effectGuard=createMissionEffectGuard(claimGuard.expected,executor,authorizeEffect,verifier);
+    const effectGuard=createMissionEffectGuard(claimGuard.expected,executor,async(g,c,effect)=>{
+      const decision=await authorizeEffect(g,c,effect);
+      // Final admission read after the host callback: true cannot override a durable revoke.
+      await store.assertAuthorization(claimGuard.expected);
+      return decision;
+    },verifier);
     return createAuthorizedMissionLedger(base,executor,claimGuard.expected,effectGuard,verifier.verifierId);
   }
   /**

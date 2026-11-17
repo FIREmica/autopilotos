@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createAuthorizedMissionLedger, createMissionClaimGuard, createMissionEffectGuard } from './missionAuthorization';
 import { PersistentMissionOrchestrator } from './missionRuntime';
+import { LocalMissionStore } from './localMissionStore';
 import type { ExecutorAdapter, ExecutorContext, MissionLedger } from './executorAdapter';
 
 const objective = { version: 1, kind: 'synthetic.ensure_verified_artifact', expected: 'canonical_synthetic_result',
@@ -239,4 +240,47 @@ test('JSON object key order from a SQL ledger does not change the authorized obj
   await guard.beforeEffect(executor,context,{kind:'write_checkpoint',operationId:'synthetic:ordered:objective'});
   const token=await guard.attestCompletion(context);
   guard.consumeAttestation(context,token);
+});
+
+function policyStore(assertPolicy:()=>Promise<void>) {
+  const store=Object.create(LocalMissionStore.prototype) as LocalMissionStore;
+  Object.defineProperty(store,'binding',{value:'a'.repeat(64)});
+  store.assertAuthorization=assertPolicy;
+  store.status=async id=>({id,queueState:'queued',state:'queued',reason:null,runId:null,leaseActive:false,
+    attempts:0,maxAttempts:3,checkpointVersion:0,planVersion:0,checkpoint:{mission_state:'queued'},plans:[],audit:[]});
+  store.client=()=>({rpc:async()=>({data:[],error:null})}) as never;
+  return store;
+}
+
+test('runtime factory rejects absent durable policy before reading a supervisor observation',async()=>{
+  let observations=0;
+  const store=policyStore(async()=>{throw Error('durable_policy_denied');});
+  store.status=async()=>{observations++;throw Error('must_not_observe');};
+  await assert.rejects(PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(store,grant(),'synthetic-run',executor,
+    async()=>true,allowEffect,{verifierId:'synthetic-verifier',verify:async()=>true}),/durable_policy_denied/);
+  assert.equal(observations,0);
+});
+
+test('callback true cannot override durable revocation after the host decision',async()=>{
+  let checks=0,decisions=0;
+  const store=policyStore(async()=>{if(++checks>1)throw Error('durable_policy_denied');});
+  const ledger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(store,grant(),'synthetic-run',executor,
+    async()=>true,async(g,c,e)=>{decisions++;return allowEffect(g,c,e);},
+    {verifierId:'synthetic-verifier',verify:async()=>true});
+  await assert.rejects(ledger.authorizeEffect!(executor,terminalContext(),{kind:'write_checkpoint',operationId:'synthetic:revoked:write'}),/mission_effect_authorization_denied/);
+  assert.equal(checks,2);assert.equal(decisions,1);
+});
+
+test('terminal recovery needs an explicit scope and cannot authorize observation, plans or effects',async()=>{
+  const recovery={...grant(),checkpointVersion:4,planVersion:1,recovery:'ready_to_complete' as const};
+  assert.throws(()=>createMissionClaimGuard({...recovery,recovery:undefined},executor,async()=>true),/invalid_mission_authorization/);
+  let decisions=0;
+  const guard=createMissionEffectGuard(recovery,executor,async(g,c,e)=>{decisions++;return allowEffect(g,c,e);},
+    {verifierId:'synthetic-verifier',verify:async()=>true});
+  const context=terminalContext();context.checkpointVersion=4;context.mission.planVersion=1;
+  for(const kind of ['execute_step','observe_state','save_plan','write_checkpoint','block','fail'] as const) {
+    await assert.rejects(guard.beforeEffect(executor,context,{kind,operationId:`synthetic:recovery:${kind}`,stepId:'prepare'}),/mission_effect_authorization_denied/);
+  }
+  assert.equal(decisions,0);
+  const token=await guard.attestCompletion(context);guard.consumeAttestation(context,token);
 });

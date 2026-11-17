@@ -134,19 +134,29 @@ test('standalone operator CLI proves admission execution supervision cancellatio
       // Exercise the actual guarded factory, planner, executor and SQL ledger,
       // rather than a legacy ledger whose context already has execution permission.
       const effectStore=new LocalMissionStore({...hostConfig,leaseSeconds:60,deadlineMs:45000},managed);
-      for (const scenario of ['verified','denied','unobserved']) {
+      for (const scenario of ['verified','denied','unobserved','revoked']) {
         const denyCheckpoint=scenario==='denied',denyObservation=scenario==='unobserved';
         const missionId=`synthetic-effect-${scenario}`;
         await effectStore.admit({id:missionId,objective});
         const effectExecutor=new SyntheticMissionExecutor(`local:${randomUUID()}`,repo,worktrees,hostConfig.resources.baseSha,managed);
         let verifications=0;
-        const effectLedger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(effectStore,{
+        const policy={
           id:`${missionId}-grant`,revision:1,missionId,binding:effectStore.binding,phase:'F0',executorId:effectExecutor.executorId,
           goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+60000,
-        },randomUUID(),effectExecutor,async()=>true,async(g,_context,effect)=>({
-          allowed:!(denyCheckpoint && effect.kind==='write_checkpoint') && !(denyObservation && effect.kind==='observe_state'),revision:g.revision,operationId:effect.operationId,
-          permissions:['observe_state','execute_step'].includes(effect.kind)?['synthetic_worktree']:[],
-        }),{verifierId:'independent-fixture-verifier',verify:async context=>{
+        } as const;
+        assert.equal(await effectStore.authorizeMission(policy,0),true);
+        let beforeRevocation:LocalMissionStatus|undefined;
+        const runStore=scenario==='revoked'?new LocalMissionStore({...hostConfig,leaseSeconds:15,deadlineMs:12000},managed):effectStore;
+        const effectLedger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(runStore,policy,
+          randomUUID(),effectExecutor,async()=>true,async(g,_context,effect)=>{
+          if(scenario==='revoked' && effect.kind==='complete_write') {
+            beforeRevocation=await effectStore.status(missionId);
+            assert.equal(await effectStore.revokeAuthorization(missionId,1),true);
+          }
+          // Intentionally returns true after revocation; the ledger must still deny it.
+          return {allowed:!(denyCheckpoint && effect.kind==='write_checkpoint') && !(denyObservation && effect.kind==='observe_state'),revision:g.revision,operationId:effect.operationId,
+            permissions:['observe_state','execute_step'].includes(effect.kind)?['synthetic_worktree']:[]};
+        },{verifierId:'independent-fixture-verifier',verify:async context=>{
           verifications++;
           const directory=path.join(worktrees,missionId,'.autopilot-synthetic');
           // Oracle contents are source-owned and outside the candidate worktree.
@@ -155,17 +165,113 @@ test('standalone operator CLI proves admission execution supervision cancellatio
             && await readFile(path.join(directory,'result.test.cjs'),'utf8')===SYNTHETIC_TEST_SOURCE;
         }});
         const run=new PersistentMissionOrchestrator(effectLedger,45000,new DeterministicSyntheticPlanner()).runMission(effectExecutor,'software');
-        if(denyCheckpoint || denyObservation) await assert.rejects(run,/mission_effect_authorization_denied/); else await run;
+        if(denyCheckpoint || denyObservation || scenario==='revoked') await assert.rejects(run,/mission_effect_authorization_denied/); else await run;
         const result=await effectStore.status(missionId);
         assert.equal(result.attempts,1);
-        assert.equal(result.state,denyObservation?'queued':denyCheckpoint?'in_progress':'completed');
+        assert.equal(result.state,denyObservation?'queued':denyCheckpoint?'in_progress':scenario==='revoked'?'ready_to_complete':'completed');
         assert.equal(verifications,denyCheckpoint || denyObservation?0:1);
         // One plan + three step checkpoints + the existing SQL completion increment.
-        assert.equal(result.checkpointVersion,denyObservation?0:denyCheckpoint?1:5);
+        assert.equal(result.checkpointVersion,denyObservation?0:denyCheckpoint?1:scenario==='revoked'?4:5);
         assert.deepEqual(result.checkpoint.completed_steps,denyCheckpoint || denyObservation?[]:['prepare-v1','modify-v1','verify-v1']);
         if(denyObservation) await assert.rejects(lstat(path.join(worktrees,missionId)),{code:'ENOENT'});
         if(scenario==='verified') assert.match(await runSql(`select completed_evidence from public.agent_tasks where id='${missionId}'`),/^independent:independent-fixture-verifier:/);
+        if(scenario==='revoked') {
+          assert.deepEqual(result.checkpoint,beforeRevocation!.checkpoint);
+          assert.equal(result.leaseActive,true,'denial must come from policy, not an expired lease');
+          assert.deepEqual(result.authorization,{active:false,revision:2,expiresAt:policy.expiresAt});
+          const restarted=new LocalMissionStore({...hostConfig,leaseSeconds:60,deadlineMs:45000},managed);
+          await assert.rejects(restarted.assertAuthorization(policy),/durable_policy_denied/);
+          const sqlPolicy=JSON.stringify(policy).replaceAll("'","''");
+          // Direct SQL with the original valid token and stale policy cannot bypass revocation.
+          await assert.rejects(runSql(`begin;select set_config('request.jwt.claim.role','service_role',true);
+            select set_config('autopilot.policy_grant','${sqlPolicy}',true);
+            select public.six_agent_complete(id,execution_token,'stale independent evidence') from public.agent_tasks where id='${missionId}';commit;`));
+          assert.deepEqual((await restarted.status(missionId)).checkpoint,beforeRevocation!.checkpoint);
+          assert.equal((await restarted.status(missionId)).state,'ready_to_complete');
+          const proposals=[{...policy,id:policy.id+'-a',revision:3,expiresAt:Date.now()+60000},
+            {...policy,id:policy.id+'-b',revision:3,expiresAt:Date.now()+60000}];
+          const issued=await Promise.all(proposals.map(p=>restarted.authorizeMission(p,2)));
+          assert.equal(issued.filter(Boolean).length,1,'compare-and-set permits one policy successor');
+          await restarted.assertAuthorization(proposals[issued.indexOf(true)]);
+          assert.equal(await restarted.revokeAuthorization(missionId,1),false);
+          assert.deepEqual((await restarted.status(missionId)).checkpoint,beforeRevocation!.checkpoint);
+          // Hold the revoke transaction open, then prove an old completion waits
+          // on that exact row and is denied after the revocation commits.
+          let closeHolder!:(value?:unknown)=>void,failHolder!:(reason:unknown)=>void;
+          const holderClosed=new Promise((resolve,reject)=>{closeHolder=resolve;failHolder=reject;});
+          const holder=execFile(process.env.PSQL_PATH||'psql',['-h','127.0.0.1','-p',url.port||'5432','-U',decodeURIComponent(url.username),
+            '-d','victoriosa_mission_operator_lab','-w','-X','-qAt','-v','ON_ERROR_STOP=1'],{env,windowsHide:true,timeout:15000},
+            error=>error?failHolder(Error('policy_lock_failed')):closeHolder());
+          const marker=new Promise<void>((resolve,reject)=>{
+            const timeout=setTimeout(()=>reject(Error('policy_lock_timeout')),5000);
+            let output='';holder.stdout!.on('data',data=>{output+=String(data);if(output.includes('POLICY_LOCKED')){clearTimeout(timeout);resolve();}});
+          });
+          holder.stdin!.write(`begin;select set_config('request.jwt.claim.role','service_role',true);
+            select public.local_mission_revoke('${missionId}','${effectStore.binding}',3);select 'POLICY_LOCKED';\n`);
+          try {
+            await marker;
+            const winning=JSON.stringify(proposals[issued.indexOf(true)]).replaceAll("'","''");
+            const staleWrite=assert.rejects(runSql(`begin;set application_name='synthetic_policy_stale_write';
+              select set_config('request.jwt.claim.role','service_role',true);select set_config('autopilot.policy_grant','${winning}',true);
+              select public.six_agent_complete(id,execution_token,'stale concurrent completion') from public.agent_tasks where id='${missionId}';commit;`));
+            let blocked=false;
+            for(let poll=0;poll<50;poll++) {
+              blocked=await runSql("select exists(select 1 from pg_stat_activity where application_name='synthetic_policy_stale_write' and wait_event_type='Lock')") === 't';
+              if(blocked)break;
+              await new Promise(resolve=>setTimeout(resolve,20));
+            }
+            assert.equal(blocked,true,'stale completion must wait on the uncommitted revoke');
+            holder.stdin!.end('commit;\n');await holderClosed;await staleWrite;
+          } finally { if(!holder.stdin!.writableEnded)holder.stdin!.end('rollback;\n');await holderClosed; }
+          const afterRace=await restarted.status(missionId);
+          assert.equal(afterRace.authorization!.revision,4);assert.equal(afterRace.authorization!.active,false);
+          assert.equal(afterRace.state,'ready_to_complete');assert.deepEqual(afterRace.checkpoint,beforeRevocation!.checkpoint);
+          const oldToken=await runSql(`select execution_token from public.agent_tasks where id='${missionId}'`);
+          const replacement={executorId:`local:${randomUUID()}`,observe:async()=>{throw Error('recovery_must_not_observe');},
+            execute:async()=>{throw Error('recovery_must_not_execute');}};
+          const recovering={...policy,id:policy.id+'-recover',revision:5,checkpointVersion:4,planVersion:1,
+            executorId:replacement.executorId,recovery:'ready_to_complete' as const,expiresAt:Date.now()+60000};
+          await assert.rejects(restarted.authorizeMission(recovering,4),'active owner must not be taken over');
+          const expires=Date.now()+20000;
+          while((await restarted.status(missionId)).leaseActive) {
+            if(Date.now()>expires)throw Error('fixture_lease_did_not_expire');
+            await new Promise(resolve=>setTimeout(resolve,100));
+          }
+          const recoveredGrant={...recovering,expiresAt:Date.now()+60000};
+          assert.equal(await restarted.authorizeMission(recoveredGrant,4),true);
+          let independentRecovery=0;
+          const recoveredLedger=await PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(restarted,recoveredGrant,
+            randomUUID(),replacement,async()=>true,async(g,c,e)=>({allowed:true,revision:g.revision,operationId:e.operationId,permissions:[]}),
+            {verifierId:'independent-recovery-verifier',verify:async context=>{
+              independentRecovery++;
+              // The original token is fenced while the replacement lease is still live.
+              assert.equal(await runSql(`set request.jwt.claim.role='service_role';
+                select public.six_agent_complete('${missionId}','${oldToken}'::uuid,'stale prior executor');`),'f');
+              return context.checkpointVersion===4
+                && await readFile(path.join(worktrees,missionId,'.autopilot-synthetic','result.txt'),'utf8')===SYNTHETIC_CONTENTS
+                && await readFile(path.join(worktrees,missionId,'.autopilot-synthetic','result.test.cjs'),'utf8')===SYNTHETIC_TEST_SOURCE;
+            }});
+          await new PersistentMissionOrchestrator(recoveredLedger,45000,{plannerId:'recovery-no-planner',propose:async()=>{throw Error('recovery_must_not_replan');}})
+            .runMission(replacement,'software');
+          const recovered=await restarted.status(missionId);
+          assert.equal(independentRecovery,1);assert.equal(recovered.state,'completed');assert.equal(recovered.attempts,2);
+          assert.equal(recovered.checkpointVersion,5);assert.deepEqual(recovered.checkpoint.artifacts,beforeRevocation!.checkpoint.artifacts);
+          assert.deepEqual(recovered.checkpoint.completed_steps,beforeRevocation!.checkpoint.completed_steps);
+          await assert.rejects(PersistentMissionOrchestrator.authorizedPermanentMissionRuntime(restarted,recoveredGrant,randomUUID(),replacement,
+            async()=>true,async(g,c,e)=>({allowed:true,revision:g.revision,operationId:e.operationId,permissions:[]}),
+            {verifierId:'independent-recovery-verifier',verify:async()=>true}),/mission_recovery_not_authorized/);
+        }
       }
+      const expiryId='synthetic-policy-expiry';await effectStore.admit({id:expiryId,objective});
+      const expiry={id:'synthetic-expiry-grant',revision:1,missionId:expiryId,binding:effectStore.binding,phase:'F0' as const,
+        executorId:'synthetic-expiry-executor',goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+1500};
+      await assert.rejects(effectStore.assertAuthorization(expiry),/durable_policy_denied/);
+      assert.equal(await effectStore.authorizeMission(expiry,0),true);
+      const legacyClaim=await effectStore.client(expiryId,randomUUID()).rpc('six_agent_claim_mission',{p_agent:'software'});
+      assert.ok(legacyClaim.error,'legacy client cannot claim a policy-controlled mission without its grant');
+      await new Promise(resolve=>setTimeout(resolve,1600));
+      await assert.rejects(effectStore.assertAuthorization(expiry),/durable_policy_denied/);
+      assert.equal((await effectStore.status(expiryId)).attempts,0);
     } finally {
       if(savedPassword===undefined) delete process.env.PGPASSWORD; else process.env.PGPASSWORD=savedPassword;
       await managed.close();

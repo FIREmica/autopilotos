@@ -8,6 +8,7 @@ export interface MissionClaimAuthorization {
   id: string; revision: number; missionId: string; binding: string; phase: 'F0'; executorId: string;
   goalVersion: number; checkpointVersion: number; planVersion: number;
   objective: unknown; expiresAt: number;
+  recovery?: 'ready_to_complete';
 }
 
 export interface MissionEffectDecision {
@@ -42,7 +43,8 @@ const contextDigest=(context:ExecutorContext)=>createHash('sha256').update(stabl
  * The verifier belongs to the trusted host and must consult its current policy.
  * The executor receives neither it nor SQL credentials. Identity is host-selected
  * object identity, not cryptographic authentication of a remote worker.
- * Deliberately authorizes ONE fresh synthetic claim, not resume or completion.
+ * Authorizes ONE fresh claim, or an explicit ready-to-complete recovery claim.
+ * The recovery scope cannot execute steps and never grants completion by itself.
  */
 export function createMissionClaimGuard(
   input: MissionClaimAuthorization,
@@ -53,7 +55,10 @@ export function createMissionClaimGuard(
   if (!grant || !/^[a-z][a-z0-9-]{2,79}$/.test(grant.id) || !Number.isSafeInteger(grant.revision) || grant.revision<1
     || !/^[a-f0-9]{64}$/.test(grant.binding) || grant.phase!=='F0'
     || typeof grant.executorId!=='string' || !grant.executorId || grant.executorId!==executor?.executorId
-    || grant.goalVersion!==1 || grant.checkpointVersion!==0 || grant.planVersion!==0
+    || grant.goalVersion!==1
+    || (grant.recovery===undefined ? (grant.checkpointVersion!==0 || grant.planVersion!==0)
+      : grant.recovery!=='ready_to_complete' || !Number.isSafeInteger(grant.checkpointVersion) || grant.checkpointVersion<1
+        || !Number.isSafeInteger(grant.planVersion) || grant.planVersion<1)
     || !Number.isSafeInteger(grant.expiresAt) || grant.expiresAt<=Date.now() || grant.expiresAt>Date.now()+60000
     || typeof verify!=='function') throw Error('invalid_mission_authorization');
   missionId(grant.missionId); authorizedObjective(grant.objective);
@@ -122,6 +127,7 @@ export function createMissionEffectGuard(
       || !Number.isSafeInteger(context.mission.planVersion) || context.mission.planVersion<grant.planVersion
       || stableJson(authorizedObjective(context.mission.objective))!==stableJson(authorizedObjective(grant.objective))
       || !effect || !['observe_state','execute_step','write_checkpoint','save_plan','block','fail','attest_completion','complete_write'].includes(effect.kind)
+      || (grant.recovery==='ready_to_complete' && !['attest_completion','complete_write'].includes(effect.kind))
       || typeof effect.operationId!=='string' || effect.operationId.length>200
       || !/^[a-zA-Z0-9._:-]{3,200}$/.test(effect.operationId)
       || (effect.kind==='execute_step' && (typeof effect.stepId!=='string' || !context.mission.plan.some(step=>step.id===effect.stepId)))) return false;

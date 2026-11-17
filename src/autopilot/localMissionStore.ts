@@ -8,7 +8,7 @@ import type { AgentId } from './sixAgentControlPlane';
 
 export interface MissionClaimGuard {
   expected: { missionId: string; binding: string; goalVersion: number; checkpointVersion: number;
-    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string; phase: 'F0' };
+    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string; phase: 'F0'; recovery?:'ready_to_complete' };
   authorizeExecutor(executor: ExecutorAdapter): Promise<void>;
   beforeClaim(agentId: AgentId): Promise<void>;
 }
@@ -26,6 +26,7 @@ export interface LocalMissionStatus {
   id: string; queueState: string; state: string; reason: string | null; runId: string | null; leaseActive: boolean;
   attempts: number; maxAttempts: number; checkpointVersion: number; planVersion: number;
   checkpoint: Record<string, unknown>; plans: unknown[]; audit: unknown[];
+  authorization?: {active:boolean;revision:number;expiresAt:number} | null;
 }
 export class LocalMissionStore {
   protected get databaseName(): string { return this.config.database.name; }
@@ -54,7 +55,8 @@ export class LocalMissionStore {
     if (!this.config.permissions.admit || !this.config.permissions.execute) throw Error('host_permission_required');
     const files = ['supabase/migrations/20260912033258_autopilot_core_v4.sql',
       'supabase/staged/six_agent_queue_20261025.sql','supabase/staged/six_agent_mission_checkpoint_20261109.sql',
-      'supabase/staged/six_agent_mission_planning_20261109.sql','supabase/staged/six_agent_local_operator_20261109.sql'];
+      'supabase/staged/six_agent_mission_planning_20261109.sql','supabase/staged/six_agent_local_operator_20261109.sql',
+      'supabase/staged/six_agent_local_policy_20261116.sql'];
     // Paths are source-owned; no SQL path or text comes from config or an admitted objective.
     const sources = await Promise.all(files.map(file => readFile(new URL(file, new URL('../../', import.meta.url)), 'utf8')));
     await this.execute(`begin; select pg_advisory_xact_lock(204205);
@@ -84,6 +86,9 @@ export class LocalMissionStore {
       'runId',t.local_run_id,'leaseActive',coalesce(t.status='running' and t.lease_until>clock_timestamp(),false),
       'attempts',t.attempt_count,'maxAttempts',t.max_attempts,'checkpointVersion',t.mission_checkpoint_version,
       'planVersion',coalesce((t.input->>'plan_version')::integer,0),'checkpoint',t.mission_checkpoint,'plans',coalesce(t.input->'plan_history','[]'::jsonb),
+      'authorization',case when t.input ? 'local_authorization' then jsonb_build_object(
+        'active',t.input->'local_authorization'->'active','revision',t.input->'local_authorization'->'grant'->'revision',
+        'expiresAt',t.input->'local_authorization'->'grant'->'expiresAt') else null end,
       'audit',(select coalesce(jsonb_agg(jsonb_build_object('event',a.event_type,'details',a.details) order by a.id),'[]'::jsonb)
         from public.agent_audit_events a where a.task_id=t.id)) from public.agent_tasks t
       where t.id=${literal(id)} and t.actor='autopilot-local-cli' and t.input->>'host_binding'=${literal(this.binding)};`, 'status');
@@ -92,6 +97,28 @@ export class LocalMissionStore {
   async cancel(id: string): Promise<boolean> {
     if (!this.config.permissions.cancel) throw Error('host_permission_required');
     missionId(id); return await this.query(`select public.local_mission_cancel(${literal(id)},${literal(this.binding)});`, 'cancel') === 't';
+  }
+  /** Explicit trusted host policy administration, never called by supervisor/executor. */
+  async authorizeMission(grant:MissionClaimGuard['expected'],expectedRevision:number):Promise<boolean> {
+    if(this.constructor!==LocalMissionStore || !this.config.permissions.admit || !this.config.permissions.execute)
+      throw Error('host_policy_permission_required');
+    missionId(grant.missionId);
+    if(grant.binding!==this.binding || !Number.isSafeInteger(expectedRevision) || expectedRevision<0)
+      throw Error('invalid_policy_revision');
+    return await this.query(`select public.local_mission_authorize(${literal(grant.missionId)},${literal(this.binding)},${literal(grant)}::jsonb,${expectedRevision});`,'authorize_policy')==='t';
+  }
+  async revokeAuthorization(id:string,expectedRevision:number):Promise<boolean> {
+    if(this.constructor!==LocalMissionStore || !this.config.permissions.cancel) throw Error('host_policy_permission_required');
+    missionId(id);
+    if(!Number.isSafeInteger(expectedRevision) || expectedRevision<1) throw Error('invalid_policy_revision');
+    return await this.query(`select public.local_mission_revoke(${literal(id)},${literal(this.binding)},${expectedRevision});`,'revoke_policy')==='t';
+  }
+  async assertAuthorization(grant:MissionClaimGuard['expected']):Promise<void> {
+    if(this.constructor!==LocalMissionStore || grant.binding!==this.binding) throw Error('mission_authorization_scope_mismatch');
+    missionId(grant.missionId);
+    const valid=await this.query(`select public.local_mission_policy_valid(t.input,t.id,${literal(grant)}::jsonb)
+      from public.agent_tasks t where t.id=${literal(grant.missionId)} and t.input->>'host_binding'=${literal(this.binding)};`,'verify_policy');
+    if(valid!=='t') throw Error('durable_policy_denied');
   }
   client(id: string, runId: string, guard?: MissionClaimGuard): SupabaseClient {
     missionId(id);
@@ -111,14 +138,16 @@ export class LocalMissionStore {
           if (args.p_agent !== 'software') throw Error('agent_not_allowed');
           if (guard) await guard.beforeClaim('software');
           // Same transaction and row lock as the claim: no read/claim TOCTOU.
-          // Deliberately only fresh queued synthetic missions; no resume or lease takeover.
+          // Fresh claims or explicit terminal-only recovery after lease expiry; no live takeover.
           const precondition=expected ? `begin; do $authorization$ begin
+            perform set_config('autopilot.policy_grant',${literal(expected)},true);
             perform 1 from public.agent_tasks t where t.id=${literal(id)} and t.mission_id=${literal(id)}
               and t.goal='Verify synthetic mission recovery' and t.input->>'mission_schema_version'='1'
               and t.actor='autopilot-local-cli'
               and t.agent_id='software' and t.input->>'host_binding'=${literal(expected.binding)}
-              and t.status='queued' and t.attempt_count=0 and t.execution_token is null and t.lease_until is null
-              and t.mission_checkpoint->>'mission_state'='queued'
+              and ${expected.recovery==='ready_to_complete'
+                ? "t.status='running' and t.lease_until<clock_timestamp() and t.execution_token is not null and t.mission_checkpoint->>'mission_state'='ready_to_complete'"
+                : "t.status='queued' and t.attempt_count=0 and t.execution_token is null and t.lease_until is null and t.mission_checkpoint->>'mission_state'='queued'"}
               and t.mission_checkpoint_version=${literal(expected.checkpointVersion)}::integer
               and coalesce((t.input->>'plan_version')::integer,0)=${literal(expected.planVersion)}::integer
               and (t.input->>'goal_version')::integer=${literal(expected.goalVersion)}::integer
@@ -140,7 +169,8 @@ export class LocalMissionStore {
         }
         if (!Object.hasOwn(parameters,rpc) || args.p_task_id !== id) throw Error('rpc_not_allowed');
         const values = parameters[rpc].map(key => literal(args[key]) + (['p_checkpoint','p_proposal'].includes(key) ? '::jsonb' : '')).join(',');
-        const data = JSON.parse(await this.query(`select to_json(public.${rpc}(${values}));`, rpc));
+        const prefix=expected ? `begin; do $policy$ begin perform set_config('autopilot.policy_grant',${literal(expected)},true); end $policy$;` : '';
+        const data = JSON.parse(await this.query(`${prefix} select to_json(public.${rpc}(${values})); ${expected?'commit;':''}`, rpc));
         if (data === true) this.report({ event: 'write_confirmed', operation: rpc, missionId: id, runId });
         return { data, error: null };
       } catch { return { data: null, error: { message: 'local_rpc_failed' } }; }
