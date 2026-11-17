@@ -1,23 +1,21 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T00:44:09.228845+00:00",
-  "execution_id": "codex-pr240-contract-review-20261116",
+  "updated_at": "2026-11-17T03:15:45.918900+00:00",
+  "execution_id": "codex-audit-privacy-approval-20261117",
   "repository": {
-    "branch": "codex/p1-per-effect-authorization-20261115",
-    "head_sha": "bebaf18dc83dcb4703b56b1768146b98a69e9be2",
-    "base_sha": "44dbaeeb6384740da81db2357fb003c7de42d33b",
-    "worktree": "WORKTREE:p1-per-effect-authorization-20261115",
-    "note": "Reviewed predecessor bebaf18 before these code/test/documentation corrections. Resolve the containing commit from Git and PR240 head; do not predict its hash or inherit predecessor CI.",
-    "pr_number": 240,
-    "pr_url": "https://github.com/Victoriosas/autopilot/pull/240"
+    "branch": "codex/audit-privacy-approval-tests-20261117",
+    "head_sha": "0342d39d929a691662512616d71fd2241bc56d81",
+    "base_sha": "0342d39d929a691662512616d71fd2241bc56d81",
+    "worktree": "WORKTREE:audit-privacy-approval-tests-20261117",
+    "note": "SHA is verified main base, not future PR candidate head. Verify exact PR SHA and CI."
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
-    "status": "candidate_review_required",
-    "last_verified_step": "Review reproduced four attestation/content/async-context defects and two guarded positive-path failures. Fixed canonical context binding, async mutation rejection, explicit observe_state authorization and transient planner permissions. Focused41/41 and npm run verify563/563 pass; final local PostgreSQL guarded success and both denials PASS; exact new-head CI must be read separately. Same PR240 remains draft; no merge.",
+    "status": "p1_security_maintenance_candidate",
+    "last_verified_step": "PR #240-#243 merged main 0342d39; legacy camelRun direct transport fail-closed, generic approval CAS and audit SQL staged, public directory tests included; local verify 571/571. SQL CI pending. P1 durable policy/restart authorization remain outstanding.",
     "limits": [
       "Host policy and verifier remain trusted in-process dependencies; no remote identity or durable atomic policy revocation is certified.",
       "observe_state and execute_step require explicit host approval with only synthetic_worktree; planner gets a transient authorized snapshot, persistent context retains no execution permission.",
@@ -195,11 +193,16 @@
     "src/autopilot/executorAdapter.ts",
     "src/autopilot/localMissionStore.ts",
     "src/autopilot/missionRuntime.ts",
-    "src/autopilot/missionRuntime.test.ts"
+    "src/autopilot/missionRuntime.test.ts",
+    "src/storefront/consultationCamelRun.test.ts",
+    "src/autopilot/taskStore.test.ts",
+    "supabase/migrations/20261117000001_agent_task_durable_approval.sql"
   ],
   "blockers": [
-    "Corrected PR240 requires exact-head CI, review and specific authorization before integration.",
-    "Durable/atomic policy revocation and authorized restart admission are not demonstrated; P1 closure remains blocked, not local review/testing."
+    "Rollout safety: do not set AUTOPILOT_DURABLE_APPROVAL_V2_ENABLED=true until additive migration is applied and independently checked; old schema writes remain compatible while disabled, approvals fail closed.",
+    "Migration policy_context + CAS SQL requires reviewed deployment in an authorized environment; legacy generic tasks lacking original policy fail closed.",
+    "CamelRun legacy remote route disabled until integrated privacy-minimized, durably budgeted approved gateway.",
+    "P1 durable policy revocation and checkpoint restart pending; PLAN Cloud missing configured hosted adapter."
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
@@ -207,13 +210,13 @@
     "phase": "F0",
     "linear_phase": "P1",
     "objective": "Reautorizar cada efecto de una misión sintética en el runtime/ledger existentes y exigir verificación independiente de finalización; mantener la revocación atómica remota y P2 como puertas pendientes.",
-    "status": "candidate_review_required",
+    "status": "p1_security_maintenance_candidate",
     "executor": "Codex",
     "environment": "Same existing PR240 / codex/p1-per-effect-authorization-20261115; main44dbaeeb verified; private original worktrees untouched.",
     "dependencies": [
-      "PR237–239 integrated; PR240 is the only candidate for the active P1 order.",
-      "Review corrections and validate/postgres/relevant checks for the exact new head; reviews/threads were empty at inspection.",
-      "No specific authorization to merge, deploy, execute hosted SQL or activate dispatch."
+      "PR #240-#243 integrated main 0342d39; avoid duplicating.",
+      "Security maintenance candidate requires isolated PostgreSQL CI and code/migration review; hosted schema change separately authorized.",
+      "P1 still partial; PLAN Cloud fail-closed as configured; no new scheduler."
     ],
     "acceptance_criteria": [
       "Consulta host de un solo uso antes de cada efecto; denegación, expiración, cambio de revisión, identidad/objetivo/versiones y replay fallan cerrados.",
@@ -222,7 +225,7 @@
       "RED/GREEN, npm run lint, npm run verify y validate/postgres/CodeQL/checks relevantes aprobados por SHA final exacto; revisión humana antes de cualquier integración.",
       "No CLI dispatch, ejecución alojada, merge, deploy ni activación P2."
     ],
-    "next_action": "Finish exact-head CI and review of corrected PR240, preserving draft. After specifically authorized integration, address the first remaining P1 dependency: define and test durable policy revision/revocation binding in the existing ledger, with no hosted migration or duplicate authorization ledger. Keep P2 inactive.",
+    "next_action": "Review one audit hardening PR, exact SHA validate/postgres/CodeQL/browser and staged SQL migration; hosted migration requires separate explicit authorization. Then resume P1 durable effect revision/revocation and SQL restart checkpoint recovery, no P2.",
     "permissions": {
       "status": "bounded",
       "scope": "Código/pruebas/docs sintéticos locales y una PR draft para revisión. Sin merge, SQL alojado, producción, clientes, servicios pagos, cambios a automatización, borrado de recursos previos ni P2."
@@ -230,13 +233,13 @@
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Resume the same PR240 and same P1 order from this JSON. Inspect actual head/CI/reviews before editing; no checkpoint-only polling commits."
+    "mechanism": "Same single P1 order; verify audit PR exact SHA and CI first. No duplicate PR, writer or heartbeat; preserve hosted migration until approval."
   },
-  "resume_instructions": "Recover canonical sources and this JSON. Inspect main, PR240 exact head/CI/reviews and writers. Preserve the corrected candidate in this same PR; no duplicate work. Missing human integration authorization is a gate to merge, not a reason to repeat documentation-only commits. The next technical P1 dependency is durable policy revision/revocation in the existing ledger; fresh-only admission/restart limitations must remain explicit. No P2, hosted SQL or unattended dispatch.",
+  "resume_instructions": "Verify main, existing audit remediation PR, CI and active writers. Review security corrections first; continue P1 durable per-effect revocation and restart only after integration. No auto-merge, hosted SQL, production, P2, messages or scheduling changes.",
   "supervision": {
-    "verdict": "P1_REVIEW_CORRECTIONS_CANDIDATE",
-    "scope": "Corrected exact-context attestation and asynchronous policy binding; actual guarded synthetic observation/planning/execution/completion under test. One phase P1, one order, same PR240.",
-    "evidence": "RED6, focused41/41, verify563/563, final local PostgreSQL PASS for guarded factory success and observation/checkpoint denials. Exact corrected head CI must be verified at PR240; bebaf18 is predecessor only."
+    "verdict": "P1_SECURITY_MAINTENANCE_CANDIDATE_REVIEW_REQUIRED",
+    "scope": "Legacy camelRun path disabled, generic approval CAS plus single audit transaction staged, directory tests included; P1 core remains partial.",
+    "evidence": "RED legacy payload fetch, zero-provider-call GREEN; cross-instance approval tests; verify 571/571. Disposable PostgreSQL CI for additive migration pending."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",

@@ -67,3 +67,32 @@ test('legacy consultation consent does not authorize camelRun', async () => {
     restore('CAMELAI_API_KEY', old.key);
   }
 });
+
+
+test('legacy remote camelRun cannot bypass PII controls or durable budget, even with opt-in', async () => {
+  const { camelRunConsultationDraft } = await import('./consultationCamelRun');
+  const keys = ['CAMELRUN_CONSULTATION_DRAFTS_ENABLED','CONSULTATION_PRIVACY_APPROVED',
+    'CAMELRUN_DATA_PROCESSING_APPROVED','CAMELAI_API_KEY','CONSULTATION_MODEL_GATEWAY_ENABLED',
+    'CONSULTATION_AI_REMOTE_AUTHORIZED','CONSULTATION_AI_DAILY_MICROUSD',
+    'CONSULTATION_AI_MONTHLY_MICROUSD'] as const;
+  const old=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
+  const fetchBefore=globalThis.fetch;
+  let calls=0;
+  globalThis.fetch=async()=>{calls++;throw Error('unsafe network call');};
+  for(const key of keys)process.env[key]='true';
+  process.env.CAMELAI_API_KEY='synthetic-token';
+  process.env.CONSULTATION_AI_DAILY_MICROUSD='0';
+  process.env.CONSULTATION_AI_MONTHLY_MICROUSD='0';
+  try {
+    await assert.rejects(camelRunConsultationDraft({
+      aiConsent:true,fullName:'Persona Sintetica',message:'Mi correo es sample@example.invalid y mi telefono 099 123 456; tengo un problema de salud',
+      service:'orientacion'},'synthetic-private'),
+      /CAMELRUN_LEGACY_DISABLED/);
+    assert.equal(calls,0,'legacy route must never call provider without integrated privacy and budget');
+  } finally {
+    globalThis.fetch=fetchBefore;
+    for(const key of keys) {
+      if(old[key]===undefined)delete process.env[key];else process.env[key]=old[key];
+    }
+  }
+});

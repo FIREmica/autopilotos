@@ -33,51 +33,21 @@ export function validCamelRunDraft(result: any): result is AIDraft {
     result.guardian.reasons.every((q: unknown) => typeof q === 'string') && result.action === 'BORRADOR_NO_ENVIADO';
 }
 
+/**
+ * Legacy direct-vendor transport is intentionally disabled. It bypassed
+ * the current consultation intelligence privacy-risk filter and durable
+ * spend reservation; its own opt-in cannot authorize raw customer text.
+ * The admin endpoint fails closed until migrated to the approved gateway.
+ */
 export async function camelRunConsultationDraft(input: unknown, requestId: string): Promise<AIDraft> {
-  if (process.env.CAMELRUN_CONSULTATION_DRAFTS_ENABLED !== 'true' ||
-      process.env.CONSULTATION_PRIVACY_APPROVED !== 'true' ||
-      process.env.CAMELRUN_DATA_PROCESSING_APPROVED !== 'true') {
-    throw new Error('CAMELRUN_NOT_ENABLED');
-  }
-  const key = process.env.CAMELAI_API_KEY;
-  if (!key) throw new Error('CAMELRUN_NOT_CONFIGURED');
-  // Avoid sending metadata unrelated to the consultation, or logs with PII.
-  const record = input as Record<string, unknown>;
-  // Older consultation-v1 records never authorized disclosure to an AI vendor.
-  if (record?.aiConsent !== true) throw new Error('CAMELRUN_CONSENT_REQUIRED');
-  if (!record || typeof record.message !== 'string' || !record.message.trim()) throw new Error('CAMELRUN_INVALID_INPUT');
-  const payload = JSON.stringify({
-    systemPrompt: PROMPT,
-    model: 'anthropic/claude-sonnet-5-5',
-    input: JSON.stringify({ motive: typeof record?.message === 'string' ? record.message.slice(0, 600) : '',
-      service: typeof record?.service === 'string' ? record.service.slice(0, 200) : '' }),
-    wait: 20,
-    retentionSeconds: 3600,
-    spendLimit: 0.15,
-  });
-  const signal = AbortSignal.timeout(45000);
-  const response = await fetch('https://run.camelai.com/v1/runs', {
-    method: 'POST', signal,
-    headers: { 'content-type': 'application/json', authorization: `Bearer ${key}`,
-      'Idempotency-Key': `victoriosas-draft-${requestId}` },
-    body: payload,
-  });
-  if (!response.ok) throw new Error('CAMELRUN_UNAVAILABLE');
-  let run: any = await response.json();
-  // Vercel execution time is bounded: fail closed rather than giving a partial draft.
-  if (run.status !== 'completed' && run.state !== 'completed') {
-    const id = typeof run.id === 'string' ? run.id : null;
-    if (!id || !/^[a-zA-Z0-9_-]{8,128}$/.test(id)) throw new Error('CAMELRUN_PENDING');
-    const follow = await fetch('https://run.camelai.com/v1/runs/' + encodeURIComponent(id) + '?wait=15', {
-      signal, headers: { authorization: `Bearer ${key}` },
-    });
-    if (!follow.ok) throw new Error('CAMELRUN_UNAVAILABLE');
-    run = await follow.json();
-    if (run.status !== 'completed' && run.state !== 'completed') throw new Error('CAMELRUN_PENDING');
-  }
-  let draft: unknown;
-  try { draft = JSON.parse(run.text ?? run.outcome?.result?.reply ?? ''); }
-  catch { throw new Error('CAMELRUN_INVALID_OUTPUT'); }
-  if (!validCamelRunDraft(draft)) throw new Error('CAMELRUN_INVALID_OUTPUT');
-  return draft;
+  void requestId;
+  if (process.env.CAMELRUN_CONSULTATION_DRAFTS_ENABLED !== 'true'
+    || process.env.CONSULTATION_PRIVACY_APPROVED !== 'true'
+    || process.env.CAMELRUN_DATA_PROCESSING_APPROVED !== 'true') throw Error('CAMELRUN_NOT_ENABLED');
+  if (!process.env.CAMELAI_API_KEY) throw Error('CAMELRUN_NOT_CONFIGURED');
+  const record = input as Record<string,unknown> | null;
+  if (record?.aiConsent !== true) throw Error('CAMELRUN_CONSENT_REQUIRED');
+  if (typeof record.message !== 'string' || !record.message.trim()) throw Error('CAMELRUN_INVALID_INPUT');
+  // Even valid opt-in and flags do not override missing minimization + durable budget.
+  throw Error('CAMELRUN_LEGACY_DISABLED');
 }

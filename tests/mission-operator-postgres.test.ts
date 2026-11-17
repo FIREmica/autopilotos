@@ -39,6 +39,29 @@ test('standalone operator CLI proves admission execution supervision cancellatio
     assert.equal(await runSql("select coalesce(to_regclass('public.autopilot_local_lab')::text,'absent');"),'absent');
     await runSql('drop table private_sentinel.synthetic_guard;drop schema private_sentinel;');
     await exec(process.execPath,['--import','tsx',fileURLToPath(new URL('../scripts/autopilot-mission.ts',import.meta.url)),'init','--config',config],{env,windowsHide:true,timeout:20000});
+    // Additive migration tested in a disposable PostgreSQL database only.
+    // No hosted SQL writes or production data involved.
+    const approvalMigration=await readFile(fileURLToPath(new URL('../supabase/migrations/20261117000001_agent_task_durable_approval.sql',import.meta.url)),'utf8');
+    await runSql(approvalMigration);
+    const approvalId='task_1700000000000_approvalfixture';
+    await runSql(`insert into public.agent_tasks(id,goal,actor,action,status,input,policy_context)
+      values ('${approvalId}','synthetic approval','codex','deploy_production','awaiting_approval','{}',
+        '{"risk":"high"}'::jsonb);`);
+    const expectedAt=await runSql(`select updated_at from public.agent_tasks where id='${approvalId}';`);
+    const approveSql=`select public.approve_agent_task_if_current('${approvalId}',
+      '${expectedAt}'::timestamptz,'codex','deploy_production','{"risk":"high"}'::jsonb);`;
+    const approvals=await Promise.all([runSql(approveSql),runSql(approveSql)]);
+    assert.deepEqual(approvals.sort(),['f','t'],'only one durable approval per row');
+    assert.equal(await runSql(`select count(*) from public.agent_audit_events where task_id='${approvalId}' and event_type='TASK_APPROVED';`),'1');
+    assert.equal(await runSql(`select status from public.agent_tasks where id='${approvalId}';`),'queued');
+    assert.equal(await runSql(approveSql),'f','stale approval cannot replay');
+    const legacyId='task_1700000000000_legacyfixture';
+    await runSql(`insert into public.agent_tasks(id,goal,actor,action,status,input)
+      values ('${legacyId}','legacy approval','codex','deploy_production','awaiting_approval','{}');`);
+    const legacyTime=await runSql(`select updated_at from public.agent_tasks where id='${legacyId}';`);
+    assert.equal(await runSql(`select public.approve_agent_task_if_current('${legacyId}',
+      '${legacyTime}'::timestamptz,'codex','deploy_production','{"risk":"high"}'::jsonb);`),'f',
+      'pre-migration records without policy snapshot remain unapproved');
     const result=await exec(process.execPath,['--import','tsx',fileURLToPath(new URL('../scripts/demo-local-missions.ts',import.meta.url)),config,output],
       {env,windowsHide:true,timeout:140000,maxBuffer:65536});
     const evidence=JSON.parse(await readFile(output,'utf8'));assert.equal(evidence.cases.length,6);assert.equal(evidence.unattendedStart,false);
