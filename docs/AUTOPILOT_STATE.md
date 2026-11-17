@@ -1,3 +1,13 @@
+# P1 — veredicto de cierre técnico con límites · 17/11/2026
+
+**P1_CLOSED_WITH_BOUNDARIES** sobre main `823c2fef706dbe4518bd322afdf6d666c8a1caf8`, con #246 y #247 ya FUSIONADAS externamente. Registro documental propuesto, pendiente de review/CI propia e integración autorizada; no se afirma que este acta ya esté en main. Misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`, producto F0 sin cambio; P2 definida e inactiva. Los estados parciales de las entradas inferiores son historia.
+
+[Informe y matriz](P1_EXIT_REVIEW_20261117.md). Circuito supervisor→propuesta→autorización independiente→claim→efecto→ledger→atestación→finalización→checkpoint recuperable comprobado en dominio sintético local. CI exacta main run44017808255: validate SUCCESS (575 tests:574 pass,0 fail,1 Windows-only skip), postgres SUCCESS; operador protegido1/1 sin omisiones. Proceso Node nuevo completa intento2/checkpoint5 con nuevo grant y oráculo independiente; token viejo y artefacto adulterado denegados, sin replay ni pérdida del checkpoint. Tres análisis CodeQL SUCCESS. Árbol main idéntico al head247 dfe4a8c; no repetir implementaciones ni suites intactas.
+
+Límites: host confiable, recuperación solo ready_to_complete, sin atomicidad filesystem/SQL, identidad remota, recuperación general de efectos inciertos, reinicio Windows/host o cross-host. PLAN Cloud44018177216 sigue FAILURE cerrado por cloud_ledger_adapter_not_configured; Supabase Preview SUCCESS no acredita política alojada. No se certifica despliegue, operación continua, recepción del heartbeat ni coste total. P5 A–C alojado conserva su dependencia.
+
+Próxima acción exacta: revisar/integrar esta acta y el [mismo checkpoint](CODEX_CONTINUATION.json) únicamente con autorización específica; después decidir activación P2 según el plan. Alcance P2 solo propuesto: reconciliar efecto sintético aplicado sin checkpoint antes de repetirlo. No se ejecuta P2 aquí. Automatización6h consultada en modo view e intacta; raíz, ramas y procesos ajenos preservados. Sin SQL alojado, envíos, deploy manual, compras, borrados ni efectos externos inciertos propios.
+
 # P1 - Prueba protegida de reinicio entre procesos Node - 17/11/2026
 
 Main 0e27b6d fusiona #246, #244 y #245. PR abiertas 0 al iniciar. Unica ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 parcial, producto F0. C:/autopilot sucio y desactualizado, intacto. Worktree aislado codex/p1-protected-node-restart-20261117 desde SHA remoto verificado, sin escritor rival detectado.

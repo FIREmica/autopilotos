@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada tecnicamente con limites; main verificado0454ab6; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada con limites; P1_CLOSED_WITH_BOUNDARIES sobre main823c2fe, registro de cierre propuesto pendiente de revision/integracion. P2 definida e inactiva; ninguna fase posterior activada.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -38,17 +38,17 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Evidencia de cierre:** #235 y #236 integradas, manifiesto minimizado, fuentes preservadas y recuperación en memoria documentada; #237 integró la transición técnica. **P0 CERRADA CON LÍMITES en main tras #237**, con los recursos de recuperación incompleta retenidos. #238 integra la observación runtime/CLI en main 4ceb541; P1 sigue parcial. Este cierre no certifica recuperación offsite, recepción del heartbeat ni culminación de la fase de producto F0.
 
-## P1 - Consolidacion del nucleo Autopilot - ACTIVA, PARCIAL
+## P1 - Consolidacion del nucleo Autopilot - CIERRE CON LIMITES PROPUESTO
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
-**Dependencias:** cierre técnico limitado de P0 y núcleo #237–#240 integrados; #241–#243 integradas, main0342d39 verificada. Conservar las PR y refs históricas, sin reabrir ni duplicar. La candidata durable/recuperación requiere CI exacta, revisión e integración autorizada.
+**Dependencias satisfechas en el ambito P1:** P0 limitada y #237–#247 integradas; main verificado `823c2fef706dbe4518bd322afdf6d666c8a1caf8`. Conservar refs históricas sin duplicar implementaciones. Esta acta todavía requiere revisión/CI propia e integración autorizada.
 
-**Reutilizar:** permanentSupervisor de #234; missionRuntime, executorAdapter, missionPlanner, sixAgentPersistence, LocalMissionStore y CloudMissionStore. Retener DevelopmentLedger únicamente para su laboratorio acotado.
+**Reutilizar:** permanentSupervisor de #234; missionRuntime, executorAdapter, missionPlanner, sixAgentPersistence, LocalMissionStore y CloudMissionStore, sin otorgar alcance remoto al contrato local. Retener DevelopmentLedger únicamente para su laboratorio acotado.
 
-**Cambios mínimos:** validar entradas externas al supervisor en runtime; mapear estados de tarea/checkpoint/lease explícitamente; ligar observación a ID, binding, versión, fase y evidencia verificable. Resolver la observación de state inesperado y running sin lease sin crear otro reconciliador. Mantener propuesta de resume separada de permiso de ejecutar. Describir el adaptador de observación antes de habilitar cualquier efecto.
+**Resultado medido:** observación/propuesta no otorga permisos; autorización host por claim y efecto, política durable/revocación en la misma fila SQL, lease/fencing y atestación independiente integrados. #246 completa transporte SET LOCAL/identidad; #247 prueba recuperación terminal protegida en proceso Node nuevo: grant fresco tras lease vencida, intento2/checkpoint5, token antiguo rechazado y ningún replay. Artefacto adulterado bloquea finalización y preserva checkpoint/auditoría.
 
-**Incrementos #237–#240 integrados:** observación, claim acotado, autorización por efecto y atestación independiente. **P1 sigue parcial:** esta nueva candidata liga la revisión/revocación durable a la fila de misión y recupera únicamente ready_to_complete con lease expirada y grant nuevo, sin repetir pasos. Requiere review/integración autorizada y veredicto formal de salida; no se conecta a CLI/scheduler ni certifica atomicidad filesystem/SQL, identidad remota o P2.
+**Veredicto:** `P1_CLOSED_WITH_BOUNDARIES` técnico, propuesto en el mismo checkpoint; no quedan gates técnicos locales P1 pendientes. Main validate/postgres/CodeQL aprobados por SHA exacto; validate574 pass/1 skip exclusivo Windows y operador SQL1/1 sin omisiones. [Acta, matriz y enlaces CI](P1_EXIT_REVIEW_20261117.md). P2 sigue inactiva. No certifica identidad remota, atomicidad filesystem/SQL, recuperación general incierta, Windows/cross-host, despliegue alojado o recepción del heartbeat; cloud conserva su fallo cerrado. No cierra fases F0–F8.
 
 **Pruebas:** entradas desconocidas/booleanos falsificados, estado blocked/retry_wait/ready_to_complete, lease activa/expirada, versión antigua, prioridades y fase no autorizada, misión terminal, evidencia ausente; casos de componente y SQL aislado. Ningún estado desconocido puede producir dispatch. Verify y CI por SHA.
 
@@ -58,7 +58,7 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Rollback:** revertir adaptador/PR; dejar observación sin efectos y cola conservada.
 
-**Cierre:** diff/revisión/CI y evidencia del mismo contrato en supervisor→runtime→ledger, sin efectos externos no autorizados.
+**Cierre:** circuito supervisor→runtime→ledger probado en main823c2fe, con limites anteriores; integrar el registro solo con autorizacion especifica. Despues decidir activacion P2 del mismo plan, sin iniciarla por esta acta.
 
 ## P2 · Recuperación y verificación independiente — DEFINIDA
 
