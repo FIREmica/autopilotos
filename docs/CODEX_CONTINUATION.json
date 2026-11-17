@@ -196,7 +196,7 @@
     "src/autopilot/missionRuntime.test.ts",
     "src/storefront/consultationCamelRun.test.ts",
     "src/autopilot/taskStore.test.ts",
-    "supabase/migrations/20261117000001_agent_task_durable_approval.sql"
+    "supabase/staged/20261117000001_agent_task_durable_approval.sql"
   ],
   "blockers": [
     "Rollout safety: do not set AUTOPILOT_DURABLE_APPROVAL_V2_ENABLED=true until additive migration is applied and independently checked; old schema writes remain compatible while disabled, approvals fail closed.",

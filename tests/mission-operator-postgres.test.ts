@@ -41,7 +41,7 @@ test('standalone operator CLI proves admission execution supervision cancellatio
     await exec(process.execPath,['--import','tsx',fileURLToPath(new URL('../scripts/autopilot-mission.ts',import.meta.url)),'init','--config',config],{env,windowsHide:true,timeout:20000});
     // Additive migration tested in a disposable PostgreSQL database only.
     // No hosted SQL writes or production data involved.
-    const approvalMigration=await readFile(fileURLToPath(new URL('../supabase/migrations/20261117000001_agent_task_durable_approval.sql',import.meta.url)),'utf8');
+    const approvalMigration=await readFile(fileURLToPath(new URL('../supabase/staged/20261117000001_agent_task_durable_approval.sql',import.meta.url)),'utf8');
     await runSql(approvalMigration);
     const approvalId='task_1700000000000_approvalfixture';
     await runSql(`insert into public.agent_tasks(id,goal,actor,action,status,input,policy_context)
