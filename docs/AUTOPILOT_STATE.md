@@ -1684,3 +1684,10 @@ Bloqueo y siguiente misión exacta: completar la verificación del SHA hijo que 
 **Bloqueo preservado:** C:\autopilot-worktrees\p2-cancel-reconciliation-20261117 sigue sucio en cinco archivos de fixtures/SQL. El puerto 28447 ya no escucha, pero se preservan directorio y resultados porque una terminación anterior fue incierta; no se reutilizaron esas modificaciones.
 
 **Siguiente misión exacta:** abrir una sola PR revisable para este cambio desde main 090486a91dd67f4b2855df4349b32077908f0e80, esperar y revisar validate/postgres/CodeQL/security/public-browser/Vercel del SHA final, sin considerar Supabase Preview SKIPPED como éxito alojado. Después inspeccionar sin editar el worktree nativo sucio y reconciliar proceso, artefacto, descendientes y resultado antes de cualquier repetición. Mantener P2 parcial; sin merge automático, deploy, SQL alojado ni P3.
+
+
+## 2026-11-18 02:03 UTC - PR252 y CI exacta en curso
+
+PR #252 abierta desde `codex/p2-cancel-ledger-boundary-20261117` al main `090486a91dd67f4b2855df4349b32077908f0e80`; commit inicial `63e3dfada088ad6d8fbec74837d0c48a35c418e1`. No se fusionó ni desplegó. CI del SHA: validate y postgres siguen `in_progress`; CodeQL y public-browser-smoke siguen `in_progress`; Vercel y Vercel Preview Comments `success`; Supabase Preview `skipped` (no es prueba alojada). Sin revisiones ni threads al momento de crearla. PR enlazada: https://github.com/Victoriosas/autopilot/pull/252.
+
+La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; siguiente paso verificar checks contra el head real más reciente de #252, luego inspeccionar de solo lectura el worktree nativo sucio de cancelación/descendientes y reconciliar el resultado previo antes de cualquier repetición. No merge/deploy/SQL alojado/dispatch/P3.

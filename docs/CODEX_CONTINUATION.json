@@ -1,14 +1,16 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T23:01:00Z",
+  "updated_at": "2026-11-18T02:03:00Z",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
     "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
-    "head_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "head_sha": "63e3dfada088ad6d8fbec74837d0c48a35c418e1",
     "worktree": "WORKTREE:p2-cancel-ledger-boundary-20261117",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "Verified main base; local code candidate and checkpoint are in this isolated worktree. Resolve pushed PR head and exact CI from GitHub; do not self-reference a future commit."
+    "note": "PR252 open, unmerged, not deployed. This candidate head is 63e3dfa; exact validate/postgres/CodeQL/browser checks are in progress, Supabase Preview is SKIPPED. Reconcile any later checkpoint-only head against GitHub; do not self-reference a future commit.",
+    "pr_number": 252,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/252"
   },
   "current_order": {
     "id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
@@ -16,7 +18,7 @@
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "status": "partial_completion_abort_boundary_local_verified",
-    "last_verified_step": "PR250 and PR251 are integrated in main 090486a. PR251 exact head c1f1068 checks: validate/postgres SUCCESS (runs 44029983256 and 44030019752), CodeQL analyses SUCCESS (44030015739), public-browser-smoke SUCCESS (44030019767), Vercel and Vercel Preview Comments SUCCESS; Supabase Preview SKIPPED, no hosted evidence. New completion abort boundary RED then GREEN: runtime and guarded-ledger fixtures prove signal propagation and no base completion write after abort. Focused 43/43, npm run verify 583/583 (0 fail/skip), lint/build/API PASS, diff-check clean. New PR CI pending; no SQL changes.",
+    "last_verified_step": "PR250 and PR251 are integrated in main 090486a. PR251 exact head c1f1068 checks: validate/postgres SUCCESS (runs 44029983256 and 44030019752), CodeQL analyses SUCCESS (44030015739), public-browser-smoke SUCCESS (44030019767), Vercel and Vercel Preview Comments SUCCESS; Supabase Preview SKIPPED, no hosted evidence. New completion abort boundary RED then GREEN: runtime and guarded-ledger fixtures prove signal propagation and no base completion write after abort. Focused 43/43, npm run verify 583/583 (0 fail/skip), lint/build/API PASS, diff-check clean. PR252 is open at head 63e3dfa; validate/postgres and CodeQL/public-browser checks remain in progress, Vercel Preview Comments and Vercel success, Supabase Preview skipped. No SQL changes.",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
@@ -283,7 +285,8 @@
     "https://github.com/Victoriosas/autopilot/pull/251",
     "https://github.com/Victoriosas/autopilot/actions/runs/44029983256",
     "https://github.com/Victoriosas/autopilot/actions/runs/44030019752",
-    "https://github.com/Victoriosas/autopilot/actions/runs/44030019767"
+    "https://github.com/Victoriosas/autopilot/actions/runs/44030019767",
+    "https://github.com/Victoriosas/autopilot/pull/252"
   ],
   "blockers": [
     "P2 remains partial; the completion cancellation fix proves only that a not-yet-admitted base completion write is denied after abort. A write already admitted to SQL is not cancelled or rolled back.",
@@ -707,9 +710,10 @@
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
-    "objective": "Review and publish the single bounded completion-abort candidate, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
+    "objective": "Verify the single bounded completion-abort candidate on its exact final PR SHA, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "dependencies": [
       "Main 090486a and PR250/#251 exact CI reconciled.",
+      "PR252 is open at 63e3dfa; validate/postgres and CodeQL/browser checks are still running, with Supabase Preview skipped.",
       "Current local npm run verify 583/583; no SQL files changed.",
       "Preserve the already dirty p2-cancel-reconciliation worktree; inspect provenance, diff and run outcome before any reuse."
     ],
@@ -719,7 +723,7 @@
       "After safe reconciliation, report cancellation, descendants, preserved SQL/audit/artifact and late-write denial distinctly.",
       "Keep local_synthetic_only/no_send, cloud barrier and heartbeat configuration unchanged."
     ],
-    "recoverable_prompt": "Resume ORD-P2-RECOVERY-VERIFICATION-20261117 from main 090486a. This isolated candidate propagates AbortSignal through the runtime and guarded completion authorization and refuses the base completion write after an abort before admission; local focused tests 43/43 and npm run verify 583/583 pass. Open/update one reviewable PR; inspect exact CI for final SHA and do not merge or deploy. Preserve the dirty p2-cancel-reconciliation worktree and inspect its prior result before considering reuse. P2 remains partial; no P3, hosted SQL, production, dispatch, spending, customer contact, or automation changes."
+    "recoverable_prompt": "Resume ORD-P2-RECOVERY-VERIFICATION-20261117 from main 090486a. PR252 is open, unmerged, and not deployed; its current head is 63e3dfa. Local focused tests 43/43 and npm run verify 583/583 pass; exact PR validate/postgres and CodeQL/browser checks are still running, Vercel preview comments/Vercel succeeded, and Supabase Preview is skipped. Recheck the actual current PR head and exact CI; do not merge or deploy. Preserve the dirty p2-cancel-reconciliation worktree and inspect its provenance and prior result before reuse. P2 remains partial; no P3, hosted SQL, production, dispatch, spending, customer contact, or automation changes."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",

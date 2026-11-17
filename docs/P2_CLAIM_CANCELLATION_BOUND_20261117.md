@@ -74,3 +74,10 @@ La integración observada de PR #251 deja main en 090486a91dd67f4b2855df4349b320
 La siguiente dependencia, dentro de la misma orden P2, se probó con una regresión que falla si el segundo complete_write autoriza mientras llega una cancelación antes del write base. El runtime propaga la señal a authorizeEffect y comprueba abort justo después del grant; completeMission recibe la señal y la guarda vuelve a revisarla antes de consumir la atestación y llamar el writer base. Se conservan el AbortError original y el one-use attestation. Prueba del wrapper real con ledger base simulado verifica cero llamadas al write tras cancelación. RED observado, luego focal43/43, verify583/583, sin fallos/omisiones, lint/build/API/diff-check PASS. No se tocaron SQL ni recursos alojados.
 
 El candidato local todavía no tiene PR ni CI. Sigue sin acreditarse un write ya admitido, cancelación nativa y descendientes: el worktree p2-cancel-reconciliation-20261117 continúa sucio/preservado y su resultado previo no se repite ni se integra por inferencia. P2 sigue parcial. Siguiente acción: una PR revisable, exact CI al head final y luego reconciliar de solo lectura ese worktree preservado. No auto-merge, hosted SQL, deploy o P3.
+
+
+## 2026-11-18 02:03 UTC - PR252 y CI exacta en curso
+
+PR #252 abierta desde `codex/p2-cancel-ledger-boundary-20261117` al main `090486a91dd67f4b2855df4349b32077908f0e80`; commit inicial `63e3dfada088ad6d8fbec74837d0c48a35c418e1`. No se fusionó ni desplegó. CI del SHA: validate y postgres siguen `in_progress`; CodeQL y public-browser-smoke siguen `in_progress`; Vercel y Vercel Preview Comments `success`; Supabase Preview `skipped` (no es prueba alojada). Sin revisiones ni threads al momento de crearla. PR enlazada: https://github.com/Victoriosas/autopilot/pull/252.
+
+La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; siguiente paso verificar checks contra el head real más reciente de #252, luego inspeccionar de solo lectura el worktree nativo sucio de cancelación/descendientes y reconciliar el resultado previo antes de cualquier repetición. No merge/deploy/SQL alojado/dispatch/P3.
