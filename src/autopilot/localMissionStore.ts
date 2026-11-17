@@ -8,7 +8,7 @@ import type { AgentId } from './sixAgentControlPlane';
 
 export interface MissionClaimGuard {
   expected: { missionId: string; binding: string; goalVersion: number; checkpointVersion: number;
-    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string };
+    planVersion: number; objective: unknown; expiresAt: number; id: string; revision: number; executorId: string; phase: 'F0' };
   authorizeExecutor(executor: ExecutorAdapter): Promise<void>;
   beforeClaim(agentId: AgentId): Promise<void>;
 }
