@@ -208,7 +208,9 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     if (guarded && (!this.ledger.authorizeEffect || !this.ledger.attestCompletion))
       throw Error('mission_effect_authorization_required');
     signal.throwIfAborted();
-    const context = await this.ledger.claimMission(agentId);
+    // Protected recovery claims may await an independent oracle after SQL claim.
+    // Stop waiting on cancellation; an already admitted claim is not rolled back.
+    const context = await bounded(() => this.ledger.claimMission(agentId), signal);
     signal.throwIfAborted();
     if (!context) return;
     context.executorId = executor.executorId;

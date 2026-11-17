@@ -1,3 +1,11 @@
+# P2 parcial · claim cancelable y resultado tardío descartado · 17/11/2026
+
+Misma orden ORD-P2-RECOVERY-VERIFICATION-20261117, producto F0. PR250 ya FUSIONADA en main d9a07f93ccca3e4be01c428874c8111a2e62edfe; checks exactos del head y workflow principal de main aprobados. Candidata aislada codex/p2-claim-cancellation-bound-20261117 limita la espera de claimMission con bounded. RED2/GREEN43 y verify581/581,0 fail/skip, tipos/builds/API PASS; revisión auxiliar del diff sin hallazgos nuevos. CI propia pendiente, no fusionada/desplegada. [Contrato, evidencia y límites](P2_CLAIM_CANCELLATION_BOUND_20261117.md).
+
+Se conservó trabajo ajeno de pruebas nativas de cancelación, sin ejecutarlo ni atribuirlo a esta candidata. No SQL local/alojado, clientes, gasto externo nuevo, producción, cambios6h ni recursos preexistentes eliminados. Consultar el heartbeat con herramienta oficial en modo view no acredita runs nuevos.
+
+Cancelar esta espera no revierte claim ni detiene oráculo subyacente. Revisión detectó otro caso reproducible: cancelar durante la segunda autorización de completeMission permite escritura base posterior. Queda pendiente propagación de señal hasta frontera de escritura y RED/GREEN, sin prometer rollback SQL. Después conciliar prueba nativa/descendientes existente y demás matriz P2; no P3. [Único checkpoint](CODEX_CONTINUATION.json). Entradas inferiores históricas.
+
 # P2 activa/parcial — recuperación protegida de efecto sin checkpoint · 17/11/2026
 
 El propietario continúa el contrato preparado tras #249: transición formal desde P1_CLOSED_WITH_BOUNDARIES integrada a **P2 ACTIVA/PARCIAL**, única `ORD-P2-RECOVERY-VERIFICATION-20261117`, productoF0 sin cambio. Base remota `aad1bb97bfa4a7bd60cbb7667db09214e223b805`, worktree exclusivo; ninguna PR equivalente al iniciar. [Informe y límites](P2_PROTECTED_EFFECT_RECOVERY_20261117.md). Los estados inactivos inferiores son historia.
