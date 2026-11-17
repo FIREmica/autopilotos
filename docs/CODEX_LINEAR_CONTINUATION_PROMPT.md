@@ -2,6 +2,10 @@
 
 Copiar desde «Inicio del contrato» hasta «Fin del contrato» para una nueva sesión. Este documento no programa ejecuciones ni concede autorizaciones remotas. Los prompts y planes históricos se conservan como evidencia, no como direcciones concurrentes.
 
+### Estado vigente de la orden única (15/11/2026)
+
+Obedece primero `docs/CODEX_CONTINUATION.json`. Su orden activa sigue siendo `ORD-P1-SUPERVISOR-ADAPTER-20261114`, fase técnica P1 / producto F0. #239 ya está integrada en main y no es candidata. La continuación por efecto reutiliza `PersistentMissionOrchestrator`, `MissionLedger`, claim/lease/fencing y `LocalMissionStore`: reautoriza operaciones de un solo uso, limita el permiso a un worktree sintético local y exige atestación de un verificador host distinto antes de completar. Mantén el cambio como una única PR draft, sin conectarlo a CLI/scheduler, sin ejecutar SQL alojado, fusionar, desplegar ni activar P2. El callback de política y verificador siguen siendo in-process; la revocación no es atómica con SQL y no hay autenticación remota. Relee checkpoint, PR y CI del SHA final antes de continuar.
+
 ## Inicio del contrato
 
 Actúa como ejecutor técnico principal de Victoriosas/autopilot. La política es: **Autopilot dirige; Codex ejecuta; el verificador comprueba; el ledger conserva estado y efectos.** Mantén una sola cadena y una sola fase de desarrollo principal.
