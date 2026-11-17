@@ -1,6 +1,6 @@
 # Evaluación formal de cierre P1 — 17/11/2026
 
-**Veredicto técnico: `P1_CLOSED_WITH_BOUNDARIES` sobre main `823c2fef706dbe4518bd322afdf6d666c8a1caf8`.** Registro propuesto para revisión e integración; esta sesión no fusiona. Misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`, producto F0 sin cambio. P2 sigue definida e inactiva. Los informes inferiores son historia fechada, superada por esta evidencia.
+**Veredicto técnico: `P1_CLOSED_WITH_BOUNDARIES` sobre main `823c2fef706dbe4518bd322afdf6d666c8a1caf8`.** Acta integrada mediante [PR248](https://github.com/Victoriosas/autopilot/pull/248), merge `8633b3625b2109d21ef313adc168bd54c96ddeb4`, con autorización explícita del propietario. Las referencias a propuesta en el cuerpo inferior describen la revisión previa a esa integración. Misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`, producto F0 sin cambio. P2 sigue definida e inactiva. Los informes inferiores son historia fechada, superada por esta evidencia.
 
 ## Base y evidencia integrada
 
@@ -37,9 +37,9 @@ No queda un criterio técnico P1 incumplido dentro de ese contrato. La evidencia
 
 ## Estado, continuidad y siguiente acción exacta
 
-**IMPLEMENTADO/FUSIONADO:** núcleo y fixtures en main823c2fe. **PROBADO/EJECUTADO:** pruebas sintéticas en CI PostgreSQL/Linux y recibos locales históricos diferenciados. **DESPLEGADO/OPERATIVO:** no acreditado por esta revisión. **REGISTRO DE CIERRE:** propuesta documental pendiente de review, CI propia e integración específicamente autorizada; main todavía contiene el checkpoint histórico parcial hasta integrar el acta.
+**IMPLEMENTADO/FUSIONADO:** núcleo y fixtures en main823c2fe. **PROBADO/EJECUTADO:** pruebas sintéticas en CI PostgreSQL/Linux y recibos locales históricos diferenciados. **DESPLEGADO/OPERATIVO:** no acreditado por esta revisión. **REGISTRO DE CIERRE:** FUSIONADO por248; CI del main8633b36 run44020226387 validate/postgres/CodeQL SUCCESS. La revisión del mismo ejecutor y la autorización de integración del propietario se distinguen; no se inventa una aprobación GitHub independiente.
 
-Siguiente acción de `ORD-P1-SUPERVISOR-ADAPTER-20261114`: **revisar e integrar únicamente el acta de cierre P1 y su checkpoint coherente; después someter a decisión la activación P2 del mismo plan**. Alcance propuesto P2: un efecto sintético desechable aplicado sin checkpoint, interrupción y reconciliación por oráculo independiente antes de cualquier replay. No se ejecuta en esta orden ni se crea una orden competidora. Windows/cloud se medirán separadamente; sus permisos no se heredan.
+Siguiente acción de `ORD-P1-SUPERVISOR-ADAPTER-20261114`: **decidir autorización de ejecución P2 a partir del contrato preparado en [P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md](P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md); P2 sigue inactiva**. Alcance propuesto P2: un efecto sintético desechable aplicado sin checkpoint, interrupción y reconciliación por oráculo independiente antes de cualquier replay. No se ejecuta en esta orden ni se crea una orden competidora. Windows/cloud se medirán separadamente; sus permisos no se heredan.
 
 El [checkpoint único](CODEX_CONTINUATION.json), [plan](MASTER_LINEAR_DEVELOPMENT_PLAN.md), [prompt](CODEX_LINEAR_CONTINUATION_PROMPT.md) y [estado](AUTOPILOT_STATE.md) se reconcilian en la misma propuesta. Se usó worktree nuevo y exclusivo; ningún proceso observado identifica este ámbito en su línea de comando, sin inferir exclusión global ni cwd de otros procesos. La raíz y procesos PostgreSQL ajenos permanecen intactos. Automatización existente solo consultada con modo view, sin cambios de prompt/cadencia/destino/estado; no acredita run futuro. No efectos externos inciertos generados por esta sesión; el ledger alojado no fue consultado y no se certifica ausencia global de misiones pendientes.
 
