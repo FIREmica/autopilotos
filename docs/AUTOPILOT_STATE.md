@@ -1691,3 +1691,10 @@ Bloqueo y siguiente misión exacta: completar la verificación del SHA hijo que 
 PR #252 abierta desde `codex/p2-cancel-ledger-boundary-20261117` al main `090486a91dd67f4b2855df4349b32077908f0e80`; commit inicial `63e3dfada088ad6d8fbec74837d0c48a35c418e1`. No se fusionó ni desplegó. CI del SHA: validate y postgres siguen `in_progress`; CodeQL y public-browser-smoke siguen `in_progress`; Vercel y Vercel Preview Comments `success`; Supabase Preview `skipped` (no es prueba alojada). Sin revisiones ni threads al momento de crearla. PR enlazada: https://github.com/Victoriosas/autopilot/pull/252.
 
 La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; siguiente paso verificar checks contra el head real más reciente de #252, luego inspeccionar de solo lectura el worktree nativo sucio de cancelación/descendientes y reconciliar el resultado previo antes de cualquier repetición. No merge/deploy/SQL alojado/dispatch/P3.
+
+
+## 2026-11-18 02:14 UTC - reconciliación de head de PR252
+
+El SHA 001497244c5bde1d6c5554a9e4db4fed544cd0ad fue el destino exacto de la última consulta de CI: validate/postgres y CodeQL/browser seguían en curso; Vercel, Security Review y Preview Comments pasaron; Supabase Preview quedó skipped. Después se creó este commit de continuidad, por lo que el head actual de #252 debe resolverse en vivo antes de atribuirle checks. PR252 continúa abierta, sin merge/deploy ni revisión humana observada.
+
+La siguiente misión sigue en la orden P2 existente: consultar el SHA actual y checks exactos de #252; una vez terminales, lectura únicamente del worktree nativo preservado y reconciliación de proceso/resultado. No repetir efectos inciertos ni tocar ese árbol.
