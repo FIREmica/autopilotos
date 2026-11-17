@@ -167,6 +167,17 @@ test('abort stops the host before any task claim', async () => {
   await assert.rejects(new PersistentMissionOrchestrator(ledger).runMission({ executorId: 'unused', execute: async () => { throw Error('unused'); } }, 'software', controller.signal));
   assert.deepEqual(events, []);
 });
+test('cancelling read-only reconciliation preserves the abort reason and makes no later write',async()=>{
+  const candidate=context();candidate.checkpoint.completed_steps=['prepare'];
+  candidate.checkpoint.mission_state='in_progress';candidate.checkpoint.current_step_id='modify';
+  const {ledger,events}=ledgerFor(candidate);
+  const controller=new AbortController();
+  await assert.rejects(new PersistentMissionOrchestrator({...ledger,recovery:'reconcile_effect'}).runMission({
+    executorId:candidate.executorId,execute:async()=>{throw Error('must_not_execute');},
+    reconcile:async()=>{controller.abort();throw Error('injected_reconcile_fault');},
+  },'software',controller.signal),{name:'AbortError'});
+  assert.deepEqual(events,[]);
+});
 test('deadline stops a nonresponsive adapter without accepting subsequent writes', async () => {
   const { ledger, events } = ledgerFor(context());
   // An independent timer keeps the test event loop alive; the runtime deadline is unref'ed by Node.

@@ -1,3 +1,15 @@
+# P2 activa/parcial — recuperación protegida de efecto sin checkpoint · 17/11/2026
+
+El propietario continúa el contrato preparado tras #249: transición formal desde P1_CLOSED_WITH_BOUNDARIES integrada a **P2 ACTIVA/PARCIAL**, única `ORD-P2-RECOVERY-VERIFICATION-20261117`, productoF0 sin cambio. Base remota `aad1bb97bfa4a7bd60cbb7667db09214e223b805`, worktree exclusivo; ninguna PR equivalente al iniciar. [Informe y límites](P2_PROTECTED_EFFECT_RECOVERY_20261117.md). Los estados inactivos inferiores son historia.
+
+IMPLEMENTADO/PROBADO en candidata: reconcile_effect exactoCP2/plan1, nueva política durable y lease vencida; oráculo independiente post-claim, política releída tras awaits. Método reconcile del ejecutor existente estrictamente de lectura, después solo verify. No observe/replan/prepare/modify con escritura; ready_to_complete sigue igual. Sin otro ejecutor/ledger/cola/scheduler.
+
+PostgreSQL18 nativo4/4 PASS en28443ms: SIGKILL tras efecto antes deCP, Node nuevo, caso válido completed/intento2/CP5 sin cambiar bytes/hash/identidad/mtime. Artefacto adulterado, borrado después del oráculo y revocación durante el oráculo bloquean conCP2 intacto. Servidor propio detenido exit0. Focal49/49 y verify579/579 sin fail/skip; tipos/builds/API aprobados. Revisión auxiliar en lectura detectó pérdida de métodos de clase del verifier; RED reproducido y wrapper corregido preservando receiver/getter.
+
+Fallos conservados: lanzador nativo atascado en pipe corregido solo localmente; sintaxis CASE corregida sin quitar predicados; suite operador completa falló después en legacy CLI normal run_timeout antes de P2. No se declara esa suite local verde ni se amplían límites. Prueba P2 aislada comparte exactamente el helper de la suite. CI exacta de candidata/main integrado pendientes al escribir; no FUSIONADO/DESPLEGADO por anticipado.
+
+Siguiente: verificar/integrar esta candidata con el permiso vigente; después medir cancelación nativa durante reconciliación, descendientes y escritura tardía, conservando checkpoint/auditoría. No P3 ni cierre P2. Complemento actual0.4.1 leído/preflight ejecutado; heartbeat ACTIVE6h con hash intacto. Sin SQL alojado, producción, clientes, gastos ni recursos preexistentes eliminados. [Checkpoint único](CODEX_CONTINUATION.json).
+
 # P1 integrada; P2 preparada; heartbeat con recepción observada · 17/11/2026
 
 P1_CLOSED_WITH_BOUNDARIES **FUSIONADO** por [PR248](https://github.com/Victoriosas/autopilot/pull/248), merge `8633b3625b2109d21ef313adc168bd54c96ddeb4`, con autorización explícita del propietario para las integraciones. Misma orden ORD-P1-SUPERVISOR-ADAPTER-20261114 concluida técnicamente, productoF0 sin cambio; P2 solo PREPARADA/INACTIVA. No crear una segunda orden activa. Las referencias inferiores a acta pendiente son historia.

@@ -1,6 +1,8 @@
 # Preparación P2 y auditoría de continuidad — 17/11/2026
 
-**PREPARADO, NO ACTIVADO.** Este contrato completa la directiva de cierre P1 y preparación de continuidad. No ejecuta P2, no cambia el runtime ni constituye una nueva orden/cola/scheduler. Autoridad: [plan único](MASTER_LINEAR_DEVELOPMENT_PLAN.md), [dirección de producto](PROJECT_DIRECTION.md) y [checkpoint único](CODEX_CONTINUATION.json). La orden P1 `ORD-P1-SUPERVISOR-ADAPTER-20261114` queda cerrada técnicamente; ningún ID P2 activo se emite hasta su activación autorizada.
+> Actualización17/11: el propietario indicó continuar después de integrar249. Se activa solo el primer incremento local P2, orden ORD-P2-RECOVERY-VERIFICATION-20261117. [Implementación y evidencia](P2_PROTECTED_EFFECT_RECOVERY_20261117.md). El estado PREPARADO/NO ACTIVADO inferior es historia de la propuesta anterior; no limita la autorización posterior ni acredita cierre P2. Cloud/producción/automatización conservan sus barreras.
+
+**Historia: PREPARADO, NO ACTIVADO al presentar249.** Este contrato completa la directiva de cierre P1 y preparación de continuidad. No ejecuta P2, no cambia el runtime ni constituye una nueva orden/cola/scheduler. Autoridad: [plan único](MASTER_LINEAR_DEVELOPMENT_PLAN.md), [dirección de producto](PROJECT_DIRECTION.md) y [checkpoint único](CODEX_CONTINUATION.json). La orden P1 `ORD-P1-SUPERVISOR-ADAPTER-20261114` queda cerrada técnicamente; ningún ID P2 activo se emite hasta su activación autorizada.
 
 ## P1 integrada y autorización
 

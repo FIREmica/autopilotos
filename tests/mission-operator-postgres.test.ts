@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
+import { verifyProtectedEffectRecovery } from './fixtures/protectedEffectRecoveryProof';
 import { LocalMissionStore, type LocalMissionStatus } from '../src/autopilot/localMissionStore';
 import { ManagedProcesses } from '../src/autopilot/managedProcesses';
 import { PersistentMissionOrchestrator } from '../src/autopilot/missionRuntime';
@@ -322,6 +323,7 @@ test('standalone operator CLI proves admission execution supervision cancellatio
         checkpointVersion:recovered.version,independentOracleCount:recovered.verified,
         tamperedInitialPid:tamperPrepared.pid,tamperedRecoveryPid:rejected.pid,
         tamperedBlocked:rejected.tamperedRejected}));
+      console.log(JSON.stringify(await verifyProtectedEffectRecovery(config,env)));
       const expiryId='synthetic-policy-expiry';await effectStore.admit({id:expiryId,objective});
       const expiry={id:'synthetic-expiry-grant',revision:1,missionId:expiryId,binding:effectStore.binding,phase:'F0' as const,
         executorId:'synthetic-expiry-executor',goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+1500};

@@ -56,11 +56,17 @@ begin
    or p_grant->>'expiresAt' is null
    then raise exception 'invalid_durable_policy'; end if;
  if p_grant ? 'recovery' then
-  if p_grant->>'recovery' is distinct from 'ready_to_complete' or task.status<>'running'
-    or task.mission_checkpoint->>'mission_state' is distinct from 'ready_to_complete'
+  if p_grant->>'recovery' not in ('ready_to_complete','reconcile_effect') or p_grant->>'recovery' is null or task.status<>'running'
+    or task.mission_checkpoint->>'mission_state' is distinct from
+      (case when p_grant->>'recovery'='ready_to_complete' then 'ready_to_complete' else 'in_progress' end)
     or task.lease_until is null or task.lease_until>=clock_timestamp() or task.attempt_count>=task.max_attempts
+    or task.execution_token is null
     or p_grant->>'checkpointVersion' is distinct from task.mission_checkpoint_version::text
     or p_grant->>'planVersion' is distinct from coalesce(task.input->>'plan_version','0')
+    or (p_grant->>'recovery'='reconcile_effect' and (task.mission_checkpoint_version<>2
+      or task.input->>'plan_version' is distinct from '1'
+      or task.mission_checkpoint->>'current_step_id' is distinct from 'modify-v1'
+      or task.mission_checkpoint->'completed_steps' is distinct from '["prepare-v1"]'::jsonb))
     then raise exception 'recovery_policy_denied'; end if;
  elsif p_grant->>'checkpointVersion' is distinct from '0' or p_grant->>'planVersion' is distinct from '0'
    or (revision=0 and (task.status<>'queued' or task.attempt_count<>0)) then raise exception 'invalid_durable_policy';

@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada con limites; P1_CLOSED_WITH_BOUNDARIES integrado por248 en main8633b36; codigo evaluado823c2fe y CI posterior8633b36 aprobada. P2 definida e inactiva; ninguna fase posterior activada.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada con limites; P1_CLOSED_WITH_BOUNDARIES integrado por248 en main8633b36; codigo evaluado823c2fe y CI posterior8633b36 aprobada. P2 ACTIVA/PARCIAL por continuacion del propietario; primera recuperacion protegida de efecto en candidata. P3–P6 no activadas.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -60,9 +60,11 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Cierre:** circuito supervisor→runtime→ledger probado en main823c2fe, con limites anteriores; registro integrado mediante248 con autorizacion del propietario. Decidir activacion P2 del mismo plan, sin iniciarla por esta acta.
 
-## P2 · Recuperación y verificación independiente — DEFINIDA
+## P2 · Recuperación y verificación independiente — ACTIVA, PARCIAL
 
-**Preparacion actual, NO ACTIVADA (17/11):** [contrato de interrupciones y auditoria runtime](P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md). P1 cerrada e integrada; la autorizacion de integracion del repositorio no activa ensayos P2. Reutilizar cobertura legacy y aislarla de las garantias protegidas; primer incremento propuesto: reconciliacion protegida in_progress del efecto sin checkpoint, sin saltarse el scope terminal actual.
+**Activación del primer incremento (17/11):** el propietario continúa después del contrato preparado e integrado por249. Única orden activa `ORD-P2-RECOVERY-VERIFICATION-20261117`, productoF0 sin cambio. [Evidencia del incremento](P2_PROTECTED_EFFECT_RECOVERY_20261117.md): scope fijo reconcile_effect CP2/plan1, permiso durable nuevo, oráculo post-claim independiente y reconciliación sin escribir. Nativo4/4 y verify579/579 aprobados; candidata requiere CI exacta/revisión/integración. La ruta terminal P1 conserva sus restricciones. No cierre P2, P3, SQL alojado ni scheduler.
+
+**Siguiente dependencia P2:** después de verificar/integrar este incremento, medir cancelación durante reconciliación con cierre de descendientes propios, rechazo de escritura tardía y preservación del checkpoint/auditoría. Mantener el [contrato completo](P2_RECOVERY_PREPARATION_RUNTIME_AUDIT_20261117.md) como matriz pendiente; no reconstruir lo integrado ni ampliar timeouts por rutina.
 
 **Objetivo:** interrupción y reanudación conservan checkpoint, rechazan escritor obsoleto y no repiten efectos aceptados.
 

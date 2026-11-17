@@ -47,13 +47,13 @@ export class SyntheticMissionExecutor implements ExecutorAdapter {
     } else if (mission.planVersion !== 1 || JSON.stringify(mission.plan) !== JSON.stringify(SYNTHETIC_PLAN)
       || JSON.stringify(mission.completionCriteria) !== JSON.stringify(['synthetic_test_passed'])) throw Error('synthetic_authorization_required');
   }
-  private async workspace(context: ExecutorContext, create: boolean, signal?: AbortSignal) {
+  private async workspace(context: ExecutorContext, create: boolean, signal?: AbortSignal, readOnly=false) {
     signal?.throwIfAborted();
     const mission = context.mission;
     const rootInfo = await exists(this.root);
     if (!rootInfo?.isDirectory() || rootInfo.isSymbolicLink() || await realpath(this.root) !== path.resolve(this.root)) throw Error('unsafe_workspace_root');
     const hooks = path.join(this.root, 'empty-hooks');
-    if (!await exists(hooks)) await mkdir(hooks);
+    if (!await exists(hooks)) { if(readOnly)throw Error('unsafe_hooks'); await mkdir(hooks); }
     if ((await lstat(hooks)).isSymbolicLink() || (await readdir(hooks)).length) throw Error('unsafe_hooks');
     const git = async (args: string[], cwd = this.repo) => {
       const parameters = ['-c', `core.hooksPath=${hooks}`, ...args];
@@ -93,20 +93,28 @@ export class SyntheticMissionExecutor implements ExecutorAdapter {
     return { worktree: 'ready', result: await inspect('result.txt', SYNTHETIC_CONTENTS), test: await inspect('result.test.cjs', SYNTHETIC_TEST_SOURCE) };
   }
   async execute(context: ExecutorContext, signal?: AbortSignal): Promise<ExecutorResult> {
+    return this.runStep(context,signal,false);
+  }
+  async reconcile(context: ExecutorContext, signal?: AbortSignal): Promise<ExecutorResult> {
+    if(context.mission.plan.find(step=>step.id===context.checkpoint.current_step_id)?.task!=='synthetic.modify')
+      throw Error('reconciliation_step_required');
+    return this.runStep(context,signal,true);
+  }
+  private async runStep(context: ExecutorContext, signal: AbortSignal|undefined, readOnly:boolean): Promise<ExecutorResult> {
     signal?.throwIfAborted();
     this.authorize(context, true);
     const mission = context.mission;
     const step = mission.plan.find(s => s.id === context.checkpoint.current_step_id);
     if (!step) throw Error('invalid_step');
     const action = step.task;
-    const { location, branch, exists: present } = await this.workspace(context, action === 'synthetic.prepare', signal);
+    const { location, branch, exists: present } = await this.workspace(context, action === 'synthetic.prepare', signal,readOnly);
     if (!present) throw Error('worktree_missing');
     let summary = 'isolated_worktree_verified';
     const folder = path.join(location, '.autopilot-synthetic');
     if (action !== 'synthetic.prepare') {
       const folderInfo = await exists(folder);
       if (folderInfo && (!folderInfo.isDirectory() || folderInfo.isSymbolicLink())) throw Error('unsafe_artifact_directory');
-      if (!folderInfo) { if (action !== 'synthetic.modify') throw Error('artifact_missing'); await mkdir(folder); }
+      if (!folderInfo) { if (readOnly || action !== 'synthetic.modify') throw Error('artifact_missing'); await mkdir(folder); }
       const expected = [['result.txt', SYNTHETIC_CONTENTS], ['result.test.cjs', SYNTHETIC_TEST_SOURCE]] as const;
       const missing: Array<readonly [string, string]> = [];
       // Validate every prerequisite before the first write. A later conflict must not leave a partial effect.
@@ -117,7 +125,7 @@ export class SyntheticMissionExecutor implements ExecutorAdapter {
           if (!previous.isFile() || previous.isSymbolicLink() || previous.size !== Buffer.byteLength(content)
             || await readFile(file, 'utf8') !== content) throw Error('artifact_conflict');
         } else {
-          if (action !== 'synthetic.modify') throw Error('artifact_missing');
+          if (readOnly || action !== 'synthetic.modify') throw Error('artifact_missing');
           missing.push([file, content]);
         }
       }
