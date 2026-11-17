@@ -4,10 +4,12 @@
   "execution_id": "codex-p1-durable-policy-ready-recovery-20261117",
   "repository": {
     "branch": "codex/p1-durable-policy-20261116",
-    "head_sha": "0342d39d929a691662512616d71fd2241bc56d81",
+    "head_sha": "fe4f057b837cca9a55a096fd4dad9007dfc5dabd",
     "base_sha": "0342d39d929a691662512616d71fd2241bc56d81",
     "worktree": "WORKTREE:p1-durable-policy-20261116",
-    "note": "Verified main after merges240–243; reference parent, not containing candidate SHA. Resolve exact candidate head/CI from its branch PR."
+    "note": "Application/test parent before this documentation-only PR binding. Resolve containing commit and final exact CI at PR245 head; do not inherit main or previous head checks.",
+    "pr_number": 245,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/245"
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
@@ -204,7 +206,8 @@
     "src/autopilot/missionRuntime.ts",
     "src/autopilot/missionRuntime.test.ts",
     "supabase/staged/six_agent_local_policy_20261116.sql",
-    "docs/PERMANENT_SUPERVISOR_P0D_20261114.md"
+    "docs/PERMANENT_SUPERVISOR_P0D_20261114.md",
+    "https://github.com/Victoriosas/autopilot/pull/245"
   ],
   "blockers": [
     "Candidate review and specific integration authorization remain required.",
@@ -306,7 +309,7 @@
       ]
     },
     "current_pr_head_checks": {
-      "lookup": "Find PR by head codex/p1-durable-policy-20261116; check its actual final head SHA.",
+      "lookup": "https://github.com/Victoriosas/autopilot/pull/245/checks",
       "required": [
         "validate",
         "postgres"
@@ -421,7 +424,7 @@
       "docs/PERMANENT_SUPERVISOR_P0D_20261114.md",
       "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
     ],
-    "integration_state": "IMPLEMENTED and locally TESTED in a candidate branch; not merged/deployed/hosted or generally executable."
+    "integration_state": "IMPLEMENTED and locally TESTED in draft PR245; not merged/deployed/hosted; final exact-head CI and review required."
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
