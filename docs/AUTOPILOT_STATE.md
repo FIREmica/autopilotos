@@ -1,3 +1,17 @@
+# P1 · política durable y recuperación terminal · 17/11/2026
+
+Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL, productoF0. Main0342d39 incorpora #240–#243, confirmadas en GitHub; validate/postgres/CodeQL/local-stack/beauty-stack aprobaron. PLAN Cloud run44006451388 conserva el fallo cerrado cloud_ledger_adapter_not_configured con source CI success; no se modifica. Las entradas inferiores son históricas.
+
+Candidata en codex/p1-durable-policy-20261116: revisión/expiración/revocación persisten en input de la misma fila agent_tasks. El controlador host emite/revoca explícitamente con compare-and-set y permisos revisados; no el supervisor/ejecutor. Trigger local comprueba política bajo row lock en las escrituras; el runtime relee política después del callback antes de admitir cada efecto. Un true no revierte una revocación. Sin segunda tabla/cola/ledger. SQL staged cargada solo al inicializar una base local desechable, no aplicada alojada.
+
+Recuperación explícita ready_to_complete: lease vencida, versiones exactas y nuevo grant durable; claim/fencing existentes, nuevo verificador independiente y finalización sin observar, replanificar, ejecutar pasos ni escribir checkpoints. Se conserva el checkpoint y el token anterior es rechazado mientras la lease nueva sigue válida. No es recuperación general de efectos inciertos ni P2.
+
+Evidencia local: RED2/GREEN44, verify566/566 con tipos/skills/builds/API. SQL aislada pasó revocación después de atestar, callback true, token/grant obsoleto, expiración, CAS concurrente, escritura bloqueada tras revocación y preservación/recuperación terminal. Una repetición concurrente con verify falló en el fixture legacy de timeout; conservada, con retry_wait registrado y sin tocar timeouts. Repetición aislada y prueba SQL final con ambos artefactos pasaron. La CI exacta del candidato se consulta en el mismo checkpoint/PR.
+
+IMPLEMENTADO/PROBADO en candidata; EJECUTADO solo en fixtures locales. No FUSIONADO ni DESPLEGADO a producción. Un efecto filesystem ya admitido puede acabar después de revocar; su escritura SQL posterior queda denegada. No atomicidad filesystem/SQL ni identidad remota. El host con credenciales administrativas sigue siendo autoridad; esto no aísla a un propietario SQL adversarial. Automatización6h, CLI/scheduler, producción, proveedores y recursos previos intactos.
+
+Siguiente: revisar e integrar únicamente con autorización específica; después evaluar formalmente los criterios de salida P1 en main real. No activar P2 ni producir commits de sondeo. [Checkpoint único y prompt recuperable](CODEX_CONTINUATION.json).
+
 # Revisión técnica P1 · PR240 · 16/11/2026
 
 Continúa `ORD-P1-SUPERVISOR-ADAPTER-20261114`, P1 ACTIVA/PARCIAL, productoF0. Main remoto `44dbaeeb6384740da81db2357fb003c7de42d33b`; PR239 fusionada; PR240 abierta/draft, padre revisado `bebaf18dc83dcb4703b56b1768146b98a69e9be2`. Sin reviews/threads humanos al inspeccionar. Este registro contiene correcciones nuevas, no un commit de sondeo; las entradas inferiores son historia.

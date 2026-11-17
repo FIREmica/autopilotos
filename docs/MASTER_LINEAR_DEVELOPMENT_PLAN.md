@@ -2,7 +2,7 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada tecnicamente con limites en main 4ceb541; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**P0 cerrada tecnicamente con limites; main verificado0342d39; P1 ACTIVA, PARCIAL, unica fase del plan.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
 
 ## Autoridad y avance
 
@@ -42,13 +42,13 @@ Una eliminación opcional no bloquea el producto por sí misma: puede cerrarse c
 
 **Objetivo:** una decisión del supervisor se traduce en una observación y propuesta coherentes con el runtime y el ledger existentes, sin otorgar permisos implícitos.
 
-**Dependencias:** cierre técnico limitado de P0, supervisor #237, observación #238 y autorización de claim #239 ya integrados; main `44dbaeeb6384740da81db2357fb003c7de42d33b` verificada al preparar el incremento siguiente. Conservar los PR históricos y sus refs; no reabrir ni duplicar. Cada incremento P1 requiere revisión y CI de su propio SHA antes de una integración autorizada.
+**Dependencias:** cierre técnico limitado de P0 y núcleo #237–#240 integrados; #241–#243 integradas, main0342d39 verificada. Conservar las PR y refs históricas, sin reabrir ni duplicar. La candidata durable/recuperación requiere CI exacta, revisión e integración autorizada.
 
 **Reutilizar:** permanentSupervisor de #234; missionRuntime, executorAdapter, missionPlanner, sixAgentPersistence, LocalMissionStore y CloudMissionStore. Retener DevelopmentLedger únicamente para su laboratorio acotado.
 
 **Cambios mínimos:** validar entradas externas al supervisor en runtime; mapear estados de tarea/checkpoint/lease explícitamente; ligar observación a ID, binding, versión, fase y evidencia verificable. Resolver la observación de state inesperado y running sin lease sin crear otro reconciliador. Mantener propuesta de resume separada de permiso de ejecutar. Describir el adaptador de observación antes de habilitar cualquier efecto.
 
-**Incrementos #237–#239:** observación de solo lectura, montaje en el runtime/CLI y autorización de un claim sintético fresco están integrados. **P1 sigue incompleta:** el claim autorizado no autoriza por sí mismo los pasos ni la finalización. Esta propuesta continúa la misma orden con autorización host consultada por efecto, permiso local sintético para pasos, atestación de un verificador host distinto y escritura de finalización de un solo uso. No se conecta al CLI/scheduler. El callback de política sigue en proceso y no se revoca atómicamente junto con SQL; no es una identidad remota ni cierre de P1/P2.
+**Incrementos #237–#240 integrados:** observación, claim acotado, autorización por efecto y atestación independiente. **P1 sigue parcial:** esta nueva candidata liga la revisión/revocación durable a la fila de misión y recupera únicamente ready_to_complete con lease expirada y grant nuevo, sin repetir pasos. Requiere review/integración autorizada y veredicto formal de salida; no se conecta a CLI/scheduler ni certifica atomicidad filesystem/SQL, identidad remota o P2.
 
 **Pruebas:** entradas desconocidas/booleanos falsificados, estado blocked/retry_wait/ready_to_complete, lease activa/expirada, versión antigua, prioridades y fase no autorizada, misión terminal, evidencia ausente; casos de componente y SQL aislado. Ningún estado desconocido puede producir dispatch. Verify y CI por SHA.
 
@@ -195,3 +195,11 @@ RED/GREEN incluye revocación entre efectos, denegación antes del ejecutor y an
 La misma candidata P1 fija la atestación al contexto completo (plan/checkpoint/evidencia/artefactos), rechaza cambios durante callbacks y consume el token tras la última autorización, inmediatamente antes del SQL. La comparación canónica conserva objetivos al reordenar claves JSONB. `observe_state` requiere autorización host propia para usar una copia transitoria con permiso local; ni el supervisor ni el claim conceden permisos persistentes. El recorrido positivo usa la fábrica guarded, planner, ejecutor y ledger reales en PostgreSQL desechable; no basta el camino legacy con permisos precargados.
 
 P1 sigue parcial: callbacks no constituyen revocación durable atómica; la fábrica solo admite misiones frescas, y no se acredita admisión autorizada del checkpoint SQL después de reinicio. La siguiente dependencia es un contrato de revisión/vigencia/revocación durable sobre el ledger existente, tras revisar e integrar con autorización esta corrección. Mantener el límite de recuperación como gate P1; no proclamar P2, identidad remota, hosted SQL o continuidad programada. Evidencia y siguiente prompt en el mismo CODEX_CONTINUATION.json y PR240, sin otra orden o plan.
+
+## Candidata P1 · política durable y recuperación terminal · 17/11/2026
+
+Base main0342d39 tras #240–#243. La política reside en agent_tasks.input, con revisión monotónica, vencimiento, revocación y CAS; no se crea otra autoridad de persistencia. La administración es explícita del host, nunca derivada de una observación. El trigger local serializa escrituras con la revocación bajo el mismo row lock. Nuevas admisiones de efectos releen política después del callback; efectos de filesystem ya admitidos no se deshacen, pero sus escrituras SQL posteriores se deniegan si la política cambió.
+
+La recuperación ready_to_complete es explícita, con lease vencida, versiones exactas y nueva política; conserva claim/lease/fencing y exige atestación independiente nueva sin repetir pasos. Solo admite atestar/finalizar, no observar, replanificar, ejecutar o escribir checkpoints. SQL staged solo local; no migración alojada ni conexión a CLI/scheduler. Pruebas/CAS/carrera observada y recuperación en el mismo checkpoint/PR.
+
+P1 continúa parcial hasta review/integración autorizadas y veredicto formal de salida sobre main real. La siguiente misión de la misma orden es esa evaluación; no se abre P2 por verde sintético ni se declara identidad remota, recuperación general, despliegue o heartbeat ejecutado.

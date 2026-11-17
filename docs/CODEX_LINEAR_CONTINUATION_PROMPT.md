@@ -2,9 +2,9 @@
 
 Copiar desde «Inicio del contrato» hasta «Fin del contrato» para una nueva sesión. Este documento no programa ejecuciones ni concede autorizaciones remotas. Los prompts y planes históricos se conservan como evidencia, no como direcciones concurrentes.
 
-### Estado vigente de la orden única (15/11/2026)
+### Estado vigente de la orden única (17/11/2026)
 
-Obedece primero `docs/CODEX_CONTINUATION.json`. Su orden activa sigue siendo `ORD-P1-SUPERVISOR-ADAPTER-20261114`, fase técnica P1 / producto F0. #239 ya está integrada en main y no es candidata. La continuación por efecto reutiliza `PersistentMissionOrchestrator`, `MissionLedger`, claim/lease/fencing y `LocalMissionStore`: reautoriza operaciones de un solo uso, limita el permiso a un worktree sintético local y exige atestación de un verificador host distinto antes de completar. Mantén el cambio como una única PR draft, sin conectarlo a CLI/scheduler, sin ejecutar SQL alojado, fusionar, desplegar ni activar P2. El callback de política y verificador siguen siendo in-process; la revocación no es atómica con SQL y no hay autenticación remota. Relee checkpoint, PR y CI del SHA final antes de continuar.
+Obedece primero docs/CODEX_CONTINUATION.json. Sigue ORD-P1-SUPERVISOR-ADAPTER-20261114, P1/productoF0. #240–#243 están integradas en main0342d39 y no son candidatas. Reutiliza la nueva candidata de política durable en el ledger existente y recuperación explícita ready_to_complete: grant emitido por host, revisión/CAS/vencimiento/revocación comprobados, lease expirada y versiones exactas antes de recuperar, nueva atestación independiente y cero repetición de pasos. No extiendas ese scope a in_progress o efectos inciertos. No conectes CLI/scheduler ni ejecutes SQL alojado, merge/deploy o P2. La lectura de admisión no vuelve atómico el filesystem con SQL; los efectos ya admitidos pueden acabar, pero la escritura SQL posterior se rechaza tras revocar. Mantén una PR draft y verifica su head/CI/reviews; después de integración específicamente autorizada evalúa formalmente la salida de P1 en el mismo checkpoint. No generes hijos documentales solo para comprobar el CI de su padre.
 
 ## Inicio del contrato
 
