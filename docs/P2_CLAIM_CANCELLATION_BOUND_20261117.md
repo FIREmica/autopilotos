@@ -88,3 +88,12 @@ La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; sig
 El SHA 001497244c5bde1d6c5554a9e4db4fed544cd0ad fue el destino exacto de la última consulta de CI: validate/postgres y CodeQL/browser seguían en curso; Vercel, Security Review y Preview Comments pasaron; Supabase Preview quedó skipped. Después se creó este commit de continuidad, por lo que el head actual de #252 debe resolverse en vivo antes de atribuirle checks. PR252 continúa abierta, sin merge/deploy ni revisión humana observada.
 
 La siguiente misión sigue en la orden P2 existente: consultar el SHA actual y checks exactos de #252; una vez terminales, lectura únicamente del worktree nativo preservado y reconciliación de proceso/resultado. No repetir efectos inciertos ni tocar ese árbol.
+
+
+## 2026-11-17 23:18 UTC - CI #252 aprobada y reconciliación nativa bloqueada
+
+PR #252, abierta/no fusionada/no desplegada, main base `090486a91dd67f4b2855df4349b32077908f0e80`. En el SHA exacto `a922107fde44dbeb5c3adab8cafe347dc6f484c7`, validate, postgres, CodeQL (actions/javascript-typescript/python), public-browser-smoke, Vercel Security Review, Vercel y Vercel Preview Comments quedaron SUCCESS. Supabase Preview SKIPPED, sin evidencia alojada. Reviews y threads humanos vacíos al consultar. Este registro crea otro commit solo documental; el siguiente ciclo debe resolver el head vivo nuevo antes de atribuirle estos checks.
+
+Auditoría únicamente de lectura del worktree preservado `p2-cancel-reconciliation-20261117`: sigue sucio en cinco archivos (dos SQL staged locales, dos fixtures de proceso y el test de operador); el diff implementa una cancelación nativa de recuperación, limpieza de descendiente y verificaciones de checkpoint/auditoría/escrituras tardías. No se encontró un proceso relacionado ni listener en puerto 28447. Tampoco se encontró recibo terminal ni salida persistida del test; por tanto el efecto previo queda sin clasificar. No se repitió, detuvo ni modificó nada.
+
+Estado P2 sigue parcial. La siguiente acción exacta es recuperar la salida/recibo original de ese test; si no existe, registrar la dependencia humana/evidencia faltante y mantener el worktree intacto. No reiniciar operación incierta por inferencia. Sin SQL alojado, misión/claim/dispatch, merge, deploy, P3 ni cambios de automatización.

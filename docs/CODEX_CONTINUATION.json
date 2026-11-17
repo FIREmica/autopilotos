@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T02:14:00Z",
+  "updated_at": "2026-11-17T23:18:57.654Z",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
     "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
-    "head_sha": "001497244c5bde1d6c5554a9e4db4fed544cd0ad",
+    "head_sha": "a922107fde44dbeb5c3adab8cafe347dc6f484c7",
     "worktree": "WORKTREE:p2-cancel-ledger-boundary-20261117",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "Last exact CI target recorded was 0014972. This follow-up is checkpoint-only and advances the PR head; query GitHub for the latest head before using checks. PR252 remains open/unmerged/not deployed; Supabase Preview is skipped.",
+    "note": "Exact CI recorded below passed on a922107, before this continuity-only documentation commit. Resolve the latest live PR head and exact checks before integration.",
     "pr_number": 252,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/252"
   },
@@ -17,8 +17,8 @@
     "phase": "F0",
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
-    "status": "partial_completion_abort_boundary_local_verified",
-    "last_verified_step": "PR250 and PR251 are integrated in main 090486a with previously recorded exact checks. PR252 was opened at code head 63e3dfa, then checkpoint-only commit 0014972 updated the same continuity files. On exact SHA 001497244c5bde1d6c5554a9e4db4fed544cd0ad, validate/postgres and CodeQL/public-browser were in progress, Vercel and Vercel Preview Comments succeeded, Vercel Security Review succeeded, and Supabase Preview was skipped. This continuity-only follow-up advances the PR branch again; resolve the actual latest SHA and its exact checks on resume. Local RED/GREEN focused 43/43, npm run verify 583/583 (0 fail/skip), lint/build/API PASS; no SQL changes.",
+    "status": "partial_pr252_ci_verified_native_cancellation_reconciliation_blocked",
+    "last_verified_step": "PR252 is open, unmerged, not deployed. Exact head a922107fde44dbeb5c3adab8cafe347dc6f484c7: validate and postgres SUCCESS; CodeQL actions/javascript-typescript/python SUCCESS; public-browser-smoke SUCCESS; Vercel Security Review, Vercel, and Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews/threads empty. A later documentation-only commit will advance the PR branch; resolve its exact SHA before any integration. Read-only audit of p2-cancel-reconciliation found five dirty native cancellation files, no matching process and no listener on port28447, but no durable test output/terminal receipt; result remains unknown and must not be rerun or integrated by inference.",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
@@ -286,7 +286,9 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44029983256",
     "https://github.com/Victoriosas/autopilot/actions/runs/44030019752",
     "https://github.com/Victoriosas/autopilot/actions/runs/44030019767",
-    "https://github.com/Victoriosas/autopilot/pull/252"
+    "https://github.com/Victoriosas/autopilot/pull/252",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44197071751",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44197071695"
   ],
   "blockers": [
     "P2 remains partial; the completion cancellation fix proves only that a not-yet-admitted base completion write is denied after abort. A write already admitted to SQL is not cancelled or rolled back.",
@@ -710,20 +712,19 @@
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
-    "objective": "Resolve the live PR252 head and finish exact CI verification; then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
+    "objective": "Reconcile the prior native cancellation/descendant test result for the preserved dirty worktree without rerunning or overwriting an uncertain operation.",
     "dependencies": [
-      "Main 090486a and PR250/#251 exact CI reconciled.",
-      "PR252 is open at 63e3dfa; validate/postgres and CodeQL/browser checks are still running, with Supabase Preview skipped.",
-      "Current local npm run verify 583/583; no SQL files changed.",
-      "Preserve the already dirty p2-cancel-reconciliation worktree; inspect provenance, diff and run outcome before any reuse."
+      "PR252 exact CI passed on a922107; this checkpoint-only commit advances the branch, so resolve latest PR head and checks live.",
+      "Native cancellation changes remain uncommitted in the separate dirty worktree; no matching process or port28447 listener is present, but no terminal run receipt/output was recovered.",
+      "Obtain existing terminal/run evidence before deciding whether any new isolated synthetic operation can be admitted; never mutate the preserved worktree."
     ],
     "acceptance": [
-      "Single active P2 order; one candidate PR only.",
-      "Exact validate/postgres/CodeQL/security/public-browser/Vercel checks on final PR SHA; skipped Supabase Preview remains non-evidence.",
-      "After safe reconciliation, report cancellation, descendants, preserved SQL/audit/artifact and late-write denial distinctly.",
-      "Keep local_synthetic_only/no_send, cloud barrier and heartbeat configuration unchanged."
+      "Preserve all five uncommitted files and the existing worktree; no reset, stash, checkout, commit, push, or test rerun there.",
+      "Classify the prior run only from its actual terminal output or durable run receipt; if unavailable, leave it blocked and request the missing evidence.",
+      "If a later separately authorized isolated run is justified, use a unique synthetic mission/database, retain the evidence and verify descendants and denied late writes.",
+      "Keep P2 partial; no P3, hosted SQL, cloud dispatch, production, spending, client contact, or automation changes."
     ],
-    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117, P2 partial. PR252 is open, unmerged, not deployed. Initial code head was 63e3dfa; checkpoint-only follow-up 0014972 had validate/postgres and CodeQL/browser in progress, Vercel and Security Review success, Preview Comments success, Supabase Preview skipped. This follow-up itself advances the PR head, so first fetch live PR #252 head and exact checks; do not use an older SHA result or merge/deploy. Preserve the dirty p2-cancel-reconciliation worktree and inspect its provenance/run outcome before any reuse. No P3, hosted SQL, production, dispatch, spending, client contact, or automation changes."
+    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117. PR252 exact checks passed on a922107; this documentation-only update advances the branch, so fetch the actual latest head and its checks before any integration. PR remains open and unmerged. The preserved p2-cancel-reconciliation worktree contains five uncommitted native cancellation changes. Read-only scan found no matching process and no listener on port28447, but no durable test output or terminal receipt was found; do not rerun, commit, or integrate those changes by inference. First recover original terminal/run evidence. If it cannot be recovered, record the specific human/evidence dependency and keep it blocked. P2 remains partial; no hosted SQL, dispatch, production, P3, spending, external effects, or automation changes."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
