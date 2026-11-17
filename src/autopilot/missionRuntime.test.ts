@@ -110,6 +110,30 @@ test('legacy planned ledger uses its explicitly scoped local synthetic permissio
   await new PersistentMissionOrchestrator(ledger,45_000,planner).runMission(executor,'software');
   assert.deepEqual(events,['save','complete']);
 });
+
+test('guarded planner and observation receive only explicitly authorized transient permissions',async()=>{
+  const candidate=context();candidate.permissions=[];candidate.mission.plan=[];candidate.mission.planVersion=0;
+  candidate.mission.planHistory=[];
+  candidate.mission.objective={version:1,kind:'synthetic.ensure_verified_artifact',expected:'canonical_synthetic_result',
+    restrictions:[...SYNTHETIC_RESTRICTIONS],resources:[...SYNTHETIC_RESOURCES],acceptance:[...SYNTHETIC_ACCEPTANCE],limits:{maxReplans:1,maxSteps:8}};
+  const {ledger}=ledgerFor(candidate);let observed=0,planned=0;
+  ledger.authorizeExecutor=async()=>{};
+  ledger.authorizeEffect=async(_executor,snapshot,effect)=>{
+    assert.deepEqual(snapshot.permissions,[]);
+    if(effect.kind==='save_plan') throw Error('synthetic_stop_after_observation');
+    return effect.kind==='observe_state'?['synthetic_worktree']:[];
+  };
+  ledger.attestCompletion=async()=>({});
+  ledger.blockMission=async(_context,reason)=>{throw Error(`unexpected_block_${reason}`);};
+  ledger.savePlan=async()=>true;
+  const executor:ExecutorAdapter={executorId:'synthetic-unit',observe:async snapshot=>{
+    observed++;assert.deepEqual(snapshot.permissions,['synthetic_worktree']);
+    return {worktree:'missing',result:'missing',test:'missing'};
+  },execute:async()=>{throw Error('unused');}};
+  const planner={plannerId:'synthetic-planner',propose:async()=>{planned++;throw Error('unused');}};
+  await assert.rejects(new PersistentMissionOrchestrator(ledger,45000,planner).runMission(executor,'software'),/synthetic_stop_after_observation/);
+  assert.equal(observed,1);assert.equal(planned,0);assert.deepEqual(candidate.permissions,[]);
+});
 test('post-claim policy revocation blocks the executor before it can run', async () => {
   const candidate=context(); const {ledger,events}=ledgerFor(candidate);
   const guarded=ledger as MissionLedger & {

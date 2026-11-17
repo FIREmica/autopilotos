@@ -83,7 +83,7 @@ export interface ExecutorResult {
 
 /** A host-authorized, single-use operation in the existing mission runtime. */
 export interface MissionEffectRequest {
-  kind: 'execute_step' | 'write_checkpoint' | 'save_plan' | 'block' | 'fail' | 'attest_completion' | 'complete_write';
+  kind: 'observe_state' | 'execute_step' | 'write_checkpoint' | 'save_plan' | 'block' | 'fail' | 'attest_completion' | 'complete_write';
   operationId: string;
   stepId?: string;
 }

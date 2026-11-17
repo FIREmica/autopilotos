@@ -209,18 +209,24 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     };
     const observe = async () => {
       if (!executor.observe) throw new PlanPolicyError('planning_components_required');
-      try { return await bounded(() => executor.observe!(structuredClone(context), signal), signal!); }
+      const permissions=await authorizeEffect({kind:'observe_state',operationId:`runtime:observe:${context.mission.missionId}:${context.checkpointVersion}:${context.mission.planVersion}`});
+      const snapshot=structuredClone(context);
+      if(this.ledger.authorizeEffect) {
+        if(!permissions.includes('synthetic_worktree')) throw Error('mission_effect_authorization_required');
+        snapshot.permissions=[...permissions];
+      }
+      try { return {observed:await bounded(() => executor.observe!(structuredClone(snapshot), signal), signal!),snapshot}; }
       catch { signal!.throwIfAborted(); throw new PlanPolicyError('unrecoverable_state'); }
     };
-    const derive = async () => {
+    const derive = async (observation?:Awaited<ReturnType<typeof observe>>) => {
       if (!this.planner || !executor.observe || !this.ledger.savePlan) throw new PlanPolicyError('planning_components_required');
-      const observed = await observe();
+      const {observed,snapshot} = observation ?? await observe();
       safeObservation(observed);
       let proposal: PlanProposal;
       await authorizeEffect({kind:'save_plan',operationId:`runtime:propose:${context.mission.missionId}:${context.mission.planVersion+1}`});
-      try { proposal = await bounded(() => this.planner!.propose(structuredClone(context), structuredClone(observed), signal), signal!); }
+      try { proposal = await bounded(() => this.planner!.propose(structuredClone(snapshot), structuredClone(observed), signal), signal!); }
       catch (error) { signal!.throwIfAborted(); if (error instanceof PlanPolicyError) throw error; throw new PlanPolicyError('planner_failed'); }
-      validatePlanProposal(context, proposal, observed);
+      validatePlanProposal(snapshot, proposal, observed);
       signal!.throwIfAborted();
       if (!await this.ledger.savePlan(context, proposal, this.planner.plannerId)) throw Error('plan_rejected');
     };
@@ -268,7 +274,8 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
         signal?.throwIfAborted();
         if (planned) {
           try {
-            const observed = await observe();
+            const observation = await observe();
+            const {observed} = observation;
             safeObservation(observed);
             if (observed.worktree === 'ready' && observed.result === 'valid' && observed.test === 'valid') {
               await block('unrecoverable_failure'); return;
@@ -276,7 +283,7 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
             if (context.mission.planVersion > authorizedObjective(context.mission.objective).limits.maxReplans) {
               await block('replan_budget_exhausted'); return;
             }
-            await derive(); continue;
+            await derive(observation); continue;
           } catch (error) {
             signal.throwIfAborted();
             if (error instanceof PlanPolicyError) { await block(error.code); return; }

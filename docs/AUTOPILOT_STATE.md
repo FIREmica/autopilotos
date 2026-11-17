@@ -1,3 +1,15 @@
+# Revisión técnica P1 · PR240 · 16/11/2026
+
+Continúa `ORD-P1-SUPERVISOR-ADAPTER-20261114`, P1 ACTIVA/PARCIAL, productoF0. Main remoto `44dbaeeb6384740da81db2357fb003c7de42d33b`; PR239 fusionada; PR240 abierta/draft, padre revisado `bebaf18dc83dcb4703b56b1768146b98a69e9be2`. Sin reviews/threads humanos al inspeccionar. Este registro contiene correcciones nuevas, no un commit de sondeo; las entradas inferiores son historia.
+
+Hallazgos reproducidos y corregidos en la misma PR: token de atestación no vinculado a todo el contenido; retargeting de contexto/petición mientras esperaban callbacks; comparación de objetivos sensible al orden JSONB; observación/planificación guarded sin permiso utilizable. La atestación ahora fija hash canónico de contexto completo y se valida otra vez tras autorizar y justo antes del SQL. `observe_state` exige aprobación host explícita; observador y planner reciben solo una copia transitoria con synthetic_worktree, manteniendo el contexto persistente sin permisos. No hay permiso derivado del supervisor ni ampliación global para pasar pruebas.
+
+Pruebas: seis regresiones RED, focales41/41, verify563/563 sin fallos/omisiones, tipos/skills/builds/API y comprobaciones de secretos/HTML/diff aprobados. El nuevo fixture SQL positivo alcanzó completed; su aserción inicial esperaba erróneamente versión4, corregida a5 según six_agent_complete (plan1+pasos3+cierre1). SQL final y CI del nuevo SHA se verifican en el mismo checkpoint y PR; no heredar CI de bebaf18.
+
+Veredicto: IMPLEMENTADO/PROBADO local en la candidata; no FUSIONADO ni DESPLEGADO. Ejecución solo de pruebas sintéticas desechables, sin SQL alojado/clientes/dispatch. No cerrar P1 ni iniciar P2: política/verificador siguen in-process, revocación durable atómica no demostrada y la fábrica solo admite queued fresco, sin admisión autorizada de un checkpoint SQL tras reinicio. Mantener PR240 draft para revisión/autorización; la siguiente dependencia técnica es ligar revisión/revocación durable a la autoridad del ledger existente, sin otro ledger/cola.
+
+El [checkpoint único](CODEX_CONTINUATION.json) contiene pruebas, límites y prompt recuperable. Automatización victoriosa-autopilot-6h solo inspeccionada; frecuencia/destino/estado intactos. Sin merge, despliegue, migración alojada, gasto o eliminación de recursos preexistentes. Si no hay novedades, no producir otro hijo documental solo para registrar CI de su padre.
+
 # P1 · autorización independiente de claim · 15/11/2026
 
 Main remoto contrastado `4ceb54162f9c92c8c8ec2d4c9e9aa5978e271c34`: #237 y #238 FUSIONADAS. Observación runtime/CLI ya integrada; no volver a revisarla como propuesta pendiente. P0 cerrada técnicamente con límites conservados; P1 ACTIVA/PARCIAL, misma `ORD-P1-SUPERVISOR-ADAPTER-20261114`. Las entradas inferiores son historia, no órdenes vigentes.

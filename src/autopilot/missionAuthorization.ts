@@ -1,4 +1,5 @@
 import { authorizedObjective } from './missionPlanner';
+import { createHash } from 'node:crypto';
 import { missionId, type MissionClaimGuard } from './localMissionStore';
 import type { ExecutorAdapter, ExecutorContext, MissionCompletionAttestation, MissionEffectRequest, MissionLedger } from './executorAdapter';
 
@@ -26,8 +27,16 @@ export interface MissionEffectGuard {
   readonly verifierId: string;
   beforeEffect(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest): Promise<readonly string[]>;
   attestCompletion(context: ExecutorContext): Promise<MissionCompletionAttestation>;
+  assertAttestation(context: ExecutorContext, attestation: MissionCompletionAttestation): void;
   consumeAttestation(context: ExecutorContext, attestation: MissionCompletionAttestation): void;
 }
+
+// Process-local capabilities bind every field of the JSON-compatible context,
+// including plan, checkpoint, artifacts and test evidence, not only its version.
+const stableJson=(value:unknown)=>JSON.stringify(value,(_key,item)=>
+  item && typeof item==='object' && !Array.isArray(item)
+    ? Object.fromEntries(Object.entries(item).sort(([a],[b])=>a<b?-1:a>b?1:0)) : item);
+const contextDigest=(context:ExecutorContext)=>createHash('sha256').update(stableJson(context)).digest('hex');
 
 /**
  * The verifier belongs to the trusted host and must consult its current policy.
@@ -97,15 +106,22 @@ export function createMissionEffectGuard(
     || !/^[a-z][a-z0-9-]{2,79}$/.test(verifier.verifierId) || verifier.verifierId===grant.executorId
     || typeof verifier.verify!=='function') throw Error('invalid_mission_effect_authorization');
   const usedOperations=new Set<string>();
-  const attestations=new WeakMap<object,{missionId:string;executorId:string;checkpointVersion:number;goalVersion:number;planVersion:number;objective:string;revision:number;consumed:boolean}>();
+  const attestations=new WeakMap<object,{digest:string;consumed:boolean}>();
+  const attestationFor=(context:ExecutorContext,token:MissionCompletionAttestation)=>{
+    const value=attestations.get(token as object);
+    let matches=false;
+    try { matches=!!value && !value.consumed && value.digest===contextDigest(context); } catch { /* malformed context */ }
+    if(!value || !matches) throw Error('mission_completion_attestation_required');
+    return value;
+  };
   const deny=()=>Error('mission_effect_authorization_denied');
   const scoped=(candidate:ExecutorAdapter,context:ExecutorContext,effect:MissionEffectRequest): boolean => {
     if (candidate!==executor || candidate.executorId!==grant.executorId || context.executorId!==grant.executorId
       || context.mission.missionId!==grant.missionId || context.mission.goalVersion!==grant.goalVersion
       || !Number.isSafeInteger(context.checkpointVersion) || context.checkpointVersion<grant.checkpointVersion
       || !Number.isSafeInteger(context.mission.planVersion) || context.mission.planVersion<grant.planVersion
-      || JSON.stringify(authorizedObjective(context.mission.objective))!==JSON.stringify(authorizedObjective(grant.objective))
-      || !effect || !['execute_step','write_checkpoint','save_plan','block','fail','attest_completion','complete_write'].includes(effect.kind)
+      || stableJson(authorizedObjective(context.mission.objective))!==stableJson(authorizedObjective(grant.objective))
+      || !effect || !['observe_state','execute_step','write_checkpoint','save_plan','block','fail','attest_completion','complete_write'].includes(effect.kind)
       || typeof effect.operationId!=='string' || effect.operationId.length>200
       || !/^[a-zA-Z0-9._:-]{3,200}$/.test(effect.operationId)
       || (effect.kind==='execute_step' && (typeof effect.stepId!=='string' || !context.mission.plan.some(step=>step.id===effect.stepId)))) return false;
@@ -113,7 +129,8 @@ export function createMissionEffectGuard(
   };
   const beforeEffect=async(candidate:ExecutorAdapter,context:ExecutorContext,effect:MissionEffectRequest):Promise<readonly string[]>=>{
     let inScope=false;
-    try { inScope=scoped(candidate,context,effect); } catch { /* malformed context is denied */ }
+    let digest='',request='';
+    try { inScope=scoped(candidate,context,effect);digest=contextDigest(context);request=JSON.stringify(effect); } catch { /* malformed context is denied */ }
     if (!inScope || Date.now()>=grant.expiresAt || usedOperations.has(effect.operationId)) throw deny();
     // Consume before awaiting so uncertain decisions/effects cannot replay.
     usedOperations.add(effect.operationId);
@@ -125,16 +142,19 @@ export function createMissionEffectGuard(
       })]);
     } catch { /* sanitize host details */ }
     finally { clearTimeout(timer); }
+    let unchanged=false;
+    try { unchanged=digest===contextDigest(context) && request===JSON.stringify(effect) && scoped(candidate,context,effect); } catch { /* deny mutation */ }
     if (!decision || decision.allowed!==true || decision.revision!==grant.revision
+      || !unchanged
       || decision.operationId!==effect.operationId || Date.now()>=grant.expiresAt
       || executor.executorId!==grant.executorId || !Array.isArray(decision.permissions)
       || decision.permissions.some(permission=>permission!=='synthetic_worktree')
-      || (effect.kind==='execute_step' && (decision.permissions.length!==1
+      || (['observe_state','execute_step'].includes(effect.kind) && (decision.permissions.length!==1
         || !authorizedObjective(context.mission.objective).resources.includes('synthetic_worktree')
         || !authorizedObjective(context.mission.objective).restrictions.includes('local_synthetic_only')
         || !authorizedObjective(context.mission.objective).restrictions.includes('no_network')
         || !authorizedObjective(context.mission.objective).restrictions.includes('no_send')))
-      || (effect.kind!=='execute_step' && decision.permissions.length!==0)) throw deny();
+      || (!['observe_state','execute_step'].includes(effect.kind) && decision.permissions.length!==0)) throw deny();
     return [...decision.permissions];
   };
   return {
@@ -142,45 +162,44 @@ export function createMissionEffectGuard(
     beforeEffect,
     async attestCompletion(context) {
       let valid=false;
+      let snapshot:ExecutorContext;
+      let digest='';
       try {
-        const planIds=context.mission.plan.map(step=>step.id);
-        const completed=context.checkpoint.completed_steps;
-        const resultIds=context.checkpoint.results.map(result=>result.step_id);
-        valid=context.mission.missionId===grant.missionId && context.executorId===grant.executorId
-          && context.mission.goalVersion===grant.goalVersion && context.checkpointVersion>=grant.checkpointVersion
-          && JSON.stringify(authorizedObjective(context.mission.objective))===JSON.stringify(authorizedObjective(grant.objective))
-          && context.checkpoint.mission_state==='ready_to_complete' && context.checkpoint.current_step_id==null
-          && context.checkpoint.pending_steps.length===0 && planIds.length>0
+        snapshot=structuredClone(context);digest=contextDigest(snapshot);
+        const planIds=snapshot.mission.plan.map(step=>step.id);
+        const completed=snapshot.checkpoint.completed_steps;
+        const resultIds=snapshot.checkpoint.results.map(result=>result.step_id);
+        valid=snapshot.mission.missionId===grant.missionId && snapshot.executorId===grant.executorId
+          && snapshot.mission.goalVersion===grant.goalVersion && snapshot.checkpointVersion>=grant.checkpointVersion
+          && stableJson(authorizedObjective(snapshot.mission.objective))===stableJson(authorizedObjective(grant.objective))
+          && snapshot.checkpoint.mission_state==='ready_to_complete' && snapshot.checkpoint.current_step_id==null
+          && snapshot.checkpoint.pending_steps.length===0 && planIds.length>0
           && completed.length===planIds.length && new Set(completed).size===completed.length
           && planIds.every(id=>completed.includes(id)) && resultIds.length===completed.length
           && new Set(resultIds).size===resultIds.length && completed.every(id=>resultIds.includes(id))
-          && context.checkpoint.results.every(result=>result.status==='passed')
-          && context.checkpoint.test_evidence.length>=completed.length;
+          && snapshot.checkpoint.results.every(result=>result.status==='passed')
+          && snapshot.checkpoint.test_evidence.length>=completed.length;
       } catch { /* malformed persisted context is denied */ }
       if (!valid) throw Error('mission_completion_unverified');
       let accepted=false;
       let timer:ReturnType<typeof setTimeout>|undefined;
       try {
         if (Date.now()>=grant.expiresAt) throw Error('expired');
-        accepted=await Promise.race([verifier.verify(structuredClone(context)),new Promise<boolean>(resolve=>{
+        accepted=await Promise.race([verifier.verify(structuredClone(snapshot!)),new Promise<boolean>(resolve=>{
           timer=setTimeout(()=>resolve(false),Math.max(1,grant.expiresAt-Date.now()));
         })])===true;
       } catch { /* sanitize verifier details */ }
       finally { clearTimeout(timer); }
-      if (!accepted || Date.now()>=grant.expiresAt) throw Error('mission_completion_unverified');
+      let unchanged=false;
+      try { unchanged=digest===contextDigest(context); } catch { /* malformed changed context */ }
+      if (!accepted || !unchanged || Date.now()>=grant.expiresAt) throw Error('mission_completion_unverified');
       const token=Object.freeze({});
-      attestations.set(token,{missionId:context.mission.missionId,executorId:context.executorId,
-        checkpointVersion:context.checkpointVersion,goalVersion:context.mission.goalVersion,planVersion:context.mission.planVersion,
-        objective:JSON.stringify(authorizedObjective(context.mission.objective)),revision:grant.revision,consumed:false});
+      attestations.set(token,{digest,consumed:false});
       return token;
     },
+    assertAttestation(context,token) { attestationFor(context,token); },
     consumeAttestation(context,token) {
-      const value=attestations.get(token as object);
-      if (!value || value.consumed || value.missionId!==context.mission.missionId
-        || value.executorId!==context.executorId || value.checkpointVersion!==context.checkpointVersion
-        || value.goalVersion!==context.mission.goalVersion || value.planVersion!==context.mission.planVersion
-        || value.objective!==JSON.stringify(authorizedObjective(context.mission.objective))
-        || value.revision!==grant.revision) throw Error('mission_completion_attestation_required');
+      const value=attestationFor(context,token);
       // Consume before SQL to prevent replay after an ambiguous completion result.
       value.consumed=true;
     },
@@ -228,8 +247,10 @@ export function createAuthorizedMissionLedger(
     },
     completeMission:async(context,_evidence,attestation)=>{
       if(!attestation) throw Error('mission_completion_attestation_required');
-      guard.consumeAttestation(context,attestation);
+      guard.assertAttestation(context,attestation);
       await authorize(context,'complete_write',`ledger:complete:${scopedGrant.id}:${context.mission.missionId}:${context.checkpointVersion}`);
+      // Rebind after the async policy callback, then consume immediately before SQL.
+      guard.consumeAttestation(context,attestation);
       return base.completeMission(context,
         `independent:${verifierId}:${scopedGrant.id}:${scopedGrant.revision}:${context.checkpointVersion}`);
     },

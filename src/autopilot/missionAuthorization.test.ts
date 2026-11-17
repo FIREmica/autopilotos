@@ -166,3 +166,77 @@ test('policy revocation between attestation and completion prevents the ledger w
   await assert.rejects(ledger.completeMission(context,'untrusted',token),/mission_effect_authorization_denied/);
   assert.deepEqual(writes,[]);
 });
+
+function terminalContext(): ExecutorContext {
+  return {mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
+    plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective:structuredClone(objective)},
+    checkpointVersion:3,executorId:executor.executorId,permissions:[],
+    checkpoint:{mission_state:'ready_to_complete',completed_steps:['prepare'],pending_steps:[],
+      results:[{step_id:'prepare',status:'passed',summary:'verified'}],artifacts:['verified-artifact'],test_evidence:['verified-test']}};
+}
+const allowEffect=async(_grant:unknown,_context:unknown,effect:{operationId:string;kind:string})=>({
+  allowed:true,revision:1,operationId:effect.operationId,permissions:effect.kind==='execute_step'?['synthetic_worktree']:[],
+});
+
+test('completion attestation binds the exact verified checkpoint, plan and evidence at the same version',async()=>{
+  for (const mutate of [
+    (c:ExecutorContext)=>{c.checkpoint.artifacts=['unverified-artifact'];},
+    (c:ExecutorContext)=>{c.checkpoint.test_evidence=['forged-test'];},
+    (c:ExecutorContext)=>{c.checkpoint.results[0].status='failed';},
+    (c:ExecutorContext)=>{c.mission.plan[0].task='synthetic.modify';},
+    (c:ExecutorContext)=>{c.checkpoint.mission_state='in_progress';},
+  ]) {
+    const context=terminalContext();
+    const guard=createMissionEffectGuard(grant(),executor,allowEffect,{verifierId:'synthetic-verifier',verify:async()=>true});
+    const token=await guard.attestCompletion(context);
+    const changed=structuredClone(context);mutate(changed);
+    assert.throws(()=>guard.consumeAttestation(changed,token),/mission_completion_attestation_required/);
+    guard.consumeAttestation(context,token);
+  }
+});
+
+test('a verifier cannot retarget its approval to a context changed while verification awaited',async()=>{
+  const context=terminalContext();
+  const guard=createMissionEffectGuard(grant(),executor,allowEffect,{verifierId:'synthetic-verifier',verify:async verified=>{
+    assert.deepEqual(verified.checkpoint.artifacts,['verified-artifact']);
+    context.checkpoint.artifacts=['unverified-artifact'];return true;
+  }});
+  await assert.rejects(guard.attestCompletion(context),/mission_completion_unverified/);
+});
+
+test('an asynchronous policy approval cannot authorize a different context or operation',async()=>{
+  for (const change of ['context','operation']) {
+    const context=terminalContext();
+    const effect={kind:'write_checkpoint' as const,operationId:'synthetic:write:original'};
+    const guard=createMissionEffectGuard(grant(),executor,async(g,c,e)=>{
+      assert.deepEqual(c.checkpoint.artifacts,['verified-artifact']);
+      if(change==='context') context.checkpoint.artifacts=['unreviewed-artifact'];
+      else effect.operationId='synthetic:write:substituted';
+      return allowEffect(g,c,e);
+    },{verifierId:'synthetic-verifier',verify:async()=>true});
+    await assert.rejects(guard.beforeEffect(executor,context,effect),/mission_effect_authorization_denied/);
+  }
+});
+
+test('changing verified content during completion authorization prevents the base ledger write',async()=>{
+  const context=terminalContext();let writes=0;
+  const base:MissionLedger={claimMission:async()=>context,saveCheckpoint:async()=>true,
+    completeMission:async()=>{writes++;},failMission:async()=>{}};
+  const guard=createMissionEffectGuard(grant(),executor,async(g,c,e)=>{
+    if(e.kind==='complete_write') context.checkpoint.artifacts=['unreviewed-artifact'];
+    return allowEffect(g,c,e);
+  },{verifierId:'synthetic-verifier',verify:async()=>true});
+  const ledger=createAuthorizedMissionLedger(base,executor,grant(),guard,'synthetic-verifier');
+  const token=await ledger.attestCompletion!(executor,context);
+  await assert.rejects(ledger.completeMission(context,'untrusted',token),/mission_effect_authorization_denied|mission_completion_attestation_required/);
+  assert.equal(writes,0);
+});
+
+test('JSON object key order from a SQL ledger does not change the authorized objective',async()=>{
+  const context=terminalContext();
+  context.mission.objective=Object.fromEntries(Object.entries(objective).reverse());
+  const guard=createMissionEffectGuard(grant(),executor,allowEffect,{verifierId:'synthetic-verifier',verify:async()=>true});
+  await guard.beforeEffect(executor,context,{kind:'write_checkpoint',operationId:'synthetic:ordered:objective'});
+  const token=await guard.attestCompletion(context);
+  guard.consumeAttestation(context,token);
+});
