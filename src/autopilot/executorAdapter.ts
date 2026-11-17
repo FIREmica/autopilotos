@@ -81,6 +81,16 @@ export interface ExecutorResult {
   evidence: string[];
 }
 
+/** A host-authorized, single-use operation in the existing mission runtime. */
+export interface MissionEffectRequest {
+  kind: 'observe_state' | 'execute_step' | 'write_checkpoint' | 'save_plan' | 'block' | 'fail' | 'attest_completion' | 'complete_write';
+  operationId: string;
+  stepId?: string;
+}
+
+/** Opaque capability returned only after independent host verification. */
+export type MissionCompletionAttestation = object;
+
 export interface ExecutorAdapter {
   readonly executorId: string;
   execute(context: ExecutorContext, signal?: AbortSignal): Promise<ExecutorResult>;
@@ -95,13 +105,17 @@ export interface ModelProvider {
 export interface MissionLedger {
   /** Optional host policy gate; checked before any claim, never selected by a task. */
   authorizeExecutor?(executor: ExecutorAdapter): Promise<void>;
+  /** Explicitly authorized execution paths must reauthorize every runtime effect. */
+  authorizeEffect?(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest): Promise<readonly string[]>;
+  /** Returns an opaque capability only after independent completion verification. */
+  attestCompletion?(executor: ExecutorAdapter, context: ExecutorContext): Promise<MissionCompletionAttestation>;
   claimMission(agentId: AgentId): Promise<ExecutorContext | null>;
   saveCheckpoint(
     context: ExecutorContext,
     operationId: string,
     checkpoint: MissionCheckpoint,
   ): Promise<boolean>;
-  completeMission(context: ExecutorContext, evidence: string): Promise<void>;
+  completeMission(context: ExecutorContext, evidence: string, attestation?: MissionCompletionAttestation): Promise<void>;
   failMission(context: ExecutorContext, reasonCode: string): Promise<void>;
   savePlan?(context: ExecutorContext, proposal: PlanProposal, plannerId: string): Promise<boolean>;
   blockMission?(context: ExecutorContext, reasonCode: string): Promise<void>;
