@@ -1,3 +1,13 @@
+# P1 - Nueva evidencia de reinicio protegido entre procesos Node - 17/11/2026
+
+PR #246 fusionada en main 0e27b6d44500fbfdc6bb90e1a6374bfe2574e619. Esta unica candidata extiende el test PostgreSQL existente con dos procesos hijos Node separados, nunca dos stores en el mismo proceso. El proceso A completa los pasos, guarda ready_to_complete y termina tras revocacion. El proceso B, sin compartir objetos/WeakMaps, espera lease vencida, emite nuevo grant durable, cerca el token anterior, usa un oraculo de archivos independiente y completa sin observe, plan o execute. Casos negativos: lease activa, stale revision, identity/binding/version invalidas, replay y artefacto modificado que impide completar sin sobrescribir checkpoint.
+
+Evidencia local: PostgreSQL18 desechable en 127.0.0.1:55439; 1/1 test integrado PASS, 0 fallos/omisiones; duracion 101693 ms. Primera ejecucion fallo antes del claim por fixture deadline incompatible con lease, corregida a leaseSeconds10/deadlineMs8000, manteniendo la validacion existente. Segunda ejecucion PASS, servidor temporal detenido correctamente. npm run verify completo: 575/575, cero fallos/omisiones; 14 skills, TypeScript, builds Node/Vercel y smoke API aprobaron. El test registra los PIDs de ambos procesos y el estado/version/attempts sin secretos.
+
+Veredicto al presentar candidata: P1_PARTIAL hasta review/CI exacta e integracion autorizada de este incremento, seguida de veredicto medido sobre main. No garantiza identidad remota, atomicidad filesystem/SQL, operaciones inciertas, cross-host ni despliegue real. P2 inactiva.
+
+---
+
 # Revisión de PR246 y evaluación de salida P1
 
 Orden única: `ORD-P1-SUPERVISOR-ADAPTER-20261114`. Revisión del 17/11/2026, America/Montevideo. Este informe registra evidencia; no crea plan, orden o autoridad adicional.

@@ -262,6 +262,66 @@ test('standalone operator CLI proves admission execution supervision cancellatio
             {verifierId:'independent-recovery-verifier',verify:async()=>true}),/mission_recovery_not_authorized/);
         }
       }
+
+      // Protected terminal recovery across two truly independent Node processes.
+      // A exits; B cannot inherit its WeakMaps, closures, adapter or claim token.
+      const fixture=fileURLToPath(new URL('./fixtures/p1ProtectedRestartProcess.ts',import.meta.url));
+      const launch=async(mode:string,mission:string)=>{
+        const result=await exec(process.execPath,['--import','tsx',fixture,mode,config,mission],
+          {env,windowsHide:true,timeout:60000,maxBuffer:65536});
+        const evidence=JSON.parse(result.stdout.trim());
+        assert.equal(evidence.mode,mode);
+        assert.ok(Number.isInteger(evidence.pid)&&evidence.pid>0);
+        return evidence as {pid:number;mode:string;id:string;state?:string;version?:number;
+          attempts?:number;rejectedActiveLease?:boolean;tamperedRejected?:boolean;verified?:number};
+      };
+      const crossProcessId='synthetic-protected-node-restart';
+      const prepared=await launch('prepare',crossProcessId);
+      assert.notEqual(prepared.pid,process.pid);
+      const probe=await launch('probe-active',crossProcessId);
+      assert.notEqual(probe.pid,prepared.pid);
+      assert.equal(probe.rejectedActiveLease,true);
+      const statusBefore=await effectStore.status(crossProcessId);
+      assert.equal(statusBefore.state,'ready_to_complete');
+      assert.equal(statusBefore.attempts,1);
+      const deadline=Date.now()+20000;
+      while((await effectStore.status(crossProcessId)).leaseActive){
+        if(Date.now()>deadline)throw Error('protected_process_lease_did_not_expire');
+        await new Promise(resolve=>setTimeout(resolve,100));
+      }
+      const recovered=await launch('recover',crossProcessId);
+      assert.notEqual(recovered.pid,prepared.pid,'recovery requires a different Node PID');
+      assert.equal(recovered.verified,1);
+      assert.equal(recovered.state,'completed');
+      assert.equal(recovered.attempts,2);
+      assert.equal(recovered.version,5);
+      assert.deepEqual((await effectStore.status(crossProcessId)).checkpoint.completed_steps,
+        statusBefore.checkpoint.completed_steps);
+      // A second protected mission proves the new verifier rejects tampered artifacts.
+      const tamperedId='synthetic-protected-node-tampered';
+      const tamperPrepared=await launch('prepare',tamperedId);
+      const tamperFile=path.join(worktrees,tamperedId,'.autopilot-synthetic','result.txt');
+      await writeFile(tamperFile,'synthetic tampered result\n');
+      const tamperedBefore=await effectStore.status(tamperedId);
+      const until=Date.now()+20000;
+      while((await effectStore.status(tamperedId)).leaseActive){
+        if(Date.now()>until)throw Error('tampered_process_lease_did_not_expire');
+        await new Promise(resolve=>setTimeout(resolve,100));
+      }
+      const rejected=await launch('recover-tampered',tamperedId);
+      assert.notEqual(rejected.pid,tamperPrepared.pid);
+      assert.equal(rejected.tamperedRejected,true);
+      const tamperedAfter=await effectStore.status(tamperedId);
+      assert.deepEqual(tamperedAfter.checkpoint,tamperedBefore.checkpoint);
+      assert.equal(tamperedAfter.state,'ready_to_complete');
+      assert.equal(tamperedAfter.attempts,2);
+      assert.ok(tamperedAfter.audit.length>=tamperedBefore.audit.length);
+      console.log(JSON.stringify({event:'protected_node_process_recovery_verified',
+        initialPid:prepared.pid,deniedPid:probe.pid,recoveryPid:recovered.pid,
+        restoredState:recovered.state,restoredAttempts:recovered.attempts,
+        checkpointVersion:recovered.version,independentOracleCount:recovered.verified,
+        tamperedInitialPid:tamperPrepared.pid,tamperedRecoveryPid:rejected.pid,
+        tamperedBlocked:rejected.tamperedRejected}));
       const expiryId='synthetic-policy-expiry';await effectStore.admit({id:expiryId,objective});
       const expiry={id:'synthetic-expiry-grant',revision:1,missionId:expiryId,binding:effectStore.binding,phase:'F0' as const,
         executorId:'synthetic-expiry-executor',goalVersion:1,checkpointVersion:0,planVersion:0,objective,expiresAt:Date.now()+1500};

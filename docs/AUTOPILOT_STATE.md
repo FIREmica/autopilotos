@@ -1,3 +1,11 @@
+# P1 - Prueba protegida de reinicio entre procesos Node - 17/11/2026
+
+Main 0e27b6d fusiona #246, #244 y #245. PR abiertas 0 al iniciar. Unica ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 parcial, producto F0. C:/autopilot sucio y desactualizado, intacto. Worktree aislado codex/p1-protected-node-restart-20261117 desde SHA remoto verificado, sin escritor rival detectado.
+
+El fixture existente fue extendido con dos procesos Node OS reales y ledger PostgreSQL18 desechable. Proceso inicial persiste ready_to_complete y termina; proceso nuevo despues de lease caducada emite grant fresco, cerca token viejo y verifica artefactos externamente sin reejecutar pasos. Otro par de procesos rechaza artefacto adulterado conservando checkpoint. La primera ejecucion fallo por deadline del fixture invalida y fue corregida con lease10/deadline8000, sin rebajar guardas. Segunda prueba SQL completa: 1/1 PASS, 0 fail/skip, 101693 ms; servidor detenido (exit0).
+
+IMPLEMENTADO y PROBADO LOCALMENTE, no fusionado ni desplegado. npm run verify: 575/575 aprobadas, 0 fallos/omisiones; tipos, 14 skills, builds Node/Vercel y smoke API PASS. Pendientes CI SHA final, review e integracion autorizada. Cierre formal de P1 despues de evidencia en main. Sin SQL alojado, clientes, nuevos schedulers, cambios a heartbeat, gastos, cloud dispatch o P2.
+
 # Consolidación246 y salida P1 · 17/11/2026
 
 Veredicto P1_PARTIAL, misma ORD-P1-SUPERVISOR-ADAPTER-20261114. Main0454ab6, PR246 padre a89b702 abierta/draft, sin integración autorizada. [Informe y matriz completos](P1_EXIT_REVIEW_20261117.md). Negativos ampliados (controles, Unicode, vacío/longitud); no defecto reproducido y sin cambio funcional/SQL. Focal45/45, verify575/575 sin fail/skip y PostgreSQL18 aislado PASS en esta revisión. CI del hijo de revisión se comprueba por su SHA, sin herencia.
