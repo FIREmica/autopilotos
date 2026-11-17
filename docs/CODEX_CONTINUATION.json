@@ -1,34 +1,33 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T06:15:57.910Z",
-  "execution_id": "p2-claim-cancellation-bound-20261117",
+  "updated_at": "2026-11-17T23:01:00Z",
+  "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
-    "branch": "codex/p2-claim-cancellation-bound-20261117",
-    "base_sha": "d9a07f93ccca3e4be01c428874c8111a2e62edfe",
-    "head_sha": "d9a07f93ccca3e4be01c428874c8111a2e62edfe",
-    "worktree": "WORKTREE:p2-claim-cancellation-bound-20261117",
-    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-claim-cancellation-bound-20261117",
-    "note": "Verified initial main/parent reference, not containing commit. Resolve final candidate SHA/CI via branch/PR; no self-referential polling commit."
+    "branch": "codex/p2-cancel-ledger-boundary-20261117",
+    "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "head_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "worktree": "WORKTREE:p2-cancel-ledger-boundary-20261117",
+    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
+    "note": "Verified main base; local code candidate and checkpoint are in this isolated worktree. Resolve pushed PR head and exact CI from GitHub; do not self-reference a future commit."
   },
   "current_order": {
     "id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
     "phase": "F0",
     "linear_phase": "P2",
-    "objective": "Protected read-only reconciliation of an applied synthetic effect without its checkpoint, in a new Node process.",
-    "status": "partial_claim_wait_candidate_verified_local",
-    "last_verified_step": "PR250 merged at d9a07f9; predecessor exact validate/postgres/security and main core workflow success. Claim wait cancellation/deadline RED2 then GREEN43; full verify581/581,0 fail/skip,types/builds/API PASS. No local SQL repeated. Candidate CI pending.",
+    "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
+    "status": "partial_completion_abort_boundary_local_verified",
+    "last_verified_step": "PR250 and PR251 are integrated in main 090486a. PR251 exact head c1f1068 checks: validate/postgres SUCCESS (runs 44029983256 and 44030019752), CodeQL analyses SUCCESS (44030015739), public-browser-smoke SUCCESS (44030019767), Vercel and Vercel Preview Comments SUCCESS; Supabase Preview SKIPPED, no hosted evidence. New completion abort boundary RED then GREEN: runtime and guarded-ledger fixtures prove signal propagation and no base completion write after abort. Focused 43/43, npm run verify 583/583 (0 fail/skip), lint/build/API PASS, diff-check clean. New PR CI pending; no SQL changes.",
     "limits": [
-      "Local synthetic only, exact plan1/CP2 effect followed by verify; not general in_progress recovery.",
-      "New reconcile_effect is distinct from terminal ready_to_complete, which still cannot execute/observe/replan. No write-capable modify, prepare, observe, replan, block or fail in the new scope.",
-      "Live independent recovery oracle after fenced claim and before effects, policy reread after oracle awaits. Rejection may consume attempt2 while preservingCP2.",
-      "No filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
-      "No CLI/scheduler activation, hosted SQL, production, clients, spending, automation changes or removal of pre-existing resources. Integrations explicitly authorized after exact checks/review, without bypass/auto-merge scheduling."
+      "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
+      "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
+      "Runtime, policy callback and guard remain in-process; no filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
+      "No CLI/scheduler activation, hosted SQL, production, clients, spending, automation changes or removal of pre-existing resources. Repository integration remains bounded to the existing order and explicit permission after exact checks/review."
     ],
     "acceptance_criteria": [
-      "Kill actual initial Node after effect/beforeCP; replacement with new grant, expired lease and old-token fencing.",
-      "Reconcile via read-only operation, no repeated prepare or write-capable modify; independent completion attestation.",
-      "Tampered/missing/revoked deny without effect recreation or checkpoint overwrite.",
-      "Keep terminal restrictions and class-verifier compatibility; full verify and exact SQL/security CI."
+      "Propagate AbortSignal through the existing runtime effect authorization into the guarded ledger completion boundary.",
+      "Abort after the second completion authorization grants but before write admission; preserve the abort reason and prove the base completion writer is not called.",
+      "Keep one-use attestation, context binding, durable policy check, SQL fencing, terminal restrictions and compatibility tests intact.",
+      "Full verify and exact candidate validate/postgres/CodeQL/security/browser checks; Supabase Preview SKIPPED is not hosted validation."
     ]
   },
   "completed_operations": [
@@ -219,6 +218,14 @@
     {
       "operation": "Reconcile PR250 and bound pending claim wait",
       "detection": "Verified merged250/head checks and main core workflow. Deferred-ledger RED2/GREEN43; verify581/581. No SQL rollback or underlying oracle cancellation claimed."
+    },
+    {
+      "operation": "Verify exact PR251 candidate CI and integration state",
+      "detection": "Main 090486a contains merged PR251 head c1f1068. Exact diagnostics: validate/postgres SUCCESS in runs 44029983256 and 44030019752; CodeQL three analyses SUCCESS in 44030015739; public-browser-smoke SUCCESS 44030019767; Vercel and Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews and inline threads empty. No production deployment inferred."
+    },
+    {
+      "operation": "Prevent completion ledger write after cancellation during second authorization",
+      "detection": "Runtime race regression failed before fix (abort lost and runtime resolved), then GREEN after propagating signal and checking it at both authorization/write boundaries. Guarded-ledger regression GREEN; focused runtime+authorization 43/43; npm run verify 583/583, 0 failures/omissions; lint, builds, API smoke and git diff --check pass. No SQL or hosted operation."
     }
   ],
   "evidence_refs": [
@@ -272,13 +279,16 @@
     "docs/P2_PROTECTED_EFFECT_RECOVERY_20261117.md",
     "tests/fixtures/protectedEffectRecoveryProof.ts",
     "src/autopilot/syntheticMissionExecutor.ts",
-    "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md"
+    "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
+    "https://github.com/Victoriosas/autopilot/pull/251",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44029983256",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44030019752",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44030019767"
   ],
   "blockers": [
-    "P2 remains partial; bounding claim wait does not cancel its underlying SQL/oracle.",
-    "Cancel during second ledger authorization: prevent not-yet-admitted base write after abort; propagate signal and regression.",
-    "Native protected cancellation/descendants and evidence retention: pre-existing dirty worktree preserved, not claimed as own proof.",
-    "Remaining fault matrix; no Windows/reboot/cross-host evidence.",
+    "P2 remains partial; the completion cancellation fix proves only that a not-yet-admitted base completion write is denied after abort. A write already admitted to SQL is not cancelled or rolled back.",
+    "Native protected cancellation/descendants and evidence retention remain unverified here; preserve the pre-existing dirty worktree and reconcile its result before any reuse.",
+    "Remaining bounded fault matrix; no Windows/reboot/cross-host evidence.",
     "Cloud barrier unchanged; no general Codex-to-SQL mission demonstrated."
   ],
   "next_order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
@@ -287,20 +297,20 @@
     "phase": "F0",
     "linear_phase": "P2",
     "objective": "Complete bounded cancellation evidence in the existing P2 order.",
-    "status": "partial",
+    "status": "partial_local_candidate_verified",
     "executor": "Codex",
-    "environment": "Exclusive local synthetic worktree on verified main d9a07f93ccca3e4be01c428874c8111a2e62edfe",
+    "environment": "Exclusive local synthetic worktree WORKTREE:p2-cancel-ledger-boundary-20261117, based on verified main 090486a91dd67f4b2855df4349b32077908f0e80.",
     "dependencies": [
-      "P1 closed via248/249.",
-      "Exact candidate validate/postgres/security and reviewed authorized integration.",
-      "Next case needs fresh base/owner/mission/grant/oracle/budget; never readmit terminal/cancelled mission."
+      "P1 closed via PR248/249; P2 remains the sole active technical order.",
+      "PR250 and PR251 are merged; exact PR251 candidate checks and merge SHA reconciled.",
+      "Current code has local RED/GREEN and full verify; new candidate CI is pending until its exact head exists."
     ],
     "acceptance_criteria": [
-      "Single active P2 order; reconcile existing integrations before repeating.",
-      "Measure cancellation, own descendants, preserved SQL/audit/artifact and denied late writes within existing limits.",
-      "Keep local_synthetic_only/no_send, cloud barrier and unchanged heartbeat6h."
+      "One PR for the existing order, with AbortSignal propagated through completion authorization and the base writer not invoked after an abort before admission.",
+      "Exact validate/postgres/CodeQL/security/browser/Vercel checks on final candidate SHA; Supabase Preview SKIPPED is not hosted evidence.",
+      "Reconcile pre-existing native cancellation/descendants work only after inspecting its diff, process and uncertain test effect; preserve its files/resources."
     ],
-    "next_action": "Review exact candidate CI; preserve concurrent native cancellation fixture work. Next isolated fix: propagate cancellation to authorized ledger write boundaries, with RED/GREEN for abort during second completion authorization; then reconcile native cancellation/descendants evidence. P2 remains partial, no P3.",
+    "next_action": "Open one reviewable PR from main 090486a for the verified completion-abort boundary; check the exact final SHA and review threads. Do not auto-merge or deploy. Then inspect, without modifying, the preserved dirty p2-cancel-reconciliation worktree and reconcile its native cancellation/descendant test outcome before deciding whether any safe follow-up remains. Keep P2 partial; no P3.",
     "permissions": {
       "status": "bounded_local_execution_and_reviewed_integration",
       "scope": "Prepared first P2 increment continued by user; repository integration authorized. No hosted/production/cloud dispatch/spend/automation change/deletion of prior resources."
@@ -310,11 +320,11 @@
     "status": "p2_active_partial",
     "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
   },
-  "resume_instructions": "Recupera la unica orden ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. PR250 fusionada en d9a07f93ccca3e4be01c428874c8111a2e62edfe; no repetir. Candidata codex/p2-claim-cancellation-bound-20261117: bounded sobre claimMission, RED2/GREEN43, verify581/581. Review exact candidate CI; preserve concurrent native cancellation fixture work. Next isolated fix: propagate cancellation to authorized ledger write boundaries, with RED/GREEN for abort during second completion authorization; then reconcile native cancellation/descendants evidence. P2 remains partial, no P3. Limites: claim admitido/oraculo subyacente no se cancelan ni revierten por dejar de esperar. Sin hosted SQL, produccion, envios, gasto, P3, cambios6h o recursos ajenos. Informe docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md.",
+  "resume_instructions": "Continúa únicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. Main 090486a integra PR250 y #251; verificar sus efectos sin repetir. PR251 tuvo CI exacta aprobada en c1f1068 (validate/postgres runs 44029983256 y 44030019752, CodeQL 44030015739, browser 44030019767, Vercel y comentarios SUCCESS; Supabase Preview SKIPPED). En codex/p2-cancel-ledger-boundary-20261117 quedó RED/GREEN de cancelación durante autorización de completion: señal propagada y base writer no invocado tras abort; focal43/43 y verify583/583. Abrir/actualizar una PR revisable y comprobar CI exacta de su SHA final. Después reconciliar, sin editar ni copiar automáticamente, el worktree nativo sucio p2-cancel-reconciliation. P2 sigue parcial; no P3, hosted SQL, producción, envío, gasto o cambios de automatización.",
   "supervision": {
     "verdict": "P2_PARTIAL",
-    "scope": "First bounded local protected effect-reconciliation increment.",
-    "evidence": "Native4/4 PASS28443ms,focused49/49,verify579/579 no fail/skip. Preserve full native legacy timeout and setup errors; exact candidate CI pending. Auxiliary reader found class-verifier regression, fixed with RED/GREEN; no independent human approval invented."
+    "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
+    "evidence": "PR251 merged at main 090486a with exact candidate checks listed above; Supabase Preview skipped. Local RED/GREEN for runtime and guarded ledger; focused43/43; npm run verify583/583, no failures/omissions; no SQL changes. New PR head CI pending."
   },
   "linear_phase": "P2",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -659,6 +669,18 @@
       "exit_code": 0,
       "scope": "Local unit/deferred-ledger plus full verify. No local PostgreSQL repeated; exact candidate SQL CI required.",
       "review": "Auxiliary read-only diff review accepted bounded scope; separate late completion write case reproduced and retained as pending."
+    },
+    "completion_abort_propagation": {
+      "red_regressions": 1,
+      "focused_tests": 43,
+      "focused_pass": 43,
+      "verify_tests": 583,
+      "verify_pass": 583,
+      "verify_fail": 0,
+      "verify_skipped": 0,
+      "verify_exit_code": 0,
+      "checks": "14 skills, TypeScript, Node/Vercel builds, compiled API smoke and diff-check passed; candidate GitHub CI pending.",
+      "scope": "Synthetic in-process cancellation before base completion write admission; no SQL, hosted or production operation."
     }
   },
   "p1_remaining_work": [],
@@ -669,31 +691,35 @@
   ],
   "selected_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
-    "objective": "Honor cancellation/deadline while waiting for protected recovery claim; ignore late result without post-claim effects.",
-    "priority_reason": "First prepared P2 gap continued; keep protected runtime and existing terminal/legacy coverage, no generic resume.",
+    "objective": "Propagate cancellation to the authorized completion ledger boundary and deny a base write when abort wins before admission.",
+    "priority_reason": "First unsatisfied dependency from the current checkpoint; exact PR251 CI is now reconciled and the pre-existing native fixture remains preserved separately.",
     "modified_files": [
+      "src/autopilot/executorAdapter.ts",
+      "src/autopilot/missionAuthorization.ts",
+      "src/autopilot/missionAuthorization.test.ts",
       "src/autopilot/missionRuntime.ts",
-      "src/autopilot/missionRuntimeClaimCancellation.test.ts",
+      "src/autopilot/missionRuntime.test.ts",
       "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "Local verified candidate, not integrated/deployed. Same P2 order, partial."
+    "integration_state": "Local verified candidate on isolated branch; one PR to be opened after checkpoint; not merged/deployed."
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
-    "objective": "Complete bounded cancellation evidence in the existing P2 order.",
+    "objective": "Review and publish the single bounded completion-abort candidate, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "dependencies": [
-      "PR250 integrated, no replay.",
-      "Exact candidate CI/review before integration.",
-      "Preserve concurrent native cancellation work and establish ownership before editing shared surfaces."
+      "Main 090486a and PR250/#251 exact CI reconciled.",
+      "Current local npm run verify 583/583; no SQL files changed.",
+      "Preserve the already dirty p2-cancel-reconciliation worktree; inspect provenance, diff and run outcome before any reuse."
     ],
     "acceptance": [
-      "Single active P2 order; reconcile existing integrations before repeating.",
-      "Measure cancellation, own descendants, preserved SQL/audit/artifact and denied late writes within existing limits.",
-      "Keep local_synthetic_only/no_send, cloud barrier and unchanged heartbeat6h."
+      "Single active P2 order; one candidate PR only.",
+      "Exact validate/postgres/CodeQL/security/public-browser/Vercel checks on final PR SHA; skipped Supabase Preview remains non-evidence.",
+      "After safe reconciliation, report cancellation, descendants, preserved SQL/audit/artifact and late-write denial distinctly.",
+      "Keep local_synthetic_only/no_send, cloud barrier and heartbeat configuration unchanged."
     ],
-    "recoverable_prompt": "Recupera la unica orden ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. PR250 fusionada en d9a07f93ccca3e4be01c428874c8111a2e62edfe; no repetir. Candidata codex/p2-claim-cancellation-bound-20261117: bounded sobre claimMission, RED2/GREEN43, verify581/581. Review exact candidate CI; preserve concurrent native cancellation fixture work. Next isolated fix: propagate cancellation to authorized ledger write boundaries, with RED/GREEN for abort during second completion authorization; then reconcile native cancellation/descendants evidence. P2 remains partial, no P3. Limites: claim admitido/oraculo subyacente no se cancelan ni revierten por dejar de esperar. Sin hosted SQL, produccion, envios, gasto, P3, cambios6h o recursos ajenos. Informe docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md."
+    "recoverable_prompt": "Resume ORD-P2-RECOVERY-VERIFICATION-20261117 from main 090486a. This isolated candidate propagates AbortSignal through the runtime and guarded completion authorization and refuses the base completion write after an abort before admission; local focused tests 43/43 and npm run verify 583/583 pass. Open/update one reviewable PR; inspect exact CI for final SHA and do not merge or deploy. Preserve the dirty p2-cancel-reconciliation worktree and inspect its prior result before considering reuse. P2 remains partial; no P3, hosted SQL, production, dispatch, spending, customer contact, or automation changes."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -703,27 +729,24 @@
   },
   "phase_exit_review": {
     "verdict": "P2_PARTIAL",
-    "record_status": "claim_wait_candidate_local",
+    "record_status": "completion_abort_boundary_local_verified_candidate_ci_pending",
     "report": "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
-    "base_main_sha": "d9a07f93ccca3e4be01c428874c8111a2e62edfe",
+    "base_main_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
     "passed": [
-      "Killed Node after applied effect/beforeCP; different Node with fresh policy reconciles without write-capable modify and completesCP5/attempt2.",
-      "Tampered/missing-after-oracle/revoked-during-oracle deny and retainCP2.",
-      "Lease/versions/old token/replay rejected; terminal scope and class-verifier compatibility retained.",
-      "Focused49/49,verify579/579,native focused PostgreSQL4/4."
+      "PR250 and PR251 are integrated; PR251 exact validate/postgres/CodeQL/browser/Vercel checks succeeded; Supabase Preview skipped.",
+      "RED/GREEN proves cancellation at second completion authorization is propagated and prevents a not-yet-admitted base completion write.",
+      "Focused runtime and authorization suites 43/43; full verify 583/583, zero fail/skip; builds/API and diff-check pass."
     ],
     "pending": [
-      "Exact claim-wait candidate CI/review/integration.",
-      "Cancel during second ledger authorization: prevent not-yet-admitted base write after abort; propagate signal and regression.",
-      "Native protected cancellation/descendants and evidence retention: pre-existing dirty worktree preserved, not claimed as own proof.",
-      "Remaining fault matrix; no Windows/reboot/cross-host evidence."
+      "Exact candidate CI and review threads for the new PR.",
+      "Native protected cancellation/descendants and evidence retention in the separate dirty preserved worktree.",
+      "Remaining bounded fault matrix; no Windows/reboot/cross-host evidence."
     ],
     "boundaries": [
-      "Local synthetic only, exact plan1/CP2 effect followed by verify; not general in_progress recovery.",
-      "New reconcile_effect is distinct from terminal ready_to_complete, which still cannot execute/observe/replan. No write-capable modify, prepare, observe, replan, block or fail in the new scope.",
-      "Live independent recovery oracle after fenced claim and before effects, policy reread after oracle awaits. Rejection may consume attempt2 while preservingCP2.",
-      "No filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
-      "No CLI/scheduler activation, hosted SQL, production, clients, spending, automation changes or removal of pre-existing resources. Integrations explicitly authorized after exact checks/review, without bypass/auto-merge scheduling."
+      "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
+      "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
+      "Runtime, policy callback and guard remain in-process; no filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
+      "No CLI/scheduler activation, hosted SQL, production, clients, spending, automation changes or removal of pre-existing resources. Repository integration remains bounded to the existing order and explicit permission after exact checks/review."
     ]
   },
   "phase_exit_review_history": [
@@ -831,9 +854,9 @@
     }
   ],
   "p2_remaining_work": [
-    "Exact claim-wait candidate CI/review/integration.",
-    "Cancel during second ledger authorization: prevent not-yet-admitted base write after abort; propagate signal and regression.",
-    "Native protected cancellation/descendants and evidence retention: pre-existing dirty worktree preserved, not claimed as own proof.",
-    "Remaining fault matrix; no Windows/reboot/cross-host evidence."
+    "Review/open one PR for the completion abort boundary; verify exact final-head CI and unresolved review threads.",
+    "Reconcile the preserved native protected cancellation/descendants and evidence-retention worktree; do not overwrite or duplicate its uncertain local test effect.",
+    "Remaining bounded fault matrix; no Windows/reboot/cross-host evidence.",
+    "No cloud dispatch, hosted SQL, production, P3, spending or continuous Codex-to-SQL proof."
   ]
 }

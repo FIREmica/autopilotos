@@ -143,7 +143,7 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
   static async authorizedPermanentMissionRuntime(
     store: LocalMissionStore, grant: MissionClaimAuthorization, runId: string, executor: ExecutorAdapter,
     verifyAuthorization: (grant: Readonly<MissionClaimAuthorization>) => Promise<boolean>,
-    authorizeEffect: (grant: Readonly<MissionClaimAuthorization>, context: Readonly<ExecutorContext>, effect: Readonly<MissionEffectRequest>) => Promise<MissionEffectDecision>,
+    authorizeEffect: (grant: Readonly<MissionClaimAuthorization>, context: Readonly<ExecutorContext>, effect: Readonly<MissionEffectRequest>, signal?: AbortSignal) => Promise<MissionEffectDecision>,
     verifier: MissionCompletionVerifier,
   ): Promise<MissionLedger> {
     if (store.constructor!==LocalMissionStore) throw Error('mission_authorization_scope_mismatch');
@@ -165,10 +165,12 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     } else if (decision?.action!=='blocked' || decision.reason!=='admission_does_not_authorize_dispatch')
       throw Error('mission_not_fresh_for_authorization');
     const base=createMissionLedger(store.client(claimGuard.expected.missionId,runId,claimGuard),[]);
-    const effectGuard=createMissionEffectGuard(claimGuard.expected,executor,async(g,c,effect)=>{
-      const decision=await authorizeEffect(g,c,effect);
+    const effectGuard=createMissionEffectGuard(claimGuard.expected,executor,async(g,c,effect,signal)=>{
+      signal?.throwIfAborted();
+      const decision=await authorizeEffect(g,c,effect,signal);
       // Final admission read after the host callback: true cannot override a durable revoke.
       await store.assertAuthorization(claimGuard.expected);
+      signal?.throwIfAborted();
       return decision;
     },{verifierId:verifier?.verifierId,
       verify:typeof verifier?.verify==='function' ? context=>verifier.verify(context) : undefined,
@@ -216,7 +218,12 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
     context.executorId = executor.executorId;
     const planned = context.mission.objective !== undefined;
     const authorizeEffect=async(effect:MissionEffectRequest):Promise<readonly string[]>=>{
-      if(this.ledger.authorizeEffect) return await bounded(()=>this.ledger.authorizeEffect!(executor,structuredClone(context),effect),signal!);
+      signal!.throwIfAborted();
+      if(this.ledger.authorizeEffect) {
+        const permissions=await bounded(()=>this.ledger.authorizeEffect!(executor,structuredClone(context),effect,signal!),signal!);
+        signal!.throwIfAborted();
+        return permissions;
+      }
       return [];
     };
     const complete=async()=>{
@@ -226,8 +233,10 @@ export class PersistentMissionOrchestrator implements MissionOrchestrator {
         attestation=await bounded(()=>this.ledger.attestCompletion!(executor,structuredClone(context)),signal!);
         if(!attestation || typeof attestation!=='object') throw Error('mission_completion_attestation_required');
         await authorizeEffect({kind:'complete_write',operationId:`runtime:complete:${context.mission.missionId}:${context.checkpointVersion}`});
+        signal!.throwIfAborted();
       }
-      await this.ledger.completeMission(context,`mission:${context.mission.missionId}:verified`,attestation);
+      signal!.throwIfAborted();
+      await this.ledger.completeMission(context,`mission:${context.mission.missionId}:verified`,attestation,signal);
     };
     const block = async (reason: string) => {
       if (!this.ledger.blockMission) throw Error('planning_ledger_required');

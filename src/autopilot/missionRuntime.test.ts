@@ -72,6 +72,37 @@ test('recovery after ready checkpoint completes without invoking the executor ag
   await new PersistentMissionOrchestrator(ledger).runMission({ executorId: 'replacement', execute: async () => { throw Error('must not execute'); } }, 'software');
   assert.deepEqual(events, ['complete']);
 });
+test('abort after second completion authorization prevents the not-yet-admitted ledger write', async () => {
+  const candidate = context(); candidate.checkpoint.mission_state = 'ready_to_complete';
+  candidate.checkpoint.completed_steps = ['prepare', 'modify', 'verify'];
+  const { ledger, events } = ledgerFor(candidate);
+  const controller = new AbortController();
+  const reason = Error('completion_cancelled');
+  const authorization = ledger as MissionLedger & {
+    authorizeEffect: (executor: ExecutorAdapter, context: ExecutorContext,
+      effect: { kind: string; operationId: string }, signal?: AbortSignal) => Promise<readonly string[]>;
+  };
+  authorization.authorizeEffect = (_executor, _context, effect, signal) => {
+    events.push(`authorize:${effect.kind}`);
+    if (effect.kind === 'complete_write') {
+      assert.ok(signal);
+      assert.equal(signal.aborted, false);
+      return { then(resolve: (permissions: readonly string[]) => void) {
+        resolve([]);
+        controller.abort(reason);
+      } } as Promise<readonly string[]>;
+    }
+    return Promise.resolve([]);
+  };
+  authorization.attestCompletion = async () => { events.push('attest'); return {}; };
+  const outcome = new PersistentMissionOrchestrator(ledger)
+    .runMission({ executorId: candidate.executorId, execute: async () => { throw Error('unexpected_execution'); } },
+      'software', controller.signal).then(() => null, error => error);
+  // Queue abort after the authorization promise settles but before the awaiting
+  // runtime continuation resumes, exercising the final admission boundary.
+  assert.equal(await outcome, reason);
+  assert.deepEqual(events, ['authorize:attest_completion', 'attest', 'authorize:complete_write']);
+});
 test('effect denial after execution stops before checkpoint write', async () => {
   const candidate = context(); candidate.mission.plan = [{ id: 'prepare', depends_on: [], task: 'synthetic.prepare' }];
   const { ledger, events } = ledgerFor(candidate);
