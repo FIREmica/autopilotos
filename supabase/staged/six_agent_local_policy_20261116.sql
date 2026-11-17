@@ -49,7 +49,7 @@ begin
    or p_grant->>'phase' is distinct from 'F0' or p_grant->>'goalVersion' is distinct from '1'
    or p_grant->'objective' is distinct from task.input->'objective'
    or coalesce(p_grant->>'id','') !~ '^[a-z][a-z0-9-]{2,79}$'
-   or length(coalesce(p_grant->>'executorId','')) not between 1 and 100
+   or coalesce(p_grant->>'executorId','') !~ '^[a-zA-Z0-9._:-]{1,80}$'
    or (p_grant->>'revision')::integer is distinct from revision+1
    or (p_grant->>'expiresAt')::double precision/1000<=extract(epoch from clock_timestamp())
    or (p_grant->>'expiresAt')::double precision/1000>extract(epoch from clock_timestamp())+60

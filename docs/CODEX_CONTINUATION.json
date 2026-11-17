@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T03:22:18.816732+00:00",
+  "updated_at": "2026-11-17T03:34:41.819198+00:00",
   "execution_id": "codex-p1-durable-policy-ready-recovery-20261117",
   "repository": {
     "branch": "codex/p1-durable-policy-20261116",
@@ -17,7 +17,7 @@
     "linear_phase": "P1",
     "objective": "Revocación durable en el ledger existente y recuperación autorizada exclusivamente de ready_to_complete, sin repetir pasos.",
     "status": "candidate_review_required",
-    "last_verified_step": "Merges240–243 confirmed; main0342d39 validate/postgres/CodeQL/local-stack/beauty-stack SUCCESS. RED2/GREEN44, final verify566/566 and final isolated PostgreSQL proof PASS for durable revocation and ready-only recovery. Candidate needs exact-head CI and review before integration.",
+    "last_verified_step": "Merges240–243 confirmed; main0342d39 validate/postgres/CodeQL/local-stack/beauty-stack SUCCESS. RED2/GREEN45, final verify567/567 and final isolated PostgreSQL proof PASS for durable revocation and ready-only recovery. Candidate needs exact-head CI and review before integration.",
     "limits": [
       "Scope is the local disposable synthetic lab. No hosted schema applied, CLI/scheduler connection, remote dispatch or P2.",
       "The host controller with reviewed admit+execute/cancel permissions explicitly issues/revokes policy; supervisor and executor receive no administration capability or SQL credentials.",
@@ -170,6 +170,10 @@
     {
       "operation": "Implement durable policy and terminal recovery on the existing ledger",
       "detection": "Policy in agent_tasks.input, monotonic CAS, source-owned local SQL guard/admin functions; stale callback, stale SQL token/grant, expiry and legacy bypass denied. Explicit terminal recovery keeps completed steps/artifacts and requires a new independent verifier."
+    },
+    {
+      "operation": "Harden grant SQL transport and align executor identity with the existing checkpoint contract",
+      "detection": "SET LOCAL avoids dollar-quoted interpolation; unsupported delimiters/quotes/IDs longer than80 rejected before claim. Source SQL restrictions preserved. Focused45/45, final verify567/567; new head requires exact CI."
     }
   ],
   "evidence_refs": [
@@ -248,7 +252,7 @@
   "supervision": {
     "verdict": "P1_DURABLE_POLICY_TERMINAL_RECOVERY_CANDIDATE",
     "scope": "Local durable policy in the existing mission ledger and explicit ready-only recovery; no hosted schema, global executor, CLI/scheduler activation or P2.",
-    "evidence": "Main0342d39 confirmed; two RED regressions, focused44/44 and verify566/566. Isolated PostgreSQL proves revocation/expiry/CAS/row-lock race/checkpoint preservation and terminal recovery. Candidate CI is separate."
+    "evidence": "Main0342d39 confirmed; two RED regressions, focused45/45 and verify567/567. Isolated PostgreSQL proves revocation/expiry/CAS/row-lock race/checkpoint preservation and terminal recovery. Candidate CI is separate."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -377,10 +381,10 @@
     },
     "durable_policy_ready_recovery": {
       "red_regressions": 2,
-      "focused_tests": 44,
-      "focused_pass": 44,
-      "verify_tests": 566,
-      "verify_pass": 566,
+      "focused_tests": 45,
+      "focused_pass": 45,
+      "verify_tests": 567,
+      "verify_pass": 567,
       "verify_fail": 0,
       "verify_skipped": 0,
       "verify_exit_code": 0,
@@ -393,7 +397,13 @@
       ],
       "postgres": "PASS final PostgreSQL18 isolated proof: fresh guarded success; deny observation/checkpoint; revoke after attestation despite callback true; stale SQL grant/token denied while lease valid; CAS one winner; concurrent completion observed waiting on revoke row lock then denied; expiry/legacy bypass denied; checkpoint survives new store; explicit ready-only recovery after natural lease expiry completes attempt2/version5, re-verifies both artifact and test source, fences old token and cannot replay.",
       "negative_run_preserved": "One repeat ran alongside full verify and stopped in the existing legacy waitingEffect timeout fixture before the new race. DB recorded retry_wait and run_timeout. Isolated repeat passed without changing timeouts or guards.",
-      "scope": "Local disposable tests; no hosted SQL, customer data or unattended runtime."
+      "scope": "Local disposable tests; no hosted SQL, customer data or unattended runtime.",
+      "transport_review": {
+        "finding": "Grant JSON inside a dollar-quoted DO body could break literal transport for a delimiter-bearing executor ID.",
+        "correction": "SET LOCAL with the existing escaped literal; grant and issuer identifier validation now matches six_agent_checkpoint regex and maximum80, without relaxing SQL.",
+        "evidence": "Isolated SQL delimiter probe RED/GREEN for transport; final unit rejects delimiter/quote/overlong identities before claim. Exact candidate CI reruns the full SQL suite.",
+        "scope": "The full local policy/recovery suite passed before this final transport hardening; final verify567 and exact candidate SQL CI are recorded separately."
+      }
     }
   },
   "p1_remaining_work": [
