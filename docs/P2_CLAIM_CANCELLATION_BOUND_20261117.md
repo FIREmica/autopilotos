@@ -76,14 +76,14 @@ La siguiente dependencia, dentro de la misma orden P2, se probó con una regresi
 El candidato local todavía no tiene PR ni CI. Sigue sin acreditarse un write ya admitido, cancelación nativa y descendientes: el worktree p2-cancel-reconciliation-20261117 continúa sucio/preservado y su resultado previo no se repite ni se integra por inferencia. P2 sigue parcial. Siguiente acción: una PR revisable, exact CI al head final y luego reconciliar de solo lectura ese worktree preservado. No auto-merge, hosted SQL, deploy o P3.
 
 
-## 2026-11-18 02:03 UTC - PR252 y CI exacta en curso
+## 2026-11-17 23:09 UTC - PR252 y CI exacta en curso
 
 PR #252 abierta desde `codex/p2-cancel-ledger-boundary-20261117` al main `090486a91dd67f4b2855df4349b32077908f0e80`; commit inicial `63e3dfada088ad6d8fbec74837d0c48a35c418e1`. No se fusionó ni desplegó. CI del SHA: validate y postgres siguen `in_progress`; CodeQL y public-browser-smoke siguen `in_progress`; Vercel y Vercel Preview Comments `success`; Supabase Preview `skipped` (no es prueba alojada). Sin revisiones ni threads al momento de crearla. PR enlazada: https://github.com/Victoriosas/autopilot/pull/252.
 
 La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; siguiente paso verificar checks contra el head real más reciente de #252, luego inspeccionar de solo lectura el worktree nativo sucio de cancelación/descendientes y reconciliar el resultado previo antes de cualquier repetición. No merge/deploy/SQL alojado/dispatch/P3.
 
 
-## 2026-11-18 02:14 UTC - reconciliación de head de PR252
+## 2026-11-17 23:10 UTC - reconciliación de head de PR252
 
 El SHA 001497244c5bde1d6c5554a9e4db4fed544cd0ad fue el destino exacto de la última consulta de CI: validate/postgres y CodeQL/browser seguían en curso; Vercel, Security Review y Preview Comments pasaron; Supabase Preview quedó skipped. Después se creó este commit de continuidad, por lo que el head actual de #252 debe resolverse en vivo antes de atribuirle checks. PR252 continúa abierta, sin merge/deploy ni revisión humana observada.
 
@@ -97,3 +97,12 @@ PR #252, abierta/no fusionada/no desplegada, main base `090486a91dd67f4b2855df43
 Auditoría únicamente de lectura del worktree preservado `p2-cancel-reconciliation-20261117`: sigue sucio en cinco archivos (dos SQL staged locales, dos fixtures de proceso y el test de operador); el diff implementa una cancelación nativa de recuperación, limpieza de descendiente y verificaciones de checkpoint/auditoría/escrituras tardías. No se encontró un proceso relacionado ni listener en puerto 28447. Tampoco se encontró recibo terminal ni salida persistida del test; por tanto el efecto previo queda sin clasificar. No se repitió, detuvo ni modificó nada.
 
 Estado P2 sigue parcial. La siguiente acción exacta es recuperar la salida/recibo original de ese test; si no existe, registrar la dependencia humana/evidencia faltante y mantener el worktree intacto. No reiniciar operación incierta por inferencia. Sin SQL alojado, misión/claim/dispatch, merge, deploy, P3 ni cambios de automatización.
+
+
+## 2026-11-17 23:30 UTC - CI completo en PR252; ejecución nativa sin recibo
+
+En PR #252, el head `bd7cf7287a28c95eab9c58bfc245bce30e4e7cdd` (base main `090486a91dd67f4b2855df4349b32077908f0e80`) terminó con validate, postgres, los tres análisis CodeQL, public-browser-smoke, Vercel Security Review, Vercel y Vercel Preview Comments en SUCCESS. Supabase Preview quedó SKIPPED y no prueba integración alojada. La PR continúa abierta, sin merge ni deploy; reviews y threads vacíos. Este commit de continuidad es documental y mueve el head, así que la próxima lectura debe resolver el SHA vivo y CI exacta antes de integrar.
+
+Lectura del trabajo preservado `p2-cancel-reconciliation-20261117`: cinco archivos modificados (dos SQL staged locales, dos fixtures de proceso y el test de operador). El diff implementa cancelación nativa de recuperación, cierre del descendiente y comprobaciones de checkpoint/auditoría/escrituras tardías. No se halló proceso asociado ni listener en 28447. El checkout y el extracto reciente de continuidad revisado no contienen recibo/salida terminal de esa ejecución; el resultado previo queda sin clasificar. No se ejecutó, detuvo ni alteró el trabajo.
+
+Próximo paso: recuperar el output/recibo original de esa operación desde su sesión o artefacto. Si no existe, mantener la verificación bloqueada y el worktree intacto; no repetir efectos inciertos. P2 sigue parcial, sin P3, hosted SQL, dispatch, producción, merge ni cambios a la automatización.
