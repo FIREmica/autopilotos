@@ -4,11 +4,7 @@ Copiar desde «Inicio del contrato» hasta «Fin del contrato» para una nueva s
 
 ### Estado vigente de la orden única (17/11/2026)
 
-Obedece primero docs/CODEX_CONTINUATION.json. Sigue ORD-P1-SUPERVISOR-ADAPTER-20261114, P1/productoF0. #240–#243 están integradas en main0342d39 y no son candidatas. Reutiliza la nueva candidata de política durable en el ledger existente y recuperación explícita ready_to_complete: grant emitido por host, revisión/CAS/vencimiento/revocación comprobados, lease expirada y versiones exactas antes de recuperar, nueva atestación independiente y cero repetición de pasos. No extiendas ese scope a in_progress o efectos inciertos. No conectes CLI/scheduler ni ejecutes SQL alojado, merge/deploy o P2. La lectura de admisión no vuelve atómico el filesystem con SQL; los efectos ya admitidos pueden acabar, pero la escritura SQL posterior se rechaza tras revocar. Mantén una PR draft y verifica su head/CI/reviews; después de integración específicamente autorizada evalúa formalmente la salida de P1 en el mismo checkpoint. No generes hijos documentales solo para comprobar el CI de su padre.
-
-### Estado contrastado en mantenimiento de seguridad (17/11/2026)
-
-Main 0342d39 incluye #240-#243 fusionadas. P1 permanece activa y parcial bajo la misma orden. Existe un candidato aislado para ruta camelRun fail-closed, aprobaciones genericas transaccionales y pruebas de directorio publico. Este mantenimiento no cierra revocacion durable ni permite P2. No ejecutar migraciones alojadas sin autorizacion. El checkpoint/PR actual prevalece sobre textos historicos que todavia describen #240 pendiente.
+Recupera docs/CODEX_CONTINUATION.json, misma ORD-P1-SUPERVISOR-ADAPTER-20261114, P1/F0. #244 y #245 se integraron externamente en main0454ab6; la política durable y recuperación ready_to_complete no se reimplementan. Reutiliza el seguimiento exclusivo de transporte SQL/identidad en codex/p1-policy-transport-20261117 y preserva los cambios de244 y la rama original19f62f9. No reabras245 ni crees una candidata equivalente. Verifica CI del SHA nuevo, sin heredar la de245. Después de integración específicamente autorizada, evalúa formalmente el cierre P1 en el mismo checkpoint. No P2, SQL alojado, dispatch, CLI/scheduler, merge automático o commits rutinarios de sondeo. Los cambios de privacidad/aprobación de244 y sus migraciones son historia integrada; no autoriza ejecutarlas alojadas.
 
 ## Inicio del contrato
 

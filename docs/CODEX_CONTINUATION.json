@@ -1,23 +1,24 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T03:22:18.816732+00:00",
-  "execution_id": "codex-p1-durable-policy-ready-recovery-20261117",
+  "updated_at": "2026-11-17T04:01:33.207325+00:00",
+  "execution_id": "codex-pr246-exit-review-20261117",
   "repository": {
-    "branch": "codex/p1-durable-policy-20261116",
-    "head_sha": "fe4f057b837cca9a55a096fd4dad9007dfc5dabd",
-    "base_sha": "0342d39d929a691662512616d71fd2241bc56d81",
-    "worktree": "WORKTREE:p1-durable-policy-20261116",
-    "note": "Application/test parent before this documentation-only PR binding. Resolve containing commit and final exact CI at PR245 head; do not inherit main or previous head checks.",
-    "pr_number": 245,
-    "pr_url": "https://github.com/Victoriosas/autopilot/pull/245"
+    "branch": "codex/p1-policy-transport-20261117",
+    "head_sha": "a89b70296937f8f07028da68529ab64011e5d5e9",
+    "base_sha": "0454ab6ea28a58c7b0d4659bd0ac3d81ba1b56fa",
+    "worktree": "WORKTREE:p1-policy-transport-20261117",
+    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp1-policy-transport-20261117",
+    "note": "Reviewed predecessor before this material review/test/report commit. Resolve containing head and exact final CI in PR246.",
+    "pr_number": 246,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/246"
   },
   "current_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Revocación durable en el ledger existente y recuperación autorizada exclusivamente de ready_to_complete, sin repetir pasos.",
+    "objective": "Consolidar P1 tras las integraciones externas244/245 y corregir únicamente el transporte de grant y sus límites de identidad.",
     "status": "candidate_review_required",
-    "last_verified_step": "Merges240–243 confirmed; main0342d39 validate/postgres/CodeQL/local-stack/beauty-stack SUCCESS. RED2/GREEN44, final verify566/566 and final isolated PostgreSQL proof PASS for durable revocation and ready-only recovery. Candidate needs exact-head CI and review before integration.",
+    "last_verified_step": "PR246 predecessor a89 reviewed; expanded negatives, focal45/45, verify575/575 and isolated PostgreSQL18 PASS. Implementation/SQL unchanged. Formal P1_PARTIAL; integration246 and explicit protected Node-process restart evidence pending.",
     "limits": [
       "Scope is the local disposable synthetic lab. No hosted schema applied, CLI/scheduler connection, remote dispatch or P2.",
       "The host controller with reviewed admit+execute/cancel permissions explicitly issues/revokes policy; supervisor and executor receive no administration capability or SQL credentials.",
@@ -170,6 +171,14 @@
     {
       "operation": "Implement durable policy and terminal recovery on the existing ledger",
       "detection": "Policy in agent_tasks.input, monotonic CAS, source-owned local SQL guard/admin functions; stale callback, stale SQL token/grant, expiry and legacy bypass denied. Explicit terminal recovery keeps completed steps/artifacts and requires a new independent verifier."
+    },
+    {
+      "operation": "Harden grant SQL transport and align executor identity with the existing checkpoint contract",
+      "detection": "SET LOCAL avoids dollar-quoted interpolation; unsupported delimiters/quotes/IDs longer than80 rejected before claim. Source SQL restrictions preserved. Focused45/45, final verify567/567; new head requires exact CI."
+    },
+    {
+      "operation": "Reconcile external merges244/245 and preserve exclusive19f62f9",
+      "detection": "Main0454ab6, PR245 merged head0a8bf80 after external main merge. Original branch19f62f9 preserved. Follow-up carries only its transport/identity delta, with244 privacy/approval code, migration, tests and npm script byte-identical to main."
     }
   ],
   "evidence_refs": [
@@ -207,34 +216,33 @@
     "src/autopilot/missionRuntime.test.ts",
     "supabase/staged/six_agent_local_policy_20261116.sql",
     "docs/PERMANENT_SUPERVISOR_P0D_20261114.md",
-    "https://github.com/Victoriosas/autopilot/pull/245"
+    "https://github.com/Victoriosas/autopilot/pull/245",
+    "docs/P1_EXIT_REVIEW_20261117.md"
   ],
   "blockers": [
-    "Candidate review and specific integration authorization remain required.",
-    "Formal P1 exit verdict is pending on the integrated SHA; local fixture success does not activate the next phase."
+    "Specific authorization/integration246 required before formal main closure",
+    "Separate protected Node-restart proof remains unmeasured"
   ],
   "next_order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
   "next_order": {
     "id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
     "phase": "F0",
     "linear_phase": "P1",
-    "objective": "Revocación durable en el ledger existente y recuperación autorizada exclusivamente de ready_to_complete, sin repetir pasos.",
+    "objective": "Consolidar P1 tras las integraciones externas244/245 y corregir únicamente el transporte de grant y sus límites de identidad.",
     "status": "candidate_review_required",
     "executor": "Codex",
-    "environment": "Exclusive codex/p1-durable-policy-20261116 on verified main0342d39; preserve every prior worktree.",
+    "environment": "Isolated codex/p1-policy-transport-20261117 from main0454ab6; original branch and external244/245 preserved.",
     "dependencies": [
-      "PR240–243 are merged, not candidates. Use this one new incremental P1 PR; no duplication.",
-      "Exact candidate validate/postgres/relevant CI and review before specifically authorized integration.",
-      "No hosted migration, production operation, scheduler/CLI dispatch or P2 authorized."
+      "PR244 and245 are already merged; do not reopen or duplicate.",
+      "Follow-up exact integrated-base tests/CI and review required before specifically authorized integration."
     ],
     "acceptance_criteria": [
-      "A persisted revoked/expired/stale revision denies new admissions and SQL writes even if a host callback returns true.",
-      "Compare-and-set permits one successor; an old completion blocked behind a revoke row lock is rejected after revoke commits, preserving its checkpoint.",
-      "Policy-controlled rows cannot be claimed/written via an unguarded legacy path; existing legacy rows still work.",
-      "ready_to_complete recovery refuses an active owner, requires lease expiry and exact new grant/versions, fences the previous token, independently re-verifies artifacts and never executes steps again.",
-      "Exact final CI, review, same canonical checkpoint, bounded local scope; no P2 or hosted activation."
+      "Grant JSON is escaped data in SET LOCAL, not interpolated inside dollar-quoted bodies.",
+      "ExecutorId matches the existing checkpoint SQL alphabet/maximum80; unsupported IDs rejected before claim.",
+      "External244 privacy/approval code, migrations, tests and npm script remain unchanged.",
+      "Actual0454-base tests and exact follow-up CI pass; draft review and no automatic integration/P2."
     ],
-    "next_action": "Review this durable-policy/ready-recovery candidate and exact final CI. After specifically authorized integration, perform a formal P1 exit review on actual main against measured acceptance; keep P1 active until the same checkpoint records that verdict. Do not start P2 or create polling commits.",
+    "next_action": "Review report and final exact CI in same246; integrate only with specific authorization. Then verify actual main and extend the existing fixture to prove protected terminal recovery in a new Node process. Reevaluate formal P1 exit; no P2.",
     "permissions": {
       "status": "bounded",
       "scope": "Local synthetic code/tests/staged SQL and one draft PR. No merge/deploy/hosted migration/clients/spend/automation changes/deletion of existing resources/P2."
@@ -242,13 +250,13 @@
   },
   "resumption": {
     "status": "candidate_review_required",
-    "mechanism": "Same P1 order and same checkpoint. Recover candidate by codex/p1-durable-policy-20261116; merged PR240 is history, not work to repeat."
+    "mechanism": "Recover the follow-up by its exact head branch. PR245 is merged and cannot receive new commits; original branch remains preservation evidence."
   },
-  "resume_instructions": "Recover canonical sources and this JSON. Verify actual main, this branch PR/head/CI/reviews and writers. Preserve and review the existing candidate; no duplicate PR or automatic merge. Once integration is specifically authorized and observed, perform the formal P1 exit review with the recorded local/SQL/CI evidence and remaining boundaries. Update the same checkpoint only with new evidence. Keep P1 active and P2 inactive until formal closure; no hosted SQL, dispatch or new automation.",
+  "resume_instructions": "Recover canonical checkpoint/report and actual PR246/main/CI/writers. Do not duplicate or merge automatically. After authorized integration, extend only the existing isolated fixture with a genuinely new Node controller for protected terminal recovery: fresh durable grant, expired lease, old-token fence, independent oracle and no replay. Record measured evidence and reevaluate P1 exit in this JSON; P2 remains inactive.",
   "supervision": {
-    "verdict": "P1_DURABLE_POLICY_TERMINAL_RECOVERY_CANDIDATE",
-    "scope": "Local durable policy in the existing mission ledger and explicit ready-only recovery; no hosted schema, global executor, CLI/scheduler activation or P2.",
-    "evidence": "Main0342d39 confirmed; two RED regressions, focused44/44 and verify566/566. Isolated PostgreSQL proves revocation/expiry/CAS/row-lock race/checkpoint preservation and terminal recovery. Candidate CI is separate."
+    "verdict": "P1_PARTIAL",
+    "scope": "Kernel policy/recovery already merged; one small exclusive security follow-up on0454, preserving244 unchanged.",
+    "evidence": "See docs/P1_EXIT_REVIEW_20261117.md; same order/phase, no P2. Review/test commit requires its own exact CI."
   },
   "linear_phase": "P1",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -309,16 +317,19 @@
       ]
     },
     "current_pr_head_checks": {
-      "lookup": "https://github.com/Victoriosas/autopilot/pull/245/checks",
+      "lookup": "https://github.com/Victoriosas/autopilot/pull/246/checks",
       "required": [
         "validate",
         "postgres"
       ],
       "additional": [
         "CodeQL",
-        "public-browser-smoke"
+        "public-browser-smoke",
+        "beauty-stack when triggered"
       ],
-      "policy": "No inheritance from main or prior commit; skipped is not success. Exact final receipt belongs to the candidate PR."
+      "policy": "Do not inherit merged245 checks or main0454 checks; no self-referential CI polling commit.",
+      "verified_sha": "a89b70296937f8f07028da68529ab64011e5d5e9",
+      "scope": "Predecessor only; final containing commit must pass its own CI."
     },
     "integrated_readonly_runtime": {
       "pr": 238,
@@ -377,10 +388,10 @@
     },
     "durable_policy_ready_recovery": {
       "red_regressions": 2,
-      "focused_tests": 44,
-      "focused_pass": 44,
-      "verify_tests": 566,
-      "verify_pass": 566,
+      "focused_tests": 45,
+      "focused_pass": 45,
+      "verify_tests": 567,
+      "verify_pass": 567,
       "verify_fail": 0,
       "verify_skipped": 0,
       "verify_exit_code": 0,
@@ -393,13 +404,48 @@
       ],
       "postgres": "PASS final PostgreSQL18 isolated proof: fresh guarded success; deny observation/checkpoint; revoke after attestation despite callback true; stale SQL grant/token denied while lease valid; CAS one winner; concurrent completion observed waiting on revoke row lock then denied; expiry/legacy bypass denied; checkpoint survives new store; explicit ready-only recovery after natural lease expiry completes attempt2/version5, re-verifies both artifact and test source, fences old token and cannot replay.",
       "negative_run_preserved": "One repeat ran alongside full verify and stopped in the existing legacy waitingEffect timeout fixture before the new race. DB recorded retry_wait and run_timeout. Isolated repeat passed without changing timeouts or guards.",
-      "scope": "Local disposable tests; no hosted SQL, customer data or unattended runtime."
+      "scope": "Historical source0342/PR245 local policy/recovery proof; not CI or a complete local test receipt of this0454 follow-up. See integrated_transport_followup for this candidate.",
+      "transport_review": {
+        "finding": "Grant JSON inside a dollar-quoted DO body could break literal transport for a delimiter-bearing executor ID.",
+        "correction": "SET LOCAL with the existing escaped literal; grant and issuer identifier validation now matches six_agent_checkpoint regex and maximum80, without relaxing SQL.",
+        "evidence": "Isolated SQL delimiter probe RED/GREEN for transport; final unit rejects delimiter/quote/overlong identities before claim. Exact candidate CI reruns the full SQL suite.",
+        "scope": "The full local policy/recovery suite passed before this final transport hardening; final verify567 and exact candidate SQL CI are recorded separately."
+      }
+    },
+    "main_after_external_merge": {
+      "sha": "0454ab6ea28a58c7b0d4659bd0ac3d81ba1b56fa",
+      "merged_pr245_head": "0a8bf80aabef9fb7f8d36ef2a2b12b8610f50e37",
+      "checks": "validate/postgres/CodeQL SUCCESS at observation; PLAN Cloud continuation remains failed closed, not all checks green.",
+      "scope": "Main evidence only; not final follow-up CI."
+    },
+    "integrated_transport_followup": {
+      "base_sha": "0454ab6ea28a58c7b0d4659bd0ac3d81ba1b56fa",
+      "preserved_commit": "19f62f9805ace0b197d1b7b565824b0f7a0af6a9",
+      "code_parent": "a04e843ff21a66a2fd9b86c327cb75193a582a74",
+      "scope": "SET LOCAL literal transport, matching executorId validation in TypeScript and local SQL, one negative regression; no reimplementation of durable policy or recovery.",
+      "status": "Local integrated-base verification complete; exact new-head CI and review required.",
+      "verify_tests": 575,
+      "verify_pass": 575,
+      "verify_fail": 0,
+      "verify_skipped": 0,
+      "verify_exit_code": 0,
+      "postgres": "PASS isolated PostgreSQL18 on0454 + transport fix: approval fixture from244, policy/CAS/revocation-lock race, expiry/bypass rejection and independent ready-only recovery with old token fenced. No hosted SQL."
+    },
+    "consolidation_review_20261117": {
+      "predecessor": "a89b70296937f8f07028da68529ab64011e5d5e9",
+      "focused_pass": 45,
+      "verify_tests": 575,
+      "verify_pass": 575,
+      "verify_fail": 0,
+      "verify_skipped": 0,
+      "postgres": "PASS isolated PostgreSQL18; existing actual legacy relaunch plus protected terminal new-store fixture; separate protected Node restart not specifically measured.",
+      "omissions": "Supabase Preview skipped; not hosted proof. No new intermittent failure; historical failures retained.",
+      "hypothesis": "Trailing separators suspected but falsified: original validation rejects LF/CR/LS/PS. Original implementation restored; only negative cases expanded."
     }
   },
   "p1_remaining_work": [
-    "Review and specifically authorized integration of the durable-policy/terminal-recovery candidate with exact-head CI.",
-    "Formal measured P1 exit review on actual merged main: supervisor proposal, independent authorization, durable revision, fenced claim, effect admission, independent attestation and terminal recovery, with no competing ledger/scheduler.",
-    "Do not call broader uncertain-effect/cross-host recovery, remote identity, hosted deployment or scheduled continuity proven by these local tests. Keep P2 inactive until formal P1 closure."
+    "Specific authorization/integration246 required before formal main closure",
+    "Separate protected Node-restart proof remains unmeasured"
   ],
   "preserved_limits": [
     "No scheduled heartbeat receipt established; existing ACTIVE 6h configuration only inspected, unchanged.",
@@ -408,36 +454,61 @@
   ],
   "selected_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Revocación durable en el ledger existente y recuperación autorizada exclusivamente de ready_to_complete, sin repetir pasos.",
-    "priority_reason": "PR240 integrated; the first unmet P1 dependency was durable revision/revocation, followed by explicit authorized terminal-checkpoint recovery. Reuse existing ledger/runtime and preserve effect history.",
+    "objective": "Review246 and evaluate P1 exit with bounded evidence",
+    "priority_reason": "Security/integrity follow-up was not included in the externally merged PR245. Preserve external244/245 work and carry only the exclusive, already-scoped hardening.",
     "modified_files": [
-      "src/autopilot/localMissionStore.ts",
-      "src/autopilot/missionAuthorization.ts",
       "src/autopilot/missionAuthorization.test.ts",
-      "src/autopilot/missionRuntime.ts",
-      "tests/mission-operator-postgres.test.ts",
-      "supabase/staged/six_agent_local_policy_20261116.sql",
+      "docs/P1_EXIT_REVIEW_20261117.md",
       "docs/CODEX_CONTINUATION.json",
-      "docs/AUTOPILOT_STATE.md",
-      "docs/OPENCODE_CHECKPOINT.md",
-      "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
-      "docs/PERMANENT_SUPERVISOR_P0D_20261114.md",
-      "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md"
+      "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "IMPLEMENTED and locally TESTED in draft PR245; not merged/deployed/hosted; final exact-head CI and review required."
+    "integration_state": "Review and tests completed on candidate; no functional implementation changes or merge. P1_PARTIAL."
   },
   "next_mission": {
     "order_id": "ORD-P1-SUPERVISOR-ADAPTER-20261114",
-    "objective": "Formal P1 exit review after authorized integration of this candidate",
+    "objective": "Prove protected ready_to_complete recovery in a new Node controller process",
     "dependencies": [
-      "Current durable-policy/terminal-recovery candidate reviewed and specifically authorized for integration; actual main/CI reconciled.",
-      "Use the same plan and checkpoint; no second technical phase or queue."
+      "PR246 integrated only under specific authorization and actual main/CI reconciled",
+      "Reuse current runtime, policy, ledger, grant/fencing and fixture; do not duplicate implementation"
     ],
     "acceptance": [
-      "Measured positive and negative supervisor→runtime→ledger contract from exact reviewed SHA.",
-      "Durable revoke/expiry and one-use authorization, concurrent stale write rejection, independent terminal recovery with no replay.",
-      "Explicit remaining operating boundaries; record P1 closure or actual blockers in this JSON before considering P2."
+      "New Node process reads the same durable checkpoint/policy and requires a fresh independently issued grant after lease expiry",
+      "Old token/expired grant rejected; independent source-owned oracle rereads artifacts, zero execute/observe/replan invocations",
+      "Audit and confirmed effects preserved; no WeakMap/objects shared from original controller",
+      "Exact reviewed tests/CI and formal main P1 verdict; no remote dispatch or P2"
     ],
-    "recoverable_prompt": "Recover canonical sources and this JSON. Verify actual main, this branch PR/head/CI/reviews and writers. Preserve and review the existing candidate; no duplicate PR or automatic merge. Once integration is specifically authorized and observed, perform the formal P1 exit review with the recorded local/SQL/CI evidence and remaining boundaries. Update the same checkpoint only with new evidence. Keep P1 active and P2 inactive until formal closure; no hosted SQL, dispatch or new automation."
+    "recoverable_prompt": "Recover canonical checkpoint/report and actual PR246/main/CI/writers. Do not duplicate or merge automatically. After authorized integration, extend only the existing isolated fixture with a genuinely new Node controller for protected terminal recovery: fresh durable grant, expired lease, old-token fence, independent oracle and no replay. Record measured evidence and reevaluate P1 exit in this JSON; P2 remains inactive."
+  },
+  "preservation_refs": {
+    "original_branch": "codex/p1-durable-policy-20261116",
+    "exclusive_commit": "19f62f9805ace0b197d1b7b565824b0f7a0af6a9",
+    "merged245_head": "0a8bf80aabef9fb7f8d36ef2a2b12b8610f50e37",
+    "external_main": "0454ab6ea28a58c7b0d4659bd0ac3d81ba1b56fa"
+  },
+  "phase_exit_review": {
+    "verdict": "P1_PARTIAL",
+    "report": "docs/P1_EXIT_REVIEW_20261117.md",
+    "main_sha": "0454ab6ea28a58c7b0d4659bd0ac3d81ba1b56fa",
+    "reviewed_pr_sha": "a89b70296937f8f07028da68529ab64011e5d5e9",
+    "integration": "PR246 OPEN DRAFT, not merged at review; reviews/threads empty. No integration authorization.",
+    "technical_review": "No reproducible defect in pending transport/identity implementation. Expanded negative identifiers already rejected by predecessor; no RED vulnerability claimed.",
+    "passed": [
+      "45 focal tests",
+      "verify575/575 fail0 skip0 with types/builds/API",
+      "isolated PostgreSQL18 full operator/policy/recovery fixture PASS",
+      "SET LOCAL transaction/literal transport and unchanged permissions",
+      "durable revoke/expiry/CAS and lock race, stale token/grant rejection",
+      "independent opaque completion attestation and terminal no-replay at component level"
+    ],
+    "pending": [
+      "Authorized integration246 and exact actual main verification",
+      "Protected terminal recovery under a separate new Node controller process, not only a new LocalMissionStore/psql session"
+    ],
+    "boundaries": [
+      "in-process host/executor identity, not remote authentication",
+      "no filesystem/SQL atomicity; effects already admitted may finish",
+      "no uncertain/in_progress/cross-host recovery",
+      "no hosted SQL, production send/deploy, new scheduler or P2"
+    ]
   }
 }

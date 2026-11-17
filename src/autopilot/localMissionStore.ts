@@ -139,8 +139,7 @@ export class LocalMissionStore {
           if (guard) await guard.beforeClaim('software');
           // Same transaction and row lock as the claim: no read/claim TOCTOU.
           // Fresh claims or explicit terminal-only recovery after lease expiry; no live takeover.
-          const precondition=expected ? `begin; do $authorization$ begin
-            perform set_config('autopilot.policy_grant',${literal(expected)},true);
+          const precondition=expected ? `begin; set local autopilot.policy_grant=${literal(expected)}; do $authorization$ begin
             perform 1 from public.agent_tasks t where t.id=${literal(id)} and t.mission_id=${literal(id)}
               and t.goal='Verify synthetic mission recovery' and t.input->>'mission_schema_version'='1'
               and t.actor='autopilot-local-cli'
@@ -169,7 +168,7 @@ export class LocalMissionStore {
         }
         if (!Object.hasOwn(parameters,rpc) || args.p_task_id !== id) throw Error('rpc_not_allowed');
         const values = parameters[rpc].map(key => literal(args[key]) + (['p_checkpoint','p_proposal'].includes(key) ? '::jsonb' : '')).join(',');
-        const prefix=expected ? `begin; do $policy$ begin perform set_config('autopilot.policy_grant',${literal(expected)},true); end $policy$;` : '';
+        const prefix=expected ? `begin; set local autopilot.policy_grant=${literal(expected)};` : '';
         const data = JSON.parse(await this.query(`${prefix} select to_json(public.${rpc}(${values})); ${expected?'commit;':''}`, rpc));
         if (data === true) this.report({ event: 'write_confirmed', operation: rpc, missionId: id, runId });
         return { data, error: null };

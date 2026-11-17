@@ -1,3 +1,13 @@
+# P1 · reconciliación de integración externa y seguimiento de seguridad · 17/11/2026
+
+Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL. GitHub cambió durante la edición: #244 y #245 integradas externamente, main0454ab6, head fusionado245=0a8bf80. No ejecuté esas fusiones. La corrección19f62f9 quedó fuera; su rama original se conserva y se trasladó solo ese delta a codex/p1-policy-transport-20261117 desde main actual. #244 (privacidad/aprobación/pruebas/migración/script npm) queda intacta.
+
+Validación en esta base: verify575/575, cero fallos/omisiones, tipos/builds/API y SQL PostgreSQL18 aislada aprobados. Se preservan las pruebas de aprobación244 y los negativos/revocación/recuperación terminal.
+
+Política durable y recuperación terminal están FUSIONADAS por245; no duplicarlas. El seguimiento reduce el transporte SQL a SET LOCAL/literal escapado y alinea executorId con el contrato de checkpoint (alfabeto existente, máximo80). No expande permisos, roles remotos o scopes de recuperación. Su verificación sobre main nuevo y CI exacta se registran aparte: no heredar567/567 de la base anterior ni los checks de245.
+
+No se abre otra cadena ni se reactiva245. Una PR de seguimiento pequeña es necesaria porque un defecto exclusivo seguía fuera del main fusionado. Mantenerla draft y sin integración automática; después de integración específicamente autorizada, evaluar formalmente la salida P1. Sin P2, SQL alojado, despliegues manuales, clientes, gastos o cambios de automatización6h. [Único checkpoint y prompt recuperable](CODEX_CONTINUATION.json). Las entradas inferiores son historia.
+
 # P1 · política durable y recuperación terminal · 17/11/2026
 
 Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL, productoF0. Main0342d39 incorpora #240–#243, confirmadas en GitHub; validate/postgres/CodeQL/local-stack/beauty-stack aprobaron. PLAN Cloud run44006451388 conserva el fallo cerrado cloud_ledger_adapter_not_configured con source CI success; no se modifica. Las entradas inferiores son históricas.
@@ -6,9 +16,11 @@ Candidata en codex/p1-durable-policy-20261116: revisión/expiración/revocación
 
 Recuperación explícita ready_to_complete: lease vencida, versiones exactas y nuevo grant durable; claim/fencing existentes, nuevo verificador independiente y finalización sin observar, replanificar, ejecutar pasos ni escribir checkpoints. Se conserva el checkpoint y el token anterior es rechazado mientras la lease nueva sigue válida. No es recuperación general de efectos inciertos ni P2.
 
-Evidencia local: RED2/GREEN44, verify566/566 con tipos/skills/builds/API. SQL aislada pasó revocación después de atestar, callback true, token/grant obsoleto, expiración, CAS concurrente, escritura bloqueada tras revocación y preservación/recuperación terminal. Una repetición concurrente con verify falló en el fixture legacy de timeout; conservada, con retry_wait registrado y sin tocar timeouts. Repetición aislada y prueba SQL final con ambos artefactos pasaron. La CI exacta del candidato se consulta en el mismo checkpoint/PR.
+Evidencia local: RED2/GREEN45, verify567/567 con tipos/skills/builds/API. SQL aislada pasó revocación después de atestar, callback true, token/grant obsoleto, expiración, CAS concurrente, escritura bloqueada tras revocación y preservación/recuperación terminal. Una repetición concurrente con verify falló en el fixture legacy de timeout; conservada, con retry_wait registrado y sin tocar timeouts. Repetición aislada y prueba SQL final con ambos artefactos pasaron. La CI exacta del candidato se consulta en el mismo checkpoint/PR.
 
 IMPLEMENTADO/PROBADO en candidata; EJECUTADO solo en fixtures locales. No FUSIONADO ni DESPLEGADO a producción. Un efecto filesystem ya admitido puede acabar después de revocar; su escritura SQL posterior queda denegada. No atomicidad filesystem/SQL ni identidad remota. El host con credenciales administrativas sigue siendo autoridad; esto no aísla a un propietario SQL adversarial. Automatización6h, CLI/scheduler, producción, proveedores y recursos previos intactos.
+
+Revisión final de transporte: grant serializado con SET LOCAL y literal escapado, sin JSON dentro de cuerpos DO. Identificador del ejecutor alineado al alfabeto y máximo80 de six_agent_checkpoint; no se amplía la validación SQL. Probe SQL de delimitadores RED/GREEN y negativos de identidad en la suite final; CI del nuevo SHA independiente.
 
 Siguiente: revisar e integrar únicamente con autorización específica; después evaluar formalmente los criterios de salida P1 en main real. No activar P2 ni producir commits de sondeo. [Checkpoint único y prompt recuperable](CODEX_CONTINUATION.json).
 
