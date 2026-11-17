@@ -12,6 +12,7 @@ import {
 import { rerankDocuments } from './reranker';
 import {
   listPersistedTasks,
+  approvePersistedTask,
   persistAuditEvent,
   persistTask,
   taskPersistenceStatus,
@@ -129,6 +130,12 @@ export function createAutopilotV4Router(): Router {
       const principal = getAutopilotPrincipal(res);
       if (principal.role !== 'admin') {
         return res.status(403).json({ error: 'HUMAN_APPROVAL_REQUIRED' });
+      }
+      // Durable mode cannot rely on the process-local orchestrator Map.
+      // The DB function validates a snapshot and writes approval+audit atomically.
+      if (taskPersistenceStatus().durable) {
+        const task = await approvePersistedTask(_req.params.id);
+        return res.json({task});
       }
       const task = orchestrator.approve(_req.params.id, 'human');
       const event = task.audit[task.audit.length - 1];

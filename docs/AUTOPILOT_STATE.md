@@ -1,3 +1,11 @@
+# 2026-11-17 - Auditoria de privacidad y persistencia (candidato)
+
+Main remoto reconciliado 0342d39d929a691662512616d71fd2241bc56d81: PR #240-#243 ya fusionadas; sin PR abiertas al iniciar. Fase P1 ACTIVA/PARCIAL, misma ORD-P1-SUPERVISOR-ADAPTER-20261114; el trabajo de revocacion durable del runtime sigue pendiente. Esta intervencion es mantenimiento de seguridad en una sola PR, NO nueva orden ni P2.
+
+Hallazgos auditados: (1) ruta legada camelRun inhabilitada para transmitir contenido y gastar, incluso con consentimiento; requiere futura integracion con pasarela aprobada, minimizacion y reserva durable. El endpoint administrativo falla cerrado con 503. (2) aprobaciones de tareas genericas en modo persistente recuperan estado/contexto de politica de agent_tasks, evaluan politica y realizan CAS atomico y una auditoria SQL en una misma transaccion; no usan el Map del proceso. Tareas antiguas sin policy_context verificable no pueden aprobarse. La columna y RPC se activan solamente tras despliegue revisado de migracion con AUTOPILOT_DURABLE_APPROVAL_V2_ENABLED=true; con flag apagado, escritura mantiene esquema antiguo y aprobacion durable falla cerrada (no usa Map). (3) npm test incluye servicesDirectory.test.ts.
+
+Validacion local: RED de filtracion en camelRun reproducida y convertida a 0 llamadas remotas, pruebas focales de aprobacion/concurrencia y directorio verdes. npm run verify completo 571/571, 0 fallos/omisiones; TypeScript, Node y Vercel builds y smoke API. El SQL permanece en supabase/staged (NO en migraciones activas); se agrega prueba PostgreSQL aislada de CAS concurrente, auditoria unica y registro legado. CI por SHA final y revision de migracion pendientes. No SQL alojado, produccion, scheduler, envios, gastos ni nuevos permisos. PLAN Cloud cloud_ledger_adapter_not_configured queda fail-closed sin autorizacion de habilitar.
+
 # Revisión técnica P1 · PR240 · 16/11/2026
 
 Continúa `ORD-P1-SUPERVISOR-ADAPTER-20261114`, P1 ACTIVA/PARCIAL, productoF0. Main remoto `44dbaeeb6384740da81db2357fb003c7de42d33b`; PR239 fusionada; PR240 abierta/draft, padre revisado `bebaf18dc83dcb4703b56b1768146b98a69e9be2`. Sin reviews/threads humanos al inspeccionar. Este registro contiene correcciones nuevas, no un commit de sondeo; las entradas inferiores son historia.
