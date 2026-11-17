@@ -286,7 +286,8 @@ test('terminal recovery needs an explicit scope and cannot authorize observation
 });
 
 test('grant executor identity matches the existing SQL checkpoint identifier contract',()=>{
-  for(const executorId of ['local:$policy$:$authorization$',"local:quote'",'x'.repeat(81)]) {
+  for(const executorId of ['', 'local:$policy$:$authorization$',"local:quote'",'x'.repeat(81),
+    'local:valid\n','local:valid\r','local:valid\u2028','local:valid\u2029','local:valid\0','local/invalid','local invalid','local:ñ']) {
     const candidate={...executor,executorId};
     assert.throws(()=>createMissionClaimGuard({...grant(),executorId},candidate,async()=>true),/invalid_mission_authorization/);
   }

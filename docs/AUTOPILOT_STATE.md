@@ -1,3 +1,9 @@
+# Consolidación246 y salida P1 · 17/11/2026
+
+Veredicto P1_PARTIAL, misma ORD-P1-SUPERVISOR-ADAPTER-20261114. Main0454ab6, PR246 padre a89b702 abierta/draft, sin integración autorizada. [Informe y matriz completos](P1_EXIT_REVIEW_20261117.md). Negativos ampliados (controles, Unicode, vacío/longitud); no defecto reproducido y sin cambio funcional/SQL. Focal45/45, verify575/575 sin fail/skip y PostgreSQL18 aislado PASS en esta revisión. CI del hijo de revisión se comprueba por su SHA, sin herencia.
+
+Pendientes reales: integrar246 con autorización y verificar main; probar recuperación terminal protegida con un controlador Node nuevo. Store nuevo y sesiones psql nuevas no equivalen por sí solos a ese reinicio, aunque el demo legacy sí prueba pérdida/reanudación de procesos. La siguiente misión prepara solo esa cobertura del fixture existente. Sin P2, merge, SQL alojado, clientes, deploy, gastos ni cambios a automatización6h. No efectos externos inciertos generados. Historial inferior conservado.
+
 # P1 · reconciliación de integración externa y seguimiento de seguridad · 17/11/2026
 
 Orden única ORD-P1-SUPERVISOR-ADAPTER-20261114, P1 ACTIVA/PARCIAL. GitHub cambió durante la edición: #244 y #245 integradas externamente, main0454ab6, head fusionado245=0a8bf80. No ejecuté esas fusiones. La corrección19f62f9 quedó fuera; su rama original se conserva y se trasladó solo ese delta a codex/p1-policy-transport-20261117 desde main actual. #244 (privacidad/aprobación/pruebas/migración/script npm) queda intacta.
