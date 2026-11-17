@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-17T23:30:22.520Z",
+  "updated_at": "2026-11-17T23:51:40Z",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
     "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
-    "head_sha": "bd7cf7287a28c95eab9c58bfc245bce30e4e7cdd",
+    "head_sha": "ef9691d414de385d748b2c60b52d6c84ec3732d3",
     "worktree": "WORKTREE:p2-cancel-ledger-boundary-20261117",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "Exact CI below passed on bd7cf7. This continuity-only follow-up advances the PR head; resolve the latest live head and exact checks before any integration.",
+    "note": "At 2026-11-17T23:51Z, exact CI on ef9691d414de385d748b2c60b52d6c84ec3732d3 is terminal and successful (validate, postgres, CodeQL, browser, Vercel and security); Supabase Preview is skipped. This documentation-only checkpoint commit advances the PR head; resolve the new live head and exact checks before integration.",
     "pr_number": 252,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/252"
   },
@@ -18,12 +18,12 @@
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "status": "partial_pr252_ci_verified_native_cancellation_result_unreconciled",
-    "last_verified_step": "PR252 remains open/unmerged/not deployed at bd7cf7287a28c95eab9c58bfc245bce30e4e7cdd; base 090486a91dd67f4b2855df4349b32077908f0e80. Exact-head validate, postgres, CodeQL (all three analyses), public-browser-smoke, Vercel Security Review, Vercel and Preview Comments SUCCESS; Supabase Preview SKIPPED. No human review or threads. Read-only audit found five dirty files in the preserved native cancellation worktree, no matching process or listener at 28447, and no durable terminal output/receipt in the checked repository or recent continuity transcript excerpt. The prior test outcome remains unclassified; do not rerun or integrate by inference.",
+    "last_verified_step": "PR #252 remains open, unmerged and not deployed at ef9691d414de385d748b2c60b52d6c84ec3732d3; base main 090486a91dd67f4b2855df4349b32077908f0e80. Exact-head validate, postgres, CodeQL (all three analyses), public-browser-smoke, Vercel Security Review, Vercel and Preview Comments SUCCESS; Supabase Preview SKIPPED. No human review or threads. Read-only audit found five dirty files in the preserved native cancellation worktree, no matching process or listener at 28447, and no durable terminal output/receipt in the checked repository or reviewed adjacent thread. The prior test outcome remains unclassified; do not rerun or integrate by inference. Autopilot Autodesarrollo 0.4.3 was released with step-scoped blocking/continuation semantics; the existing victoriosa-autopilot-6h remains ACTIVE with its 6-hour rule and same destination, and its prompt now applies the existing recovery/cycle skills and only ends after no independent authorized step remains. This is not evidence of a new run or native hook activation.",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
       "Runtime, policy callback and guard remain in-process; no filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
-      "No CLI/scheduler activation, hosted SQL, production, clients, spending, automation changes or removal of pre-existing resources. Repository integration remains bounded to the existing order and explicit permission after exact checks/review."
+      "No hosted SQL, production, client sends, spending, auto-merge or removal of pre-existing resources. Existing heartbeat ID, destination and six-hour schedule were preserved while its prompt was refined; no second automation or scheduler was created. Local-session continuation hooks remain bounded/opt-in, and plugin release does not prove they loaded in this session. Repository integration remains bounded to the existing order and its exact checks/review."
     ],
     "acceptance_criteria": [
       "Propagate AbortSignal through the existing runtime effect authorization into the guarded ledger completion boundary.",
@@ -716,7 +716,7 @@
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
     "objective": "Recover the prior native cancellation/descendant test receipt; if unavailable, preserve the worktree and keep that verification blocked without replay.",
     "dependencies": [
-      "PR252 exact checks passed on bd7cf7; this checkpoint-only commit advances the PR head, so resolve live head and rerun/read exact final-head CI.",
+      "Exact PR #252 checks are terminal SUCCESS on ef9691d414de385d748b2c60b52d6c84ec3732d3: validate, postgres, CodeQL analyses, public-browser-smoke, Vercel Security Review, Vercel and Preview Comments; Supabase Preview SKIPPED. This checkpoint-only commit advances the PR head; resolve live head and exact CI before integration.",
       "The separate p2-cancel-reconciliation worktree remains dirty in five files; no matching process/28447 listener, but the run outcome is not durably recorded.",
       "Search only existing run/session artifacts for a terminal receipt; if unavailable, obtain the original output before any new execution."
     ],
@@ -724,9 +724,9 @@
       "Keep the five modified files and worktree unchanged; no reset, stash, checkout, commit, push, or test rerun there.",
       "Classify the previous test only from actual terminal output or durable run receipt; otherwise retain the explicit blocker.",
       "After reconciling, choose one authorized independent P2 step within the same order; do not start P3 or a parallel runner.",
-      "No hosted SQL, cloud dispatch, production, client contact, spending, or automation changes."
+      "No hosted SQL, cloud dispatch, production, client contact, spending, auto-merge or new scheduler. Preserve the existing heartbeat ID, destination, ACTIVE status and six-hour cadence; prompt-only improvement is allowed by the current user instruction."
     ],
-    "recoverable_prompt": "Continue ORD-P2-RECOVERY-VERIFICATION-20261117 only, P2/F0 partial. PR252 is open, unmerged, and not deployed. Exact checks passed on bd7cf7287a28c95eab9c58bfc245bce30e4e7cdd: validate/postgres/CodeQL/browser/Vercel/security/comments success; Supabase Preview skipped. This checkpoint commit advances the PR head; query the actual latest head and its CI before any integration. The preserved p2-cancel-reconciliation worktree has five uncommitted native cancellation changes, no matching process and no listener on 28447. No terminal test receipt/output was recovered from the checked checkout or recent continuity excerpt. Do not rerun, commit, or integrate that worktree without the original operation result. If no receipt can be supplied/recovered, keep the dependency blocked and report it. No P3, hosted SQL, production, dispatch, spending, client contact, or automation changes."
+    "recoverable_prompt": "Continue ORD-P2-RECOVERY-VERIFICATION-20261117 only, P2/F0 partial. PR252 is open, unmerged, and not deployed. Exact checks on ef9691d414de385d748b2c60b52d6c84ec3732d3 are terminal: validate/postgres/CodeQL/browser/Vercel/security/comments success; Supabase Preview skipped. This checkpoint-only commit advances the PR head; query the actual latest head and its CI before any integration. The preserved p2-cancel-reconciliation worktree has five uncommitted native cancellation changes, no matching process and no listener on 28447. No terminal test receipt/output was recovered from the checked checkout or reviewed adjacent thread. Do not rerun, commit, or integrate that worktree without the original operation result. If no receipt can be recovered, keep that dependency blocked and inspect the canonical P2 order for one independent, explicitly authorized action before stopping. Plugin 0.4.3 and the existing heartbeat prompt now request bounded continuation after a step-level blocker; no new run is implied. No P3, hosted SQL, production, dispatch, spending, client contact, or new automation."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
