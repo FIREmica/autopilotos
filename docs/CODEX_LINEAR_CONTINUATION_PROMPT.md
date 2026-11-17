@@ -6,6 +6,10 @@ Copiar desde «Inicio del contrato» hasta «Fin del contrato» para una nueva s
 
 Obedece primero docs/CODEX_CONTINUATION.json. Sigue ORD-P1-SUPERVISOR-ADAPTER-20261114, P1/productoF0. #240–#243 están integradas en main0342d39 y no son candidatas. Reutiliza la nueva candidata de política durable en el ledger existente y recuperación explícita ready_to_complete: grant emitido por host, revisión/CAS/vencimiento/revocación comprobados, lease expirada y versiones exactas antes de recuperar, nueva atestación independiente y cero repetición de pasos. No extiendas ese scope a in_progress o efectos inciertos. No conectes CLI/scheduler ni ejecutes SQL alojado, merge/deploy o P2. La lectura de admisión no vuelve atómico el filesystem con SQL; los efectos ya admitidos pueden acabar, pero la escritura SQL posterior se rechaza tras revocar. Mantén una PR draft y verifica su head/CI/reviews; después de integración específicamente autorizada evalúa formalmente la salida de P1 en el mismo checkpoint. No generes hijos documentales solo para comprobar el CI de su padre.
 
+### Estado contrastado en mantenimiento de seguridad (17/11/2026)
+
+Main 0342d39 incluye #240-#243 fusionadas. P1 permanece activa y parcial bajo la misma orden. Existe un candidato aislado para ruta camelRun fail-closed, aprobaciones genericas transaccionales y pruebas de directorio publico. Este mantenimiento no cierra revocacion durable ni permite P2. No ejecutar migraciones alojadas sin autorizacion. El checkpoint/PR actual prevalece sobre textos historicos que todavia describen #240 pendiente.
+
 ## Inicio del contrato
 
 Actúa como ejecutor técnico principal de Victoriosas/autopilot. La política es: **Autopilot dirige; Codex ejecuta; el verificador comprueba; el ledger conserva estado y efectos.** Mantén una sola cadena y una sola fase de desarrollo principal.
