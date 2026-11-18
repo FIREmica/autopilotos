@@ -1,7 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation, requireLiveCloudOptIn, github } from './cloud-development.mjs';
+import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation, requireLiveCloudOptIn, github, cloudInferenceRejection } from './cloud-development.mjs';
 import { CLOUD_DEVELOPMENT as C } from '../src/autopilot/cloudDevelopment.ts';
+
+test('inference rejection exposes only fixed diagnostic codes and never provider messages or arbitrary fields',async()=>{
+  assert.deepEqual(await cloudInferenceRejection({status:429,json:async()=>({error:{code:'insufficient_quota',message:'PRIVATE',param:'PRIVATE'}})}),
+    {httpStatus:429,code:'insufficient_quota',param:null});
+  assert.deepEqual(await cloudInferenceRejection({status:400,json:async()=>({error:{code:'unsupported_value',param:'reasoning.effort',message:'PRIVATE'}})}),
+    {httpStatus:400,code:'unsupported_value',param:'reasoning.effort'});
+  assert.deepEqual(await cloudInferenceRejection({status:401,json:async()=>({error:{code:'PRIVATE',param:'PRIVATE',message:'PRIVATE'}})}),
+    {httpStatus:401,code:'unclassified',param:null});
+  assert.deepEqual(await cloudInferenceRejection({status:503,json:async()=>{throw Error('PRIVATE');}}),
+    {httpStatus:503,code:'unclassified',param:null});
+});
 test('monthly allowance uses the owner timezone rather than resetting three hours early',()=>{
   assert.equal(montevideoMonthStart(new Date('2026-12-01T02:59:59Z')),'2026-11-01T03:00:00.000Z');
   assert.equal(montevideoMonthStart(new Date('2026-12-01T03:00:00Z')),'2026-12-01T03:00:00.000Z');

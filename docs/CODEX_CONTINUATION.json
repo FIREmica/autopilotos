@@ -7,9 +7,9 @@
     "timezone": "America/Montevideo",
     "objective": "Continue bounded repository development with the Codex application closed, using the existing cloud workflow.",
     "owner_monthly_budget_usd": 5,
-    "status": "owner_authorized_reconciling_preview_policy_before_schedule",
-    "integration": "PR253 merged at a32b020036edb7d2d12ae8d09dc16f31a926c2c8; exact main Core validate/postgres success. Actions PR creation enabled with default read; existing local heartbeat paused with prompt/schedule/target preserved. Schedule admission remains absent, no cloud inference admitted.",
-    "preview_policy_reconciliation": "Activation check found duplicate root git keys in vercel.json: the lower historical deployment map shadowed the new cloud rule. RED AST regression reproduced; keep one map, preserve main:false and all historical stops, add cloud wildcard false. Host preview gate now accepts preserved stops and rejects overlapping positive wildcard rules. Eleven focused tests pass; follow-up exact CI/integration required before scheduling.",
+    "status": "external_run_observed_inference_rejected_schedule_paused_for_diagnosis",
+    "integration": "PR253 integrated a32b020; PR255 live-write consent integrated 0cbd7c8; PR254 preview map reconciliation integrated 40580ae325a56bc3eabee4223646b36019569425. Main Core 44241945158 SUCCESS; exact PR254 browser/security/validate/postgres PASS. Existing local heartbeat PAUSED, Actions PR creation enabled with default read.",
+    "preview_policy_reconciliation": "One git map on main preserves main:false and historical stops; codex/cloud-* false. Multiple real pushes on reconciliation branch observed zero Vercel deployments. Twelve focused tests passed after PR255 integration.",
     "pr": "https://github.com/Victoriosas/autopilot/pull/253",
     "verified_predecessor_code_sha": "0e355ea9b61c1f493484c865a69087c22a32ed92",
     "ci_predecessor": "validate/postgres/Core/real Docker sandbox/browser/three security analyses/Vercel Security Review PASS; 590 tests,589 pass,0 fail,1 Windows-only offline-preparation skip on Linux. Final branch-write reauthorization regression requires this candidate SHA checks; no self-referential CI polling commit.",
@@ -19,14 +19,26 @@
     "local_verification": "Prior full local verify589/589,0 fail/skip,types/builds/API PASS; nine focused tests cover live revocation, budget/period, scope, Responses parsing and durable branch reservation. RED regression for revoke during branch read, then GREEN reauthorization immediately before PATCH.",
     "authorization_scope": "Owner requests cloud continuity and explicitly authorizes up to USD5/month for this executor. No auto-merge, hosted SQL, production, sends or phase closure. Preserve the current canonical P2 order; PR252 was independently merged while activation was being reconciled.",
     "activation_gates": [
-      "Exact candidate validate/postgres and real Docker validation; review and authorized integration.",
-      "Explicit authorization to enable GitHub Actions PR creation, currently disabled by platform setting.",
-      "Pause existing local development heartbeat before cloud opt-in; no duplicate active supervisor.",
-      "Enable cloud opt-in and observe one first-attempt run before claiming external execution."
+      "Already authorized by owner; no repeat permission required for integration, Actions PR creation or heartbeat handover.",
+      "External run observed, but inference access not yet verified; classify rejection before claiming cloud development works.",
+      "Stop test passed. Keep full reservation and deterministic receipt after rejection; never retry the same base/order/objective.",
+      "Next diagnostic attempt must use bounded existing workflow on reviewed main, still within USD5/month."
     ],
-    "runtime_boundary": "Repository proposal lane only; not an expansion of synthetic SQL mission grants or proof of cross-host recovery."
+    "runtime_boundary": "Repository proposal lane only; not an expansion of synthetic SQL mission grants or proof of cross-host recovery.",
+    "runtime_receipt": {
+      "run_id": 44242598129,
+      "url": "https://github.com/Victoriosas/autopilot/actions/runs/44242598129",
+      "base_sha": "40580ae325a56bc3eabee4223646b36019569425",
+      "host": "GitHub-hosted ubuntu-latest",
+      "result": "prepare succeeded; inference API rejected HTTP request, original host redacted provider details; no candidate verification or PR publication",
+      "reservation_usd": 0.04,
+      "observed_spend": "unknown; full USD0.04 reservation retained, never refunded by inference",
+      "branch_receipt": "codex/cloud-f3a04c50605be50e2dc2",
+      "schedule_admission": "false after failed run, before diagnosis; restore only for one bounded diagnostic attempt and reconcile outcome",
+      "stop_test": "workflow disabled_manually readback; dispatch rejected HTTP422; restored active under planned test"
+    }
   },
-  "updated_at": "2026-11-17T23:51:40Z",
+  "updated_at": "2026-11-18T05:14:53.704659+00:00",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
