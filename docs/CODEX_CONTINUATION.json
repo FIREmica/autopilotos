@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "cloud_development_request": {
+    "enabled": false,
     "requested_on": "2026-11-17",
     "timezone": "America/Montevideo",
     "objective": "Continue bounded repository development with the Codex application closed, using the existing cloud workflow.",

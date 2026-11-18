@@ -48,7 +48,7 @@ jobs:
       - run: node --import tsx scripts/cloud-development.mjs sandbox-smoke
   cloud-development:
     # Opt-in, main only, one bounded proposal. Existing synthetic SQL grants stay closed.
-    if: ${{ github.ref == 'refs/heads/main' && vars.AUTOPILOT_CLOUD_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'development')) }}
+    if: ${{ github.ref == 'refs/heads/main' && vars.AUTOPILOT_CLOUD_SCHEDULE_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'development')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
@@ -59,7 +59,7 @@ jobs:
       group: autopilot-plan-cloud-development
       cancel-in-progress: false
     env:
-      AUTOPILOT_CLOUD_ENABLED: ${{ vars.AUTOPILOT_CLOUD_ENABLED }}
+      AUTOPILOT_CLOUD_SCHEDULE_ENABLED: ${{ vars.AUTOPILOT_CLOUD_SCHEDULE_ENABLED }}
     steps:
       - uses: actions/checkout@v7
         with:

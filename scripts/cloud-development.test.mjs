@@ -1,12 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation } from './cloud-development.mjs';
+import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation, requireLiveCloudOptIn } from './cloud-development.mjs';
 import { CLOUD_DEVELOPMENT as C } from '../src/autopilot/cloudDevelopment.ts';
 test('monthly allowance uses the owner timezone rather than resetting three hours early',()=>{
   assert.equal(montevideoMonthStart(new Date('2026-12-01T02:59:59Z')),'2026-11-01T03:00:00.000Z');
   assert.equal(montevideoMonthStart(new Date('2026-12-01T03:00:00Z')),'2026-12-01T03:00:00.000Z');
   assert.throws(()=>assertCloudRunMonth('2026-12-01T02:59:59Z',new Date('2026-12-01T03:00:00Z')),/month_expired/);
   assert.doesNotThrow(()=>assertCloudRunMonth('2026-12-01T03:00:00Z',new Date('2026-12-02T03:00:00Z')));
+});
+test('live owner opt-in is reread and revocation between prepare and publish denies the next effect',async()=>{
+  let enabled=true,reads=0,effects=0;
+  const api=async route=>{
+    assert.equal(route,'contents/docs/CODEX_CONTINUATION.json?ref=main');reads++;
+    return {encoding:'base64',content:Buffer.from(JSON.stringify({cloud_development_request:{enabled,owner_monthly_budget_usd:5}})).toString('base64')};
+  };
+  await requireLiveCloudOptIn(api); // prepare admission
+  enabled=false;
+  await assert.rejects(async()=>{await requireLiveCloudOptIn(api);effects++;},/revoked/);
+  assert.equal(reads,2);assert.equal(effects,0);
+  await assert.rejects(()=>requireLiveCloudOptIn(async()=>null),/unavailable/);
+  await assert.rejects(()=>requireLiveCloudOptIn(async()=>({encoding:'base64',content:'broken'})),/unavailable/);
 });
 test('unchanged evaluations cannot reserve twice and publication cannot replace another writer',async()=>{
   const base='a'.repeat(40),next='b'.repeat(40),branch='codex/cloud-'+'c'.repeat(20);

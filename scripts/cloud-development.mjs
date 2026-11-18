@@ -54,6 +54,18 @@ export async function advanceCloudEvaluation(base,branch,sha,api) {
   if((await api('git/ref/heads/'+branch))?.object?.sha!==base)throw Error('cloud_branch_changed');
   await api('git/refs/heads/'+branch,'PATCH',{sha,force:false});
 }
+export async function requireLiveCloudOptIn(api) {
+  // GITHUB_TOKEN cannot read repository Actions variables. The existing
+  // canonical checkpoint carries only the owner's revocable opt-in, not SQL
+  // grants. Fetch main on EVERY authorization, never the checked-out snapshot.
+  const file=await api('contents/docs/CODEX_CONTINUATION.json?ref=main');
+  if(file?.encoding!=='base64'||typeof file.content!=='string'||file.content.length>1_500_000)
+    throw Error('cloud_opt_in_unavailable');
+  let policy;
+  try{policy=JSON.parse(Buffer.from(file.content,'base64').toString('utf8')).cloud_development_request;}
+  catch{throw Error('cloud_opt_in_unavailable');}
+  if(policy?.enabled!==true||policy.owner_monthly_budget_usd!==5)throw Error('cloud_opt_in_revoked');
+}
 async function github(route,method='GET',body) {
   if(!process.env.GH_TOKEN)throw Error('github_access_missing');
   const response=await fetch('https://api.github.com/repos/'+repo+(route?'/'+route:''),{
@@ -71,9 +83,9 @@ async function live(base) {
     ||process.env.GITHUB_RUN_ATTEMPT!=='1'||!/^\d+$/.test(process.env.GITHUB_RUN_ID??''))throw Error('cloud_host_unverified');
   const [workflow,head,metadata,run]=await Promise.all([
     github('actions/workflows/plan-cloud.yml'),
-    github('git/ref/heads/main'),github(''),github('actions/runs/'+process.env.GITHUB_RUN_ID)
+    github('git/ref/heads/main'),github(''),github('actions/runs/'+process.env.GITHUB_RUN_ID),requireLiveCloudOptIn(github)
   ]);
-  if(process.env.AUTOPILOT_CLOUD_ENABLED!=='true'||workflow?.state!=='active'||head?.object?.sha!==base
+  if(process.env.AUTOPILOT_CLOUD_SCHEDULE_ENABLED!=='true'||workflow?.state!=='active'||head?.object?.sha!==base
     ||metadata?.private!==false||run?.head_sha!==base||run?.head_repository?.full_name!==repo
     ||!['schedule','workflow_dispatch'].includes(run?.event)||run?.run_attempt!==1
     ||run?.workflow_id!==workflow?.id||run?.status!=='in_progress')throw Error('cloud_policy_denied');

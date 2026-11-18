@@ -10,7 +10,7 @@ Esto prepara propuestas revisables, no cierre P2 ni activación P3/P4 del motor.
 
 ## Funcionamiento
 
-1. Solo main, primer intento del run, repositorio público y variable de opt-in `AUTOPILOT_CLOUD_ENABLED=true`. El opt-in se fija al iniciar el job; se consultan de nuevo el estado activo del workflow, run y main antes de inferencia y de cada escritura remota. Cambiar la variable bloquea jobs futuros; para revocar efectos de un job ya iniciado, deshabilitar y cancelar el workflow. No se revierte un efecto ya admitido.
+1. Solo main, primer intento del run, repositorio público y admisión de horarios `AUTOPILOT_CLOUD_SCHEDULE_ENABLED=true`. La autorización revocable es `cloud_development_request.enabled=true` y presupuesto5 en el checkpoint canónico de **main**, leído de nuevo por API antes de inferencia y cada escritura remota. Nunca se usa su copia del checkout como prueba de consentimiento vigente. Ausencia, fallo de lectura, false o presupuesto distinto deniegan el siguiente efecto. También se revalidan workflow, run y HEAD de main. No se revierte un efecto ya admitido.
 2. Recupera el objetivo de la orden canónica F0. Si hay una PR abierta del mismo repositorio o ya existe la rama determinista, no gasta en otra generación. Los resultados inciertos exigen reconciliar, nunca force-push o replay automático.
 3. El modelo recibe solo datos del repositorio público: objetivo y extractos de los archivos de la misión que estén dentro de la allowlist de código. Los extractos incompletos se identifican; si no permiten reproducir un defecto debe responder blocked. No recibe herramientas, secretos ni comandos para ejecutar.
 
@@ -44,9 +44,9 @@ La candidata no se autoactiva. Antes de habilitarla:
 2. Comprobar que la clave existente `OPENAI_API_KEY` está configurada en el mecanismo seguro de GitHub, sin leer ni copiar su valor.
 3. Autorizar la capacidad de GitHub Actions para crear PR. La configuración observada tenía `can_approve_pull_request_reviews=false`, que también impide la creación de PR con GITHUB_TOKEN. Esta candidata nunca autoaprueba ni fusiona, aunque la opción de plataforma habilite ambas capacidades.
 4. Pausar la automatización local `victoriosa-autopilot-6h` mediante la herramienta oficial antes de activar el relevo cloud, conservando ID, prompt y destino. No mantener dos supervisores de desarrollo activos.
-5. Fijar `AUTOPILOT_CLOUD_ENABLED=true`, ejecutar manualmente modo development una vez y observar resultado, reserva, pruebas y PR/SHA si hay cambio. El horario de la entrada existente es cada seis horas. No se afirma ejecución futura por configurar el horario.
+5. Tras aprobación, activar `cloud_development_request.enabled` en el checkpoint canónico y fijar `AUTOPILOT_CLOUD_SCHEDULE_ENABLED=true`. Ejecutar manualmente modo development una vez y observar resultado, reserva, pruebas y PR/SHA si hay cambio. El horario de la entrada existente es cada seis horas. No se afirma ejecución futura por configurar el horario.
 
-Parada: variable false y deshabilitar/cancelar el workflow desde GitHub. Las ramas y PR permanecen para revisión; no se eliminan evidencias ni recursos previos. El comando de parada del plugin local no detiene por sí solo un run cloud.
+Parada: revocar enabled en el checkpoint de main o deshabilitar/cancelar el workflow desde GitHub. Ambas señales se consultan en vivo antes de nuevos efectos. La variable SCHEDULE solo controla admisión de nuevos jobs: no es la señal de revocación. Las ramas y PR permanecen para revisión; no se eliminan evidencias ni recursos previos. El comando de parada del plugin local no detiene por sí solo un run cloud.
 
 ## Verificación
 
