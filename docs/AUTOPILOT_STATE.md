@@ -1,12 +1,14 @@
 # Autodesarrollo cloud solicitado · candidata acotada · 17/11/2026
 
+Actualización de autorización ·18/11/2026: el propietario concedió expresamente la activación preparada de PR253, permiso de Actions para crear PR y relevo del heartbeat local por la entrada cloud de seis horas, manteniendo US$5/mes. Se declara enabled=true en la candidata; solo será efectivo tras integración y admisión del horario. No se autoriza al ejecutor cloud a aprobar/fusionar PR, enviar ni operar SQL alojado. Comprobar el run y las señales de parada antes de declarar operación activa.
+
 El propietario solicita continuidad con Codex cerrado y autoriza hasta US$5/mes para el ejecutor. Base main `090486a91dd67f4b2855df4349b32077908f0e80`; rama aislada `codex/cloud-development-adapter-20261117`. Se conserva la orden P2/F0 y su PR252 concurrente. No se atribuye su cancelación de ledger a esta propuesta ni se cierra P2.
 
 Candidata: entrada de propuestas en `plan-cloud.yml` existente, modelo sin herramientas, reservas de primer intento de Actions hasta US$5/mes, scope de fragmentos fijado por host, regresión RED y verify GREEN en Docker sin red/credenciales y con fuente en lectura, publicación de una PR en borrador con reautorización en vivo. No amplía grants SQL, no auto-merge, no despliegue ni envíos. [Contrato y activación](CLOUD_DEVELOPMENT_ADAPTER_20261117.md).
 
 PROBADO: full local verify589/589 en precursor, cero fallos u omitidos, tipos/builds/API correctos; nueve focales de la candidata. CI de código0e355ea aprobó validate/postgres, Docker real con verify completo dentro de fuente en lectura, navegador, CodeQL y Vercel Security Review;590 tests,589 aprobados,1 preparación offline solo Windows omitida en Linux. Revisión auxiliar cerró cruce de mes, límite64KB y deduplicación durable; alerta de snapshot de opt-in corregida con lectura revocable de main. Regresión adicional RED/GREEN: revocar durante lectura de rama exige reautorización inmediatamente antes de PATCH. Su SHA final requiere checks propios; no se declara CI posterior por extrapolación.
 
-NO ACTIVADO: PR253 revisable, creación de PR por Actions deshabilitada, enabled=false. Falta autorización específica de integración/permisos y relevo del heartbeat existente, verificación de regla de previews y un run externo observado. No se modificaron permisos, claves, variable cloud, SQL alojado ni automatización. Una release del plugin no demuestra servicio permanente. [Checkpoint único](CODEX_CONTINUATION.json).
+Estado previo a la autorización: PR253 revisable, creación de PR por Actions deshabilitada y opt-in apagado. La autorización del18/11 permite proceder al relevo y sus comprobaciones; integración, permisos, regla de previews y run real deben comprobarse por separado. Una release del plugin no demuestra servicio permanente. [Checkpoint único](CODEX_CONTINUATION.json).
 
 # P2 parcial · claim cancelable y resultado tardío descartado · 17/11/2026
 

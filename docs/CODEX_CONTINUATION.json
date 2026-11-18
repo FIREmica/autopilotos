@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
   "cloud_development_request": {
-    "enabled": false,
+    "enabled": true,
+    "activation_authorization": "Owner explicitly granted activation authorization in the current session on 2026-11-18: integrate PR253, enable Actions PR creation, hand over from the local six-hour heartbeat to the existing cloud workflow, retaining the previously approved USD5/month limit. This is not authority for SQL missions, production sends or auto-merge by the cloud executor.",
     "requested_on": "2026-11-17",
     "timezone": "America/Montevideo",
     "objective": "Continue bounded repository development with the Codex application closed, using the existing cloud workflow.",
     "owner_monthly_budget_usd": 5,
-    "status": "reviewable_candidate_not_activated",
+    "status": "owner_authorized_pending_integration_and_observed_run",
     "pr": "https://github.com/Victoriosas/autopilot/pull/253",
     "verified_predecessor_code_sha": "0e355ea9b61c1f493484c865a69087c22a32ed92",
     "ci_predecessor": "validate/postgres/Core/real Docker sandbox/browser/three security analyses/Vercel Security Review PASS; 590 tests,589 pass,0 fail,1 Windows-only offline-preparation skip on Linux. Final branch-write reauthorization regression requires this candidate SHA checks; no self-referential CI polling commit.",
