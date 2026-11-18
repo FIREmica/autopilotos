@@ -45,6 +45,15 @@ export function reservationRecorded(jobs) {
   return jobs.jobs.some(j=>Array.isArray(j.steps)&&j.steps.some(s=>s.name===C.reservationStep
     && s.status!=='queued'&&s.conclusion!=='skipped'));
 }
+export async function reserveCloudEvaluation(base,branch,api) {
+  const allocated=await api('git/refs','POST',{ref:'refs/heads/'+branch,sha:base});
+  if(allocated?.ref!=='refs/heads/'+branch||allocated?.object?.sha!==base)
+    throw Error('cloud_branch_reservation_unverified');
+}
+export async function advanceCloudEvaluation(base,branch,sha,api) {
+  if((await api('git/ref/heads/'+branch))?.object?.sha!==base)throw Error('cloud_branch_changed');
+  await api('git/refs/heads/'+branch,'PATCH',{sha,force:false});
+}
 async function github(route,method='GET',body) {
   if(!process.env.GH_TOKEN)throw Error('github_access_missing');
   const response=await fetch('https://api.github.com/repos/'+repo+(route?'/'+route:''),{
@@ -144,8 +153,7 @@ async function generate(out) {
   // Atomically reserve the deterministic proposal branch at the trusted base.
   // Even blocked/no_change or uncertain calls leave this durable receipt, so
   // another schedule cannot pay again for an unchanged order and source.
-  const allocated=await github('git/refs','POST',{ref:'refs/heads/'+p.branch,sha:p.base});
-  if(allocated?.object?.sha!==p.base)throw Error('cloud_branch_reservation_unverified');
+  await reserveCloudEvaluation(p.base,p.branch,github);
   await live(p.base);
   assertCloudRunMonth(current.created_at);
   const response=await fetch('https://api.openai.com/v1/responses',{
@@ -246,8 +254,7 @@ async function publish(out) {
   await save(path.join(out,'publication.json'),{branch:p.branch,sha:next.sha,state:'commit_prepared'},true);
   await live(p.base);
   if(await existingWork())throw Error('cloud_writer_present');
-  if((await github('git/ref/heads/'+p.branch))?.object?.sha!==p.base)throw Error('cloud_branch_changed');
-  await github('git/refs/heads/'+p.branch,'PATCH',{sha:next.sha,force:false});
+  await advanceCloudEvaluation(p.base,p.branch,next.sha,github);
   await live(p.base);
   const pr=await github('pulls','POST',{title:'fix: propuesta cloud acotada de '+p.order,head:p.branch,base:'main',draft:true,
     body:`Propuesta de la orden ${p.order}, base ${p.base}.\n\nUna llamada sin herramientas; nueva regresión RED y npm run verify GREEN en contenedor sin red ni secretos. Requiere revisión humana. Sin merge, despliegues, SQL ni envíos.\n\nEvidencia: https://github.com/${repo}/actions/runs/${process.env.GITHUB_RUN_ID}`});
