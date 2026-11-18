@@ -109,7 +109,7 @@ export interface MissionLedger {
   /** Optional host policy gate; checked before any claim, never selected by a task. */
   authorizeExecutor?(executor: ExecutorAdapter): Promise<void>;
   /** Explicitly authorized execution paths must reauthorize every runtime effect. */
-  authorizeEffect?(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest): Promise<readonly string[]>;
+  authorizeEffect?(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest, signal?: AbortSignal): Promise<readonly string[]>;
   /** Returns an opaque capability only after independent completion verification. */
   attestCompletion?(executor: ExecutorAdapter, context: ExecutorContext): Promise<MissionCompletionAttestation>;
   claimMission(agentId: AgentId): Promise<ExecutorContext | null>;
@@ -118,7 +118,7 @@ export interface MissionLedger {
     operationId: string,
     checkpoint: MissionCheckpoint,
   ): Promise<boolean>;
-  completeMission(context: ExecutorContext, evidence: string, attestation?: MissionCompletionAttestation): Promise<void>;
+  completeMission(context: ExecutorContext, evidence: string, attestation?: MissionCompletionAttestation, signal?: AbortSignal): Promise<void>;
   failMission(context: ExecutorContext, reasonCode: string): Promise<void>;
   savePlan?(context: ExecutorContext, proposal: PlanProposal, plannerId: string): Promise<boolean>;
   blockMission?(context: ExecutorContext, reasonCode: string): Promise<void>;

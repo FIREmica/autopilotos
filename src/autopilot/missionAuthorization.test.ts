@@ -168,6 +168,24 @@ test('policy revocation between attestation and completion prevents the ledger w
   assert.deepEqual(writes,[]);
 });
 
+test('cancellation during guarded completion authorization prevents the base ledger write',async()=>{
+  const context=terminalContext();let writes=0;
+  const base:MissionLedger={claimMission:async()=>context,saveCheckpoint:async()=>true,
+    completeMission:async()=>{writes++;},failMission:async()=>{}};
+  const controller=new AbortController();const reason=Error('guarded_completion_cancelled');
+  const guard=createMissionEffectGuard(grant(),executor,(_grant,_context,effect)=>{
+    if(effect.kind==='complete_write') return {then(resolve:(decision:{allowed:boolean;revision:number;operationId:string;permissions:readonly string[]})=>void){
+      resolve({allowed:true,revision:1,operationId:effect.operationId,permissions:[]});
+      controller.abort(reason);
+    }} as Promise<{allowed:boolean;revision:number;operationId:string;permissions:readonly string[]}>;
+    return Promise.resolve({allowed:true,revision:1,operationId:effect.operationId,permissions:[]});
+  },{verifierId:'synthetic-verifier',verify:async()=>true});
+  const ledger=createAuthorizedMissionLedger(base,executor,grant(),guard,'synthetic-verifier');
+  const token=await ledger.attestCompletion!(executor,context);
+  await assert.rejects(ledger.completeMission(context,'untrusted',token,controller.signal),error=>error===reason);
+  assert.equal(writes,0);
+});
+
 function terminalContext(): ExecutorContext {
   return {mission:{missionId:'synthetic-authorized',goal:'synthetic',goalVersion:1,planVersion:0,
     plan:[{id:'prepare',depends_on:[],task:'synthetic.prepare'}],restrictions:[],completionCriteria:[],objective:structuredClone(objective)},

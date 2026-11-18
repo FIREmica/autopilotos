@@ -1682,3 +1682,61 @@ Acción: se detectó que el JSON aún dejaba pendiente verificar ese hijo y sinc
 Límites y operaciones: PR #240 no fusionada; preview Vercel no equivale a producción. No se ejecutó misión, claim, SQL local/alojado, dispatch, envío, merge, deploy ni gasto; no hay operación externa incierta que conciliar. P1 sigue parcial porque autorización/revocación/verificación son callbacks in-process; no acreditan identidad remota ni revocación SQL atómica. P2 inactiva. Sin costo nuevo observado. Rollback: revertir solo este cambio documental, conservar la candidata, otros worktrees y el checkout local.
 
 Bloqueo y siguiente misión exacta: completar la verificación del SHA hijo que contenga este checkpoint y actualizar el body de la misma PR con esos resultados; mantener draft. Luego esperar revisión humana. Si no hay feedback ni cambio material, registrar SIN CAMBIOS/BLOQUEADO sin commits rutinarios. Si llega feedback, resolverlo en PR #240 y revisar CI exacta. Sin autorización para merge, despliegue, SQL alojado, CLI/scheduler, efectos externos o P2.
+
+## 2026-11-17 23:01 UTC - P2: cancelar antes de autorizar completion ledger write
+
+**Estado:** continúa solo ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. GitHub confirma main 090486a91dd67f4b2855df4349b32077908f0e80 con PR #250 y #251 integradas. PR251 head c1f1068ed1c0457e233988bcd8b8d9a0da6ad004; reviews y threads humanos vacíos al consultar, integración observada en main bajo la autorización vigente. Checks exactos de ese head: validate/postgres SUCCESS en runs 44029983256 y 44030019752; CodeQL tres análisis SUCCESS en run 44030015739; public-browser-smoke SUCCESS 44030019767; Vercel y Preview Comments SUCCESS. Supabase Preview SKIPPED; no acredita SQL alojado.
+
+**Cambio local en worktree exclusivo basado en 090486a91dd67f4b2855df4349b32077908f0e80:** se propagó AbortSignal desde PersistentMissionOrchestrator a autorización de efectos y al wrapper de completion; la guarda detiene el callback al abortar y el runtime y ledger protegido vuelven a comprobar la señal justo antes del writer base. Tests RED/GREEN cubren abort inmediatamente después de la concesión de la segunda autorización y que el writer base no se invoque; la regresión de wrapper usa solo un ledger simulado. No cambia SQL/lease/fencing y no demuestra cancelación de un write ya admitido. Archivos: src/autopilot/executorAdapter.ts, src/autopilot/missionAuthorization.ts, src/autopilot/missionAuthorization.test.ts, src/autopilot/missionRuntime.ts, src/autopilot/missionRuntime.test.ts.
+
+**Verificación local:** la primera regresión falló antes de la lógica: runtime resolvió y el writer avanzó cuando el abort se ordenó entre el grant asíncrono y la continuación. Tras el cambio, focal 43/43; npm run verify exit 0: 583/583, 0 fallos/omisiones, typecheck, 14 skills, Node/Vercel builds y compiled API smoke aprobados; git diff --check limpio. No hubo SQL local ni alojado, claim, dispatch, misión de ledger, envío, despliegue o gasto. CI del nuevo candidato aún pendiente.
+
+**Límites:** P2 permanece parcial. La cancelación impide admitir una escritura de completion después del abort; no revierte ni cancela una llamada SQL que ya comenzó. PR251 no tenía review humana al consultarla; no se infiere Vercel Preview como producción. Sin P3, cloud dispatch, hosted SQL, operación continua ni cambios al heartbeat.
+
+**Bloqueo preservado:** C:\autopilot-worktrees\p2-cancel-reconciliation-20261117 sigue sucio en cinco archivos de fixtures/SQL. El puerto 28447 ya no escucha, pero se preservan directorio y resultados porque una terminación anterior fue incierta; no se reutilizaron esas modificaciones.
+
+**Siguiente misión exacta:** abrir una sola PR revisable para este cambio desde main 090486a91dd67f4b2855df4349b32077908f0e80, esperar y revisar validate/postgres/CodeQL/security/public-browser/Vercel del SHA final, sin considerar Supabase Preview SKIPPED como éxito alojado. Después inspeccionar sin editar el worktree nativo sucio y reconciliar proceso, artefacto, descendientes y resultado antes de cualquier repetición. Mantener P2 parcial; sin merge automático, deploy, SQL alojado ni P3.
+
+
+## 2026-11-17 23:09 UTC - PR252 y CI exacta en curso
+
+PR #252 abierta desde `codex/p2-cancel-ledger-boundary-20261117` al main `090486a91dd67f4b2855df4349b32077908f0e80`; commit inicial `63e3dfada088ad6d8fbec74837d0c48a35c418e1`. No se fusionó ni desplegó. CI del SHA: validate y postgres siguen `in_progress`; CodeQL y public-browser-smoke siguen `in_progress`; Vercel y Vercel Preview Comments `success`; Supabase Preview `skipped` (no es prueba alojada). Sin revisiones ni threads al momento de crearla. PR enlazada: https://github.com/Victoriosas/autopilot/pull/252.
+
+La continuidad se actualiza en este mismo candidato: orden P2 sigue parcial; siguiente paso verificar checks contra el head real más reciente de #252, luego inspeccionar de solo lectura el worktree nativo sucio de cancelación/descendientes y reconciliar el resultado previo antes de cualquier repetición. No merge/deploy/SQL alojado/dispatch/P3.
+
+
+## 2026-11-17 23:10 UTC - reconciliación de head de PR252
+
+El SHA 001497244c5bde1d6c5554a9e4db4fed544cd0ad fue el destino exacto de la última consulta de CI: validate/postgres y CodeQL/browser seguían en curso; Vercel, Security Review y Preview Comments pasaron; Supabase Preview quedó skipped. Después se creó este commit de continuidad, por lo que el head actual de #252 debe resolverse en vivo antes de atribuirle checks. PR252 continúa abierta, sin merge/deploy ni revisión humana observada.
+
+La siguiente misión sigue en la orden P2 existente: consultar el SHA actual y checks exactos de #252; una vez terminales, lectura únicamente del worktree nativo preservado y reconciliación de proceso/resultado. No repetir efectos inciertos ni tocar ese árbol.
+
+
+## 2026-11-17 23:18 UTC - CI #252 aprobada y reconciliación nativa bloqueada
+
+PR #252, abierta/no fusionada/no desplegada, main base `090486a91dd67f4b2855df4349b32077908f0e80`. En el SHA exacto `a922107fde44dbeb5c3adab8cafe347dc6f484c7`, validate, postgres, CodeQL (actions/javascript-typescript/python), public-browser-smoke, Vercel Security Review, Vercel y Vercel Preview Comments quedaron SUCCESS. Supabase Preview SKIPPED, sin evidencia alojada. Reviews y threads humanos vacíos al consultar. Este registro crea otro commit solo documental; el siguiente ciclo debe resolver el head vivo nuevo antes de atribuirle estos checks.
+
+Auditoría únicamente de lectura del worktree preservado `p2-cancel-reconciliation-20261117`: sigue sucio en cinco archivos (dos SQL staged locales, dos fixtures de proceso y el test de operador); el diff implementa una cancelación nativa de recuperación, limpieza de descendiente y verificaciones de checkpoint/auditoría/escrituras tardías. No se encontró un proceso relacionado ni listener en puerto 28447. Tampoco se encontró recibo terminal ni salida persistida del test; por tanto el efecto previo queda sin clasificar. No se repitió, detuvo ni modificó nada.
+
+Estado P2 sigue parcial. La siguiente acción exacta es recuperar la salida/recibo original de ese test; si no existe, registrar la dependencia humana/evidencia faltante y mantener el worktree intacto. No reiniciar operación incierta por inferencia. Sin SQL alojado, misión/claim/dispatch, merge, deploy, P3 ni cambios de automatización.
+
+
+## 2026-11-17 23:30 UTC - CI completo en PR252; ejecución nativa sin recibo
+
+En PR #252, el head `bd7cf7287a28c95eab9c58bfc245bce30e4e7cdd` (base main `090486a91dd67f4b2855df4349b32077908f0e80`) terminó con validate, postgres, los tres análisis CodeQL, public-browser-smoke, Vercel Security Review, Vercel y Vercel Preview Comments en SUCCESS. Supabase Preview quedó SKIPPED y no prueba integración alojada. La PR continúa abierta, sin merge ni deploy; reviews y threads vacíos. Este commit de continuidad es documental y mueve el head, así que la próxima lectura debe resolver el SHA vivo y CI exacta antes de integrar.
+
+Lectura del trabajo preservado `p2-cancel-reconciliation-20261117`: cinco archivos modificados (dos SQL staged locales, dos fixtures de proceso y el test de operador). El diff implementa cancelación nativa de recuperación, cierre del descendiente y comprobaciones de checkpoint/auditoría/escrituras tardías. No se halló proceso asociado ni listener en 28447. El checkout y el extracto reciente de continuidad revisado no contienen recibo/salida terminal de esa ejecución; el resultado previo queda sin clasificar. No se ejecutó, detuvo ni alteró el trabajo.
+
+Próximo paso: recuperar el output/recibo original de esa operación desde su sesión o artefacto. Si no existe, mantener la verificación bloqueada y el worktree intacto; no repetir efectos inciertos. P2 sigue parcial, sin P3, hosted SQL, dispatch, producción, merge ni cambios a la automatización.
+
+## 2026-11-17 23:51 UTC - continuidad del complemento y CI exacta
+
+PR #252 sigue abierta, sin fusionar ni desplegar, base main `090486a91dd67f4b2855df4349b32077908f0e80`. En el head exacto `ef9691d414de385d748b2c60b52d6c84ec3732d3`, `validate`, `postgres`, tres análisis CodeQL, `public-browser-smoke`, Vercel Security Review, Vercel y Preview Comments terminaron SUCCESS. Supabase Preview terminó SKIPPED; no es prueba de integración alojada. Reviews y threads humanos siguen vacíos al consultar.
+
+El trabajo local `p2-cancel-reconciliation-20261117` permanece sin cambios en cinco archivos; no se encontró proceso ni listener en 28447. Tampoco se recuperó un recibo/salida terminal del intento previo en el checkout revisado o en el hilo relacionado consultado. Resultado previo sin clasificar; no se repitió ni alteró.
+
+Corrección solicitada del complemento: se actualizó el release privado Autopilot Autodesarrollo a 0.4.3 (`pluginrel_6afce8046fe48191a7a62d9a8bc1b6f1`). RED reprodujo que `[AUTOPILOT_BLOCKED]` terminaba la cadena antes de reevaluar la orden. GREEN: ese marcador ahora permite una evaluación limitada de pasos independientes de la misma orden; `[AUTOPILOT_ORDER_BLOCKED]`, `[AUTOPILOT_PAUSED]`, `[AUTOPILOT_CANCELLED]` y `[AUTOPILOT_DONE]` terminan. Se conserva el tope de cinco continuaciones/90 minutos y opt-in del hook local. Package, hooks, cancelación y concurrencia: PASS; concurrencia 15/15. El hook no ejecuta otro modelo ni prueba activación en la sesión actual.
+
+Se actualizó el prompt de la automatización existente `victoriosa-autopilot-6h` para aplicar explícitamente `autopilot-recuperar` y `autopilot-ciclo`, y continuar dentro de la orden cuando exista una acción independiente segura. Se verificó que ID, estado ACTIVE, regla de seis horas y destino permanecen iguales. No se creó otro scheduler. No hay evidencia de un nuevo run por esta modificación.
+
+Siguiente paso: recuperar el recibo/output original del intento nativo. Si no existe, mantener el worktree intacto y comprobar si el checkpoint permite una tarea P2 independiente y expresamente autorizada. Consultar primero head y checks exactos de #252 después de este commit documental; no integrar automáticamente. P2 continúa parcial; sin P3, hosted SQL, dispatch o producción.
