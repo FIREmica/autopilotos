@@ -1,3 +1,11 @@
+# Cloud · límite externo HTTP429 y fallback restaurado · 18/11/2026
+
+PR256 integrada en `0dbffea0836f6825920130ce951e1e05266443f0`, con exact validate/postgres/CodeQL/security PASS y Supabase Preview SKIPPED. Diagnóstico local 13/13 y verify completo PASS. [Segundo run externo44243596109](https://github.com/Victoriosas/autopilot/actions/runs/44243596109): prepare PASS, inferencia rechazada con HTTP429, code unclassified y param null. Esto no distingue por sí solo cuota de uso de límite de solicitudes. Sin candidata, pruebas de candidata ni PR generada. No se acredita inferencia funcional ni autodesarrollo cloud operativo.
+
+Dos intentos externos terminados; se conservan USD0.08 de reservas, gasto real no certificado, y ambas ramas deterministas de reconciliación. `AUTOPILOT_CLOUD_SCHEDULE_ENABLED=false` verificado tras el segundo fallo. Workflow activo pero sin admisión de desarrollo. Se restauró el heartbeat local existente a ACTIVE usando automation_update oficial, después de verificar que no quedaba intento cloud en curso: ID, nombre, prompt, cadence y thread idénticos al snapshot previo. No dos supervisores activos ni nueva automatización. La continuidad con Codex cerrado sigue BLOQUEADA por acceso/cuota de API, no por falta de autorización del propietario.
+
+Siguiente acción: el propietario confirma acceso/cuota utilizable del proyecto de la clave existente; después recuperar main/PR/estado, pausar de nuevo el mismo heartbeat y admitir un intento acotado dentro de US$5/mes. No repetir las dos bases reservadas, no borrar sus ramas ni inferir un reembolso. Conservar orden P2, evidencia nativa pendiente y todas las restricciones de producción/SQL/envíos. No se publican datos privados de cuenta o facturación.
+
 # Cloud · primer run externo y rechazo de inferencia · 18/11/2026
 
 Autorización de activación ya concedida. PR253/255/254 integradas; main `40580ae325a56bc3eabee4223646b36019569425` con Core `44241945158` SUCCESS y CI exacto PR254 (incluido navegador y seguridad) PASS. Vercel informa cero previews para los pushes reales de la rama cloud de reconciliación; se conserva main:false y todos los bloqueos anteriores. Actions permite crear PR con default read; heartbeat local PAUSED con identidad/prompt/cadencia/destino conservados.
