@@ -150,6 +150,7 @@ async function container(candidate,args,name) {
   await mkdir(path.join(process.cwd(),'node_modules','.vite-temp'),{recursive:true});
   try {
     return await command('docker',['run','--name',name,'--rm','--network','none','--cap-drop','ALL',
+      '--user',`${process.getuid()}:${process.getgid()}`,'--env','HOME=/tmp','--env','npm_config_cache=/tmp/npm-cache',
       '--security-opt','no-new-privileges','--pids-limit','256','--memory','4g','--cpus','2',
       '--mount',`type=bind,source=${candidate},target=/workspace,readonly`,
       '--mount',`type=bind,source=${path.join(process.cwd(),'node_modules')},target=/workspace/node_modules,readonly`,
@@ -234,8 +235,12 @@ async function publish(out) {
     body:`Propuesta de la orden ${p.order}, base ${p.base}.\n\nUna llamada sin herramientas; nueva regresión RED y npm run verify GREEN en contenedor sin red ni secretos. Requiere revisión humana. Sin merge, despliegues, SQL ni envíos.\n\nEvidencia: https://github.com/${repo}/actions/runs/${process.env.GITHUB_RUN_ID}`});
   const confirmed=await github('pulls/'+pr.number);
   if(confirmed?.head?.sha!==next.sha)throw Error('cloud_publication_unverified');
+  // Events created with GITHUB_TOKEN do not start normal push/PR workflows.
+  // An explicit dispatch runs the existing trusted Core CI for the exact branch.
+  await live(p.base);
+  await github('actions/workflows/autopilot-core-v4.yml/dispatches','POST',{ref:p.branch});
   const result=await json(path.join(out,'result.json'));
-  await save(path.join(out,'result.json'),{...result,state:'draft_pr_verified',pr:confirmed.html_url,sha:next.sha});
+  await save(path.join(out,'result.json'),{...result,state:'draft_pr_verified_ci_requested',pr:confirmed.html_url,sha:next.sha});
 }
 async function main() {
   process.once('SIGINT',()=>stop.abort());process.once('SIGTERM',()=>stop.abort());
