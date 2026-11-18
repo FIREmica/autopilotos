@@ -23,7 +23,7 @@ const command = async (file,args,cwd=process.cwd(),timeout=15000) => {
   // diagnostics there; production callbacks keep raw subprocess errors private.
   if(process.argv[2]==='sandbox-smoke'&&file==='docker'){
     try{return (await promisify(execFile)(file,args,{cwd,timeout,signal:signal(),env:cleanEnv(),maxBuffer:65536})).stdout.trim();}
-    catch(error){console.error('sandbox_docker_diagnostic: '+String(error.stderr??'').slice(-2500));throw Error('sandbox_docker_failed');}
+    catch(error){console.error('sandbox_docker_diagnostic: '+String(error.stderr??'').slice(-2500));console.error(String(error.stdout??'').slice(-4000));throw Error('sandbox_docker_failed');}
   }
   return (await processes.exec(file,args,{cwd,timeout,signal:signal(),env:cleanEnv(),operation:'cloud_development_host'})).stdout.trim();
 };
@@ -55,11 +55,11 @@ async function live(base) {
   signal().throwIfAborted();
   if(process.env.GITHUB_REPOSITORY!==repo||process.env.GITHUB_REF!=='refs/heads/main'
     ||process.env.GITHUB_RUN_ATTEMPT!=='1'||!/^\d+$/.test(process.env.GITHUB_RUN_ID??''))throw Error('cloud_host_unverified');
-  const [enabled,workflow,head,metadata,run]=await Promise.all([
-    github('actions/variables/AUTOPILOT_CLOUD_ENABLED'),github('actions/workflows/plan-cloud.yml'),
+  const [workflow,head,metadata,run]=await Promise.all([
+    github('actions/workflows/plan-cloud.yml'),
     github('git/ref/heads/main'),github(''),github('actions/runs/'+process.env.GITHUB_RUN_ID)
   ]);
-  if(enabled?.value!=='true'||workflow?.state!=='active'||head?.object?.sha!==base
+  if(process.env.AUTOPILOT_CLOUD_ENABLED!=='true'||workflow?.state!=='active'||head?.object?.sha!==base
     ||metadata?.private!==false||run?.head_sha!==base||run?.head_repository?.full_name!==repo
     ||!['schedule','workflow_dispatch'].includes(run?.event)||run?.run_attempt!==1
     ||run?.workflow_id!==workflow?.id||run?.status!=='in_progress')throw Error('cloud_policy_denied');
