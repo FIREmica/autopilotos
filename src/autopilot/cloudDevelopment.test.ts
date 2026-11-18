@@ -30,6 +30,8 @@ test('cloud candidate is limited to host-supplied source fragments and one new r
   }
   assert.throws(()=>validateCloudProposal(proposal(),{}));
   assert.throws(()=>validateCloudProposal(proposal(),{'src/autopilot/sample.ts':source+source}));
+  assert.throws(()=>validateCloudProposal(proposal(),{'src/autopilot/sample.ts':source+' '.repeat(65536)}));
+  assert.throws(()=>validateCloudProposal(proposal(),{'src/autopilot/sample.ts':source+' '.repeat(65536-Buffer.byteLength(source))}));
   const bad=proposal();bad.regression.path='src/autopilot/sample.test.ts';assert.throws(()=>validateCloudProposal(bad,sources));
   assert.throws(()=>validateCloudProposal({...proposal(),command:'curl secret'},sources));
   assert.throws(()=>validateCloudProposal({...proposal(),status:'blocked'},sources));

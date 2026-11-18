@@ -50,7 +50,9 @@ export function validateCloudProposal(value: unknown, sources: Record<string, st
     if (!keys(edit, ['path','before','after']) || !cloudSourceAllowed(edit.path)
       || typeof sources[edit.path] !== 'string' || typeof edit.before !== 'string' || edit.before.length < 8
       || typeof edit.after !== 'string' || edit.before === edit.after
-      || Buffer.byteLength(edit.after) > 8000 || sources[edit.path].split(edit.before).length !== 2)
+      || Buffer.byteLength(edit.after) > 8000 || sources[edit.path].split(edit.before).length !== 2
+      || Buffer.byteLength(sources[edit.path]) > 65536
+      || Buffer.byteLength(sources[edit.path].replace(edit.before,edit.after)) > 65536)
       throw Error('cloud_edit_out_of_scope');
   }
   return p;

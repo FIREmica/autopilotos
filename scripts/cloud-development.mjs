@@ -103,7 +103,7 @@ async function prepare(out) {
   if(!Array.isArray(files))throw Error('cloud_scope_unverified');
   const sources={};
   for(const file of files.filter(cloudSourceAllowed).slice(0,2)){
-    const info=await lstat(file);if(!info.isFile()||info.isSymbolicLink()||info.size>100000)throw Error('cloud_source_unverified');
+    const info=await lstat(file);if(!info.isFile()||info.isSymbolicLink()||info.size>65536)throw Error('cloud_source_unverified');
     const source=await readFile(file,'utf8');
     // Excerpts are explicitly incomplete. The model must block if insufficient.
     sources[file]=source;
@@ -140,6 +140,12 @@ async function generate(out) {
   // admitted/uncertain model call, even after HTTP failure or process restart.
   await save(path.join(out,'inference-reserved.json'),{run:current.id,...reservation},true);
   if(!process.env.OPENAI_API_KEY)throw Error('cloud_model_access_missing');
+  await live(p.base);
+  // Atomically reserve the deterministic proposal branch at the trusted base.
+  // Even blocked/no_change or uncertain calls leave this durable receipt, so
+  // another schedule cannot pay again for an unchanged order and source.
+  const allocated=await github('git/refs','POST',{ref:'refs/heads/'+p.branch,sha:p.base});
+  if(allocated?.object?.sha!==p.base)throw Error('cloud_branch_reservation_unverified');
   await live(p.base);
   assertCloudRunMonth(current.created_at);
   const response=await fetch('https://api.openai.com/v1/responses',{
@@ -224,7 +230,8 @@ async function publish(out) {
   if(v.base!==p.base||v.branch!==p.branch||v.order!==p.order||v.red!==true||v.verify!==true
     ||JSON.stringify(v.files)!==JSON.stringify(expected)||Object.entries(v.files).some(([k,s])=>v.hashes[k]!==hash(s)))throw Error('cloud_verification_untrusted');
   await live(p.base);
-  if(await existingWork()||await github('git/ref/heads/'+p.branch))throw Error('cloud_publication_requires_reconciliation');
+  const reservedBranch=await github('git/ref/heads/'+p.branch);
+  if(await existingWork()||reservedBranch?.object?.sha!==p.base)throw Error('cloud_publication_requires_reconciliation');
   const commit=await github('git/commits/'+p.base);
   const tree=[];
   for(const [file,source] of Object.entries(v.files)){
@@ -239,7 +246,8 @@ async function publish(out) {
   await save(path.join(out,'publication.json'),{branch:p.branch,sha:next.sha,state:'commit_prepared'},true);
   await live(p.base);
   if(await existingWork())throw Error('cloud_writer_present');
-  await github('git/refs','POST',{ref:'refs/heads/'+p.branch,sha:next.sha});
+  if((await github('git/ref/heads/'+p.branch))?.object?.sha!==p.base)throw Error('cloud_branch_changed');
+  await github('git/refs/heads/'+p.branch,'PATCH',{sha:next.sha,force:false});
   await live(p.base);
   const pr=await github('pulls','POST',{title:'fix: propuesta cloud acotada de '+p.order,head:p.branch,base:'main',draft:true,
     body:`Propuesta de la orden ${p.order}, base ${p.base}.\n\nUna llamada sin herramientas; nueva regresión RED y npm run verify GREEN en contenedor sin red ni secretos. Requiere revisión humana. Sin merge, despliegues, SQL ni envíos.\n\nEvidencia: https://github.com/${repo}/actions/runs/${process.env.GITHUB_RUN_ID}`});
