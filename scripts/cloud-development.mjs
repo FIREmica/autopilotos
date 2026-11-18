@@ -136,6 +136,9 @@ async function generate(out) {
   if(validated.status==='change')await writeFile(process.env.GITHUB_OUTPUT??path.join(out,'outputs'),'change=true\n',{flag:'a'});
 }
 async function container(candidate,args,name) {
+  // Docker cannot create nested mount targets underneath a read-only bind.
+  for(const folder of ['dist','dist-node','node_modules'])await mkdir(path.join(candidate,folder),{recursive:true});
+  await mkdir(path.join(process.cwd(),'node_modules','.vite-temp'),{recursive:true});
   try {
     return await command('docker',['run','--name',name,'--rm','--network','none','--cap-drop','ALL',
       '--security-opt','no-new-privileges','--pids-limit','256','--memory','4g','--cpus','2',
