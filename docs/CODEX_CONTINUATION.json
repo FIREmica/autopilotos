@@ -1,5 +1,29 @@
 {
   "schema_version": 1,
+  "cloud_development_request": {
+    "enabled": true,
+    "activation_authorization": "Owner explicitly granted activation authorization in the current session on 2026-11-18: integrate PR253, enable Actions PR creation, hand over from the local six-hour heartbeat to the existing cloud workflow, retaining the previously approved USD5/month limit. This is not authority for SQL missions, production sends or auto-merge by the cloud executor.",
+    "requested_on": "2026-11-17",
+    "timezone": "America/Montevideo",
+    "objective": "Continue bounded repository development with the Codex application closed, using the existing cloud workflow.",
+    "owner_monthly_budget_usd": 5,
+    "status": "owner_authorized_pending_integration_and_observed_run",
+    "pr": "https://github.com/Victoriosas/autopilot/pull/253",
+    "verified_predecessor_code_sha": "0e355ea9b61c1f493484c865a69087c22a32ed92",
+    "ci_predecessor": "validate/postgres/Core/real Docker sandbox/browser/three security analyses/Vercel Security Review PASS; 590 tests,589 pass,0 fail,1 Windows-only offline-preparation skip on Linux. Final branch-write reauthorization regression requires this candidate SHA checks; no self-referential CI polling commit.",
+    "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "branch": "codex/cloud-development-adapter-20261117",
+    "report": "docs/CLOUD_DEVELOPMENT_ADAPTER_20261117.md",
+    "local_verification": "Prior full local verify589/589,0 fail/skip,types/builds/API PASS; nine focused tests cover live revocation, budget/period, scope, Responses parsing and durable branch reservation. RED regression for revoke during branch read, then GREEN reauthorization immediately before PATCH.",
+    "authorization_scope": "Owner requests cloud continuity and explicitly authorizes up to USD5/month for this executor. No auto-merge, hosted SQL, production, sends or phase closure. Existing P2 order and pending PR252 preserved.",
+    "activation_gates": [
+      "Exact candidate validate/postgres and real Docker validation; review and authorized integration.",
+      "Explicit authorization to enable GitHub Actions PR creation, currently disabled by platform setting.",
+      "Pause existing local development heartbeat before cloud opt-in; no duplicate active supervisor.",
+      "Enable cloud opt-in and observe one first-attempt run before claiming external execution."
+    ],
+    "runtime_boundary": "Repository proposal lane only; not an expansion of synthetic SQL mission grants or proof of cross-host recovery."
+  },
   "updated_at": "2026-11-17T06:15:57.910Z",
   "execution_id": "p2-claim-cancellation-bound-20261117",
   "repository": {
