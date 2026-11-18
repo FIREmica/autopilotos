@@ -37,9 +37,12 @@ test('unchanged evaluations cannot reserve twice and publication cannot replace 
   await assert.rejects(()=>reserveCloudEvaluation(base,branch,api),/already_exists/);
   assert.equal(head,base); // blocked/no_change leaves the same durable receipt.
   head='d'.repeat(40);
-  await assert.rejects(()=>advanceCloudEvaluation(base,branch,next,api),/branch_changed/);
+  await assert.rejects(()=>advanceCloudEvaluation(base,branch,next,api,async()=>{}),/branch_changed/);
   assert.equal(operations.filter(o=>o.method==='PATCH').length,0);
-  head=base;await advanceCloudEvaluation(base,branch,next,api);assert.equal(head,next);
+  head=base;await advanceCloudEvaluation(base,branch,next,api,async()=>{});assert.equal(head,next);
+  head=base;const before=operations.filter(o=>o.method==='PATCH').length;
+  await assert.rejects(()=>advanceCloudEvaluation(base,branch,next,api,async()=>{throw Error('revoked_during_branch_read');}),/revoked/);
+  assert.equal(operations.filter(o=>o.method==='PATCH').length,before);
 });
 test('failed/cancelled/uncertain first attempts consume their reservation, skipped steps do not',()=>{
   const jobs=step=>({total_count:1,jobs:[{steps:[{name:C.reservationStep,...step}]}]});

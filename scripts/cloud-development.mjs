@@ -50,8 +50,12 @@ export async function reserveCloudEvaluation(base,branch,api) {
   if(allocated?.ref!=='refs/heads/'+branch||allocated?.object?.sha!==base)
     throw Error('cloud_branch_reservation_unverified');
 }
-export async function advanceCloudEvaluation(base,branch,sha,api) {
+export async function advanceCloudEvaluation(base,branch,sha,api,authorize) {
+  if(typeof authorize!=='function')throw Error('cloud_live_authorization_required');
   if((await api('git/ref/heads/'+branch))?.object?.sha!==base)throw Error('cloud_branch_changed');
+  // The branch read can await while the owner revokes. Reauthorize after it,
+  // immediately before admitting the write, not merely before the read.
+  await authorize();
   await api('git/refs/heads/'+branch,'PATCH',{sha,force:false});
 }
 export async function requireLiveCloudOptIn(api) {
@@ -266,7 +270,7 @@ async function publish(out) {
   await save(path.join(out,'publication.json'),{branch:p.branch,sha:next.sha,state:'commit_prepared'},true);
   await live(p.base);
   if(await existingWork())throw Error('cloud_writer_present');
-  await advanceCloudEvaluation(p.base,p.branch,next.sha,github);
+  await advanceCloudEvaluation(p.base,p.branch,next.sha,github,()=>live(p.base));
   await live(p.base);
   const pr=await github('pulls','POST',{title:'fix: propuesta cloud acotada de '+p.order,head:p.branch,base:'main',draft:true,
     body:`Propuesta de la orden ${p.order}, base ${p.base}.\n\nUna llamada sin herramientas; nueva regresión RED y npm run verify GREEN en contenedor sin red ni secretos. Requiere revisión humana. Sin merge, despliegues, SQL ni envíos.\n\nEvidencia: https://github.com/${repo}/actions/runs/${process.env.GITHUB_RUN_ID}`});
