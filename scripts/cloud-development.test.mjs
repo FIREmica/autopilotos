@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation, requireLiveCloudOptIn } from './cloud-development.mjs';
+import { montevideoMonthStart, reservationRecorded, assertCloudRunMonth, reserveCloudEvaluation, advanceCloudEvaluation, requireLiveCloudOptIn, github } from './cloud-development.mjs';
 import { CLOUD_DEVELOPMENT as C } from '../src/autopilot/cloudDevelopment.ts';
 test('monthly allowance uses the owner timezone rather than resetting three hours early',()=>{
   assert.equal(montevideoMonthStart(new Date('2026-12-01T02:59:59Z')),'2026-11-01T03:00:00.000Z');
@@ -53,4 +53,48 @@ test('failed/cancelled/uncertain first attempts consume their reservation, skipp
   assert.throws(()=>reservationRecorded({total_count:101,jobs:[]}),/unverified/);
   assert.throws(()=>reservationRecorded(null),/unverified/);
   assert.throws(()=>reservationRecorded({total_count:1,jobs:[{}]}),/unverified/);
+});
+
+test('every GitHub write rereads live consent after intervening reads and fails closed',async t=>{
+  const token=process.env.GH_TOKEN;
+  process.env.GH_TOKEN='synthetic-test-only';
+  t.after(()=>{if(token===undefined)delete process.env.GH_TOKEN;else process.env.GH_TOKEN=token;});
+  let enabled=true,unavailable=false,policyReads=0;
+  const writes=[];
+  t.mock.method(globalThis,'fetch',async(url,options)=>{
+    const route=String(url).split('/repos/'+C.repository+'/')[1];
+    if(route==='contents/docs/CODEX_CONTINUATION.json?ref=main'){
+      policyReads++;
+      if(unavailable)return {ok:false,status:403};
+      return {ok:true,status:200,json:async()=>({encoding:'base64',content:Buffer.from(JSON.stringify({
+        cloud_development_request:{enabled,owner_monthly_budget_usd:5}
+      })).toString('base64')})};
+    }
+    if(options.method==='GET'){
+      // Consent can change while an unrelated GitHub read is pending.
+      enabled=false;
+      return {ok:true,status:200,json:async()=>({})};
+    }
+    writes.push({route,method:options.method});
+    return {ok:true,status:200,json:async()=>({})};
+  });
+  const effects=[['git/refs','POST'],['git/blobs','POST'],['git/trees','POST'],
+    ['git/commits','POST'],['git/refs/heads/codex/cloud-test','PATCH'],
+    ['pulls','POST'],['actions/workflows/autopilot-core-v4.yml/dispatches','POST']];
+  for(const [route,method] of effects){
+    enabled=true;
+    await requireLiveCloudOptIn(github); // earlier live()/prepare admission
+    await github('pulls?state=open&per_page=100');
+    await assert.rejects(()=>github(route,method,{}),/cloud_opt_in_revoked/);
+  }
+  assert.equal(writes.length,0);
+  assert.equal(policyReads,effects.length*2);
+  enabled=true;
+  await github('git/blobs','POST',{});
+  await github('git/trees','POST',{});
+  assert.equal(writes.length,2);
+  assert.equal(policyReads,effects.length*2+2); // no cached permission between writes
+  unavailable=true;
+  await assert.rejects(()=>github('pulls','POST',{}),/github_operation_failed/);
+  assert.equal(writes.length,2);
 });

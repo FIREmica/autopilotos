@@ -1,3 +1,9 @@
+# Seguridad cloud · consentimiento en frontera de escritura · 18/11/2026
+
+Seguimiento acotado de F0, sin cambiar la orden P2 vigente. Base `a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b`: la lectura revocable del checkpoint de main ya estaba integrada; persistía una ventana cuando otra lectura GitHub esperaba después de `live()`. El transporte ahora revalida el consentimiento inmediatamente antes de cada escritura GitHub, sin caché y denegando si no puede leerlo. La variable de horario sigue siendo solo admisión inicial.
+
+PROBADO con transporte HTTP simulado: regresión RED en la base (escritura admitida tras revocar); GREEN 10/10 focales tras el cambio. `npm run verify`: 593 casos, 592 aprobados, 1 omitido por plataforma, 0 fallos; tipos, skills, builds Node/Vercel y smoke de APIs compiladas aprobados. CI del SHA publicado pendiente. Cubre reserva de rama, blobs, árboles, commits, avance de ref, PR y dispatch; cero escrituras tras revocación y denegación ante fallo de lectura. No certifica ejecución remota ni atomicidad lectura/escritura; un efecto ya admitido no se revierte. Sin activar/cancelar runs, gastos de IA, merge, despliegue, SQL ni envíos.
+
 # Autodesarrollo cloud solicitado · candidata acotada · 17/11/2026
 
 Actualización de autorización ·18/11/2026: el propietario concedió expresamente la activación preparada de PR253, permiso de Actions para crear PR y relevo del heartbeat local por la entrada cloud de seis horas, manteniendo US$5/mes. Se declara enabled=true en la candidata; solo será efectivo tras integración y admisión del horario. No se autoriza al ejecutor cloud a aprobar/fusionar PR, enviar ni operar SQL alojado. Comprobar el run y las señales de parada antes de declarar operación activa.
