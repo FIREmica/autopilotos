@@ -73,7 +73,7 @@ export function parseCloudResponse(value: unknown) {
   const r = value as { status?: string; output?: { type: string; content?: { type: string; text?: string }[] }[];
     usage?: { input_tokens: number; output_tokens: number } };
   if (r.status !== 'completed' || !Array.isArray(r.output)
-    || r.output.some(o => o.type !== 'message' || !Array.isArray(o.content) || o.content.some(c => c.type !== 'output_text'))
+    || r.output.some(o => o.type !== 'reasoning' && (o.type !== 'message' || !Array.isArray(o.content) || o.content.some(c => c.type !== 'output_text')))
     || !r.usage || !Number.isSafeInteger(r.usage.input_tokens) || r.usage.input_tokens < 0
     || !Number.isSafeInteger(r.usage.output_tokens) || r.usage.output_tokens < 0
     || r.usage.input_tokens > CLOUD_DEVELOPMENT.inputBytes + 4096 || r.usage.output_tokens > CLOUD_DEVELOPMENT.outputTokens)
@@ -81,5 +81,5 @@ export function parseCloudResponse(value: unknown) {
   const observedMicrousd = Math.ceil((r.usage.input_tokens * CLOUD_DEVELOPMENT.inputMicrousdPerMillion
     + r.usage.output_tokens * CLOUD_DEVELOPMENT.outputMicrousdPerMillion) / 1_000_000);
   if (observedMicrousd > CLOUD_DEVELOPMENT.reservationMicrousd) throw Error('cloud_response_budget_exceeded');
-  return { proposal: JSON.parse(r.output.flatMap(o => o.content!.map(c => c.text ?? '')).join('')), observedMicrousd };
+  return { proposal: JSON.parse(r.output.filter(o=>o.type==='message').flatMap(o => o.content!.map(c => c.text ?? '')).join('')), observedMicrousd };
 }

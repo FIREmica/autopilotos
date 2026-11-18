@@ -37,6 +37,7 @@ test('cloud candidate is limited to host-supplied source fragments and one new r
 test('refused/incomplete/tool-bearing responses and missing usage cannot become effects',()=>{
   const valid={status:'completed',output:[{type:'message',content:[{type:'output_text',text:'{"status":"blocked"}'}]}],usage:{input_tokens:100,output_tokens:100}};
   assert.equal(parseCloudResponse(valid).observedMicrousd,525);
+  assert.equal(parseCloudResponse({...valid,output:[{type:'reasoning'},...valid.output]}).observedMicrousd,525);
   for(const bad of [{...valid,status:'incomplete'},{...valid,usage:null},{...valid,output:[{type:'function_call'}]},
     {...valid,usage:{input_tokens:100,output_tokens:4001}}])assert.throws(()=>parseCloudResponse(bad));
 });
