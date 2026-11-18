@@ -70,6 +70,17 @@ export async function requireLiveCloudOptIn(api) {
   catch{throw Error('cloud_opt_in_unavailable');}
   if(policy?.enabled!==true||policy.owner_monthly_budget_usd!==5)throw Error('cloud_opt_in_revoked');
 }
+export async function cloudInferenceRejection(response) {
+  // Never emit provider messages, request content or arbitrary error strings.
+  const codes=['invalid_api_key','insufficient_quota','model_not_found','unsupported_parameter',
+    'unsupported_value','invalid_value','rate_limit_exceeded','context_length_exceeded','missing_required_parameter'];
+  const params=['model','reasoning.effort','text.format','text.format.type','max_output_tokens','input','instructions','service_tier'];
+  let error;
+  try{error=(await response.json())?.error;}catch{}
+  return {httpStatus:Number.isInteger(response.status)&&response.status>=100&&response.status<=599?response.status:null,
+    code:codes.includes(error?.code)?error.code:'unclassified',
+    param:params.includes(error?.param)?error.param:null};
+}
 export async function github(route,method='GET',body) {
   if(!process.env.GH_TOKEN)throw Error('github_access_missing');
   // live() may be followed by other awaited reads. Check the canonical owner's
@@ -180,7 +191,13 @@ async function generate(out) {
     method:'POST',redirect:'error',signal:AbortSignal.any([signal(),AbortSignal.timeout(90000)]),
     headers:{Authorization:'Bearer '+process.env.OPENAI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(p.request)
   });
-  if(!response.ok)throw Error('cloud_inference_failed_reserved_no_retry');
+  if(!response.ok){
+    const rejection=await cloudInferenceRejection(response);
+    await save(path.join(out,'result.json'),{state:'inference_rejected_reserved_no_retry',base:p.base,order:p.order,
+      reservationMicrousd:C.reservationMicrousd,reservation,rejection});
+    console.error('cloud_inference_rejection '+JSON.stringify(rejection));
+    throw Error('cloud_inference_failed_reserved_no_retry');
+  }
   const {proposal,observedMicrousd}=parseCloudResponse(await response.json());
   const validated=validateCloudProposal(proposal,p.sources);
   await save(path.join(out,'proposal.json'),validated,true);
