@@ -33,6 +33,11 @@ export function montevideoMonthStart(now) {
   const year=Number(parts.find(p=>p.type==='year').value),month=Number(parts.find(p=>p.type==='month').value);
   return new Date(Date.UTC(year,month-1,1,3)).toISOString();
 }
+export function assertCloudRunMonth(createdAt, now=new Date()) {
+  const created=new Date(createdAt);
+  if(!Number.isFinite(created.getTime())||!Number.isFinite(now.getTime())
+    ||montevideoMonthStart(created)!==montevideoMonthStart(now))throw Error('cloud_run_month_expired');
+}
 export function reservationRecorded(jobs) {
   if(!jobs||!Array.isArray(jobs.jobs)||jobs.total_count!==jobs.jobs.length||jobs.total_count>100)
     throw Error('cloud_budget_unverified');
@@ -111,6 +116,7 @@ async function prepare(out) {
   await writeFile(process.env.GITHUB_OUTPUT??path.join(out,'outputs'),'ready=true\n',{flag:'a'});
 }
 async function budget(current) {
+  assertCloudRunMonth(current.created_at);
   const since=montevideoMonthStart(new Date(current.created_at));
   const runs=[];
   for(let page=1;page<=5;page++){
@@ -135,6 +141,7 @@ async function generate(out) {
   await save(path.join(out,'inference-reserved.json'),{run:current.id,...reservation},true);
   if(!process.env.OPENAI_API_KEY)throw Error('cloud_model_access_missing');
   await live(p.base);
+  assertCloudRunMonth(current.created_at);
   const response=await fetch('https://api.openai.com/v1/responses',{
     method:'POST',redirect:'error',signal:AbortSignal.any([signal(),AbortSignal.timeout(90000)]),
     headers:{Authorization:'Bearer '+process.env.OPENAI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(p.request)
