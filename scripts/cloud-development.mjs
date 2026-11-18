@@ -85,6 +85,9 @@ async function prepare(out) {
   await live(base);
   if(await existingWork()){await save(path.join(out,'result.json'),{state:'waiting_for_existing_pr',base});return;}
   const checkpoint=await json('docs/CODEX_CONTINUATION.json');
+  const vercel=await json('vercel.json');
+  if(JSON.stringify(vercel.git?.deploymentEnabled)!==JSON.stringify({'codex/cloud-*':false}))
+    throw Error('cloud_preview_policy_unverified');
   const order=checkpoint.current_order;
   const objective=checkpoint.next_mission?.objective;
   if(!order||!/^ORD-[A-Za-z0-9-]{1,95}$/.test(order.id)||order.phase!=='F0'||typeof objective!=='string'
@@ -154,8 +157,8 @@ async function container(candidate,args,name) {
       '--security-opt','no-new-privileges','--pids-limit','256','--memory','4g','--cpus','2',
       '--mount',`type=bind,source=${candidate},target=/workspace,readonly`,
       '--mount',`type=bind,source=${path.join(process.cwd(),'node_modules')},target=/workspace/node_modules,readonly`,
-      '--tmpfs','/workspace/dist:rw,size=512m','--tmpfs','/workspace/dist-node:rw,size=512m',
-      '--tmpfs','/workspace/node_modules/.vite-temp:rw,size=64m',
+      '--tmpfs','/workspace/dist:rw,size=512m,mode=1777','--tmpfs','/workspace/dist-node:rw,size=512m,mode=1777',
+      '--tmpfs','/workspace/node_modules/.vite-temp:rw,size=64m,mode=1777',
       '--workdir','/workspace','node:24-bookworm',...args],process.cwd(),900000);
   } finally {
     // Only the container named for this trusted run is removed, never others.
@@ -167,7 +170,7 @@ async function sandboxSmoke(out) {
   await save(path.join(root,'package.json'),{name:'isolated-cloud-proof',private:true});
   await command('docker',['pull','node:24-bookworm'],process.cwd(),180000);
   console.log('sandbox_image_ready');
-  const probe=`const fs=require('node:fs');if(process.env.GH_TOKEN||process.env.GITHUB_TOKEN||process.env.OPENAI_API_KEY||fs.existsSync('/workspace/.git'))process.exit(2);let denied=false;try{fs.writeFileSync('/workspace/package.json','tampered')}catch(e){denied=e.code==='EROFS'||e.code==='EACCES'}if(!denied)process.exit(3);console.log('READ_ONLY_NO_CREDENTIALS');`;
+  const probe=`const fs=require('node:fs');if(process.env.GH_TOKEN||process.env.GITHUB_TOKEN||process.env.OPENAI_API_KEY||fs.existsSync('/workspace/.git'))process.exit(2);let denied=false;try{fs.writeFileSync('/workspace/package.json','tampered')}catch(e){denied=e.code==='EROFS'||e.code==='EACCES'}if(!denied)process.exit(3);for(const dir of ['dist','dist-node','node_modules/.vite-temp'])fs.writeFileSync('/workspace/'+dir+'/probe.txt','temporary output');console.log('READ_ONLY_NO_CREDENTIALS');`;
   const result=await container(root,['node','-e',probe],'autopilot-sandbox-proof-'+(process.env.GITHUB_RUN_ID??'local'));
   if(result!=='READ_ONLY_NO_CREDENTIALS')throw Error('cloud_sandbox_unverified');
   console.log('sandbox_readonly_probe_passed');

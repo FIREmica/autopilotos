@@ -10,13 +10,15 @@ Esto prepara propuestas revisables, no cierre P2 ni activación P3/P4 del motor.
 
 ## Funcionamiento
 
-1. Solo main, primer intento del run, repositorio público y variable de opt-in `AUTOPILOT_CLOUD_ENABLED=true`. Se consulta de nuevo el estado del workflow, variable y main antes de la inferencia y de cada escritura remota. Deshabilitar el workflow o la variable deniega los siguientes efectos; no revierte un efecto ya admitido.
+1. Solo main, primer intento del run, repositorio público y variable de opt-in `AUTOPILOT_CLOUD_ENABLED=true`. El opt-in se fija al iniciar el job; se consultan de nuevo el estado activo del workflow, run y main antes de inferencia y de cada escritura remota. Cambiar la variable bloquea jobs futuros; para revocar efectos de un job ya iniciado, deshabilitar y cancelar el workflow. No se revierte un efecto ya admitido.
 2. Recupera el objetivo de la orden canónica F0. Si hay una PR abierta del mismo repositorio o ya existe la rama determinista, no gasta en otra generación. Los resultados inciertos exigen reconciliar, nunca force-push o replay automático.
 3. El modelo recibe solo datos del repositorio público: objetivo y extractos de los archivos de la misión que estén dentro de la allowlist de código. Los extractos incompletos se identifican; si no permiten reproducir un defecto debe responder blocked. No recibe herramientas, secretos ni comandos para ejecutar.
 4. La respuesta es JSON de fragmentos exactos. Solo se aceptan hasta dos reemplazos únicos en archivos de código autorizados y una prueba nueva. No puede modificar tests existentes, workflow, scripts, política, checkpoint, dependencias o su propio host.
 5. El host aplica y prueba en una copia desechable. El candidato se monta **en lectura**, con dependencias en lectura, sin red, credenciales, metadatos Git, capabilities o socket Docker. Solo los directorios de compilación y temporales son escribibles. Así una prueba generada no puede alterar package.json para falsificar `npm run verify`.
 6. La regresión nueva debe producir un fallo de aserción en la base. La candidata debe superar `npm run verify`. El host revisa de nuevo el contenido exacto antes de publicar exclusivamente esos archivos mediante la API Git de GitHub.
-7. Publica una sola PR en borrador con el SHA y enlace al run. No actualiza main ni aprueba revisiones. Si se interrumpe una operación de publicación, conserva la rama/commit existente y se bloquea para reconciliar en lugar de repetirla.
+7. Publica una sola PR en borrador con el SHA y enlace al run y despacha explícitamente el Core CI existente para su rama: los eventos creados por GITHUB_TOKEN no disparan por sí solos los workflows normales. Pedir CI no significa que sus checks hayan pasado. No actualiza main ni aprueba revisiones. Si se interrumpe una operación de publicación, conserva la rama/commit existente y se bloquea para reconciliar en lugar de repetirla.
+
+El host también exige la regla `vercel.json` que deshabilita despliegues automáticos para `codex/cloud-*`. Su efecto en la integración Vercel debe comprobarse con una rama inocua tras integrar la configuración y antes de habilitar propuestas generadas; no se infiere únicamente del JSON. Las previews de otras ramas siguen su configuración habitual.
 
 El test generado no es un auditor independiente de semántica; la revisión humana de la PR sigue siendo necesaria. Tampoco se acredita exclusión global de trabajos locales no publicados: se evita compartir checkout y se conserva cualquier PR detectada.
 
