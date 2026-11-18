@@ -70,8 +70,12 @@ export async function requireLiveCloudOptIn(api) {
   catch{throw Error('cloud_opt_in_unavailable');}
   if(policy?.enabled!==true||policy.owner_monthly_budget_usd!==5)throw Error('cloud_opt_in_revoked');
 }
-async function github(route,method='GET',body) {
+export async function github(route,method='GET',body) {
   if(!process.env.GH_TOKEN)throw Error('github_access_missing');
+  // live() may be followed by other awaited reads. Check the canonical owner's
+  // consent again at the write boundary; never reuse an earlier authorization.
+  // Its GET goes through this same transport without recursively authorizing.
+  if(method!=='GET')await requireLiveCloudOptIn(github);
   const response=await fetch('https://api.github.com/repos/'+repo+(route?'/'+route:''),{
     method,redirect:'error',signal:AbortSignal.any([signal(),AbortSignal.timeout(30000)]),
     headers:{Authorization:'Bearer '+process.env.GH_TOKEN,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',
