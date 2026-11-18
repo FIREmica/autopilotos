@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { CLOUD_DEVELOPMENT as C, checkCloudBudget, cloudSourceAllowed, cloudRequest, cloudBranch,
+import { CLOUD_DEVELOPMENT as C, checkCloudBudget, cloudSourceAllowed, cloudRequest, cloudBranch, cloudPreviewPolicyAllowsProposals,
   parseCloudResponse, validateCloudProposal } from '../src/autopilot/cloudDevelopment.ts';
 import { FileAccessController } from '../src/autopilot/developmentAccess.ts';
 import { ManagedProcesses } from '../src/autopilot/managedProcesses.ts';
@@ -116,7 +116,7 @@ async function prepare(out) {
   if(await existingWork()){await save(path.join(out,'result.json'),{state:'waiting_for_existing_pr',base});return;}
   const checkpoint=await json('docs/CODEX_CONTINUATION.json');
   const vercel=await json('vercel.json');
-  if(JSON.stringify(vercel.git?.deploymentEnabled)!==JSON.stringify({'codex/cloud-*':false}))
+  if(!cloudPreviewPolicyAllowsProposals(vercel))
     throw Error('cloud_preview_policy_unverified');
   const order=checkpoint.current_order;
   const objective=checkpoint.next_mission?.objective;

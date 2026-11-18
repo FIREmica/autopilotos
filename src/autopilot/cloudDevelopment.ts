@@ -9,6 +9,16 @@ export const CLOUD_DEVELOPMENT = Object.freeze({
   reservationStep: 'Generate bounded proposal (USD 0.04 reservation)',
 });
 export type CloudRun = { id: number; attempt: number; reserved: boolean };
+export function cloudPreviewPolicyAllowsProposals(config: unknown): boolean {
+  const rules=(config as {git?:{deploymentEnabled?:unknown}}|null)?.git?.deploymentEnabled;
+  if(rules===false)return true;
+  if(!rules||typeof rules!=='object'||Array.isArray(rules)
+    ||(rules as Record<string,unknown>)['codex/cloud-*']!==false)return false;
+  // Preserve historical stops. A positive wildcard can override the negative
+  // rule in Vercel; unknown pattern overlap therefore fails closed.
+  return Object.entries(rules).every(([pattern,state])=>typeof state==='boolean'
+    &&(!state||(/^[A-Za-z0-9._/-]+$/.test(pattern)&&!pattern.startsWith('codex/cloud-'))));
+}
 export function checkCloudBudget(runs: CloudRun[], currentId: number, attempt: number) {
   if (attempt !== 1 || !Number.isSafeInteger(currentId) || currentId <= 0 || !Array.isArray(runs)
     || runs.length > 500 || new Set(runs.map(r => r.id)).size !== runs.length

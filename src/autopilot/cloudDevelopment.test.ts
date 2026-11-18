@@ -1,6 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CLOUD_DEVELOPMENT as C, checkCloudBudget, cloudBranch, cloudRequest, validateCloudProposal, parseCloudResponse } from './cloudDevelopment';
+import { readFileSync } from 'node:fs';
+import ts from 'typescript';
+import { CLOUD_DEVELOPMENT as C, checkCloudBudget, cloudBranch, cloudRequest, validateCloudProposal, parseCloudResponse, cloudPreviewPolicyAllowsProposals } from './cloudDevelopment';
+
+test('Vercel JSON has unique keys and preserves production and historical deployment stops',()=>{
+  const text=readFileSync(new URL('../../vercel.json',import.meta.url),'utf8');
+  const config=JSON.parse(text);
+  const syntax=ts.parseJsonText('vercel.json',text);
+  const visit=(node:ts.Node)=>{
+    if(ts.isObjectLiteralExpression(node)){
+      const names=node.properties.filter(ts.isPropertyAssignment).map(p=>ts.isStringLiteral(p.name)?p.name.text:p.name.getText(syntax));
+      assert.equal(new Set(names).size,names.length,'duplicate deployment configuration key');
+    }
+    ts.forEachChild(node,visit);
+  };
+  visit(syntax);
+  assert.equal(config.git.deploymentEnabled.main,false);
+  assert.equal(config.git.deploymentEnabled['codex/cloud-*'],false);
+  assert.equal(config.git.deploymentEnabled['codex/hosted-ledger-20261112'],false);
+});
+test('cloud preview gate preserves other stops and denies positive overlapping patterns',()=>{
+  const policy=rules=>({git:{deploymentEnabled:rules}});
+  assert.equal(cloudPreviewPolicyAllowsProposals(policy({'codex/cloud-*':false,main:false,'codex/old':false})),true);
+  assert.equal(cloudPreviewPolicyAllowsProposals(policy({'codex/cloud-*':false,main:true})),true);
+  assert.equal(cloudPreviewPolicyAllowsProposals(policy(false)),true);
+  for(const rules of [{main:false},{'codex/cloud-*':true},{'codex/cloud-*':false,'*':true},
+    {'codex/cloud-*':false,'codex/*':true},{'codex/cloud-*':false,'codex/cloud-other':true},true,null])
+    assert.equal(cloudPreviewPolicyAllowsProposals(policy(rules)),false);
+});
 
 test('cloud reserves before inference, includes current attempt and never reuses uncertain attempts',()=>{
   const runs = Array.from({length:125},(_,i)=>({id:i+1,attempt:1,reserved:true}));
