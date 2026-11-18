@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "codex/cloud-*": false
+    }
+  },
   "buildCommand": "npm run build:vercel",
   "outputDirectory": "dist",
   "framework": "vite",

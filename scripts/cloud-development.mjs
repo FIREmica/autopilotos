@@ -3,6 +3,8 @@ import { readFile, writeFile, mkdir, mkdtemp, lstat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { CLOUD_DEVELOPMENT as C, checkCloudBudget, cloudSourceAllowed, cloudRequest, cloudBranch,
   parseCloudResponse, validateCloudProposal } from '../src/autopilot/cloudDevelopment.ts';
 import { FileAccessController } from '../src/autopilot/developmentAccess.ts';
@@ -16,8 +18,15 @@ const stop = new AbortController();
 const processes = new ManagedProcesses();
 const signal = () => stop.signal;
 const cleanEnv = () => Object.fromEntries(['PATH','Path','SystemRoot','WINDIR','HOME','TEMP','TMP'].flatMap(k=>process.env[k]?[[k,process.env[k]]]:[]));
-const command = async (file,args,cwd=process.cwd(),timeout=15000) =>
-  (await processes.exec(file,args,{cwd,timeout,signal:signal(),env:cleanEnv(),operation:'cloud_development_host'})).stdout.trim();
+const command = async (file,args,cwd=process.cwd(),timeout=15000) => {
+  // Validation runs have no secrets/model output. Preserve bounded Docker startup
+  // diagnostics there; production callbacks keep raw subprocess errors private.
+  if(process.argv[2]==='sandbox-smoke'&&file==='docker'){
+    try{return (await promisify(execFile)(file,args,{cwd,timeout,signal:signal(),env:cleanEnv(),maxBuffer:65536})).stdout.trim();}
+    catch(error){console.error('sandbox_docker_diagnostic: '+String(error.stderr??'').slice(-2500));throw Error('sandbox_docker_failed');}
+  }
+  return (await processes.exec(file,args,{cwd,timeout,signal:signal(),env:cleanEnv(),operation:'cloud_development_host'})).stdout.trim();
+};
 
 export function montevideoMonthStart(now) {
   const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Montevideo',year:'numeric',month:'numeric'}).formatToParts(now);
@@ -53,7 +62,7 @@ async function live(base) {
   if(enabled?.value!=='true'||workflow?.state!=='active'||head?.object?.sha!==base
     ||metadata?.private!==false||run?.head_sha!==base||run?.head_repository?.full_name!==repo
     ||!['schedule','workflow_dispatch'].includes(run?.event)||run?.run_attempt!==1
-    ||run?.workflow_id!==workflow?.id)throw Error('cloud_policy_denied');
+    ||run?.workflow_id!==workflow?.id||run?.status!=='in_progress')throw Error('cloud_policy_denied');
   return run;
 }
 async function existingWork() {
@@ -156,9 +165,11 @@ async function sandboxSmoke(out) {
   const root=await mkdtemp(path.join(path.dirname(out),'cloud-sandbox-smoke-'));
   await save(path.join(root,'package.json'),{name:'isolated-cloud-proof',private:true});
   await command('docker',['pull','node:24-bookworm'],process.cwd(),180000);
+  console.log('sandbox_image_ready');
   const probe=`const fs=require('node:fs');if(process.env.GH_TOKEN||process.env.GITHUB_TOKEN||process.env.OPENAI_API_KEY||fs.existsSync('/workspace/.git'))process.exit(2);let denied=false;try{fs.writeFileSync('/workspace/package.json','tampered')}catch(e){denied=e.code==='EROFS'||e.code==='EACCES'}if(!denied)process.exit(3);console.log('READ_ONLY_NO_CREDENTIALS');`;
   const result=await container(root,['node','-e',probe],'autopilot-sandbox-proof-'+(process.env.GITHUB_RUN_ID??'local'));
   if(result!=='READ_ONLY_NO_CREDENTIALS')throw Error('cloud_sandbox_unverified');
+  console.log('sandbox_readonly_probe_passed');
   const baseline=await mkdtemp(path.join(path.dirname(out),'cloud-baseline-proof-'));
   const archive=path.join(out,'smoke-baseline.tar');
   await command('git',['archive','--format=tar','--output',archive,'HEAD']);
