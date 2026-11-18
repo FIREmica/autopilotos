@@ -35,8 +35,6 @@ jobs:
     timeout-minutes: 8
     permissions:
       contents: read
-    env:
-      AUTOPILOT_CLOUD_OUTPUT: ${{ runner.temp }}/autopilot-cloud-validation
     steps:
       - uses: actions/checkout@v7
         with:
@@ -60,8 +58,6 @@ jobs:
     concurrency:
       group: autopilot-plan-cloud-development
       cancel-in-progress: false
-    env:
-      AUTOPILOT_CLOUD_OUTPUT: ${{ runner.temp }}/autopilot-cloud-output
     steps:
       - uses: actions/checkout@v7
         with:
@@ -99,7 +95,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           from pathlib import Path
-          root = Path(os.environ['AUTOPILOT_CLOUD_OUTPUT'])
+          root = Path(os.environ['RUNNER_TEMP']) / 'autopilot-cloud-output'
           result = {}
           for name in ['result.json', 'inference-reserved.json', 'publication.json']:
               file = root / name

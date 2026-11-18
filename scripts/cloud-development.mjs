@@ -225,7 +225,7 @@ async function publish(out) {
 }
 async function main() {
   process.once('SIGINT',()=>stop.abort());process.once('SIGTERM',()=>stop.abort());
-  const stage=process.argv[2],out=path.resolve(process.env.AUTOPILOT_CLOUD_OUTPUT??'');
+  const stage=process.argv[2],out=path.resolve(process.env.AUTOPILOT_CLOUD_OUTPUT??path.join(process.env.RUNNER_TEMP??'','autopilot-cloud-output'));
   if(!process.env.RUNNER_TEMP||!out.startsWith(path.resolve(process.env.RUNNER_TEMP)+path.sep))throw Error('cloud_output_not_isolated');
   await mkdir(out,{recursive:true,mode:0o700});
   try {
