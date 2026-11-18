@@ -1,3 +1,11 @@
+# Autodesarrollo cloud solicitado · candidata acotada · 17/11/2026
+
+El propietario solicita continuidad con Codex cerrado y autoriza hasta US$5/mes para el ejecutor. Base main `090486a91dd67f4b2855df4349b32077908f0e80`; rama aislada `codex/cloud-development-adapter-20261117`. Se conserva la orden P2/F0 y su PR252 concurrente. No se atribuye su cancelación de ledger a esta propuesta ni se cierra P2.
+
+Candidata: entrada de propuestas en `plan-cloud.yml` existente, modelo sin herramientas, reservas de primer intento de Actions hasta US$5/mes, scope de fragmentos fijado por host, regresión RED y verify GREEN en Docker sin red/credenciales y con fuente en lectura, publicación de una PR en borrador con reautorización en vivo. No amplía grants SQL, no auto-merge, no despliegue ni envíos. [Contrato y activación](CLOUD_DEVELOPMENT_ADAPTER_20261117.md).
+
+PROBADO local: verify588/588, cero fallos u omitidos, tipos/builds/API correctos; siete pruebas focales. Docker real y CI del candidato pendientes. NO ACTIVADO: la creación de PR por Actions está deshabilitada; falta revisión/integración autorizada y relevo explícito del heartbeat existente. No se modificaron permisos, claves, variable cloud, SQL alojado ni automatización. Una release del plugin no demuestra servicio permanente. [Checkpoint único](CODEX_CONTINUATION.json).
+
 # P2 parcial · claim cancelable y resultado tardío descartado · 17/11/2026
 
 Misma orden ORD-P2-RECOVERY-VERIFICATION-20261117, producto F0. PR250 ya FUSIONADA en main d9a07f93ccca3e4be01c428874c8111a2e62edfe; checks exactos del head y workflow principal de main aprobados. Candidata aislada codex/p2-claim-cancellation-bound-20261117 limita la espera de claimMission con bounded. RED2/GREEN43 y verify581/581,0 fail/skip, tipos/builds/API PASS; revisión auxiliar del diff sin hallazgos nuevos. CI propia pendiente, no fusionada/desplegada. [Contrato, evidencia y límites](P2_CLAIM_CANCELLATION_BOUND_20261117.md).

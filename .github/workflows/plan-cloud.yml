@@ -1,5 +1,7 @@
 name: PLAN Cloud - auditoria segura
 on:
+  schedule:
+    - cron: '17 */6 * * *'
   workflow_run:
     workflows: ['Autopilot Core v4']
     types: [completed]
@@ -10,7 +12,7 @@ on:
         type: choice
         required: true
         default: inventory
-        options: [inventory, codex, hosted-status, hosted-resume, ipv6-probe]
+        options: [inventory, codex, development, hosted-status, hosted-resume, ipv6-probe]
       mission_id:
         description: 'ID synthetic previamente admitida; solo modos hosted'
         type: string
@@ -27,6 +29,86 @@ concurrency:
   group: plan-cloud-${{ github.ref }}
   cancel-in-progress: false
 jobs:
+  cloud-adapter-validation:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    env:
+      AUTOPILOT_CLOUD_OUTPUT: ${{ runner.temp }}/autopilot-cloud-validation
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node --import tsx --test src/autopilot/cloudDevelopment.test.ts scripts/cloud-development.test.mjs
+      - run: node --import tsx scripts/cloud-development.mjs sandbox-smoke
+  cloud-development:
+    # Opt-in, main only, one bounded proposal. Existing synthetic SQL grants stay closed.
+    if: ${{ github.ref == 'refs/heads/main' && vars.AUTOPILOT_CLOUD_ENABLED == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'development')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    concurrency:
+      group: autopilot-plan-cloud-development
+      cancel-in-progress: false
+    env:
+      AUTOPILOT_CLOUD_OUTPUT: ${{ runner.temp }}/autopilot-cloud-output
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Reconcile canonical order and existing writers
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node --import tsx scripts/cloud-development.mjs prepare
+      - name: Generate bounded proposal (USD 0.04 reservation)
+        id: generate
+        if: steps.prepare.outputs.ready == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node --import tsx scripts/cloud-development.mjs generate
+      - name: Verify candidate without network or credentials
+        if: steps.generate.outputs.change == 'true'
+        run: node --import tsx scripts/cloud-development.mjs verify
+      - name: Publish one draft PR after live reauthorization
+        if: steps.generate.outputs.change == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node --import tsx scripts/cloud-development.mjs publish
+      - name: Record bounded outcome
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          root = Path(os.environ['AUTOPILOT_CLOUD_OUTPUT'])
+          result = {}
+          for name in ['result.json', 'inference-reserved.json', 'publication.json']:
+              file = root / name
+              if file.is_file():
+                  result[name] = json.loads(file.read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('Autopilot cloud: proposal lane only; no SQL mission, merge, deployment or sends.\n\n')
+              out.write('```json\n' + json.dumps(result, indent=2) + '\n```\n')
+          PY
   ipv6-probe:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'ipv6-probe' }}
     runs-on: ubuntu-latest
@@ -90,7 +172,7 @@ jobs:
           path: continuation.json
           retention-days: 14
   inventory:
-    if: ${{ github.event_name != 'workflow_run' && inputs.mode != 'hosted-status' && inputs.mode != 'hosted-resume' && inputs.mode != 'ipv6-probe' }}
+    if: ${{ github.event_name != 'workflow_run' && github.event_name != 'schedule' && inputs.mode != 'development' && inputs.mode != 'hosted-status' && inputs.mode != 'hosted-resume' && inputs.mode != 'ipv6-probe' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
