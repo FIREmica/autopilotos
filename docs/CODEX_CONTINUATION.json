@@ -1,5 +1,31 @@
 {
   "schema_version": 1,
+  "cloud_development_request": {
+    "enabled": true,
+    "activation_authorization": "Owner explicitly granted activation authorization in the current session on 2026-11-18: integrate PR253, enable Actions PR creation, hand over from the local six-hour heartbeat to the existing cloud workflow, retaining the previously approved USD5/month limit. This is not authority for SQL missions, production sends or auto-merge by the cloud executor.",
+    "requested_on": "2026-11-17",
+    "timezone": "America/Montevideo",
+    "objective": "Continue bounded repository development with the Codex application closed, using the existing cloud workflow.",
+    "owner_monthly_budget_usd": 5,
+    "status": "owner_authorized_reconciling_preview_policy_before_schedule",
+    "integration": "PR253 merged at a32b020036edb7d2d12ae8d09dc16f31a926c2c8; exact main Core validate/postgres success. Actions PR creation enabled with default read; existing local heartbeat paused with prompt/schedule/target preserved. Schedule admission remains absent, no cloud inference admitted.",
+    "preview_policy_reconciliation": "Activation check found duplicate root git keys in vercel.json: the lower historical deployment map shadowed the new cloud rule. RED AST regression reproduced; keep one map, preserve main:false and all historical stops, add cloud wildcard false. Host preview gate now accepts preserved stops and rejects overlapping positive wildcard rules. Eleven focused tests pass; follow-up exact CI/integration required before scheduling.",
+    "pr": "https://github.com/Victoriosas/autopilot/pull/253",
+    "verified_predecessor_code_sha": "0e355ea9b61c1f493484c865a69087c22a32ed92",
+    "ci_predecessor": "validate/postgres/Core/real Docker sandbox/browser/three security analyses/Vercel Security Review PASS; 590 tests,589 pass,0 fail,1 Windows-only offline-preparation skip on Linux. Final branch-write reauthorization regression requires this candidate SHA checks; no self-referential CI polling commit.",
+    "base_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "branch": "codex/cloud-development-adapter-20261117",
+    "report": "docs/CLOUD_DEVELOPMENT_ADAPTER_20261117.md",
+    "local_verification": "Prior full local verify589/589,0 fail/skip,types/builds/API PASS; nine focused tests cover live revocation, budget/period, scope, Responses parsing and durable branch reservation. RED regression for revoke during branch read, then GREEN reauthorization immediately before PATCH.",
+    "authorization_scope": "Owner requests cloud continuity and explicitly authorizes up to USD5/month for this executor. No auto-merge, hosted SQL, production, sends or phase closure. Preserve the current canonical P2 order; PR252 was independently merged while activation was being reconciled.",
+    "activation_gates": [
+      "Exact candidate validate/postgres and real Docker validation; review and authorized integration.",
+      "Explicit authorization to enable GitHub Actions PR creation, currently disabled by platform setting.",
+      "Pause existing local development heartbeat before cloud opt-in; no duplicate active supervisor.",
+      "Enable cloud opt-in and observe one first-attempt run before claiming external execution."
+    ],
+    "runtime_boundary": "Repository proposal lane only; not an expansion of synthetic SQL mission grants or proof of cross-host recovery."
+  },
   "updated_at": "2026-11-17T23:51:40Z",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
@@ -54,19 +80,19 @@
       "detection": "run43657434746 SUCCESS hosted-status state completed; excepcion humana puntual auditada; intento/checkpoint/auditoria sin cambios"
     },
     {
-      "operation": "Auditoría en worktree exclusivo y consolidación de plan/prompt",
-      "detection": "Manifiesto/evidencias fechadas, fuentes históricas preservadas, código de aplicación sin cambios"
+      "operation": "Auditor\u00eda en worktree exclusivo y consolidaci\u00f3n de plan/prompt",
+      "detection": "Manifiesto/evidencias fechadas, fuentes hist\u00f3ricas preservadas, c\u00f3digo de aplicaci\u00f3n sin cambios"
     },
     {
-      "operation": "Validación local actual",
-      "detection": "Segundo verify516/516; primer fallo conservado. P0D8/8 y probe state inesperado sin IO. fsck conectividad y GET público."
+      "operation": "Validaci\u00f3n local actual",
+      "detection": "Segundo verify516/516; primer fallo conservado. P0D8/8 y probe state inesperado sin IO. fsck conectividad y GET p\u00fablico."
     },
     {
       "operation": "Reconciliar24 fuentes locales cloud y continuidad",
-      "detection": "8 iguales a main CRLF normalizado,13 iguales a historia de main y3 solo línea final vacía; evidencia local-cloud-reconciliation.json; sin mutar recursos"
+      "detection": "8 iguales a main CRLF normalizado,13 iguales a historia de main y3 solo l\u00ednea final vac\u00eda; evidencia local-cloud-reconciliation.json; sin mutar recursos"
     },
     {
-      "operation": "Confirmar PR235/CI y detectar integración externa",
+      "operation": "Confirmar PR235/CI y detectar integraci\u00f3n externa",
       "detection": "Head0f2482f con checks requeridos SUCCESS; mergef2129e9 observado externamente; main validate/postgres/CodeQL SUCCESS, continuation cerrado"
     },
     {
@@ -74,20 +100,20 @@
       "detection": "DPAPI CurrentUser; proceso nuevo compara745/405 archivos; historia completa cifrada y unpack-objects -n --strict exit0 sin objetos plaintext escritos"
     },
     {
-      "operation": "Minimizar evidencia pública sin borrar historia",
+      "operation": "Minimizar evidencia p\u00fablica sin borrar historia",
       "detection": "IDs/alias/conteos en lugar de rutas de perfil, PIDs, plugins y destinos; originales cifrados, versiones previas Git conservadas"
     },
     {
-      "operation": "Preparar alineación de heartbeat existente",
-      "detection": "Contrato ya en main; solo view/lectura y texto listo; hash de configuración completa intacto, cadencia/destino/estado sin cambio"
+      "operation": "Preparar alineaci\u00f3n de heartbeat existente",
+      "detection": "Contrato ya en main; solo view/lectura y texto listo; hash de configuraci\u00f3n completa intacto, cadencia/destino/estado sin cambio"
     },
     {
       "operation": "Conservar heads y refs de17 PR cerradas externamente",
       "detection": "17 commits y refs de seguimiento locales intactos; pack de historias cifrado y strict dry-run exit0;16 ramas remotas presentes, Dependabot169 ausente. Sin close/merge/delete de esta orden."
     },
     {
-      "operation": "Registrar decisión del propietario sobre cierres externos",
-      "detection": "Respuesta explícita: registrar los cierres y conservar ramas; ninguna reapertura ni recreación remota ejecutada."
+      "operation": "Registrar decisi\u00f3n del propietario sobre cierres externos",
+      "detection": "Respuesta expl\u00edcita: registrar los cierres y conservar ramas; ninguna reapertura ni recreaci\u00f3n remota ejecutada."
     },
     {
       "operation": "Alinear localmente heartbeat existente y revalidar campos",
@@ -102,8 +128,8 @@
       "detection": "3 archivos historicos recuperados por SHA; status adaptado a LocalMissionStore, rechazos de binding, fase, estados y lease; 20 pruebas focales, lint TypeScript correcto."
     },
     {
-      "operation": "Corregir revisión de PR237 sin duplicar misión",
-      "detection": "enabled no booleano rechazado antes de leer el host; false real no selecciona objetivo. Plan y checkpoint reconciliados para la misma orden P1; integración operativa sigue pendiente."
+      "operation": "Corregir revisi\u00f3n de PR237 sin duplicar misi\u00f3n",
+      "detection": "enabled no booleano rechazado antes de leer el host; false real no selecciona objetivo. Plan y checkpoint reconciliados para la misma orden P1; integraci\u00f3n operativa sigue pendiente."
     },
     {
       "operation": "Integrate read-only supervisor observation into existing mission runtime",
@@ -114,12 +140,12 @@
       "detection": "Remote main 4ceb541; read-only runtime/CLI is merged, not a pending PR. RED missing authorization rejection reproduced; fresh scoped claim rejects denial, stale objective/version/cancellation and duplicate claim in PostgreSQL18 disposable local lab."
     },
     {
-      "operation": "Continuar ORD-P1-SUPERVISOR-ADAPTER-20261114 con autorización por efecto y atestación independiente",
-      "detection": "Worktree aislado sobre main 44dbae; RED reproduce denegación post-claim y completion sin verificador, más checkpoint terminal duplicado. GREEN focal 25/25, lint aprobado y verify 555/555 aprobado. Sin efecto remoto/SQL/dispatch."
+      "operation": "Continuar ORD-P1-SUPERVISOR-ADAPTER-20261114 con autorizaci\u00f3n por efecto y atestaci\u00f3n independiente",
+      "detection": "Worktree aislado sobre main 44dbae; RED reproduce denegaci\u00f3n post-claim y completion sin verificador, m\u00e1s checkpoint terminal duplicado. GREEN focal 25/25, lint aprobado y verify 555/555 aprobado. Sin efecto remoto/SQL/dispatch."
     },
     {
-      "operation": "Publicar una PR draft única para la continuación P1 y conciliar el checkpoint",
-      "detection": "PR #240 abierta por el perfil Victoriosas, base 44dbaeeb y head inicial 77c6e3c; rama codex/p1-per-effect-authorization-20261115. No hay fusión. CI final en curso; Vercel Preview fue activado automáticamente por GitHub, sin despliegue manual a producción."
+      "operation": "Publicar una PR draft \u00fanica para la continuaci\u00f3n P1 y conciliar el checkpoint",
+      "detection": "PR #240 abierta por el perfil Victoriosas, base 44dbaeeb y head inicial 77c6e3c; rama codex/p1-per-effect-authorization-20261115. No hay fusi\u00f3n. CI final en curso; Vercel Preview fue activado autom\u00e1ticamente por GitHub, sin despliegue manual a producci\u00f3n."
     },
     {
       "operation": "Corregir regresion de permisos sinteticos legacy detectada por postgres CI en PR240",
@@ -134,28 +160,28 @@
       "detection": "En head 7318fc1760ca4510d0fc9964a0ac50b51ab6afcb validate SUCCESS (ambos runs), postgres SUCCESS (ambos reports), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS y Vercel Preview SUCCESS. Supabase Preview SKIPPED. Fetch PR confirma abierta/draft/mergeable/no-merged; sin review. No hosted SQL, ejecucion ni deploy."
     },
     {
-      "operation": "Reconciliar estado actual de PR240 y actualizar continuidad sin cambiar código",
-      "detection": "Head 45f970943561c7274b7fed5025d8f78f56889530 sincronizado con origin; main 44dbaeeb6384740da81db2357fb003c7de42d33b; PR abierta/draft/mergeable y lista de reviews vacía. CI exacta del head: validate/postgres/CodeQL/public-browser-smoke/Vercel Preview SUCCESS, Supabase Preview SKIPPED. Body de la misma PR actualizado. Este commit solo registra checkpoint; no hubo misión, SQL, merge ni deploy."
+      "operation": "Reconciliar estado actual de PR240 y actualizar continuidad sin cambiar c\u00f3digo",
+      "detection": "Head 45f970943561c7274b7fed5025d8f78f56889530 sincronizado con origin; main 44dbaeeb6384740da81db2357fb003c7de42d33b; PR abierta/draft/mergeable y lista de reviews vac\u00eda. CI exacta del head: validate/postgres/CodeQL/public-browser-smoke/Vercel Preview SUCCESS, Supabase Preview SKIPPED. Body de la misma PR actualizado. Este commit solo registra checkpoint; no hubo misi\u00f3n, SQL, merge ni deploy."
     },
     {
       "operation": "Verificar CI exacta del checkpoint documental PR240",
-      "detection": "En head 625214f2e935eaaca7d917cb8ddb24270ae0380d validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Vercel Preview Comments SUCCESS. Supabase Preview SKIPPED. PR #240 permanece abierta/draft/mergeable/sin reviews. No se repitió código ni hubo operación externa."
+      "detection": "En head 625214f2e935eaaca7d917cb8ddb24270ae0380d validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Vercel Preview Comments SUCCESS. Supabase Preview SKIPPED. PR #240 permanece abierta/draft/mergeable/sin reviews. No se repiti\u00f3 c\u00f3digo ni hubo operaci\u00f3n externa."
     },
     {
       "operation": "Conciliar y verificar CI del checkpoint PR240 baa8d4e",
       "detection": "Head exacto baa8d4e00a51516234f83c3393458c424689987b; validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS. Supabase Preview SKIPPED. Push del hijo documental anterior confirmado fast-forward tras error DNS de la primera tentativa; branch remoto coincide."
     },
     {
-      "operation": "Revalidar PR240 y registrar espera de revisión humana",
-      "detection": "origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b; branch remota y worktree sincronizados en 89bffdae96695e754be71354087bbadfc1fa4807. PR abierta/draft/mergeable/no-merged; reviews y threads humanos vacíos, único comentario vercel[bot]. CI del SHA exacto aprobada en validate/postgres (dos reportes cada uno), CodeQL, public-browser-smoke, Vercel Preview y Vercel Preview Comments; Supabase Preview SKIPPED. Sin cambios de aplicación ni efectos externos."
+      "operation": "Revalidar PR240 y registrar espera de revisi\u00f3n humana",
+      "detection": "origin/main 44dbaeeb6384740da81db2357fb003c7de42d33b; branch remota y worktree sincronizados en 89bffdae96695e754be71354087bbadfc1fa4807. PR abierta/draft/mergeable/no-merged; reviews y threads humanos vac\u00edos, \u00fanico comentario vercel[bot]. CI del SHA exacto aprobada en validate/postgres (dos reportes cada uno), CodeQL, public-browser-smoke, Vercel Preview y Vercel Preview Comments; Supabase Preview SKIPPED. Sin cambios de aplicaci\u00f3n ni efectos externos."
     },
     {
-      "operation": "Registrar verificación del head PR240 y barrera de revisión",
-      "detection": "PR #240 head exacto 9605a0757d08e24142f913faca4fba1d7cd24388; validate/postgres SUCCESS en dos informes cada uno; CodeQL, public-browser-smoke, Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews y threads humanas vacías; solo comentario vercel[bot]. PR abierta/draft/mergeable. Body actualizado con el head. Sin código, misión ni efecto alojado."
+      "operation": "Registrar verificaci\u00f3n del head PR240 y barrera de revisi\u00f3n",
+      "detection": "PR #240 head exacto 9605a0757d08e24142f913faca4fba1d7cd24388; validate/postgres SUCCESS en dos informes cada uno; CodeQL, public-browser-smoke, Vercel Preview y Preview Comments SUCCESS; Supabase Preview SKIPPED. Reviews y threads humanas vac\u00edas; solo comentario vercel[bot]. PR abierta/draft/mergeable. Body actualizado con el head. Sin c\u00f3digo, misi\u00f3n ni efecto alojado."
     },
     {
-      "operation": "Completar verificación del checkpoint documental 63495d1 y confirmar barrera",
-      "detection": "GitHub main 44dbaeeb6384740da81db2357fb003c7de42d33b; rama PR y worktree coinciden en 63495d142c1f46922eede2948f3048addc695d2b. PR #240 sigue abierta/draft/mergeable, sin review ni threads humanas; único comentario Vercel. CI exacta del head: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED. No hubo cambios de aplicación ni efectos externos."
+      "operation": "Completar verificaci\u00f3n del checkpoint documental 63495d1 y confirmar barrera",
+      "detection": "GitHub main 44dbaeeb6384740da81db2357fb003c7de42d33b; rama PR y worktree coinciden en 63495d142c1f46922eede2948f3048addc695d2b. PR #240 sigue abierta/draft/mergeable, sin review ni threads humanas; \u00fanico comentario Vercel. CI exacta del head: validate SUCCESS (dos runs), postgres SUCCESS (dos jobs), CodeQL SUCCESS sin alertas nuevas, public-browser-smoke SUCCESS, Vercel Preview SUCCESS y Preview Comments SUCCESS; Supabase Preview SKIPPED. No hubo cambios de aplicaci\u00f3n ni efectos externos."
     },
     {
       "operation": "Review PR240 and correct approval/attestation binding and the real guarded positive path",
@@ -163,7 +189,7 @@
     },
     {
       "operation": "Reconcile four owner integrations",
-      "detection": "PR240→16e4c92, PR241→6463be7, PR242→711b211, PR243→0342d39, each verified merged. No old PR reopened or duplicated."
+      "detection": "PR240\u219216e4c92, PR241\u21926463be7, PR242\u2192711b211, PR243\u21920342d39, each verified merged. No old PR reopened or duplicated."
     },
     {
       "operation": "Implement durable policy and terminal recovery on the existing ledger",
@@ -327,7 +353,7 @@
     "status": "p2_active_partial",
     "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
   },
-  "resume_instructions": "Continúa únicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. Main 090486a integra PR250 y #251; verificar sus efectos sin repetir. PR251 tuvo CI exacta aprobada en c1f1068 (validate/postgres runs 44029983256 y 44030019752, CodeQL 44030015739, browser 44030019767, Vercel y comentarios SUCCESS; Supabase Preview SKIPPED). En codex/p2-cancel-ledger-boundary-20261117 quedó RED/GREEN de cancelación durante autorización de completion: señal propagada y base writer no invocado tras abort; focal43/43 y verify583/583. Abrir/actualizar una PR revisable y comprobar CI exacta de su SHA final. Después reconciliar, sin editar ni copiar automáticamente, el worktree nativo sucio p2-cancel-reconciliation. P2 sigue parcial; no P3, hosted SQL, producción, envío, gasto o cambios de automatización.",
+  "resume_instructions": "Contin\u00faa \u00fanicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. Main 090486a integra PR250 y #251; verificar sus efectos sin repetir. PR251 tuvo CI exacta aprobada en c1f1068 (validate/postgres runs 44029983256 y 44030019752, CodeQL 44030015739, browser 44030019767, Vercel y comentarios SUCCESS; Supabase Preview SKIPPED). En codex/p2-cancel-ledger-boundary-20261117 qued\u00f3 RED/GREEN de cancelaci\u00f3n durante autorizaci\u00f3n de completion: se\u00f1al propagada y base writer no invocado tras abort; focal43/43 y verify583/583. Abrir/actualizar una PR revisable y comprobar CI exacta de su SHA final. Despu\u00e9s reconciliar, sin editar ni copiar autom\u00e1ticamente, el worktree nativo sucio p2-cancel-reconciliation. P2 sigue parcial; no P3, hosted SQL, producci\u00f3n, env\u00edo, gasto o cambios de automatizaci\u00f3n.",
   "supervision": {
     "verdict": "P2_PARTIAL",
     "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
@@ -346,7 +372,7 @@
     "scope": "Trusted-host synthetic technical core only; no product/hosted closure."
   },
   "deferred_phase_requirements": {
-    "P3": "Recuperación cloud de efectos entre hosts, no ejecutada ni activada en P0"
+    "P3": "Recuperaci\u00f3n cloud de efectos entre hosts, no ejecutada ni activada en P0"
   },
   "owner_decisions": [
     {
@@ -455,7 +481,7 @@
       "verify_skipped": 0,
       "verify_exit_code": 0,
       "checks": "Types,14 skills, Node/Vercel builds, compiled API smoke, route HTML, secret scan, diff check passed.",
-      "postgres": "PASS PostgreSQL18 disposable: actual guarded factory → canonical JSONB objective → authorized observation/planner → synthetic executor → independent verifier → completed (version5); checkpoint denial prevents its SQL write; observation denial creates no worktree; claim/lease/fencing/legacy regressions pass. No hosted SQL.",
+      "postgres": "PASS PostgreSQL18 disposable: actual guarded factory \u2192 canonical JSONB objective \u2192 authorized observation/planner \u2192 synthetic executor \u2192 independent verifier \u2192 completed (version5); checkpoint denial prevents its SQL write; observation denial creates no worktree; claim/lease/fencing/legacy regressions pass. No hosted SQL.",
       "prior_sql_test_failure": "New positive guarded fixture reached completed but its test expected version4. Existing six_agent_complete increments the checkpoint too, giving plan1 + steps3 + completion1 =5. Corrected the new assertion against SQL source and readback; no SQL permission or contract changed.",
       "claim_scope": "Existing claim/lease/token/fencing and same SQL ledger retained; only fixture resources created by this review used."
     },
@@ -694,7 +720,7 @@
   "preserved_limits": [
     "Heartbeat receipt now demonstrated for two16/11 turns, one verified documentary cycle; future dispatch, global exclusion and full SQL mission not established.",
     "Historical metadata and offsite DPAPI recovery limitations retained; all pre-existing resources preserved.",
-    "P5 hosted material A–C persistence remains unaccredited; no hosted migration authorized."
+    "P5 hosted material A\u2013C persistence remains unaccredited; no hosted migration authorized."
   ],
   "selected_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",

@@ -22,6 +22,8 @@ Antes de inferir se reserva atómicamente la rama determinista apuntando a la ba
 
 El host también exige la regla `vercel.json` que deshabilita despliegues automáticos para `codex/cloud-*`. Su efecto en la integración Vercel debe comprobarse con una rama inocua tras integrar la configuración y antes de habilitar propuestas generadas; no se infiere únicamente del JSON. Las previews de otras ramas siguen su configuración habitual.
 
+Comprobación de activación: el JSON tenía un mapa git histórico al final; añadir otro al principio no era efectivo porque JSON.parse conserva el último. La corrección conserva un único mapa y todos los bloqueos anteriores, incluido main:false. Una regresión AST rechaza claves duplicadas. El gate admite esos bloqueos preservados y rechaza reglas positivas que puedan solaparse con la rama cloud; no exige borrar la configuración previa para pasar.
+
 El test generado no es un auditor independiente de semántica; la revisión humana de la PR sigue siendo necesaria. Tampoco se acredita exclusión global de trabajos locales no publicados: se evita compartir checkout y se conserva cualquier PR detectada.
 
 ## Coste y reserva
