@@ -29,7 +29,7 @@ export interface MissionCompletionVerifier {
 export interface MissionEffectGuard {
   readonly verifierId: string;
   verifyRecovery(context: ExecutorContext): Promise<void>;
-  beforeEffect(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest): Promise<readonly string[]>;
+  beforeEffect(executor: ExecutorAdapter, context: ExecutorContext, effect: MissionEffectRequest, signal?: AbortSignal): Promise<readonly string[]>;
   attestCompletion(context: ExecutorContext): Promise<MissionCompletionAttestation>;
   assertAttestation(context: ExecutorContext, attestation: MissionCompletionAttestation): void;
   consumeAttestation(context: ExecutorContext, attestation: MissionCompletionAttestation): void;
@@ -106,7 +106,7 @@ export function createMissionClaimGuard(
 export function createMissionEffectGuard(
   input: MissionClaimAuthorization,
   executor: ExecutorAdapter,
-  authorize: (grant: Readonly<MissionClaimAuthorization>, context: Readonly<ExecutorContext>, effect: Readonly<MissionEffectRequest>) => Promise<MissionEffectDecision>,
+  authorize: (grant: Readonly<MissionClaimAuthorization>, context: Readonly<ExecutorContext>, effect: Readonly<MissionEffectRequest>, signal?: AbortSignal) => Promise<MissionEffectDecision>,
   verifier: MissionCompletionVerifier,
 ): MissionEffectGuard {
   // Reuse the claim validator so this exported guard cannot be constructed with
@@ -178,7 +178,8 @@ export function createMissionEffectGuard(
       || (effect.kind==='execute_step' && (typeof effect.stepId!=='string' || !context.mission.plan.some(step=>step.id===effect.stepId)))) return false;
     return true;
   };
-  const beforeEffect=async(candidate:ExecutorAdapter,context:ExecutorContext,effect:MissionEffectRequest):Promise<readonly string[]>=>{
+  const beforeEffect=async(candidate:ExecutorAdapter,context:ExecutorContext,effect:MissionEffectRequest,signal?:AbortSignal):Promise<readonly string[]>=>{
+    signal?.throwIfAborted();
     let inScope=false;
     let digest='',request='';
     try { inScope=scoped(candidate,context,effect);digest=contextDigest(context);request=JSON.stringify(effect); } catch { /* malformed context is denied */ }
@@ -186,13 +187,20 @@ export function createMissionEffectGuard(
     // Consume before awaiting so uncertain decisions/effects cannot replay.
     usedOperations.add(effect.operationId);
     let timer:ReturnType<typeof setTimeout>|undefined;
+    let onAbort:(()=>void)|undefined;
     let decision:MissionEffectDecision|undefined;
     try {
-      decision=await Promise.race([authorize(structuredClone(grant),structuredClone(context),structuredClone(effect)),new Promise<undefined>(resolve=>{
+      const pending:Promise<undefined>=new Promise(resolve=>{
         timer=setTimeout(()=>resolve(undefined),Math.max(1,grant.expiresAt-Date.now()));
-      })]);
-    } catch { /* sanitize host details */ }
-    finally { clearTimeout(timer); }
+      });
+      const aborted=signal ? new Promise<never>((_resolve,reject)=>{
+        onAbort=()=>reject(signal.reason);
+        signal.addEventListener('abort',onAbort,{once:true});
+      }) : undefined;
+      decision=await Promise.race([authorize(structuredClone(grant),structuredClone(context),structuredClone(effect),signal),pending,...(aborted?[aborted]:[])]);
+    } catch { signal?.throwIfAborted(); /* sanitize host details */ }
+    finally { clearTimeout(timer);if(onAbort)signal?.removeEventListener('abort',onAbort); }
+    signal?.throwIfAborted();
     if(grant.recovery==='reconcile_effect') await verifyRecovery(context);
     let unchanged=false;
     try { unchanged=digest===contextDigest(context) && request===JSON.stringify(effect) && scoped(candidate,context,effect); } catch { /* deny mutation */ }
@@ -274,7 +282,7 @@ export function createAuthorizedMissionLedger(
       if(candidate!==executor) throw Error('mission_executor_mismatch');
       return Promise.resolve();
     },
-    authorizeEffect:(candidate,context,effect)=>guard.beforeEffect(candidate,context,effect),
+    authorizeEffect:(candidate,context,effect,signal)=>guard.beforeEffect(candidate,context,effect,signal),
     attestCompletion:async(candidate,context)=>{
       if(candidate!==executor) throw Error('mission_executor_mismatch');
       await authorize(context,'attest_completion',`ledger:attest:${scopedGrant.id}:${context.mission.missionId}:${context.checkpointVersion}`);
@@ -306,11 +314,13 @@ export function createAuthorizedMissionLedger(
       await authorize(context,'fail',`ledger:fail:${scopedGrant.id}:${context.mission.missionId}:${context.checkpointVersion}:${reason}`);
       return base.failMission(context,reason);
     },
-    completeMission:async(context,_evidence,attestation)=>{
+    completeMission:async(context,_evidence,attestation,signal)=>{
       if(!attestation) throw Error('mission_completion_attestation_required');
       guard.assertAttestation(context,attestation);
-      await authorize(context,'complete_write',`ledger:complete:${scopedGrant.id}:${context.mission.missionId}:${context.checkpointVersion}`);
+      signal?.throwIfAborted();
+      await guard.beforeEffect(executor,context,{kind:'complete_write',operationId:`ledger:complete:${scopedGrant.id}:${context.mission.missionId}:${context.checkpointVersion}`},signal);
       // Rebind after the async policy callback, then consume immediately before SQL.
+      signal?.throwIfAborted();
       guard.consumeAttestation(context,attestation);
       return base.completeMission(context,
         `independent:${verifierId}:${scopedGrant.id}:${scopedGrant.revision}:${context.checkpointVersion}`);
