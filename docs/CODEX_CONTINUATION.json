@@ -58,7 +58,7 @@
       "next_action": "After owner confirms usable API quota/access: reconcile live main and PRs, pause the existing local heartbeat again, then admit one bounded reviewed-base attempt within USD5/month. Keep deterministic branch receipts; no replay on either prior base. The existing cloud schedule is every six hours once admitted."
     }
   },
-  "updated_at": "2026-11-20T23:38:06+00:00",
+  "updated_at": "2026-11-20T23:50:19+00:00",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
@@ -362,20 +362,21 @@
     "phase": "F0",
     "linear_phase": "P2",
     "objective": "Complete bounded cancellation evidence in the existing P2 order.",
-    "status": "partial_local_candidate_verified",
+    "status": "blocked_native_cancellation_receipt_unavailable_after_pr252_merge",
     "executor": "Codex",
-    "environment": "Exclusive local synthetic worktree WORKTREE:p2-cancel-ledger-boundary-20261117, based on verified main 090486a91dd67f4b2855df4349b32077908f0e80.",
+    "environment": "PR252 completion-abort implementation is integrated at main 6f791f49562d038edb5ed00e27ed449329bdb290. Separate native cancellation/descendants worktree p2-cancel-reconciliation-20261117 remains preserved and uncertain; do not mutate it.",
     "dependencies": [
       "P1 closed via PR248/249; P2 remains the sole active technical order.",
       "PR250 and PR251 are merged; exact PR251 candidate checks and merge SHA reconciled.",
-      "Current code has local RED/GREEN and full verify; new candidate CI is pending until its exact head exists."
+      "PR252 is merged; exact final-head required CI passed, with Supabase Preview SKIPPED.",
+      "The native cancellation/descendants test has no recovered terminal receipt. Preserve its five modified files and do not repeat the uncertain operation."
     ],
     "acceptance_criteria": [
-      "One PR for the existing order, with AbortSignal propagated through completion authorization and the base writer not invoked after an abort before admission.",
-      "Exact validate/postgres/CodeQL/security/browser/Vercel checks on final candidate SHA; Supabase Preview SKIPPED is not hosted evidence.",
-      "Reconcile pre-existing native cancellation/descendants work only after inspecting its diff, process and uncertain test effect; preserve its files/resources."
+      "PR252 completion-abort change remains integrated and its exact final-head validate/postgres/CodeQL/security/browser/Vercel checks passed; Supabase Preview SKIPPED is not hosted evidence.",
+      "Classify the existing native cancellation/descendants operation only from its original terminal output or durable receipt; absent that, retain the blocker and never replay it by inference.",
+      "No independent authorized P2 action remains while the operation result is unknown; keep P2 partial and do not start P3."
     ],
-    "next_action": "Open one reviewable PR from main 090486a for the verified completion-abort boundary; check the exact final SHA and review threads. Do not auto-merge or deploy. Then inspect, without modifying, the preserved dirty p2-cancel-reconciliation worktree and reconcile its native cancellation/descendant test outcome before deciding whether any safe follow-up remains. Keep P2 partial; no P3.",
+    "next_action": "Recover the original terminal output/receipt for the native cancellation/descendant operation from its initiating session or durable artifact. Repository, related-thread and process checks found none; do not rerun, stop, stage, commit, discard or integrate the five modified files. If the original receipt cannot be recovered, keep this sole P2 order blocked with [AUTOPILOT_ORDER_BLOCKED]. Recheck PR258 only for review/CI changes; do not auto-merge. No independent P2 step, hosted SQL, cloud dispatch or P3 is authorized while the operation is uncertain.",
     "permissions": {
       "status": "bounded_local_execution_and_reviewed_integration",
       "scope": "Prepared first P2 increment continued by user; repository integration authorized. No hosted/production/cloud dispatch/spend/automation change/deletion of prior resources."
@@ -385,11 +386,11 @@
     "status": "p2_active_partial",
     "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
   },
-  "resume_instructions": "Contin\u00faa \u00fanicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. Main 090486a integra PR250 y #251; verificar sus efectos sin repetir. PR251 tuvo CI exacta aprobada en c1f1068 (validate/postgres runs 44029983256 y 44030019752, CodeQL 44030015739, browser 44030019767, Vercel y comentarios SUCCESS; Supabase Preview SKIPPED). En codex/p2-cancel-ledger-boundary-20261117 qued\u00f3 RED/GREEN de cancelaci\u00f3n durante autorizaci\u00f3n de completion: se\u00f1al propagada y base writer no invocado tras abort; focal43/43 y verify583/583. Abrir/actualizar una PR revisable y comprobar CI exacta de su SHA final. Despu\u00e9s reconciliar, sin editar ni copiar autom\u00e1ticamente, el worktree nativo sucio p2-cancel-reconciliation. P2 sigue parcial; no P3, hosted SQL, producci\u00f3n, env\u00edo, gasto o cambios de automatizaci\u00f3n.",
+  "resume_instructions": "Contin\u00faa solo ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. `origin/main` verificado es 6f791f49562d038edb5ed00e27ed449329bdb290. PR252 ya se fusion\u00f3 el 18/11 en a9fc08a; su head final 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d tuvo validate/postgres/CodeQL/browser/Vercel/security/comments SUCCESS y Supabase Preview SKIPPED. El cambio completion-abort est\u00e1 integrado; P2 no est\u00e1 completa. La siguiente dependencia es el recibo/output terminal original para el test nativo de cancelaci\u00f3n/descendientes. El worktree p2-cancel-reconciliation-20261117 conserva cinco archivos modificados sin stage; el escaneo enfocado no encontr\u00f3 proceso coincidente ni listener en 28447, y repo/hilo revisados no contienen recibo. El hilo relacionado revisado termin\u00f3 antes de ejecutar ese test y no clasifica los cambios. No repetir, detener, stagear, commitear, descartar o integrar ese worktree. No queda paso P2 independiente autorizado mientras el resultado siga incierto: usar [AUTOPILOT_ORDER_BLOCKED] y esperar recibo original/evidencia verificable. Verificar PR258 y su CI por head solo si hay cambio material; no auto-merge. Complemento privado actual v0.4.5: sus hooks son prompts bounded de la misma sesi\u00f3n, no daemon; heartbeat victoriosa-autopilot-6h es el fallback local activo. Admisión cloud false por HTTP429. Sin P3, hosted SQL, producci\u00f3n, env\u00edos, gasto, cambio de scheduler ni claim/dispatch.",
   "supervision": {
     "verdict": "P2_PARTIAL",
     "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
-    "evidence": "PR251 merged at main 090486a with exact candidate checks listed above; Supabase Preview skipped. Local RED/GREEN for runtime and guarded ledger; focused43/43; npm run verify583/583, no failures/omissions; no SQL changes. New PR head CI pending."
+    "evidence": "PR252 merged into main by a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b; final PR head 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d exact validate/postgres/CodeQL/browser/security/Vercel checks succeeded; Supabase Preview skipped. Local RED/GREEN 43/43 and npm run verify 583/583 with zero failures/omissions were recorded before integration; no SQL changes. Native cancellation receipt remains unresolved; P2 partial."
   },
   "linear_phase": "P2",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
@@ -756,35 +757,29 @@
   ],
   "selected_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
-    "objective": "Propagate cancellation to the authorized completion ledger boundary and deny a base write when abort wins before admission.",
-    "priority_reason": "First unsatisfied dependency from the current checkpoint; exact PR251 CI is now reconciled and the pre-existing native fixture remains preserved separately.",
+    "objective": "Reconcile PR252 integration and recover the original native cancellation/descendant receipt without replaying its uncertain operation.",
+    "priority_reason": "PR252 completion-abort code is merged with exact CI; the first remaining P2 dependency is the original native operation receipt, and no independent safe P2 step remains.",
     "modified_files": [
-      "src/autopilot/executorAdapter.ts",
-      "src/autopilot/missionAuthorization.ts",
-      "src/autopilot/missionAuthorization.test.ts",
-      "src/autopilot/missionRuntime.ts",
-      "src/autopilot/missionRuntime.test.ts",
-      "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "Local verified candidate on isolated branch; one PR to be opened after checkpoint; not merged/deployed."
+    "integration_state": "Checkpoint correction is proposed in PR258 on verified main 6f791f49562d038edb5ed00e27ed449329bdb290. Completion-abort code is merged by PR252. No native operation was rerun; not a hosted mission or production deployment."
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
     "objective": "Recover the prior native cancellation/descendant test receipt; if unavailable, preserve the worktree and keep that verification blocked without replay.",
     "dependencies": [
-      "Exact PR #252 checks are terminal SUCCESS on ef9691d414de385d748b2c60b52d6c84ec3732d3: validate, postgres, CodeQL analyses, public-browser-smoke, Vercel Security Review, Vercel and Preview Comments; Supabase Preview SKIPPED. This checkpoint-only commit advances the PR head; resolve live head and exact CI before integration.",
-      "The separate p2-cancel-reconciliation worktree remains dirty in five files; no matching process/28447 listener, but the run outcome is not durably recorded.",
-      "Search only existing run/session artifacts for a terminal receipt; if unavailable, obtain the original output before any new execution."
+      "PR252 is merged. Its final remote head is 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d on base a32b020036edb7d2d12ae8d09dc16f31a926c2c8, merge a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b; current main is 6f791f49562d038edb5ed00e27ed449329bdb290. Exact required PR252 checks succeeded; Supabase Preview was skipped.",
+      "The separate p2-cancel-reconciliation worktree remains preserved with five modified, unstaged files; targeted scan found no matching process or listener on 28447, but the prior effect remains unclassified.",
+      "The checked repository and related session contain no original terminal output/receipt. Continue only by recovering that original artifact; do not repeat the operation."
     ],
     "acceptance": [
       "Keep the five modified files and worktree unchanged; no reset, stash, checkout, commit, push, or test rerun there.",
       "Classify the previous test only from actual terminal output or durable run receipt; otherwise retain the explicit blocker.",
-      "After reconciling, choose one authorized independent P2 step within the same order; do not start P3 or a parallel runner.",
+      "No independent P2 step is currently authorized while the operation result remains uncertain; preserve P2 as blocked and do not start P3 or a parallel runner.",
       "No hosted SQL, cloud dispatch, production, client contact, spending, auto-merge or new scheduler. Preserve the existing heartbeat ID, destination, ACTIVE status and six-hour cadence; prompt-only improvement is allowed by the current user instruction."
     ],
-    "recoverable_prompt": "Continue ORD-P2-RECOVERY-VERIFICATION-20261117 only, P2/F0 partial. PR252 is open, unmerged, and not deployed. Exact checks on ef9691d414de385d748b2c60b52d6c84ec3732d3 are terminal: validate/postgres/CodeQL/browser/Vercel/security/comments success; Supabase Preview skipped. This checkpoint-only commit advances the PR head; query the actual latest head and its CI before any integration. The preserved p2-cancel-reconciliation worktree has five uncommitted native cancellation changes, no matching process and no listener on 28447. No terminal test receipt/output was recovered from the checked checkout or reviewed adjacent thread. Do not rerun, commit, or integrate that worktree without the original operation result. If no receipt can be recovered, keep that dependency blocked and inspect the canonical P2 order for one independent, explicitly authorized action before stopping. Plugin 0.4.3 and the existing heartbeat prompt now request bounded continuation after a step-level blocker; no new run is implied. No P3, hosted SQL, production, dispatch, spending, client contact, or new automation."
+    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117, P2/F0 partial. Main is 6f791f49562d038edb5ed00e27ed449329bdb290. PR252 was merged by a9fc08a on 2026-11-18; its final head 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d passed validate/postgres/CodeQL/public-browser-smoke/Vercel/security/comments; Supabase Preview was SKIPPED. Completion-abort code is integrated but does not prove hosted execution or finish P2. Recover the original terminal output/receipt for the pre-existing native cancellation/descendant operation. Its worktree still has five modified, unstaged files; targeted process scan found no matching process or listener on 28447. The checked repository and related thread have no receipt; that thread ended before running the native test. Do not rerun, stop, stage, commit, discard or integrate the preserved worktree. No independent P2 step is authorized while its result remains unknown; end with [AUTOPILOT_ORDER_BLOCKED] until the original evidence is recovered. PR258 contains only a checkpoint correction and has exact validate/postgres/CodeQL/Vercel/security checks SUCCESS on 4f2dac77b4fbef8c8c8c6de05bcb28db8d7e5474; Supabase Preview SKIPPED. Do not auto-merge it. Plugin Autodesarrollo private v0.4.5 has same-session hooks, not a daemon; local heartbeat is the active fallback, cloud admission remains false after HTTP429. No P3, hosted SQL, production, client sends, spending, claim/dispatch, schedule changes or new automation."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -794,16 +789,17 @@
   },
   "phase_exit_review": {
     "verdict": "P2_PARTIAL",
-    "record_status": "completion_abort_boundary_local_verified_candidate_ci_pending",
+    "record_status": "completion_abort_boundary_merged_pr252_native_receipt_blocked",
     "report": "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
-    "base_main_sha": "090486a91dd67f4b2855df4349b32077908f0e80",
+    "base_main_sha": "6f791f49562d038edb5ed00e27ed449329bdb290",
     "passed": [
       "PR250 and PR251 are integrated; PR251 exact validate/postgres/CodeQL/browser/Vercel checks succeeded; Supabase Preview skipped.",
+      "PR252 is integrated by a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b; final head exact validate/postgres/CodeQL/public-browser-smoke/Vercel Security Review/Vercel/Preview Comments succeeded; Supabase Preview skipped.",
       "RED/GREEN proves cancellation at second completion authorization is propagated and prevents a not-yet-admitted base completion write.",
       "Focused runtime and authorization suites 43/43; full verify 583/583, zero fail/skip; builds/API and diff-check pass."
     ],
     "pending": [
-      "Exact candidate CI and review threads for the new PR.",
+      "Human review for checkpoint PR258; no auto-merge. Its required checks passed at current head; Supabase Preview was skipped.",
       "Native protected cancellation/descendants and evidence retention in the separate dirty preserved worktree.",
       "Remaining bounded fault matrix; no Windows/reboot/cross-host evidence."
     ],
