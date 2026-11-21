@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-21T03:21:53.053Z",
+  "updated_at": "2026-11-21T03:29:59Z",
   "execution_id": "p2-original-forensic-receipt-20261121",
   "repository": {
     "branch": "codex/p2-forensic-receipt-20261121",
@@ -68,7 +68,7 @@
     "head_sha": "8bd50a2686c05480a7e4bddfd91ebab6fc96d52d",
     "worktree": "WORKTREE:p2-cancel-ledger-boundary-20261117",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "PR #252 merge/check evidence is historical and recorded at its merge SHA. The separate PR #258 documentation reconciliation was merged into main at ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1 on 2026-11-21T01:44:16Z; its exact-head CI and preview-only limits are in current_order.last_verified_step. Native cancellation worktree remains separately preserved and untouched.",
+    "note": "PR #252 and #258/#260/#261 history is retained; PR #262 was merged by Victoriosas at 2026-11-21T03:25:57Z (head 90b6c195697f82ef9ba3e9f70ba810a188e8a2ac, merge/main eac987031e4291337b213a16f3e774af8cd02ef9). Its evidence identifies the original cancellation durably but leaves descendant/late-write/output identity indeterminate. Main exact validate/postgres and dynamic push passed; PR-head CodeQL/security/Vercel checks passed, Supabase Preview skipped, Vercel preview only. PLAN Cloud run 44861335499 failed closed; artifact records executed=false and scheduler_created=false. Preserve the native five-file worktree and do not replay.",
     "pr_number": 252,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/252"
   },
@@ -78,7 +78,7 @@
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "status": "blocked_original_descendant_and_late_write_receipts_indeterminate",
-    "last_verified_step": "Host nativo accesible21/11: transcript original sesi\u00f3n12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misi\u00f3n synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producci\u00f3n por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md Agregados Supabase actuales:64 infrastructure,45 completed/13 queued/6 blocked,130 eventos,0 leases; otros cinco roles sin filas en esta cola. Sin retries ni mutaciones remotas.",
+    "last_verified_step": "Post-merge reconciliation 2026-11-21T03:29:59Z: PR #262 merged by Victoriosas at 2026-11-21T03:25:57Z (head 90b6c195697f82ef9ba3e9f70ba810a188e8a2ac; base 02450f1084077505d89ccb5d65f54a83c0001449; merge/main eac987031e4291337b213a16f3e774af8cd02ef9). PR-head validate/postgres (two workflows each), CodeQL, Vercel Security Review, Vercel Preview and Preview Comments passed; Supabase Preview SKIPPED; Vercel was preview only. Main exact push run 44861091827 validate/postgres PASS; dynamic run 44861091854 PASS. CodeQL passed on PR head; no CodeQL run for exact merge SHA appeared in commit run listing. PLAN Cloud run 44861335499 failed at the durable fail-closed handoff; artifact continuation-44861091827 records source SHA eac987031e4291337b213a16f3e774af8cd02ef9, state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; hosted-ledger/cloud-adapter-validation/cloud-development/codex/ipv6-probe/inventory SKIPPED. No hosted mission or new scheduler was executed. PR #262 recovered session12801 transcript through 06:23:48Z17/11 without exit_code; an isolated, hash-verified forensic copy read mission synthetic-protected-node-effect-cancel-cead08 attempt2/CP3/cancelled, event55 mission_cancelled at 06:23:41.725164Z, lease/token null. Copy stopped; original hashes unchanged and five native-worktree files preserved. Overall verdict remains INDETERMINATE: original close/PIDs/IPC, late-write receipts and identity pre/post are missing. No replay, stop, stage, commit, discard or integration of the native worktree.",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
@@ -360,7 +360,12 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44198293787",
     "https://github.com/Victoriosas/autopilot/actions/runs/44198293968",
     "docs/P2_READ_ONLY_RECONCILIATION_20261121.md",
-    "https://github.com/Victoriosas/autopilot/actions/runs/44854526918/job/136693479016"
+    "https://github.com/Victoriosas/autopilot/actions/runs/44854526918/job/136693479016",
+    "https://github.com/Victoriosas/autopilot/pull/262",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44861091827",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44861091854",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44861335499",
+    "docs/P2_FORENSIC_RECEIPT_20261121.md"
   ],
   "blockers": [
     "P2: cancelaci\u00f3n durable s\u00ed observada; cierre de descendientes, resultados tard\u00edos y metadatos pre/post del intento original siguen sin recibo decisivo.",
@@ -375,7 +380,7 @@
     "objective": "Complete bounded cancellation evidence in the existing P2 order.",
     "status": "blocked_original_descendant_and_late_write_receipts_indeterminate",
     "executor": "Codex",
-    "environment": "Host micahael-PC; worktree propio codex/p2-forensic-receipt-20261121 sobre02450f1; original conservado y copia forense detenida.",
+    "environment": "Host micahael-PC; verified main eac987031e4291337b213a16f3e774af8cd02ef9 after PR #262 merge. PR #262 branch/worktree remains preserved separately; native p2-cancel-reconciliation worktree remains untouched with five modified files. Forensic copy stopped after read-only SELECT.",
     "dependencies": [
       "Cancelaci\u00f3n durable acreditada en copia forense del original; recibos de procesos y negativos incompletos.",
       "P2 completa conserva matriz pendiente; P3\u2013P6 no habilitadas por esta evidencia parcial."
@@ -385,7 +390,7 @@
       "Reabrir investigaci\u00f3n solo con dato nuevo correlacionable del mismo intento; no repetir auditor\u00edas sin cambios.",
       "Evaluar trabajo independiente conforme autorizaci\u00f3n vigente y puertas del mismo plan, sin plataforma/scheduler paralelo."
     ],
-    "next_action": "Recuperar la misma orden P2/F0 desde este checkpoint y docs/P2_FORENSIC_RECEIPT_20261121.md. El intento original est\u00e1 INDETERMINADO con cancelaci\u00f3n durable acreditada: intento2/CP3/evento55 y efecto conservado. No repetir, reiniciar cl\u00faster original, cancelar procesos, aplicar staged SQL ni alterar cinco archivos. No repetir b\u00fasquedas agotadas o reconstruir la copia sin dato nuevo. Fuente pendiente: stdout/IPC/exit original de sesi\u00f3n12801, PIDs/descendientes, resultados de late checkpoint/completion e identidad pre/post. Cambiar de fase solo al satisfacer matriz can\u00f3nica. Usuario vigente autoriza trabajo independiente seguro, ramas/PR y merge expl\u00edcito tras gates y CI exacta, sin autorizaci\u00f3n adicional rutinaria; conservar l\u00edmites productivos y efecto incierto. Main base02450f1; #260/#261 integradas. Reconciliar escritores/HEAD antes de actualizar. Mantener heartbeat victoriosa-autopilot-6h ACTIVE cada30min sin cambios; no crear scheduler. P3 cloud a\u00fan bloqueado, P4\u2013P6 y extensi\u00f3n no demostradas. No afirmar proyecto terminado ni actividad futura.",
+    "next_action": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117. Latest main is eac987031e4291337b213a16f3e774af8cd02ef9; PR #262 merged at 2026-11-21T03:25:57Z. Its exact PR-head validate/postgres/CodeQL/security/Vercel checks passed (Supabase Preview skipped; Vercel preview only); main exact validate/postgres and dynamic checks passed. PLAN Cloud run 44861335499 failed closed; durable artifact confirms cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false, and execution jobs skipped. Original session12801 transcript and read-only forensic copy establish attempt2/CP3/cancelled/event55, but not full terminal identity: recover only new, correlatable original stdout/IPC/exit, descendant/PID, late-write and pre/post identity receipts. Do not rerun, restart, cancel, stage, commit, discard, or integrate the preserved five-file native worktree; do not rebuild the forensic copy absent new evidence. Keep P2 partial and do not start P3 or dispatch Cloud.",
     "permissions": {
       "status": "bounded_local_execution_and_reviewed_integration",
       "scope": "Prepared first P2 increment continued by user; repository integration authorized. No hosted/production/cloud dispatch/spend/automation change/deletion of prior resources."
@@ -395,7 +400,7 @@
     "status": "p2_active_partial",
     "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
   },
-  "resume_instructions": "Recuperar la misma orden P2/F0 desde este checkpoint y docs/P2_FORENSIC_RECEIPT_20261121.md. El intento original est\u00e1 INDETERMINADO con cancelaci\u00f3n durable acreditada: intento2/CP3/evento55 y efecto conservado. No repetir, reiniciar cl\u00faster original, cancelar procesos, aplicar staged SQL ni alterar cinco archivos. No repetir b\u00fasquedas agotadas o reconstruir la copia sin dato nuevo. Fuente pendiente: stdout/IPC/exit original de sesi\u00f3n12801, PIDs/descendientes, resultados de late checkpoint/completion e identidad pre/post. Cambiar de fase solo al satisfacer matriz can\u00f3nica. Usuario vigente autoriza trabajo independiente seguro, ramas/PR y merge expl\u00edcito tras gates y CI exacta, sin autorizaci\u00f3n adicional rutinaria; conservar l\u00edmites productivos y efecto incierto. Main base02450f1; #260/#261 integradas. Reconciliar escritores/HEAD antes de actualizar. Mantener heartbeat victoriosa-autopilot-6h ACTIVE cada30min sin cambios; no crear scheduler. P3 cloud a\u00fan bloqueado, P4\u2013P6 y extensi\u00f3n no demostradas. No afirmar proyecto terminado ni actividad futura.",
+  "resume_instructions": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117. Latest main is eac987031e4291337b213a16f3e774af8cd02ef9; PR #262 merged at 2026-11-21T03:25:57Z. Its exact PR-head validate/postgres/CodeQL/security/Vercel checks passed (Supabase Preview skipped; Vercel preview only); main exact validate/postgres and dynamic checks passed. PLAN Cloud run 44861335499 failed closed; durable artifact confirms cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false, and execution jobs skipped. Original session12801 transcript and read-only forensic copy establish attempt2/CP3/cancelled/event55, but not full terminal identity: recover only new, correlatable original stdout/IPC/exit, descendant/PID, late-write and pre/post identity receipts. Do not rerun, restart, cancel, stage, commit, discard, or integrate the preserved five-file native worktree; do not rebuild the forensic copy absent new evidence. Keep P2 partial and do not start P3 or dispatch Cloud.",
   "supervision": {
     "verdict": "P2_PARTIAL",
     "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
@@ -787,7 +792,7 @@
       "docs/audits/evidence-20261121/p2-cancel-ledger.json",
       "docs/audits/evidence-20261121/six-role-metrics.json"
     ],
-    "integration_state": "Propuesta documental sobre main02450f1. No cambia c\u00f3digo, SQL ni worktree preservado; integraci\u00f3n y CI del head se consultan por separado."
+    "integration_state": "PR #262 was merged into main eac987031e4291337b213a16f3e774af8cd02ef9 at 2026-11-21T03:25:57Z; its forensic evidence narrows but does not close the P2 blocker. Exact PR-head checks passed with Supabase Preview skipped and Vercel preview only. Main validate/postgres/dynamic passed. PLAN Cloud run 44861335499 failed closed with durable executed=false/scheduler_created=false. Native operation remains indeterminate; no replay or mutation."
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
@@ -801,7 +806,7 @@
       "Reabrir investigaci\u00f3n solo con dato nuevo correlacionable del mismo intento; no repetir auditor\u00edas sin cambios.",
       "Evaluar trabajo independiente conforme autorizaci\u00f3n vigente y puertas del mismo plan, sin plataforma/scheduler paralelo."
     ],
-    "recoverable_prompt": "Recuperar la misma orden P2/F0 desde este checkpoint y docs/P2_FORENSIC_RECEIPT_20261121.md. El intento original est\u00e1 INDETERMINADO con cancelaci\u00f3n durable acreditada: intento2/CP3/evento55 y efecto conservado. No repetir, reiniciar cl\u00faster original, cancelar procesos, aplicar staged SQL ni alterar cinco archivos. No repetir b\u00fasquedas agotadas o reconstruir la copia sin dato nuevo. Fuente pendiente: stdout/IPC/exit original de sesi\u00f3n12801, PIDs/descendientes, resultados de late checkpoint/completion e identidad pre/post. Cambiar de fase solo al satisfacer matriz can\u00f3nica. Usuario vigente autoriza trabajo independiente seguro, ramas/PR y merge expl\u00edcito tras gates y CI exacta, sin autorizaci\u00f3n adicional rutinaria; conservar l\u00edmites productivos y efecto incierto. Main base02450f1; #260/#261 integradas. Reconciliar escritores/HEAD antes de actualizar. Mantener heartbeat victoriosa-autopilot-6h ACTIVE cada30min sin cambios; no crear scheduler. P3 cloud a\u00fan bloqueado, P4\u2013P6 y extensi\u00f3n no demostradas. No afirmar proyecto terminado ni actividad futura."
+    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117. Latest main is eac987031e4291337b213a16f3e774af8cd02ef9; PR #262 merged at 2026-11-21T03:25:57Z. Its exact PR-head validate/postgres/CodeQL/security/Vercel checks passed (Supabase Preview skipped; Vercel preview only); main exact validate/postgres and dynamic checks passed. PLAN Cloud run 44861335499 failed closed; durable artifact confirms cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false, and execution jobs skipped. Original session12801 transcript and read-only forensic copy establish attempt2/CP3/cancelled/event55, but not full terminal identity: recover only new, correlatable original stdout/IPC/exit, descendant/PID, late-write and pre/post identity receipts. Do not rerun, restart, cancel, stage, commit, discard, or integrate the preserved five-file native worktree; do not rebuild the forensic copy absent new evidence. Keep P2 partial and do not start P3 or dispatch Cloud."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -811,15 +816,16 @@
   },
   "phase_exit_review": {
     "verdict": "P2_PARTIAL",
-    "record_status": "p2_original_durable_cancel_observed_full_receipt_indeterminate",
+    "record_status": "p2_original_durable_cancel_observed_full_receipt_indeterminate_after_pr262_merge",
     "report": "docs/P2_CLAIM_CANCELLATION_BOUND_20261117.md",
-    "base_main_sha": "02450f1084077505d89ccb5d65f54a83c0001449",
+    "base_main_sha": "eac987031e4291337b213a16f3e774af8cd02ef9",
     "passed": [
       "PR250 and PR251 are integrated; PR251 exact validate/postgres/CodeQL/browser/Vercel checks succeeded; Supabase Preview skipped.",
       "PR252 is integrated by a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b; final head exact validate/postgres/CodeQL/public-browser-smoke/Vercel Security Review/Vercel/Preview Comments succeeded; Supabase Preview skipped.",
       "RED/GREEN proves cancellation at second completion authorization is propagated and prevents a not-yet-admitted base completion write.",
       "Focused runtime and authorization suites 43/43; full verify 583/583, zero fail/skip; builds/API and diff-check pass.",
-      "Copia forense del intento original: cancelled/CP3/attempt2/mission_cancelled, lease y token liberados. Observador psql independiente; no prueba cierre de descendientes ni negativos tard\u00edos."
+      "Copia forense del intento original: cancelled/CP3/attempt2/mission_cancelled, lease y token liberados. Observador psql independiente; no prueba cierre de descendientes ni negativos tard\u00edos.",
+      "PR #262 merged at 2026-11-21T03:25:57Z as eac987031e4291337b213a16f3e774af8cd02ef9; exact PR-head validate/postgres/CodeQL/security/Vercel checks passed, Supabase Preview skipped and Vercel preview only. Main exact validate/postgres and dynamic checks passed; no main-SHA CodeQL run was listed."
     ],
     "pending": [
       "INDETERMINADO el intento original: faltan recibos originales de salida/descendientes, negativos tard\u00edos e identidad completa pre/post. Cancelaci\u00f3n durable intento2/CP3/evento55 acreditada; no repetir operaci\u00f3n.",
@@ -981,6 +987,48 @@
       "active_leases": 0,
       "audit_events": 130,
       "scope": "All recorded tasks infrastructure/read_only_public_health. Other five roles zero rows here; on-demand entries not exercised. No retries, dispatch or remote writes."
+    },
+    "session_read_only_pr262_merge_20261121": {
+      "observed_at": "2026-11-21T03:29:59Z",
+      "main_sha": "eac987031e4291337b213a16f3e774af8cd02ef9",
+      "pr262": {
+        "head": "90b6c195697f82ef9ba3e9f70ba810a188e8a2ac",
+        "base": "02450f1084077505d89ccb5d65f54a83c0001449",
+        "merge": "eac987031e4291337b213a16f3e774af8cd02ef9",
+        "merged_at": "2026-11-21T03:25:57Z",
+        "required_checks": "success",
+        "supabase_preview": "skipped",
+        "vercel": "preview_only"
+      },
+      "main_checks": {
+        "run": 44861091827,
+        "validate": "success",
+        "postgres": "success",
+        "dynamic_run": 44861091854,
+        "dynamic": "success",
+        "codeql_exact_main_sha": "not_listed"
+      },
+      "cloud_run": {
+        "run": 44861335499,
+        "source_run": 44861091827,
+        "artifact": "continuation-44861091827",
+        "state": "blocked",
+        "reason": "cloud_ledger_adapter_not_configured",
+        "executed": false,
+        "scheduler_created": false,
+        "execution_jobs": "skipped"
+      },
+      "native_receipt": {
+        "session": 12801,
+        "transcript_through": "2026-11-17T06:23:48Z",
+        "exit_code": "unavailable",
+        "durable_state": "attempt2_cp3_cancelled_event55",
+        "full_effect_verdict": "indeterminate",
+        "preserved_modified_files": 5,
+        "mutated": false
+      },
+      "phase_transition": false,
+      "hosted_mission_executed": false
     }
   },
   "previous_order_history": [
