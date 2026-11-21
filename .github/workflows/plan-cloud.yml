@@ -12,9 +12,13 @@ on:
         type: choice
         required: true
         default: inventory
-        options: [inventory, codex, development, hosted-status, hosted-resume, ipv6-probe]
+        options: [inventory, codex, development, hosted-status, hosted-resume, hosted-handoff, ipv6-probe]
       mission_id:
         description: 'ID synthetic previamente admitida; solo modos hosted'
+        type: string
+        default: ''
+      source_run:
+        description: 'Run Autopilot Core main/completed/success del SHA revisado; solo hosted-handoff'
         type: string
         default: ''
   pull_request:
@@ -44,7 +48,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: node --import tsx --test src/autopilot/cloudDevelopment.test.ts scripts/cloud-development.test.mjs
+      - run: node --import tsx --test src/autopilot/cloudDevelopment.test.ts src/autopilot/cloudLedgerHandoff.test.ts scripts/cloud-development.test.mjs
       - run: node --import tsx scripts/cloud-development.mjs sandbox-smoke
   cloud-development:
     # Opt-in, main only, one bounded proposal. Existing synthetic SQL grants stay closed.
@@ -170,7 +174,7 @@ jobs:
           path: continuation.json
           retention-days: 14
   inventory:
-    if: ${{ github.event_name != 'workflow_run' && github.event_name != 'schedule' && inputs.mode != 'development' && inputs.mode != 'hosted-status' && inputs.mode != 'hosted-resume' && inputs.mode != 'ipv6-probe' }}
+    if: ${{ github.event_name != 'workflow_run' && github.event_name != 'schedule' && inputs.mode != 'development' && inputs.mode != 'hosted-status' && inputs.mode != 'hosted-resume' && inputs.mode != 'hosted-handoff' && inputs.mode != 'ipv6-probe' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -231,8 +235,11 @@ jobs:
           retention-days: 14
   hosted-ledger:
     # No PR/workflow_run credentials. Exact reviewed commit AND protected environment required.
-    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && (inputs.mode == 'hosted-status' || inputs.mode == 'hosted-resume') && vars.P0C_HOSTED_REVIEWED_SHA == github.sha }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && (inputs.mode == 'hosted-status' || inputs.mode == 'hosted-resume' || inputs.mode == 'hosted-handoff') && vars.P0C_HOSTED_REVIEWED_SHA == github.sha }}
     environment: p0c-hosted-ledger
+    permissions:
+      contents: read
+      actions: read
     concurrency:
       group: p0c-hosted-ledger
       cancel-in-progress: false
@@ -256,5 +263,7 @@ jobs:
           P0C_CONNECTION_MODE: ${{ vars.P0C_LEDGER_CONNECTION_MODE }}
           P0C_REVIEWED_SHA: ${{ vars.P0C_HOSTED_REVIEWED_SHA }}
           P0C_MISSION_ID: ${{ inputs.mission_id }}
-          P0C_ACTION: ${{ inputs.mode == 'hosted-status' && 'status' || 'resume' }}
+          P0C_ACTION: ${{ inputs.mode == 'hosted-status' && 'status' || inputs.mode == 'hosted-handoff' && 'handoff' || 'resume' }}
+          P0C_HANDOFF_SOURCE_RUN: ${{ inputs.source_run }}
+          GH_TOKEN: ${{ github.token }}
         run: node --import tsx scripts/hosted-ledger-runner.mjs
