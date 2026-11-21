@@ -1,3 +1,9 @@
+# Orden vigente · tres demostraciones staging en paralelo · 21/11/2026
+
+ORD-THREE-DEMONSTRATIONS-20261121 por instrucción expresa del propietario. A consulta, B seis roles, C catálogo fixture y D handoff cloud avanzan en worktrees separados mediante contratos existentes; P2 no se reabre ni bloquea estos ensayos. Base66da49d tras reconciliar #263. D implementa handoff manual protegido; barrera automática y guards intactos. A/B/C en pruebas locales; no certificación integral anticipada.
+
+Medición: dominio9d6bbdb mantiene brecha de despliegue. Heartbeat existente ACTIVE/30min intacto. Cola principal64tareas/130eventos,45completed/13queued/6blocked/0leases;6blocked agotaron3/3 con18eventos site_unavailable y13queued aún0intentoss; sin retries productivos. Run cloud sujeto a reviewed SHA viejo y prevent_self_review; sin bypass. Preservar P2, cinco archivos y clúster detenido. Checkpoint conserva inventario recuperable; nuevas etapas se acreditan por comandos/receipts y SHA de cada PR.
+
 # P2 · evidencia original recuperada parcialmente · 21/11/2026
 
 Host nativo accesible21/11: transcript original sesión12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misión synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producción por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md
