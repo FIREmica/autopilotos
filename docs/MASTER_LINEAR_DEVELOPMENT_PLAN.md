@@ -2,7 +2,17 @@
 
 Referencia: 14/11/2026, America/Montevideo. Este es el plan técnico canónico para nuevas órdenes. La visión, las fases de producto F0–F8 y sus autorizaciones siguen en [PROJECT_DIRECTION.md](PROJECT_DIRECTION.md). Los P0–P6 de este plan son etapas técnicas de una sola cadena; no autorizan saltar F1→F2→F3→F4 ni abrir un programa paralelo.
 
-**P0 cerrada con limites; P1_CLOSED_WITH_BOUNDARIES integrado por248 en main8633b36; codigo evaluado823c2fe y CI posterior8633b36 aprobada. P2 ACTIVA/PARCIAL por continuacion del propietario; primera recuperacion protegida de efecto en candidata. P3–P6 no activadas.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+**Orden vigente21/11: demostraciones sintéticas A/B/C/D en paralelo por autorización expresa (sección siguiente). P2 INDETERMINADO/PRESERVAR, sin reapertura. P0/P1 y las puertas productivas históricas se conservan; ninguna fase productiva queda certificada por estos ensayos.** Estado operativo recuperable: [CODEX_CONTINUATION.json](CODEX_CONTINUATION.json). Prompt de entrada: [CODEX_LINEAR_CONTINUATION_PROMPT.md](CODEX_LINEAR_CONTINUATION_PROMPT.md). Evidencia de base: [auditoría del 14/11](audits/AUTOPILOT_FORENSIC_AUDIT_20261114.md) y [manifiesto](audits/AUTOPILOT_RESOURCE_MANIFEST_20261114.json). Las fases posteriores están definidas, no activadas.
+
+## Orden vigente del propietario · demostraciones paralelas · 21/11/2026
+
+La instrucción expresa del21/11 sustituye la dependencia secuencial **solo para demostraciones sintéticas/staging**. Única orden de ejecución: `ORD-THREE-DEMONSTRATIONS-20261121`; carriles A (consulta P5/P6), B (oficina), C (catálogo read-only) y D (contrato handoff cloud) pueden implementarse y verificarse en paralelo mediante componentes existentes. No es activación productiva de F5–F8 ni cierre de las puertas originales. Las matrices y límites de este plan permanecen como criterios de aceptación; su secuencia histórica no impide estos ensayos autorizados.
+
+P2 queda **INDETERMINADO/PRESERVAR**, sin tareas nuevas y fuera de la cola de ejecución de esta orden. No reemitir su misión, reiniciar clúster, cancelar procesos ni aplicar SQL staged; no modifica sus cinco archivos. Un recibo original nuevo es condición necesaria para reabrirla. La falta de ese recibo no bloquea A/B/C/D.
+
+La autorización incluye staging local, tareas sintéticas por entradas normales, transporte no_send SIMULADO con acuse, catálogo fixture, código/tests y PR/merge explícito tras CI del SHA exacto y revisión. Conserva barreras productivas, aprobación humana/consentimiento, RLS/TLS/fencing y presupuesto externo cero para estos ensayos. Multiempresa sigue fuera de alcance: F8 de PROJECT_DIRECTION requiere una decisión estratégica propia. No crear otro ledger, cola, scheduler o supervisor. La identidad/cadencia del heartbeat existente se conserva.
+
+D reutiliza CloudMissionStore, continuationDecision, runner manual y environment protegido existentes; el nuevo handoff no habilita credenciales en workflow_run ni consume artefactos de forks. El reviewed SHA actual antiguo y prevent_self_review se registran como límites del run remoto; los contratos locales se prueban sin eludirlos.
 
 ## Autoridad y avance
 
