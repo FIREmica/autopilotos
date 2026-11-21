@@ -58,7 +58,7 @@
       "next_action": "After owner confirms usable API quota/access: reconcile live main and PRs, pause the existing local heartbeat again, then admit one bounded reviewed-base attempt within USD5/month. Keep deterministic branch receipts; no replay on either prior base. The existing cloud schedule is every six hours once admitted."
     }
   },
-  "updated_at": "2026-11-20T23:50:19+00:00",
+  "updated_at": "2026-11-20T23:58:58+00:00",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
@@ -779,7 +779,7 @@
       "No independent P2 step is currently authorized while the operation result remains uncertain; preserve P2 as blocked and do not start P3 or a parallel runner.",
       "No hosted SQL, cloud dispatch, production, client contact, spending, auto-merge or new scheduler. Preserve the existing heartbeat ID, destination, ACTIVE status and six-hour cadence; prompt-only improvement is allowed by the current user instruction."
     ],
-    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117, P2/F0 partial. Main is 6f791f49562d038edb5ed00e27ed449329bdb290. PR252 was merged by a9fc08a on 2026-11-18; its final head 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d passed validate/postgres/CodeQL/public-browser-smoke/Vercel/security/comments; Supabase Preview was SKIPPED. Completion-abort code is integrated but does not prove hosted execution or finish P2. Recover the original terminal output/receipt for the pre-existing native cancellation/descendant operation. Its worktree still has five modified, unstaged files; targeted process scan found no matching process or listener on 28447. The checked repository and related thread have no receipt; that thread ended before running the native test. Do not rerun, stop, stage, commit, discard or integrate the preserved worktree. No independent P2 step is authorized while its result remains unknown; end with [AUTOPILOT_ORDER_BLOCKED] until the original evidence is recovered. PR258 contains only a checkpoint correction and has exact validate/postgres/CodeQL/Vercel/security checks SUCCESS on 4f2dac77b4fbef8c8c8c6de05bcb28db8d7e5474; Supabase Preview SKIPPED. Do not auto-merge it. Plugin Autodesarrollo private v0.4.5 has same-session hooks, not a daemon; local heartbeat is the active fallback, cloud admission remains false after HTTP429. No P3, hosted SQL, production, client sends, spending, claim/dispatch, schedule changes or new automation."
+    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117, P2/F0 partial. Reconcile live origin/main, the sole open PR #258, its head, review and exact-head CI before attributing current status; the parent head a85c38e had documentation checks, but later commits need their own results. PR #252 was merged by a9fc08a on 2026-11-18; its final head 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d passed validate/postgres/CodeQL/public-browser-smoke/Vercel/security/comments; Supabase Preview was SKIPPED. Completion-abort code is integrated but does not prove hosted execution or finish P2. Recover the original terminal output/receipt for the pre-existing native cancellation/descendant operation. Its worktree still has five modified, unstaged files; targeted process scan found no matching process or listener on 28447. The checked repository and related thread have no receipt; that thread ended before running the native test. Do not rerun, stop, stage, commit, discard or integrate the preserved worktree. No independent P2 step is authorized while its result remains unknown; end with [AUTOPILOT_ORDER_BLOCKED] until the original evidence is recovered. Do not auto-merge PR #258. Plugin Autodesarrollo private v0.4.5 has same-session hooks, not a daemon; local heartbeat is the active fallback, cloud admission remains false after HTTP429. No P3, hosted SQL, production, client sends, spending, claim/dispatch, schedule changes or new automation."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -915,9 +915,9 @@
     }
   ],
   "p2_remaining_work": [
-    "Review/open one PR for the completion abort boundary; verify exact final-head CI and unresolved review threads.",
-    "Reconcile the preserved native protected cancellation/descendants and evidence-retention worktree; do not overwrite or duplicate its uncertain local test effect.",
-    "Remaining bounded fault matrix; no Windows/reboot/cross-host evidence.",
-    "No cloud dispatch, hosted SQL, production, P3, spending or continuous Codex-to-SQL proof."
+    "CURRENT BLOCKER: recover the original terminal output/receipt for the preserved native cancellation/descendants operation; do not repeat, stop, stage, commit, discard or integrate its five-file worktree while the outcome is unknown.",
+    "After an original receipt is recovered, classify that existing operation against the canonical P2 order and ledger evidence before selecting any further step; do not infer success from modified files, no process or no listener.",
+    "Defer the remaining bounded fault matrix and any Windows/reboot/cross-host evidence until the current uncertainty is resolved and an authorized P2 step is established.",
+    "PR #252 completion-abort boundary is already merged and its exact final-head CI is recorded above; do not open duplicate implementation/CI work. No cloud dispatch, hosted SQL, production, P3, spending or continuous Codex-to-SQL proof."
   ]
 }
