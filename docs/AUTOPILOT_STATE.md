@@ -1790,3 +1790,15 @@ Este commit es solo documental. En el SHA exacto `72b15e4c9982fdd557630b1caba1a7
 ## 2026-11-21 00:05 UTC - CI exacta de la corrección documental
 
 La CI de `72b15e4c9982fdd557630b1caba1a79434f4d164` terminó: validate, postgres, CodeQL (tres análisis), Vercel Security Review y Vercel Preview SUCCESS; Supabase Preview SKIPPED. La PR body se alineó con este SHA. El proceso de verificación no produjo aplicación desplegada; Vercel es solo preview. P2 continúa bloqueada por la evidencia original faltante, sin cambios al worktree preservado. El siguiente commit solo registra estos resultados y requiere consultar los checks de su propio SHA.
+
+## 2026-11-21 01:52 UTC - reconciliar fusión externa de PR #258
+
+**Estado:** continúa ORD-P2-RECOVERY-VERIFICATION-20261117, P2/F0 parcial. GitHub confirmó que la PR #258 fue fusionada por Victoriosas a las 01:44:16 UTC. Su head exacto fue ddfe4dcb733130c4ab3269df1cead8cdf33ececc, base ece57caadc01605f5429ab70251dccd8ea5c670d, merge y origin/main actual ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. La fusión incluye solo documentación y no es despliegue de producción.
+
+**CI de la PR fusionada:** validate y postgres (dos workflows cada uno), CodeQL para actions/JavaScript-TypeScript/Python, Vercel Security Review, Vercel Preview y Preview Comments pasaron en el head exacto. Supabase Preview quedó SKIPPED; no prueba operación alojada. Vercel solo acredita preview. La PR la fusionó el propietario; no se solicitó ni ejecutó auto-merge.
+
+**Reconciliación preparada:** el checkpoint en esta propuesta actualiza su SHA principal, registra #258 fusionada y conserva P2 bloqueada por el recibo nativo original faltante. Se mantiene el estado del worktree nativo p2-cancel-reconciliation-20261117: cinco archivos modificados preservados; no se halló proceso coincidente ni listener en 28447. Esas observaciones no clasifican el efecto. No se recuperó output/recibo terminal. No se repitió, detuvo, modificó, stageó, confirmó ni integró aquella operación.
+
+La rama documental de esta propuesta parte del main verificado ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. Solo se autorizan aquí docs/CODEX_CONTINUATION.json y este ledger. No cambia código de aplicación, SQL, permisos, producción o automatización. JSON y diff se validarán antes de una PR; al ser solo documentación no corresponde repetir npm run verify. No hay operación incierta nueva. Sin merge automático ni despliegue.
+
+**Siguiente misión exacta:** recuperar el recibo/output terminal original del test nativo desde su sesión o artefacto existente. Si no aparece, mantener intactos los cinco archivos y P2 bloqueada; no repetir el efecto ni iniciar P3. No existe otra acción P2 independiente autorizada mientras el resultado siga sin clasificar. La verificación posterior de la PR documental solo cubre este cambio de continuidad.
