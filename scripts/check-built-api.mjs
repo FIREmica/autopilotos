@@ -19,6 +19,9 @@ const request = (origin, pathname, method = 'GET') => fetch(origin + pathname, {
 });
 
 async function checkMissingApi(origin) {
+  const capture = await request(origin, '/api/payments/paypal/capture', 'POST');
+  assert.equal(capture.status, 410, 'legacy PayPal capture must stay blocked in compiled APIs');
+  assert.equal((await capture.json()).error, 'LEGACY_ACTION_BLOCKED');
   for (const method of ['GET', 'POST', 'HEAD']) {
     const response = await request(origin, '/api/__missing_build_probe__', method);
     assert.equal(response.status, 404, `${method} unknown API status`);

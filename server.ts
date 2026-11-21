@@ -856,13 +856,17 @@ app.post('/api/payments/paypal/capture', async (req: any, res) => {
     if (!paypalOrderId || !orderId) {
       return res.status(400).json({ error: 'paypalOrderId and orderId are required' });
     }
+    if (typeof paypalOrderId !== 'string' || paypalOrderId.length < 10 || paypalOrderId.length > 64 || /[^A-Za-z0-9-]/.test(paypalOrderId)) {
+      return res.status(400).json({ error: 'Formato de paypalOrderId no válido' });
+    }
 
     if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
       return res.status(503).json({ error: 'PAYMENT_NOT_CONFIGURED', message: 'PayPal no está configurado.' });
     }
 
     const accessToken = await getPayPalAccessToken();
-    const captureRes = await fetch(`${getPayPalBaseUrl()}/v2/checkout/orders/${paypalOrderId}/capture`, {
+    const safePaypalOrderId = encodeURIComponent(paypalOrderId);
+    const captureRes = await fetch(`${getPayPalBaseUrl()}/v2/checkout/orders/${safePaypalOrderId}/capture`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,

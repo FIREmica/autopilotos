@@ -1790,3 +1790,12 @@ Este commit es solo documental. En el SHA exacto `72b15e4c9982fdd557630b1caba1a7
 ## 2026-11-21 00:05 UTC - CI exacta de la corrección documental
 
 La CI de `72b15e4c9982fdd557630b1caba1a79434f4d164` terminó: validate, postgres, CodeQL (tres análisis), Vercel Security Review y Vercel Preview SUCCESS; Supabase Preview SKIPPED. La PR body se alineó con este SHA. El proceso de verificación no produjo aplicación desplegada; Vercel es solo preview. P2 continúa bloqueada por la evidencia original faltante, sin cambios al worktree preservado. El siguiente commit solo registra estos resultados y requiere consultar los checks de su propio SHA.
+
+
+## 2026-11-21 - validación defensiva de captura PayPal (solicitud del propietario)
+
+Base de trabajo: `main` `ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1`; la PR #260 abierta es documental y no modifica esta ruta. Cambio acotado de seguridad, sin alterar la fase P2/F0 ni el checkpoint operativo. El handler legado ahora exige un identificador string ASCII alfanumérico/guion de 10–64 caracteres y codifica el segmento de URL antes de usarlo. La ruta sigue bloqueada por la guarda existente con HTTP 410; no se habilitan pagos.
+
+Evidencia local: regresión RED antes del cambio (un ID numérico llegaba al proveedor simulado), GREEN después, sin llamadas reales. `npm run verify` PASS: typecheck, suite completa, builds Node/Vercel y comprobación de ambos bundles, incluida la permanencia del 410. `node scripts/secret-scan.mjs` PASS. `npm audit --json`: cero vulnerabilidades conocidas; picomatch 4.0.7 llega vía Vite 8.3.8. GHSA-fc5q-39xc-vjpf fue retirado oficialmente el 18/11/2026 por no constituir un problema de seguridad; no se modificaron dependencias ni lockfile.
+
+Límites: no se dispone de operaciones para inventariar/cerrar alertas privadas de CodeQL, Dependabot o secret scanning ni verificar sus ajustes; los checks CodeQL exitosos no prueban ausencia de alertas. Pendiente revisión humana y CI del SHA publicado, incluido validate/postgres. Sin merge, despliegue manual, pagos reales, SQL remoto ni cambios a la PC. La alerta CodeQL solo podrá darse por cerrada tras integrar el cambio y confirmar el nuevo análisis de main.
