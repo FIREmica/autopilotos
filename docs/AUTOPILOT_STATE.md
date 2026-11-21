@@ -1,3 +1,11 @@
+# P2 · evidencia original recuperada parcialmente · 21/11/2026
+
+Host nativo accesible21/11: transcript original sesión12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misión synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producción por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md
+
+Agregados Supabase medidos03:21Z:64 tareas infrastructure/130 eventos,45 completed,13 queued,6 blocked,0 leases; otros cinco roles sin filas en esta cola. No retries ni mutaciones remotas.
+
+Recibo saneado versionado y matriz por aserción en el informe. La copia forense separada se detuvo tras SELECT; no se aplicaron SQL staged, no se reemitió la misión ni se inició el clúster original. INDETERMINADO no es cierre P2: falta evidencia de descendientes y late writes del mismo intento. Reabrir solo ante esos recibos originales; no repetir ensayos inciertos ni búsquedas sin novedad. Autorización vigente permite trabajo independiente y merges revisados con CI exacta, manteniendo gates y límites. Sin pruebas nuevas de P3–P6, consulta integral ni extensión.
+
 # Cloud · límite externo HTTP429 y fallback restaurado · 18/11/2026
 
 PR256 integrada en `0dbffea0836f6825920130ce951e1e05266443f0`, con exact validate/postgres/CodeQL/security PASS y Supabase Preview SKIPPED. Diagnóstico local 13/13 y verify completo PASS. [Segundo run externo44243596109](https://github.com/Victoriosas/autopilot/actions/runs/44243596109): prepare PASS, inferencia rechazada con HTTP429, code unclassified y param null. Esto no distingue por sí solo cuota de uso de límite de solicitudes. Sin candidata, pruebas de candidata ni PR generada. No se acredita inferencia funcional ni autodesarrollo cloud operativo.
