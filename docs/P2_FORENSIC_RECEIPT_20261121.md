@@ -12,7 +12,7 @@ Se creó copia forense separada en `%TEMP%/victoriosas-p2-forensic-20261121`, de
 
 Copia servida solo en127.0.0.1:29447, default_transaction_read_only=on y autovacuum=off. Un proceso psql separado del executor extrajo la fila y auditoría originales mediante SELECT; no se llamó ninguna función de autorización, claim, checkpoint, cancelación o completado. La copia fue detenida después. **Relectura de los1300 hashes del origen: cero cambios**. No se inició el clúster original, reemitió misión, aplicó SQL staged ni canceló proceso ajeno. Los cinco archivos del worktree preservado siguen sin stage ni modificación por esta sesión.
 
-Exportación saneada: [recibo SQL](audits/evidence-20261121/p2-cancel-ledger.json), SHA256 original `448270468eaf3afc445fea8f30d854e062bf3ad6db4de7402f7c53cc0b3ca032`. El manifiesto completo y log de recuperación se conservan en la copia local; no contienen una nueva ejecución de la misión.
+Exportación saneada: [recibo SQL](audits/evidence-20261121/p2-cancel-ledger.json), SHA256 original `448270468eaf3afc445fea8f30d854e062bf3ad6db4de7402f7c53cc0b3ca032`. El recibo versionado usa LF, SHA256 `85360bcebf354fdb7282aa6e0baf55bbc8add968109d1edaee50ebf2afdc1392`; la exportación original conserva CRLF y su hash anterior. El manifiesto completo y log de recuperación se conservan en la copia local; no contienen una nueva ejecución de la misión.
 
 ## Tabla de aserciones del caso cancel
 

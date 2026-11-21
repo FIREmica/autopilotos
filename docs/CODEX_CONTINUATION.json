@@ -766,7 +766,7 @@
       "json": "parsed",
       "original_file_hashes": 1300,
       "changed_original_files": 0,
-      "receipt_sha256": "448270468eaf3afc445fea8f30d854e062bf3ad6db4de7402f7c53cc0b3ca032",
+      "receipt_sha256": "85360bcebf354fdb7282aa6e0baf55bbc8add968109d1edaee50ebf2afdc1392",
       "application_tests": "not repeated for documentation-only change; exact candidate CI required"
     }
   },
@@ -1004,7 +1004,7 @@
     "verdict": "INDETERMINADO",
     "report": "docs/P2_FORENSIC_RECEIPT_20261121.md",
     "receipt": "docs/audits/evidence-20261121/p2-cancel-ledger.json",
-    "receipt_sha256": "448270468eaf3afc445fea8f30d854e062bf3ad6db4de7402f7c53cc0b3ca032",
+    "receipt_sha256": "85360bcebf354fdb7282aa6e0baf55bbc8add968109d1edaee50ebf2afdc1392",
     "mission_id": "synthetic-protected-node-effect-cancel-cead08",
     "attempt": 2,
     "checkpoint_version": 3,
@@ -1014,6 +1014,7 @@
     "original_cluster_restarted": false,
     "replayed": false,
     "forensic_copy_stopped": true,
-    "preserved_worktree_head": "d9a07f93ccca3e4be01c428874c8111a2e62edfe"
+    "preserved_worktree_head": "d9a07f93ccca3e4be01c428874c8111a2e62edfe",
+    "original_export_sha256": "448270468eaf3afc445fea8f30d854e062bf3ad6db4de7402f7c53cc0b3ca032"
   }
 }
