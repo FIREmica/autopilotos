@@ -1,0 +1,341 @@
+{
+  "mode": "SIMULADO",
+  "environment": "owned_local_postgresql_staging",
+  "observedAt": "2026-11-21T04:18:40.548Z",
+  "entry": "runSixAgentOfficeEntry -> claimPersistedTask -> six_agent_claim -> six_agent_complete/six_agent_fail",
+  "runs": [
+    {
+      "agent": "director",
+      "trigger": "enqueue",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "director",
+        "trigger": "enqueue",
+        "state": "completed",
+        "taskId": "synthetic-office-director",
+        "evidence": "SIMULADO:director:read_only_next_task_proposal"
+      },
+      "durable": {
+        "attempt": 2,
+        "status": "completed",
+        "evidence": "SIMULADO:director:read_only_next_task_proposal",
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:34.778016+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:34.986013+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:35.345422+00:00"
+          },
+          {
+            "event": "six_agent_complete",
+            "at": "2026-11-21T04:18:35.498926+00:00"
+          }
+        ]
+      },
+      "recovery": "expired_lease_new_attempt_stale_completion_denied"
+    },
+    {
+      "agent": "software",
+      "trigger": "explicit_task",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "software",
+        "trigger": "explicit_task",
+        "state": "completed",
+        "taskId": "synthetic-office-software",
+        "evidence": "SIMULADO:software:change_scope_reviewed_no_code_execution"
+      },
+      "durable": {
+        "attempt": 2,
+        "status": "completed",
+        "evidence": "SIMULADO:software:change_scope_reviewed_no_code_execution",
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:35.795379+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:35.920444+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:36.383064+00:00"
+          },
+          {
+            "event": "six_agent_complete",
+            "at": "2026-11-21T04:18:36.499959+00:00"
+          }
+        ]
+      },
+      "recovery": "expired_lease_new_attempt_stale_completion_denied"
+    },
+    {
+      "agent": "infrastructure",
+      "trigger": "health_check",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "infrastructure",
+        "trigger": "health_check",
+        "state": "completed",
+        "taskId": "synthetic-office-infrastructure",
+        "evidence": "SIMULADO:infrastructure:synthetic_public_health_verified"
+      },
+      "durable": {
+        "attempt": 2,
+        "status": "completed",
+        "evidence": "SIMULADO:infrastructure:synthetic_public_health_verified",
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:36.742115+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:36.846581+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:37.23536+00:00"
+          },
+          {
+            "event": "six_agent_complete",
+            "at": "2026-11-21T04:18:37.391082+00:00"
+          }
+        ]
+      },
+      "recovery": "expired_lease_new_attempt_stale_completion_denied"
+    },
+    {
+      "agent": "consultations",
+      "trigger": "authorized_inbound",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "consultations",
+        "trigger": "authorized_inbound",
+        "state": "not_claimed",
+        "reason": "consultations_policy_paused"
+      },
+      "durable": {
+        "attempt": 0,
+        "status": "queued",
+        "evidence": null,
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:37.605873+00:00"
+          }
+        ]
+      },
+      "recovery": "not_claimed_policy_pause"
+    },
+    {
+      "agent": "followup",
+      "trigger": "authorized_review",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "followup",
+        "trigger": "authorized_review",
+        "state": "completed",
+        "taskId": "synthetic-office-followup",
+        "evidence": "SIMULADO:followup:opt_in_review_prepared_no_send"
+      },
+      "durable": {
+        "attempt": 2,
+        "status": "completed",
+        "evidence": "SIMULADO:followup:opt_in_review_prepared_no_send",
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:38.031386+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:38.133577+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:38.575715+00:00"
+          },
+          {
+            "event": "six_agent_complete",
+            "at": "2026-11-21T04:18:38.69281+00:00"
+          }
+        ]
+      },
+      "recovery": "expired_lease_new_attempt_stale_completion_denied"
+    },
+    {
+      "agent": "reports",
+      "trigger": "scheduled_report",
+      "authorization": "host_approved_synthetic_no_send",
+      "run": {
+        "agent": "reports",
+        "trigger": "scheduled_report",
+        "state": "completed",
+        "taskId": "synthetic-office-reports",
+        "evidence": "SIMULADO:reports:aggregate_report_6_4_0"
+      },
+      "durable": {
+        "attempt": 2,
+        "status": "completed",
+        "evidence": "SIMULADO:reports:aggregate_report_6_4_0",
+        "audit": [
+          {
+            "event": "synthetic_authorized_admission",
+            "at": "2026-11-21T04:18:38.906882+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:39.107861+00:00"
+          },
+          {
+            "event": "six_agent_claim",
+            "at": "2026-11-21T04:18:39.464992+00:00"
+          },
+          {
+            "event": "six_agent_complete",
+            "at": "2026-11-21T04:18:39.676497+00:00"
+          }
+        ]
+      },
+      "recovery": "expired_lease_new_attempt_stale_completion_denied"
+    }
+  ],
+  "negative": {
+    "agent": "followup",
+    "trigger": "authorized_review",
+    "state": "blocked",
+    "taskId": "synthetic-followup-revoked",
+    "reason": "consent_and_supervision_required"
+  },
+  "unauthorizedCallerDenied": true,
+  "panels": [
+    {
+      "id": "director",
+      "configuredState": "ready",
+      "trigger": "enqueue / scheduled poll",
+      "lastActivity": "2026-11-21T04:18:35.498926+00:00",
+      "lastExecution": {
+        "status": "completed",
+        "at": "2026-11-21T04:18:35.498926+00:00"
+      },
+      "lastSuccess": "2026-11-21T04:18:35.498926+00:00",
+      "observedHealth": "recent_success",
+      "received": 1,
+      "pending": 0,
+      "running": 0,
+      "completed": 1,
+      "blocked": 0,
+      "oldestOpenAgeSeconds": null,
+      "retriedTasks": 1,
+      "activeLeases": 0
+    },
+    {
+      "id": "software",
+      "configuredState": "ready",
+      "trigger": "pull_request / issue / explicit task",
+      "lastActivity": "2026-11-21T04:18:36.499959+00:00",
+      "lastExecution": {
+        "status": "completed",
+        "at": "2026-11-21T04:18:36.499959+00:00"
+      },
+      "lastSuccess": "2026-11-21T04:18:36.499959+00:00",
+      "observedHealth": "recent_success",
+      "received": 1,
+      "pending": 0,
+      "running": 0,
+      "completed": 1,
+      "blocked": 0,
+      "oldestOpenAgeSeconds": null,
+      "retriedTasks": 1,
+      "activeLeases": 0
+    },
+    {
+      "id": "infrastructure",
+      "configuredState": "ready",
+      "trigger": "scheduled health check / deployment event",
+      "lastActivity": "2026-11-21T04:18:37.391082+00:00",
+      "lastExecution": {
+        "status": "completed",
+        "at": "2026-11-21T04:18:37.391082+00:00"
+      },
+      "lastSuccess": "2026-11-21T04:18:37.391082+00:00",
+      "observedHealth": "recent_success",
+      "received": 1,
+      "pending": 0,
+      "running": 0,
+      "completed": 1,
+      "blocked": 0,
+      "oldestOpenAgeSeconds": null,
+      "retriedTasks": 1,
+      "activeLeases": 0
+    },
+    {
+      "id": "consultations",
+      "configuredState": "degraded",
+      "trigger": "authorized inbound consultation",
+      "lastActivity": "2026-11-21T04:18:37.602025+00:00",
+      "lastExecution": null,
+      "lastSuccess": null,
+      "observedHealth": "stale_or_waiting",
+      "received": 1,
+      "pending": 1,
+      "running": 0,
+      "completed": 0,
+      "blocked": 0,
+      "oldestOpenAgeSeconds": 2,
+      "retriedTasks": 0,
+      "activeLeases": 0
+    },
+    {
+      "id": "followup",
+      "configuredState": "ready",
+      "trigger": "scheduled authorized state review",
+      "lastActivity": "2026-11-21T04:18:40.302757+00:00",
+      "lastExecution": {
+        "status": "blocked",
+        "at": "2026-11-21T04:18:40.302757+00:00"
+      },
+      "lastSuccess": "2026-11-21T04:18:38.69281+00:00",
+      "observedHealth": "attention_required",
+      "received": 2,
+      "pending": 0,
+      "running": 0,
+      "completed": 1,
+      "blocked": 1,
+      "oldestOpenAgeSeconds": 0,
+      "retriedTasks": 1,
+      "activeLeases": 0
+    },
+    {
+      "id": "reports",
+      "configuredState": "ready",
+      "trigger": "daily / weekly schedule",
+      "lastActivity": "2026-11-21T04:18:39.676497+00:00",
+      "lastExecution": {
+        "status": "completed",
+        "at": "2026-11-21T04:18:39.676497+00:00"
+      },
+      "lastSuccess": "2026-11-21T04:18:39.676497+00:00",
+      "observedHealth": "recent_success",
+      "received": 1,
+      "pending": 0,
+      "running": 0,
+      "completed": 1,
+      "blocked": 0,
+      "oldestOpenAgeSeconds": null,
+      "retriedTasks": 1,
+      "activeLeases": 0
+    }
+  ],
+  "limitation": "consultations entry exercised and correctly not claimed: canonical SQL policy pause remains intact; no hosted role execution or continuous health certified",
+  "policySource": "supabase/staged/six_agent_queue_20261025.sql:26",
+  "clusterStopped": true
+}
