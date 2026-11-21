@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-21T03:18:58.918Z",
+  "updated_at": "2026-11-21T03:21:53.053Z",
   "execution_id": "p2-original-forensic-receipt-20261121",
   "repository": {
     "branch": "codex/p2-forensic-receipt-20261121",
@@ -78,7 +78,7 @@
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "status": "blocked_original_descendant_and_late_write_receipts_indeterminate",
-    "last_verified_step": "Host nativo accesible21/11: transcript original sesi\u00f3n12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misi\u00f3n synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producci\u00f3n por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md",
+    "last_verified_step": "Host nativo accesible21/11: transcript original sesi\u00f3n12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misi\u00f3n synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producci\u00f3n por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md Agregados Supabase actuales:64 infrastructure,45 completed/13 queued/6 blocked,130 eventos,0 leases; otros cinco roles sin filas en esta cola. Sin retries ni mutaciones remotas.",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
@@ -292,6 +292,10 @@
     {
       "operation": "Recuperar estado durable del intento cancel-cead08 sin replay",
       "detection": "Host nativo accesible21/11: transcript original sesi\u00f3n12801 recuperado hasta06:23:48Z17/11 sin exit_code. Copia forense aislada de1300 archivos originales verificada; SELECT independiente recupera misi\u00f3n synthetic-protected-node-effect-cancel-cead08 intento2/CP3/cancelled, evento55 mission_cancelled06:23:41.725164Z, lease/token nulos. Copia detenida; cero hashes originales cambiados y cinco archivos preservados. Hashes actuales del efecto coinciden. INDETERMINADO: faltan cierre/PIDs/IPC, late-write receipts e identidad pre/post originales. Main02450f1, #260/#261 fusionadas; validate/postgres/CodeQL exactos SUCCESS, continuation44858707202 bloqueado. Producci\u00f3n por alias9d6bbdb. Heartbeat mismo ID ACTIVE cada30min reobservado, sin cambios. Informe docs/P2_FORENSIC_RECEIPT_20261121.md"
+    },
+    {
+      "operation": "Medir seis roles mediante agregados de solo lectura",
+      "detection": "All recorded tasks infrastructure/read_only_public_health. Other five roles zero rows here; on-demand entries not exercised. No retries, dispatch or remote writes."
     }
   ],
   "evidence_refs": [
@@ -780,7 +784,8 @@
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md",
       "docs/P2_FORENSIC_RECEIPT_20261121.md",
-      "docs/audits/evidence-20261121/p2-cancel-ledger.json"
+      "docs/audits/evidence-20261121/p2-cancel-ledger.json",
+      "docs/audits/evidence-20261121/six-role-metrics.json"
     ],
     "integration_state": "Propuesta documental sobre main02450f1. No cambia c\u00f3digo, SQL ni worktree preservado; integraci\u00f3n y CI del head se consultan por separado."
   },
@@ -964,6 +969,18 @@
         "hosted_or_native_proof": false
       },
       "phase_transition": false
+    },
+    "six_roles_observed_20261121": {
+      "source": "Supabase MCP SELECT aggregates, main project jfjzpwlrhzqbcrvqxhzf",
+      "receipt": "docs/audits/evidence-20261121/six-role-metrics.json",
+      "received": 64,
+      "completed": 45,
+      "queued": 13,
+      "blocked": 6,
+      "running": 0,
+      "active_leases": 0,
+      "audit_events": 130,
+      "scope": "All recorded tasks infrastructure/read_only_public_health. Other five roles zero rows here; on-demand entries not exercised. No retries, dispatch or remote writes."
     }
   },
   "previous_order_history": [
