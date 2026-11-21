@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
-import {runHealth,requestToken} from './agent-health-queue.mjs';
+import {drainHealth,runHealth,requestToken} from './agent-health-queue.mjs';
 test('OIDC worker audience is fixed',async()=>{
  const token=await requestToken({url:'https://github.example.org/oidc',token:'ephemeral',fetcher:async(u,opts)=>{
   assert.equal(u.searchParams.get('audience'),'victoriosas-six-agent-health');
@@ -24,4 +24,27 @@ test('Edge worker pins issuer, repository, exact workflow and safe task action',
   assert.ok(src.includes(fragment),fragment);
  }
  assert.ok(!src.includes('consultation_requests'));assert.ok(!src.includes('consultation_reply_outbox'));
+});
+
+test('drains at most two verified tasks per workflow run',async()=>{
+ let calls=0;
+ const completed=await drainHealth(async()=>{
+  calls++;
+  return {state:'completed'};
+ });
+ assert.equal(calls,2);
+ assert.equal(completed,2);
+});
+test('stops on an empty queue or a worker failure',async()=>{
+ let calls=0;
+ assert.equal(await drainHealth(async()=>{
+  calls++;
+  return {state:'no_eligible_task'};
+ }),0);
+ assert.equal(calls,1);
+ await assert.rejects(drainHealth(async()=>{
+  calls++;
+  throw Error('worker_http_503');
+ }),/worker_http_503/);
+ assert.equal(calls,2);
 });

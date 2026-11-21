@@ -24,11 +24,22 @@ export async function runHealth({url='https://jfjzpwlrhzqbcrvqxhzf.supabase.co',
     data.evidence!=='site_http_200_brand_verified')throw Error('worker_result_unverified');
  return {state:'completed'};
 }
+// The worker deduplicates new checks by six-hour slot. A second request
+// can therefore consume backlog while keeping each claim independently fenced.
+export async function drainHealth(run = runHealth){
+ let completed=0;
+ for(let attempt=0;attempt<2;attempt++){
+  const result=await run();
+  if(result.state==='no_eligible_task')break;
+  completed++;
+ }
+ return completed;
+}
 async function main(){
  try {
-  const r=await runHealth();
+  const completed=await drainHealth();
   const summary='# Victoriosas | Cola infraestructura\n\n'+
-   (r.state==='completed'?'Tarea de salud completada con evidencia y auditoría en Supabase.':'Sin tarea elegible; no se acredita una nueva ejecución.')+'\n';
+   (completed>0?`Tareas de salud completadas con evidencia y auditoría en Supabase: ${completed}.`:'Sin tarea elegible; no se acredita una nueva ejecución.')+'\n';
   if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,summary);
   else process.stdout.write(summary);
  }catch(e){
