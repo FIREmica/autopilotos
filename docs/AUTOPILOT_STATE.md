@@ -1802,3 +1802,12 @@ La CI de `72b15e4c9982fdd557630b1caba1a79434f4d164` terminó: validate, postgres
 La rama documental de esta propuesta parte del main verificado ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. Solo se autorizan aquí docs/CODEX_CONTINUATION.json y este ledger. No cambia código de aplicación, SQL, permisos, producción o automatización. JSON y diff se validarán antes de una PR; al ser solo documentación no corresponde repetir npm run verify. No hay operación incierta nueva. Sin merge automático ni despliegue.
 
 **Siguiente misión exacta:** recuperar el recibo/output terminal original del test nativo desde su sesión o artefacto existente. Si no aparece, mantener intactos los cinco archivos y P2 bloqueada; no repetir el efecto ni iniciar P3. No existe otra acción P2 independiente autorizada mientras el resultado siga sin clasificar. La verificación posterior de la PR documental solo cubre este cambio de continuidad.
+
+
+## 2026-11-21 - reconciliación acotada P2 desde Vercel Agent
+
+Orden ORD-P2-RECOVERY-VERIFICATION-20261117 conservada, P2/F0 parcial. Antes de editar se comparó PR260 cc3bd483 con main ccb00fbf y se releyó su head remoto. No se abrió otra reconciliación ni se tocó la PR261 independiente. Recibo nativo NO CLASIFICADO: búsqueda acotada sin output original; esta sesión no accede a PC/hilo Codex/SQL. Los cinco archivos y el proceso/puerto históricos no se reobservaron ni se modificaron.
+
+Avance independiente: trazado del run44854526918 a origen real985355e/run44854225140; la barrera fija continuation genera un artefacto y falla sin llamar al adaptador ni verificar secretos/SQL. 19/19 pruebas offline del contrato cloud PASS; no prueba nativa ni hosted. Producción atribuida por alias/metadatos Vercel a9d6bbdb5, distinta de main; sin petición HTTP al runtime. Heartbeat30min es reporte fechado del propietario y6h observación histórica: no se modificó configuración ni se afirma medición actual. Cola64/130 no reobservada.
+
+Informe y criterio concreto para desbloquear: [P2_READ_ONLY_RECONCILIATION_20261121.md](P2_READ_ONLY_RECONCILIATION_20261121.md). Checkpoint actualizado en la misma PR260, pendiente revisión/CI del SHA publicado; sin merge ni cierre de fase. Siguiente paso: recuperar recibo original y estado durable correlacionado desde entorno con acceso, sin repetir efecto. [AUTOPILOT_ORDER_BLOCKED].

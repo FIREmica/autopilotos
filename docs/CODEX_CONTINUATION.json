@@ -55,10 +55,12 @@
       "reserved_usd_total": 0.08,
       "actual_inference_spend": "unknown, retain both full reservations; no refund/retry inferred",
       "external_blocker": "Resolve API HTTP429 using the account/project owning the existing GitHub secret. No provider billing or account details published. Do not assert insufficient_quota solely from HTTP429.",
-      "next_action": "After owner confirms usable API quota/access: reconcile live main and PRs, pause the existing local heartbeat again, then admit one bounded reviewed-base attempt within USD5/month. Keep deterministic branch receipts; no replay on either prior base. The existing cloud schedule is every six hours once admitted."
+      "next_action": "After owner confirms usable API quota/access: reconcile live main and PRs, pause the existing local heartbeat again, then admit one bounded reviewed-base attempt within USD5/month. Keep deterministic branch receipts; no replay on either prior base. The existing cloud schedule is every six hours once admitted.",
+      "historical_observation_only": true,
+      "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-21T01:53:00+00:00",
+  "updated_at": "2026-11-21T02:32:13+00:00",
   "execution_id": "p2-cancel-ledger-boundary-20261117",
   "repository": {
     "branch": "codex/p2-cancel-ledger-boundary-20261117",
@@ -76,12 +78,12 @@
     "linear_phase": "P2",
     "objective": "Bound cancellation at the existing authorized completion-ledger write boundary, then reconcile the preserved native cancellation/descendant evidence without overwriting it.",
     "status": "blocked_native_cancellation_receipt_unavailable_after_pr252_merge",
-    "last_verified_step": "Live reconciliation 2026-11-21: origin/main is ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. PR #258 was merged by GitHub user Victoriosas at 2026-11-21T01:44:16Z into main as ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; PR head ddfe4dcb733130c4ab3269df1cead8cdf33ececc, base ece57caadc01605f5429ab70251dccd8ea5c670d. Exact PR head: validate and postgres (two workflows each), CodeQL actions/JavaScript-TypeScript/Python, Vercel Security Review, Vercel Preview and Preview Comments SUCCESS; Supabase Preview SKIPPED. Vercel was preview only. Merge contains documentation only; no production deployment. PR #252 completion-abort code remains merged via a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b with its exact checks recorded above. The preserved native cancellation worktree still has five modified, unstaged files; read-only check found no matching process and no listener on 28447. No original terminal receipt is available; prior effect remains unclassified, so do not repeat, stop, stage, commit, discard or integrate those changes. Autopilot Autodesarrollo v0.4.5 remains a bounded same-session prompt, not a daemon. Existing victoriosa-autopilot-6h is the active six-hour fallback; cloud admission remains false after HTTP429. P2 remains partial and blocked on the native receipt; no independent P2 work is authorized. [AUTOPILOT_ORDER_BLOCKED]",
+    "last_verified_step": "Reconciliaci\u00f3n desde Vercel Agent el 21/11/2026: main sigue en ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; PR260 abierta sobre cc3bd483ef7d59df4571bf023607445237789b65 y PR261 borrador sobre 985355e8511c3a86469494156e3e5a6ed93a7559. Producci\u00f3n resuelta por alias Vercel de victoriosas.online: 9d6bbdb5f7c7200fe62463cd904314edbb9f86f0, no HTTP runtime. validate/postgres/CodeQL de main SUCCESS; PLAN Cloud falla aparte. Recibo nativo NO CLASIFICADO: repo/PR/comentarios/artefactos versionados no aportan output original; esta sesi\u00f3n no accede a PC, hilo Codex ni SQL. Los cinco archivos y ausencia hist\u00f3rica de proceso/listener no fueron reobservados. No se repite ni modifica el \u00e1mbito nativo. Trabajo independiente completado: trazado del run44854526918, origen real985355e/run44854225140; continuation registra bloqueo fijo sin usar CloudMissionStore ni SQL; upload del artefacto consta en log. 19/19 pruebas cloud offline PASS. El propietario reporta heartbeat30 minutos; seis horas es evidencia hist\u00f3rica, no medici\u00f3n actual. No se cambia scheduler ni se activan fases dependientes. Informe: docs/P2_READ_ONLY_RECONCILIATION_20261121.md. [AUTOPILOT_ORDER_BLOCKED]",
     "limits": [
       "Local synthetic and guarded-ledger component coverage only; cancellation prevents a write not yet admitted after authorization. It does not roll back or cancel a SQL write already admitted.",
       "Protected effect recovery remains exact plan1/CP2 with separate ready_to_complete scope; no generic in_progress recovery or new execution authority.",
       "Runtime, policy callback and guard remain in-process; no filesystem/SQL atomicity, authenticated remote identity, host reboot, Task Scheduler, cross-host or continuous Codex-to-SQL mission.",
-      "No hosted SQL, production, client sends, spending, auto-merge or removal of pre-existing resources. Existing heartbeat ID, destination and six-hour schedule were preserved while its prompt was refined; no second automation or scheduler was created. Local-session continuation hooks remain bounded/opt-in, and plugin release does not prove they loaded in this session. Repository integration remains bounded to the existing order and its exact checks/review."
+      "Sin SQL alojado, producci\u00f3n, env\u00edos, gasto, auto-merge ni eliminaci\u00f3n de recursos preexistentes por esta auditor\u00eda. Preservar el mismo heartbeat ID/destino y configuraci\u00f3n vigente; reporte del propietario30min no reobservado, seis horas es dato hist\u00f3rico. No crear segundo scheduler ni afirmar exclusi\u00f3n global de escritores. La propuesta documental en PR260 no clasifica el efecto ni permite transici\u00f3n de fase."
     ],
     "acceptance_criteria": [
       "Propagate AbortSignal through the existing runtime effect authorization into the guarded ledger completion boundary.",
@@ -348,7 +350,9 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44197071751",
     "https://github.com/Victoriosas/autopilot/actions/runs/44197071695",
     "https://github.com/Victoriosas/autopilot/actions/runs/44198293787",
-    "https://github.com/Victoriosas/autopilot/actions/runs/44198293968"
+    "https://github.com/Victoriosas/autopilot/actions/runs/44198293968",
+    "docs/P2_READ_ONLY_RECONCILIATION_20261121.md",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44854526918/job/136693479016"
   ],
   "blockers": [
     "P2 remains partial; the completion cancellation fix proves only that a not-yet-admitted base completion write is denied after abort. A write already admitted to SQL is not cancelled or rolled back.",
@@ -364,7 +368,7 @@
     "objective": "Complete bounded cancellation evidence in the existing P2 order.",
     "status": "blocked_native_cancellation_receipt_unavailable_after_pr252_merge",
     "executor": "Codex",
-    "environment": "PR252 completion-abort implementation is integrated. Latest verified main is ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1 after PR258 documentation reconciliation. Separate native cancellation/descendants worktree p2-cancel-reconciliation-20261117 remains preserved and uncertain; do not mutate it.",
+    "environment": "Sandbox Vercel Agent; main ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; documentaci\u00f3n propuesta en PR260. Worktree nativo separado no accesible en esta sesi\u00f3n; preservar sus recursos y no inferir su estado actual de informes hist\u00f3ricos.",
     "dependencies": [
       "P1 closed via PR248/249; P2 remains the sole active technical order.",
       "PR250 and PR251 are merged; exact PR251 candidate checks and merge SHA reconciled.",
@@ -376,7 +380,7 @@
       "Classify the existing native cancellation/descendants operation only from its original terminal output or durable receipt; absent that, retain the blocker and never replay it by inference.",
       "No independent authorized P2 action remains while the operation result is unknown; keep P2 partial and do not start P3."
     ],
-    "next_action": "Recover the original terminal output/receipt for the native cancellation/descendant operation from its initiating session or durable artifact. Repository, related-thread and process checks found none; do not rerun, stop, stage, commit, discard or integrate the five modified files. If the original receipt cannot be recovered, keep this sole P2 order blocked with [AUTOPILOT_ORDER_BLOCKED]. PR258 is already merged; do not create a duplicate PR. No independent P2 step, hosted SQL, cloud dispatch or P3 is authorized while the operation is uncertain.",
+    "next_action": "Recuperar output/recibo original desde la sesi\u00f3n/host iniciador y correlacionar orden, mission_id/intento, procesos/horas, checkpoint/fencing/auditor\u00eda y efecto con observador independiente. Si falta, mantener P2 bloqueada sin replay ni matriz dependiente. Esta sesi\u00f3n no puede leer PC/hilo/ledger. PR260 conserva la reconciliaci\u00f3n, sin nueva PR paralela ni auto-merge. Informe docs/P2_READ_ONLY_RECONCILIATION_20261121.md. Solo diagn\u00f3stico independiente permitido; sin P3\u2013P6, SQL remoto, dispatch, producci\u00f3n ni cambios de scheduler.",
     "permissions": {
       "status": "bounded_local_execution_and_reviewed_integration",
       "scope": "Prepared first P2 increment continued by user; repository integration authorized. No hosted/production/cloud dispatch/spend/automation change/deletion of prior resources."
@@ -386,7 +390,7 @@
     "status": "p2_active_partial",
     "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
   },
-  "resume_instructions": "Contin\u00faa solo ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0. Latest verified origin/main is ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. PR #258 was merged by Victoriosas at 2026-11-21T01:44:16Z; head ddfe4dcb733130c4ab3269df1cead8cdf33ececc, base ece57caadc01605f5429ab70251dccd8ea5c670d, merge ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. Its exact-head validate/postgres, CodeQL (three analyses), Vercel Security Review, Vercel Preview and Preview Comments passed; Supabase Preview SKIPPED. Documentation only, not production. PR #252 completion-abort is integrated, but P2 is incomplete. Recover the original terminal output/receipt for the existing native cancellation/descendants operation. Its worktree preserves five modified files; read-only scan found no matching process and no listener in 28447, while repo/thread lack the original receipt. Do not rerun, stop, stage, commit, discard or integrate it. No independent P2 step is authorized until result classification; use [AUTOPILOT_ORDER_BLOCKED]. The existing six-hour heartbeat remains fallback; plugin v0.4.5 hooks are bounded same-session prompts, not a daemon. Cloud admission remains false after HTTP429. No P3, hosted SQL, production, sends, spend, scheduler change, claim or dispatch.",
+  "resume_instructions": "Continuar \u00fanicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0, manteniendo la orden y el runtime/cola existentes. Releer main y PR260/261 y comparar escritores antes de mutar; esta entrega es propuesta en PR260, no integraci\u00f3n. Main observado ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; producci\u00f3n por alias Vercel9d6bbdb5f7c7200fe62463cd904314edbb9f86f0, no prueba HTTP. Recuperar el recibo ORIGINAL de cancelaci\u00f3n nativa y correlacionar identidad/intento/proceso/hora/ledger/efecto con observador independiente. Sin \u00e9l, NO CLASIFICADO y [AUTOPILOT_ORDER_BLOCKED]: no repetir, detener, stagear, commitear, descartar ni integrar su worktree. La lectura de PC/hilo/SQL no est\u00e1 disponible en la sesi\u00f3n Vercel Agent del21/11; los informes de cinco archivos/proceso/puerto son hist\u00f3ricos, no observaci\u00f3n actual. El propietario reporta heartbeat victoriosa-autopilot-6h ACTIVE cada30min; releer configuraci\u00f3n y recibos del mismo ID desde host autorizado, sin restaurar6h ni crear otro scheduler. No hay nueva observaci\u00f3n de salud/cola local. PLAN Cloud44854526918 proviene de985355e/run44854225140 y falla en barrera fija sin llamar al adaptador; no diagnosticar secreto ausente ni HTTP429 a partir de ese run. 19/19 pruebas offline no acreditan persistencia cloud ni efecto nativo. Mantener reservas y presupuesto hist\u00f3ricos sin nueva inferencia. No activar P3\u2013P6, hosted SQL, pagos, env\u00edos, despliegue productivo, dispatch, auto-merge ni cambios de automatizaci\u00f3n por CI verde. Ver docs/P2_READ_ONLY_RECONCILIATION_20261121.md.",
   "supervision": {
     "verdict": "P2_PARTIAL",
     "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
@@ -761,25 +765,26 @@
     "priority_reason": "PR252 completion-abort code is merged with exact CI; the first remaining P2 dependency is the original native operation receipt, and no independent safe P2 step remains.",
     "modified_files": [
       "docs/CODEX_CONTINUATION.json",
-      "docs/AUTOPILOT_STATE.md"
+      "docs/AUTOPILOT_STATE.md",
+      "docs/P2_READ_ONLY_RECONCILIATION_20261121.md"
     ],
-    "integration_state": "PR #258 checkpoint reconciliation merged externally into main ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1 at 2026-11-21T01:44:16Z; documentation only, exact head checks passed, Supabase Preview skipped, no production deployment. P2 remains partial and native receipt unresolved."
+    "integration_state": "Reconciliaci\u00f3n documental de #258 y diagn\u00f3stico read-only contin\u00faan en PR260, no fusionados. main ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; PR261 es independiente. P2 sigue parcial por recibo nativo sin clasificar. No ejecuci\u00f3n alojada ni transici\u00f3n de fase."
   },
   "next_mission": {
     "order_id": "ORD-P2-RECOVERY-VERIFICATION-20261117",
     "objective": "Recover the prior native cancellation/descendant test receipt; if unavailable, preserve the worktree and keep that verification blocked without replay.",
     "dependencies": [
       "PR #252 completion-abort boundary is merged and its exact checks are recorded above. PR #258 checkpoint reconciliation was merged at 2026-11-21T01:44:16Z into main ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1 (head ddfe4dcb733130c4ab3269df1cead8cdf33ececc, base ece57caadc01605f5429ab70251dccd8ea5c670d). Exact PR-head validate/postgres/CodeQL/security/Vercel-preview checks passed; Supabase Preview was skipped. This merged document does not close P2.",
-      "Read-only verification 2026-11-21: the separate p2-cancel-reconciliation worktree still has five modified, unstaged files; no matching process or listener on 28447 was found. The prior effect remains unclassified.",
-      "The checked repository and related session contain no original terminal output/receipt. Continue only by recovering that original artifact; do not repeat the operation."
+      "Informes hist\u00f3ricos describen cinco archivos modificados y ning\u00fan proceso/listener28447; Vercel Agent no accede al host nativo y no reobserv\u00f3 esos datos el21/11. El efecto sigue sin clasificar.",
+      "B\u00fasqueda acotada de repositorio/PR/artefactos versionados sin recibo original. Host, hilo original y estado SQL no accesibles; falta evidencia correlacionada, no es prueba de ausencia global."
     ],
     "acceptance": [
       "Keep the five modified files and worktree unchanged; no reset, stash, checkout, commit, push, or test rerun there.",
       "Classify the previous test only from actual terminal output or durable run receipt; otherwise retain the explicit blocker.",
       "No independent P2 step is currently authorized while the operation result remains uncertain; preserve P2 as blocked and do not start P3 or a parallel runner.",
-      "No hosted SQL, cloud dispatch, production, client contact, spending, auto-merge or new scheduler. Preserve the existing heartbeat ID, destination, ACTIVE status and six-hour cadence; prompt-only improvement is allowed by the current user instruction."
+      "Preservar el mismo heartbeat ID/destino y su configuraci\u00f3n vigente sin cambios; propietario reporta30min, documentaci\u00f3n6h es hist\u00f3rica. Leer configuraci\u00f3n/turnos en host autorizado antes de certificar cadencia/salud. Sin SQL remoto, dispatch, producci\u00f3n, env\u00edos, gasto, auto-merge ni scheduler nuevo mientras el efecto siga incierto."
     ],
-    "recoverable_prompt": "Continue only ORD-P2-RECOVERY-VERIFICATION-20261117, P2/F0 partial. Latest verified main is ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1. PR #258 was merged by Victoriosas on 2026-11-21T01:44:16Z (head ddfe4dcb733130c4ab3269df1cead8cdf33ececc, base ece57caadc01605f5429ab70251dccd8ea5c670d, merge ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1); exact PR-head validate/postgres, CodeQL (three analyses), Vercel Security Review, Vercel Preview and Preview Comments passed; Supabase Preview was SKIPPED. It changes documentation only and does not complete P2. PR #252 completion-abort implementation remains integrated; no hosted effect is claimed. Recover the original terminal output/receipt for the preserved native cancellation/descendant operation. Its worktree still contains five modified, unstaged files; a read-only process/port scan found no matching process and no listener on 28447, which does not classify the prior effect. Checked repository and related thread still have no receipt. Do not rerun, stop, stage, commit, discard or integrate that worktree. No independent P2 step is authorized while result remains unknown; end with [AUTOPILOT_ORDER_BLOCKED]. No duplicate PR for already-merged documentation. No auto-merge, P3, hosted SQL, production, client sends, spending, claim/dispatch, schedule changes or new automation. Local heartbeat remains the scheduled fallback; plugin hooks are bounded same-session prompts and cloud admission remains false after HTTP429."
+    "recoverable_prompt": "Continuar \u00fanicamente ORD-P2-RECOVERY-VERIFICATION-20261117, P2 parcial/F0, manteniendo la orden y el runtime/cola existentes. Releer main y PR260/261 y comparar escritores antes de mutar; esta entrega es propuesta en PR260, no integraci\u00f3n. Main observado ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1; producci\u00f3n por alias Vercel9d6bbdb5f7c7200fe62463cd904314edbb9f86f0, no prueba HTTP. Recuperar el recibo ORIGINAL de cancelaci\u00f3n nativa y correlacionar identidad/intento/proceso/hora/ledger/efecto con observador independiente. Sin \u00e9l, NO CLASIFICADO y [AUTOPILOT_ORDER_BLOCKED]: no repetir, detener, stagear, commitear, descartar ni integrar su worktree. La lectura de PC/hilo/SQL no est\u00e1 disponible en la sesi\u00f3n Vercel Agent del21/11; los informes de cinco archivos/proceso/puerto son hist\u00f3ricos, no observaci\u00f3n actual. El propietario reporta heartbeat victoriosa-autopilot-6h ACTIVE cada30min; releer configuraci\u00f3n y recibos del mismo ID desde host autorizado, sin restaurar6h ni crear otro scheduler. No hay nueva observaci\u00f3n de salud/cola local. PLAN Cloud44854526918 proviene de985355e/run44854225140 y falla en barrera fija sin llamar al adaptador; no diagnosticar secreto ausente ni HTTP429 a partir de ese run. 19/19 pruebas offline no acreditan persistencia cloud ni efecto nativo. Mantener reservas y presupuesto hist\u00f3ricos sin nueva inferencia. No activar P3\u2013P6, hosted SQL, pagos, env\u00edos, despliegue productivo, dispatch, auto-merge ni cambios de automatizaci\u00f3n por CI verde. Ver docs/P2_READ_ONLY_RECONCILIATION_20261121.md."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -895,12 +900,56 @@
         }
       ],
       "receipt_scope": "Official read of existing target thread, completed turns with heartbeat envelope; automation_runs SQL tables empty for this heartbeat, not proof of no runs. No full transcripts/local paths/customer data copied to Git.",
-      "stale_metadata": "Secondary codex-dev registry is stale and prompt differs; active codex registry matches TOML. Neither modified."
+      "stale_metadata": "Secondary codex-dev registry is stale and prompt differs; active codex registry matches TOML. Neither modified.",
+      "historical_observation_only": true,
+      "current_state_reference": "runtime_audit.session_read_only_20261121.heartbeat"
     },
     "writer_exclusion": "No competing command line identifies own new worktree at observation; no global lease/fence proof for heartbeat Codex writers. Existing SQL runtime fencing not evidence of host-wide Codex lock.",
     "budget": "No per-mission token/cost meter or spending guarantee established. Observed completed turn durations only; no new paid provider. Local test budget proposed, not executed.",
     "stop": "Existing managed cancellation/descendant and durable revoke tests prove components only. End-to-end pause/revoke during a heartbeat-owned SQL mission not measured; no pause injected.",
-    "codex_ledger_link": "Heartbeat performed repository/documentary work; no mission_id/claim/effect receipt binds that Codex turn to protected SQL ledger. Generic ExecutorAdapter is an interface, existing development executors remain bounded labs."
+    "codex_ledger_link": "Heartbeat performed repository/documentary work; no mission_id/claim/effect receipt binds that Codex turn to protected SQL ledger. Generic ExecutorAdapter is an interface, existing development executors remain bounded labs.",
+    "session_read_only_20261121": {
+      "observed_at": "2026-11-21T02:32:13+00:00",
+      "report": "docs/P2_READ_ONLY_RECONCILIATION_20261121.md",
+      "main_sha": "ccb00fbfbe67fe2b377c92e3726eb35bbd19bad1",
+      "reviewed_pr260_input_sha": "cc3bd483ef7d59df4571bf023607445237789b65",
+      "production_sha_from_vercel_alias": "9d6bbdb5f7c7200fe62463cd904314edbb9f86f0",
+      "native_receipt": "unclassified_host_thread_and_durable_state_unavailable",
+      "host_access": false,
+      "sql_access": false,
+      "heartbeat": {
+        "id": "victoriosa-autopilot-6h",
+        "owner_reported_interval_minutes": 30,
+        "historical_interval_hours": 6,
+        "live_configuration_and_runs_verified": false,
+        "mutated": false
+      },
+      "queue_counts": {
+        "owner_reported_tasks": 64,
+        "owner_reported_events": 130,
+        "current_counts_verified": false
+      },
+      "cloud": {
+        "run": 44854526918,
+        "job": 136693479016,
+        "source_run": 44854225140,
+        "source_sha": "985355e8511c3a86469494156e3e5a6ed93a7559",
+        "reason": "cloud_ledger_adapter_not_configured",
+        "cause": "fixed_workflow_run_barrier_no_adapter_or_secret_check",
+        "artifact_id_from_upload_log": 14686637891,
+        "artifact_downloaded": false,
+        "executed": false
+      },
+      "offline_tests": {
+        "tests": 19,
+        "pass": 19,
+        "fail": 0,
+        "skipped": 0,
+        "duration_ms": 1056,
+        "hosted_or_native_proof": false
+      },
+      "phase_transition": false
+    }
   },
   "previous_order_history": [
     {
