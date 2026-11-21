@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
-import { readFile, writeFile } from 'node:fs/promises';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { readFile, stat, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { missionTestDatabase, sqlLiteral as literal } from './fixtures/missionTestDatabase';
 import { createMissionLedger, PersistentMissionOrchestrator } from '../src/autopilot/missionRuntime';
@@ -10,6 +10,26 @@ import { SyntheticCatalogConnector } from '../src/integrations/syntheticCatalogC
 
 const database = process.env.CATALOG_TEST_DATABASE_URL;
 const { sql, client } = missionTestDatabase(database, 'victoriosa_catalog_demo');
+
+test('disposable catalog demo requires its per-run credential for PostgreSQL access',
+  { skip: !database || !process.env.CATALOG_DEMO_RECEIPT }, async () => {
+    assert.equal(new URL(database!).password, '');
+    assert.ok(process.env.PGPASSFILE);
+    if (process.platform !== 'win32') assert.equal((await stat(process.env.PGPASSFILE)).mode & 0o777, 0o600);
+    const psql = process.env.PSQL_PATH || 'psql';
+    const args = [database!, '-X', '-w', '-qAt', '-c', 'select 1'];
+    const { PGPASSWORD: _password, ...withoutPassword } = process.env;
+    // Disable libpq's default password file as well as the demo's scoped one.
+    const unauthenticated = { ...withoutPassword, PGPASSFILE: `${process.env.CATALOG_DEMO_RECEIPT}.no-password` };
+    for (const env of [unauthenticated, { ...unauthenticated, PGPASSWORD: 'invalid-demo-password' }]) {
+      const result = spawnSync(psql, args, { env, encoding: 'utf8', timeout: 15000, windowsHide: true });
+      assert.ifError(result.error);
+      assert.notEqual(result.status, 0, 'PostgreSQL must reject absent and incorrect credentials');
+      assert.match(result.stderr, /no password supplied|password authentication failed/);
+    }
+    assert.equal(execFileSync(psql, args, { encoding: 'utf8', timeout: 15000 }).trim(), '1');
+    assert.equal(await sql("select bool_and(auth_method = 'scram-sha-256') from pg_hba_file_rules where error is null;"), 't');
+  });
 
 test('normal SQL mission entry uses read-only catalog with durable permission, outage, quota and shutdown evidence',
   { skip: !database, timeout: 60000 }, async () => {
