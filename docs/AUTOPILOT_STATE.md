@@ -1,3 +1,9 @@
+# Seguridad · autenticación de la demo de catálogo · 21/11/2026
+
+Corrección acotada de F0/N2 para el laboratorio de catálogo, sin cambiar la fase ni la orden vigente. La demo iniciaba un superusuario PostgreSQL con `trust`, accesible a otras cuentas locales por TCP. Se sustituye por SCRAM con contraseña aleatoria de 256 bits por ejecución, archivos temporales exclusivos con modo 0600 y `PGPASSFILE` limitado a clientes; sin contraseña en URL, argumentos ni recibos. Los archivos de credenciales se eliminan incluso si falla la inicialización, un cliente o la parada.
+
+PROBADO en PostgreSQL 18 local desechable: regresión RED (conexión sin contraseña aceptada) y GREEN (sin contraseña/incorrecta rechazadas, credencial correcta aceptada, reglas SCRAM y permisos 0600); prueba de catálogo original aprobada. Sondas locales de limpieza: éxito y fallos de initdb/createdb/parada, sin credenciales en disco ni clúster propio activo al terminar. `npm run verify` completo aprobado (skills, tipos, suite, builds Node/Vercel y APIs compiladas), YAML y escaneo de secretos aprobados. La regresión de autenticación se ejecuta con `POSTGRES_BIN="$(pg_config --bindir)" node scripts/demo-synthetic-catalog.mjs`; no se incorporó el paso adicional de CI porque el publicador no permite modificar workflows de GitHub Actions. No acredita Windows, CI remota ni producción. Candidata no fusionada/desplegada; sin SQL alojado, cambios de permisos remotos ni proveedores externos.
+
 # Orden vigente · tres demostraciones staging en paralelo · 21/11/2026
 
 ORD-THREE-DEMONSTRATIONS-20261121 por instrucción expresa del propietario. A consulta, B seis roles, C catálogo fixture y D handoff cloud avanzan en worktrees separados mediante contratos existentes; P2 no se reabre ni bloquea estos ensayos. Base66da49d tras reconciliar #263. D implementa handoff manual protegido; barrera automática y guards intactos. A/B/C en pruebas locales; no certificación integral anticipada.

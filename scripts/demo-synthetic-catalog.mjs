@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { randomBytes } from 'node:crypto';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,19 +15,27 @@ const env = Object.fromEntries(['PATH', 'Path', 'SystemRoot', 'WINDIR', 'TEMP', 
 const workspace = await mkdtemp(path.join(tmpdir(), 'autopilot-catalog-demo-'));
 const data = path.join(workspace, 'data');
 const receipt = path.join(workspace, 'receipt.json');
-const run = (name, args, timeout = 15000) => {
-  const result = spawnSync(command(name), args, { cwd: repo, windowsHide: true, env, timeout, stdio: 'ignore' });
+const passwordFile = path.join(workspace, 'initdb-password');
+const passFile = path.join(workspace, 'client.pgpass');
+const clientEnv = { ...env, PGPASSFILE: passFile };
+const run = (name, args, timeout = 15000, childEnv = env) => {
+  const result = spawnSync(command(name), args, { cwd: repo, windowsHide: true, env: childEnv, timeout, stdio: 'ignore' });
   if (result.error || result.status !== 0) throw Error(`catalog_demo_${name}_failed`);
 };
 let started = false;
 let proof;
 try {
-  run('initdb', ['-D', data, '-U', 'postgres', '--auth=trust', '--no-locale', '-E', 'UTF8']);
+  // Hex avoids libpq password-file delimiters. Never put the credential in argv, URLs or receipts.
+  const password = randomBytes(32).toString('hex');
+  await writeFile(passwordFile, `${password}\n`, { mode: 0o600, flag: 'wx' });
+  await writeFile(passFile, `127.0.0.1:${port}:*:postgres:${password}\n`, { mode: 0o600, flag: 'wx' });
+  run('initdb', ['-D', data, '-U', 'postgres', '--auth=scram-sha-256', '--pwfile', passwordFile, '--no-locale', '-E', 'UTF8']);
+  await rm(passwordFile);
   run('pg_ctl', ['-D', data, '-o', `-p ${port} -h 127.0.0.1`, '-l', path.join(workspace, 'postgres.log'), '-w', 'start']);
   started = true;
-  run('createdb', ['-h', '127.0.0.1', '-p', String(port), '-U', 'postgres', 'victoriosa_catalog_demo']);
+  run('createdb', ['-h', '127.0.0.1', '-p', String(port), '-U', 'postgres', 'victoriosa_catalog_demo'], 15000, clientEnv);
   const result = spawnSync(process.execPath, ['--import', 'tsx', '--test', 'tests/catalog-integration-postgres.test.ts'], {
-    cwd: repo, windowsHide: true, timeout: 90000, stdio: 'inherit', env: { ...env,
+    cwd: repo, windowsHide: true, timeout: 90000, stdio: 'inherit', env: { ...clientEnv,
       PSQL_PATH: command('psql'), CATALOG_TEST_DATABASE_URL: `postgres://postgres@127.0.0.1:${port}/victoriosa_catalog_demo`,
       CATALOG_DEMO_RECEIPT: receipt },
   });
@@ -37,7 +46,11 @@ try {
   proof = { label: 'SIMULADO', receipt, source: observed.source, sourceClean: observed.sourceClean,
     copiedReceipt: output ? path.resolve(output) : null, status: 'PROBADO' };
 } finally {
-  if (started) run('pg_ctl', ['-D', data, '-m', 'fast', '-w', 'stop']);
-  // Preserve the receipt and synthetic SQL data. No recursive cleanup or process-name termination.
+  try {
+    if (started) run('pg_ctl', ['-D', data, '-m', 'fast', '-w', 'stop']);
+  } finally {
+    await Promise.all([passwordFile, passFile].map(file => rm(file, { force: true })));
+  }
+  // Preserve only the receipt and synthetic SQL data, not plaintext credentials.
 }
 console.log(JSON.stringify({ ...proof, ownedClusterStopped: true }));
