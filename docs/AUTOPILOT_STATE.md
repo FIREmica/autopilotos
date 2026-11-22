@@ -1958,3 +1958,19 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Limites:** no hubo SQL alojado, migraciones remotas, llamadas productivas, envios, datos reales, merge ni despliegue. #269 permanece abierta. PR #267 cerrada sin merge queda sin reabrir; el worktree P2 sigue intacto. Costos no medidos; sin gasto externo.
 
 **Siguiente accion concreta:** confirmar una vez mas que la rama remota de #269 sigue en 00c3c0c..., crear commit solo con los siete archivos de codigo/test y estos dos documentos, y hacer push normal fast-forward a la rama existente. Despues verificar el SHA remoto y los checks exactos, especialmente Vercel Security Review. Si GitHub Actions continua bloqueado antes del runner por billing, mantener la PR abierta y detener solo esa dependencia; no reintentar, tocar la cuenta, fusionar ni desplegar.
+
+## 2026-11-22 03:50 UTC - reconciliar seguridad y bloqueo CI de PR #269
+
+**Código y PR:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. La corrección de seguridad quedó en el commit 998954dd435345f8e7a58f0c572e3079f549c5c5, push fast-forward a la PR existente #269. La PR continúa OPEN, sin review humana ni merge. Su cuerpo se actualizó y se leyó de vuelta con resultados locales/remotos y límites.
+
+**Resultado de seguridad:** Vercel Security Review pasó en el SHA 998954d tras el hallazgo #5; Vercel Preview y Preview Comments también pasaron. Es una Preview y no producción. Supabase Preview continúa SKIPPED.
+
+**CI obligatorio exacto de 998954d:** validate, postgres, public-browser-smoke, beauty-stack y CodeQL fallaron en 1–3 segundos antes de iniciar runners. La API informa runner_id 0 y lista de pasos vacía; anotación exacta de validate: “The job was not started because your account is locked due to a billing issue.” No se ejecutaron esas pruebas, no se reintentaron ni se cambió billing.
+
+**Pruebas locales de la corrección:** RED reprodujo la variante de mayúsculas/barra final; focal 3/3 PASS; npm run verify 620/620, 0 fallos, 0 omitidos; secret scan y git diff --check PASS. No se ejecutó browser demo local porque falta Playwright en este worktree limpio. La verificación PostgreSQL desechable de B permanece la evidencia previa descrita arriba, no se repitió.
+
+**Límites y bloqueos:** sin hosted SQL, producción, envíos, datos reales, merge ni despliegue. PR267 cerrada sin merge sigue intacta y sin trasplante; worktree P2 de cinco archivos no tocado. Costos no medidos. El CI remoto requiere que el propietario resuelva el bloqueo de facturación; no cambiar cuenta, pagos, credenciales ni repetir jobs en este estado.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para las dependencias restantes de esta orden: A/B/D no tienen otra acción independiente autorizada; C continúa cerrado sin disposición; el CI obligatorio no puede iniciar y falta review humana. La corrección acotada sí avanzó y Vercel la aceptó.
+
+**Siguiente misión exacta:** después de que el propietario resuelva el lock de GitHub, leer el head/base/reviews actuales de #269 (incluido el commit documental de este checkpoint), inspeccionar los checks del SHA exacto y permitir solo las ejecuciones requeridas que ahora puedan iniciar. Mantener la PR abierta hasta review humana; no mergear, desplegar ni ejecutar SQL alojado.
