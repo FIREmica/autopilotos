@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-22T05:10:52Z",
+  "updated_at": "2026-11-22T05:14:55Z",
   "execution_id": "ord-autonomous-engine-20261122",
   "repository": {
     "branch": "codex/ord-autonomous-engine-20261122",
@@ -68,16 +68,16 @@
     "head_sha": null,
     "worktree": "E:/autopilot-worktrees/ord-autonomous-engine-20261122",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Ford-autonomous-engine-20261122",
-    "note": "Aislado sobre origin/main verificado. El head_sha queda null hasta el commit del checkpoint; el SHA de origen se registra como base. Root atrasado/sucio permanece intacto.",
-    "pr_number": null,
-    "pr_url": null
+    "note": "PR draft #272 sobre origin/main verificado. head_sha se deja null para evitar autorreferencia; el SHA candidato observado antes de este checkpoint y sus checks se registran en validation. Obtener SHA contenedor desde la rama.",
+    "pr_number": 272,
+    "pr_url": "https://github.com/Victoriosas/autopilot/pull/272"
   },
   "current_order": {
     "id": "ORD-AUTONOMOUS-ENGINE-01",
     "phase": "F0",
     "linear_phase": "P2_PARTIAL",
     "objective": "Auditar y reconciliar infraestructura Supabase real frente al repo; cerrar defectos de seguridad de lease/ACL en una migraci\u00f3n versionada probada localmente; preparar, sin activar, la dependencia segura para un primer circuito aut\u00f3nomo director read-only.",
-    "status": "local_security_increment_prepared_pr_ci_pending",
+    "status": "pr_open_remote_checks_unclassified",
     "limits": [
       "Solo propuesta revisable y validaci\u00f3n PostgreSQL local desechable; sin SQL alojado.",
       "Sin instalar pg_net/pgmq, cron de agentes, desplegar Edge Functions ni usar Actions como worker director.",
@@ -93,7 +93,7 @@
       "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
       "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted."
+    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana."
   },
   "completed_operations": [
     {
@@ -380,9 +380,9 @@
     "No existe circuito director hosted; no se verific\u00f3 ninguna ejecuci\u00f3n de director.",
     "PR #269 mantiene hallazgo estructural no_send abierto; no usar su demo como ejecuci\u00f3n segura.",
     "PR #269 CI reporta validate/postgres/CodeQL/browser failed con cero pasos y sin logs; causa no clasificada.",
-    "Todav\u00eda debe crearse la PR \u00fanica de esta orden y observar checks/revisiones de su SHA exacto; no merge autom\u00e1tico.",
     "Cuotas/utilizaci\u00f3n/costo real de invocaciones y DB no medidos; plan observado Free no prueba gasto cero.",
-    "Puertas de producto F0-F4 no cerradas; P3/F5 no activas."
+    "Puertas de producto F0-F4 no cerradas; P3/F5 no activas.",
+    "PR #272 (head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb): validate y postgres, adem\u00e1s de tres jobs CodeQL, fallaron en 1\u20133 s con steps=[] y no se recuperaron logs; causa de plataforma/runner no clasificada, no se infiere defecto de c\u00f3digo ni cuota."
   ],
   "next_order_id": "ORD-AUTONOMOUS-ENGINE-01",
   "next_order": {
@@ -390,7 +390,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Reconciliar checks relevantes del SHA exacto; fallas de cero pasos/sin logs deben quedar no clasificadas, y Supabase Preview skipped no es \u00e9xito hosted.",
+      "Reconcile validate/postgres/CodeQL empty-step failures on head 18c0a0b; obtain logs or a platform classification without changing repository/organization settings. Recheck exact final PR head after checkpoint commit.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
@@ -799,6 +799,26 @@
         "builds_and_api": "PASS",
         "dependency_scope": "Local node_modules reutilizadas; Vite6.4.5 observado frente lockfile actual. CI npmci del SHA exacto es autoridad de dependencias."
       }
+    },
+    "ord_autonomous_engine_01_pr_initial_head": {
+      "pr_number": 272,
+      "url": "https://github.com/Victoriosas/autopilot/pull/272",
+      "draft": true,
+      "head_sha": "18c0a0b64f14f30813b61fa19af4bf6a78b3baeb",
+      "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+      "review_decision": "none",
+      "checks": {
+        "validate": "failure; run 44988481213; job completed in ~2s with no steps/logs; cause unclassified",
+        "postgres": "failure; runs 44988481213 and 44988485854; jobs completed in ~1\u20132s with no steps/logs; cause unclassified",
+        "CodeQL": "actions/javascript-typescript/python jobs failed in ~1s with no steps/logs; cause unclassified",
+        "beauty-stack": "failure in ~2s; no usable logs; cause unclassified",
+        "Vercel Preview": "pending/building at observation; preview only, not production",
+        "Vercel Security Review": "pending/in progress",
+        "Vercel Preview Comments": "success",
+        "Supabase Preview": "skipped; not hosted validation"
+      },
+      "observed_at": "2026-11-22T05:14:55Z",
+      "scope": "Initial PR head only; later checkpoint commit will have a different SHA and requires separate exact-head reconciliation."
     }
   },
   "p1_remaining_work": [],
@@ -812,7 +832,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Reconciliar checks relevantes del SHA exacto; fallas de cero pasos/sin logs deben quedar no clasificadas, y Supabase Preview skipped no es \u00e9xito hosted.",
+      "Reconcile validate/postgres/CodeQL empty-step failures on head 18c0a0b; obtain logs or a platform classification without changing repository/organization settings. Recheck exact final PR head after checkpoint commit.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
