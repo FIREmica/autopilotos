@@ -107,3 +107,28 @@ loopback. Resultado: 5/5 pruebas del puente; `npm run verify` final:
 **Límite de evidencia:** la prueba Deno real se hizo localmente sobre loopback;
 no se desplegó en Supabase Edge alojado ni se creó un job Cron. El ejecutor
 `director` alojado sigue inexistente y no se acredita autonomía operativa.
+
+## Registro local de agentes · 22/11/2026
+
+La ruta protegida `GET /api/v4/agents` ahora proyecta los seis IDs canónicos
+de `sixAgentControlPlane` y no los cinco perfiles comerciales heredados.
+`director` solo declara `read`/`analyze`; código, ramas, publicación, compras,
+reembolsos, secretos y despliegues quedan como acciones sujetas a revisión
+humana. Para los seis roles el registro deja `enabled=false`,
+`runtimeStatus=not_proven` y `noSend=true`. Son valores de configuración API;
+no activan el worker ni certifican el estado del proveedor.
+
+Prueba RED inicial: la ruta listaba `discovery-agent`, `pricing-agent`,
+`purchasing-agent`, `opencode-worker` y `codex-governor`, y marcaba algunos
+como enabled sin evidencia de ejecución. GREEN: `agentRegistry.test.ts` pasa
+4/4, confirma los IDs compartidos, scopes de director, cierre de ejecución y
+copias defensivas. `npm run verify` pasa 623/623 (0 fallos/omitidas), con
+TypeScript, builds Node/Vercel y smoke de API; `node scripts/secret-scan.mjs`
+y `git diff --check` pasan. La ruta permanece detrás de la autenticación
+existente de `createAutopilotV4Router`.
+
+Esto corrige solo el registro/API local. No aplica la configuración a la
+base alojada, no añade tareas ni claims, no instala extensiones, no crea Cron,
+no despliega la Edge Function y no demuestra un worker autónomo. CI remoto
+sigue sujeto al bloqueo de cuenta de GitHub por facturación registrado en la
+PR #272.
