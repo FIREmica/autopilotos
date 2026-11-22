@@ -25,6 +25,7 @@ psql "$AUTOPILOT_TEST_DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
 set request.jwt.claim.role='service_role';
 do $$
 declare selected_id text; selected_token uuid; failed boolean;
+declare metrics jsonb; private_text text;
 begin
  if exists (
    select 1 from unnest(array['SELECT','INSERT','UPDATE','DELETE','TRUNCATE','REFERENCES','TRIGGER','MAINTAIN']) privilege
@@ -34,6 +35,24 @@ begin
       or has_table_privilege('authenticated','public.agent_audit_events',privilege)
  ) then
    raise exception 'browser role retained direct ledger table privilege';
+ end if;
+ if has_function_privilege('anon','public.six_agent_report_metrics()','EXECUTE')
+    or has_function_privilege('authenticated','public.six_agent_report_metrics()','EXECUTE') then
+   raise exception 'browser role retained aggregate RPC execute privilege';
+ end if;
+
+ insert into public.agent_tasks(id,goal,actor,action,status,agent_id,completed_evidence)
+ values('private-evidence-metric-001','synthetic aggregate fixture','test-runner','synthetic_task',
+   'completed','director','synthetic_private_text_must_not_return'),
+   ('unassigned-metric-001','synthetic aggregate fixture','test-runner','synthetic_task',
+   'blocked','unexpected_agent',null);
+ select coalesce(jsonb_agg(to_jsonb(m)),'[]'::jsonb) into metrics
+ from public.six_agent_report_metrics() m;
+ private_text=metrics::text;
+ if private_text like '%synthetic_private_text_must_not_return%'
+    or (select completed_with_evidence from public.six_agent_report_metrics() where agent_id='director')<>1
+    or (select unassigned from public.six_agent_report_metrics() limit 1)<>1 then
+   raise exception 'aggregate RPC leaked private evidence or returned incorrect counts';
  end if;
 
  insert into public.agent_tasks(id,goal,actor,action,status,agent_id,input)
