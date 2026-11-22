@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-22T05:14:55Z",
+  "updated_at": "2026-11-22T05:16:30Z",
   "execution_id": "ord-autonomous-engine-20261122",
   "repository": {
     "branch": "codex/ord-autonomous-engine-20261122",
@@ -93,7 +93,7 @@
       "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
       "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana."
+    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana. Reconciled checkpoint head 98f8c115891555301fab2880a20716a3061e8695: same CI failures; GitHub API shows Actions enabled=true but every failed job runner_id=0/runner_name empty, no logs. Runner/platform cause remains unclassified."
   },
   "completed_operations": [
     {
@@ -382,7 +382,7 @@
     "PR #269 CI reporta validate/postgres/CodeQL/browser failed con cero pasos y sin logs; causa no clasificada.",
     "Cuotas/utilizaci\u00f3n/costo real de invocaciones y DB no medidos; plan observado Free no prueba gasto cero.",
     "Puertas de producto F0-F4 no cerradas; P3/F5 no activas.",
-    "PR #272 (head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb): validate y postgres, adem\u00e1s de tres jobs CodeQL, fallaron en 1\u20133 s con steps=[] y no se recuperaron logs; causa de plataforma/runner no clasificada, no se infiere defecto de c\u00f3digo ni cuota."
+    "PR #272 exact observed head 98f8c115891555301fab2880a20716a3061e8695: validate/postgres/CodeQL failed with steps=[] and runner_id=0/runner_name empty; logs unavailable. Actions is enabled=true, but the underlying runner/platform cause is unclassified. Do not modify Actions permissions/settings or infer billing cause."
   ],
   "next_order_id": "ORD-AUTONOMOUS-ENGINE-01",
   "next_order": {
@@ -390,7 +390,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Reconcile validate/postgres/CodeQL empty-step failures on head 18c0a0b; obtain logs or a platform classification without changing repository/organization settings. Recheck exact final PR head after checkpoint commit.",
+      "Diagnose empty-runner CI on PR #272: API confirms Actions enabled, but failed jobs have runner_id=0, runner_name empty and no logs. Seek new GitHub platform evidence without changing settings or dispatching manual reruns; then reconcile exact current head.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
@@ -818,7 +818,21 @@
         "Supabase Preview": "skipped; not hosted validation"
       },
       "observed_at": "2026-11-22T05:14:55Z",
-      "scope": "Initial PR head only; later checkpoint commit will have a different SHA and requires separate exact-head reconciliation."
+      "scope": "Initial PR head recorded; the latest observed PR head 98f8c115891555301fab2880a20716a3061e8695 was a documentation-only checkpoint commit and has the same empty-runner failure pattern recorded below."
+    },
+    "ord_autonomous_engine_01_pr_checkpoint_head": {
+      "pr_number": 272,
+      "head_sha": "98f8c115891555301fab2880a20716a3061e8695",
+      "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+      "run_ids": [
+        44988649853,
+        44988650239,
+        44988654843
+      ],
+      "checks": "validate/postgres/CodeQL failed within 1-2s with steps=[]; job API returned runner_id=0 and empty runner_name; failed logs unavailable. Repository Actions API reports enabled=true. This shows no runner assignment on observed jobs, but underlying platform cause is unclassified.",
+      "other_checks": "Vercel Preview pending/building at observation; Preview Comments success; Security Review pending/in progress; Supabase Preview skipped.",
+      "reviews": "no human reviews; PR remains draft/open/mergeable",
+      "observed_at": "2026-11-22T05:16:30Z"
     }
   },
   "p1_remaining_work": [],
@@ -832,7 +846,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Reconcile validate/postgres/CodeQL empty-step failures on head 18c0a0b; obtain logs or a platform classification without changing repository/organization settings. Recheck exact final PR head after checkpoint commit.",
+      "Diagnose empty-runner CI on PR #272: API confirms Actions enabled, but failed jobs have runner_id=0, runner_name empty and no logs. Seek new GitHub platform evidence without changing settings or dispatching manual reruns; then reconcile exact current head.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
