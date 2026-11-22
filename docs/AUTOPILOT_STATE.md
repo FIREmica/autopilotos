@@ -1982,3 +1982,19 @@ La recuperación en el worktree de revisión confirma main 82b6fb24e76d81e5026c9
 La PR produjo un preview automático en Vercel; no es producción ni despliegue manual. Localmente siguen siendo evidencia 620/620, focal 3/3, secret scan y diff check; browser demo no ejecutado por falta de Playwright. Sin SQL alojado, envíos, datos reales, merge o cambios de billing. El cambio de este checkpoint vuelve a avanzar el SHA documental; se debe consultar el head resultante y sus checks al reanudar.
 
 **Resultado:** [AUTOPILOT_ORDER_BLOCKED] para validate/postgres/browser/CodeQL, pendientes de que el propietario resuelva el bloqueo de facturación y de review humana. No queda otra acción independiente autorizada de la orden: A/B y D están cubiertos, C sigue cerrado sin disposición; P2 permanece intacta.
+
+## 2026-11-22 04:08 UTC - evaluar Directiva Maestra Autopilot Autonomous Engine V1
+
+**Estado recuperado:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR #269 OPEN, sin review humana, head observado 83e4b0c0e5b1e817ff01451988351886df55e61e. Vercel Security Review, Vercel Preview y Preview Comments pasan en ese SHA; Supabase Preview está SKIPPED. Validate, postgres, public-browser-smoke y CodeQL fallaron antes del runner; runner_id 0, sin pasos, anotación exacta de bloqueo de cuenta por facturación. No equivalen a tests remotos. No se repitió npm run verify ni suites ya aprobadas.
+
+**Prueba independiente solicitada por la directiva:** comando node --import tsx --test src/autopilot/missionPlanner.test.ts src/autopilot/missionRuntime.test.ts src/autopilot/missionAuthorization.test.ts src/autopilot/permanentSupervisor.test.ts PASS, 73/73, cero fallos, cancelados u omitidos. Son pruebas locales sintéticas; no acreditan servicio alojado, ejecución independiente de Codex ni continuidad con la máquina apagada.
+
+**Mapa existente, solo por código:** hay piezas en src/autopilot/agentRegistry.ts, missionPlanner.ts, permanentSupervisor.ts, missionRuntime.ts, executorAdapter.ts, missionAuthorization.ts, localMissionStore.ts, cloudMissionStore.ts, cloudLedgerHandoff.ts, missionContinuation.ts y selfDevelopment.ts; también hay workflows y contratos de seis roles. Esto no demuestra que seis agentes estén corriendo, que el cloud runtime admita trabajo, ni que el verificador/recuperación sean independientes en operación alojada. No se hizo inventario de costo de proveedores ni llamadas externas.
+
+**Control de alcance:** el checkpoint conserva una sola orden, ORD-THREE-DEMONSTRATIONS-20261121, y PR269 es específicamente la demo A/B y su corrección de no_send. La dirección de producto coloca autonomía F5 después de F0-F4; F2 todavía depende de la revisión humana de conocimiento profesional. Por eso no agregué un segundo scheduler, cola, agente, PR ni capacidades de producción a PR269. No se cambió código de aplicación en este ciclo.
+
+**Límites:** PR preview automático solamente; no producción ni despliegue manual. Sin hosted SQL, envíos, datos reales, cambios de permisos/credenciales/billing, merge ni ejecución alojada. No se verificó aquí el estado live del servicio cloud; el checkpoint sigue reportando admisión bloqueada por API HTTP 429. P2 permanece intacta.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para la verificación remota y revisión de PR269, que requieren intervención del propietario. La verificación local independiente 73/73 sí se completó; no queda otra acción de código segura dentro de la orden actual sin duplicarla o saltar las puertas F0-F4.
+
+**Siguiente misión exacta:** después de resolver el bloqueo de facturación de GitHub y revisar PR269, consultar su head/base/reviews/checks exactos. Luego cerrar o disponer la orden según sus criterios y elegir, desde el plan canónico, una sola orden acotada para la directiva V1 respetando F0-F4; no afirmar autonomía alojada hasta observar recibos reales desde un host independiente.

@@ -60,15 +60,15 @@
       "current_session_limit": "El21/11 Vercel Agent no consultó variables Actions, configuración heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro histórico."
     }
   },
-  "updated_at": "2026-11-22T03:57:25Z",
-  "execution_id": "three-demo-consultation-boundary-20261122",
+  "updated_at": "2026-11-22T04:08:18Z",
+  "execution_id": "autonomy-directive-review-20261122",
   "repository": {
     "branch": "codex/lane-a-professional-main-20261122",
     "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
-    "head_sha": "1b6c062478fed7279a8d833c07e78b612f7ecb44",
+    "head_sha": "83e4b0c0e5b1e817ff01451988351886df55e61e",
     "worktree": "C:\\autopilot-worktrees\\lane-a-security-review-20261122",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Flane-a-professional-main-20261122",
-    "note": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR269 OPEN, no human reviews; exact inspected head 1b6c062478fed7279a8d833c07e78b612f7ecb44; code fix 998954dd435345f8e7a58f0c572e3079f549c5c5. On 1b6c062 Vercel Security Review, Preview and Preview Comments PASS; Supabase Preview SKIPPED. Exact-head validate/postgres/public-browser-smoke/CodeQL failed before runner (runner_id 0, no steps); annotation says account locked due billing. No remote tests ran. Local RED reproduced route bypass; focal 3/3, npm run verify 620/620, secret scan/diff-check PASS. Browser demo not run because Playwright absent. PR preview only, no production deploy/hosted SQL/send/merge. This docs update advances the PR head; query exact SHA and checks on resume.",
+    "note": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9; PR269 OPEN/no human review, inspected head 83e4b0c0e5b1e817ff01451988351886df55e61e. Vercel Security Review/Preview pass; Supabase Preview skipped. GitHub validate/postgres/browser/CodeQL failed before runner (runner_id 0, empty steps); billing-lock annotation persists. Local synthetic Autopilot core tests (missionPlanner, missionRuntime, missionAuthorization, permanentSupervisor): 73/73 pass, zero failures/skips. Existing modules cover parts of planner, runtime, supervisor, executor, local/cloud stores and continuation; presence is not proof of always-on autonomy. Product gate F5 is later; F2 Victoria review remains pending. No new queue/scheduler/agent or production action. This checkpoint commit advances the PR head; query exact head/checks on resume.",
     "pr_number": 269,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/269"
   },
@@ -91,7 +91,7 @@
       "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
       "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
     ],
-    "last_verified_step": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR269 OPEN, no human reviews; exact inspected head 1b6c062478fed7279a8d833c07e78b612f7ecb44; code fix 998954dd435345f8e7a58f0c572e3079f549c5c5. On 1b6c062 Vercel Security Review, Preview and Preview Comments PASS; Supabase Preview SKIPPED. Exact-head validate/postgres/public-browser-smoke/CodeQL failed before runner (runner_id 0, no steps); annotation says account locked due billing. No remote tests ran. Local RED reproduced route bypass; focal 3/3, npm run verify 620/620, secret scan/diff-check PASS. Browser demo not run because Playwright absent. PR preview only, no production deploy/hosted SQL/send/merge. This docs update advances the PR head; query exact SHA and checks on resume."
+    "last_verified_step": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9; PR269 OPEN/no human review, inspected head 83e4b0c0e5b1e817ff01451988351886df55e61e. Vercel Security Review/Preview pass; Supabase Preview skipped. GitHub validate/postgres/browser/CodeQL failed before runner (runner_id 0, empty steps); billing-lock annotation persists. Local synthetic Autopilot core tests (missionPlanner, missionRuntime, missionAuthorization, permanentSupervisor): 73/73 pass, zero failures/skips. Existing modules cover parts of planner, runtime, supervisor, executor, local/cloud stores and continuation; presence is not proof of always-on autonomy. Product gate F5 is later; F2 Victoria review remains pending. No new queue/scheduler/agent or production action. This checkpoint commit advances the PR head; query exact head/checks on resume."
   },
   "completed_operations": [
     {
@@ -381,11 +381,10 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44941646984"
   ],
   "blockers": [
-    "Exact inspected PR269 head 1b6c062: validate/postgres/public-browser-smoke/CodeQL failed before runner; runner_id 0, no steps, annotation says account locked due billing. No test execution; no retry or billing change.",
-    "PR269 has no human reviews; keep open and do not merge.",
-    "Local browser demo not run because Playwright is absent; browser CI did not start.",
-    "PR267 remains closed without merge; do not reopen/transplant its delta without explicit disposition.",
-    "Preserved native P2 five-file worktree remains untouched and outside this order."
+    "PR269 exact inspected head 83e4b0c: required GitHub Actions failed before runner; runner_id 0, empty steps, billing-lock annotation. No CI tests ran; do not retry or change billing.",
+    "PR269 remains OPEN without human review; no merge/deploy.",
+    "The autonomy-engine directive maps to later F5; F2 Victoria knowledge review and intervening phase gates remain. Do not add new agents/scheduler/queue or production autonomy outside the canonical order.",
+    "No always-on hosted executor was verified; checkpoint records cloud admission blocked."
   ],
   "next_order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
   "next_order": {
@@ -407,7 +406,7 @@
       "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
       "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
     ],
-    "last_verified_step": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR269 OPEN, no human reviews; exact inspected head 1b6c062478fed7279a8d833c07e78b612f7ecb44; code fix 998954dd435345f8e7a58f0c572e3079f549c5c5. On 1b6c062 Vercel Security Review, Preview and Preview Comments PASS; Supabase Preview SKIPPED. Exact-head validate/postgres/public-browser-smoke/CodeQL failed before runner (runner_id 0, no steps); annotation says account locked due billing. No remote tests ran. Local RED reproduced route bypass; focal 3/3, npm run verify 620/620, secret scan/diff-check PASS. Browser demo not run because Playwright absent. PR preview only, no production deploy/hosted SQL/send/merge. This docs update advances the PR head; query exact SHA and checks on resume.",
+    "last_verified_step": "Remote main 82b6fb24e76d81e5026c94af2630358d00f2ebe9; PR269 OPEN/no human review, inspected head 83e4b0c0e5b1e817ff01451988351886df55e61e. Vercel Security Review/Preview pass; Supabase Preview skipped. GitHub validate/postgres/browser/CodeQL failed before runner (runner_id 0, empty steps); billing-lock annotation persists. Local synthetic Autopilot core tests (missionPlanner, missionRuntime, missionAuthorization, permanentSupervisor): 73/73 pass, zero failures/skips. Existing modules cover parts of planner, runtime, supervisor, executor, local/cloud stores and continuation; presence is not proof of always-on autonomy. Product gate F5 is later; F2 Victoria review remains pending. No new queue/scheduler/agent or production action. This checkpoint commit advances the PR head; query exact head/checks on resume.",
     "executor": "Codex",
     "next_action": "Continue ORD-THREE-DEMONSTRATIONS-20261121 on current main 0df5d16da834844535921f887f1745629e5d0ecb. Read existing A/B/C lane receipts and select one unowned safe verification task. PR267 delta is reconciled in #268; leave #267 open/draft for owner review. Do not repeat PLAN Cloud after run44879861658 (artifact says blocked/no execution/no scheduler) unless the existing independent reviewed-SHA/environment authorization is newly verified. D local contract is complete; preserve the unrelated uncertain P2 worktree."
   },
@@ -818,35 +817,29 @@
   ],
   "selected_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Remediar el bypass no_send de rutas Express case-insensitive/trailing-slash en la demo sintética de consultas, en la misma PR269.",
+    "objective": "Revisar la directiva de Autopilot contra la arquitectura y puertas de fase existentes, sin duplicar el motor ni desplazar ORD-THREE-DEMONSTRATIONS-20261121.",
     "modified_files": [
-      "src/storefront/consultationSyntheticBoundary.ts",
-      "src/storefront/consultationRouter.ts",
-      "src/storefront/consultationIntelligenceRouter.ts",
-      "src/storefront/consultationProfessional.test.ts",
-      "tests/fixtures/consultationProfessionalProof.ts",
-      "tests/fixtures/consultationProfessionalStage.ts",
-      "scripts/demo-consultation-professional.ts",
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "Security fix 998954dd435345f8e7a58f0c572e3079f549c5c5 pushed to PR269. Latest inspected head 1b6c062478fed7279a8d833c07e78b612f7ecb44 includes checkpoint-only continuity. Security Review and Preview PASS; required Actions did not start due account billing lock. PR open; no production/hosted execution."
+    "integration_state": "No se inició implementación de nueva arquitectura: la orden vigente sigue bloqueada por CI externo y review humana; el plan actual impide saltar a F5 o añadir otra cola/scheduler/agentes. Se ejecutaron pruebas locales independientes y se documentó el mapeo de componentes existentes."
   },
   "next_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "After owner-side resolution of the GitHub billing lock, re-read the current PR269 head/base/reviews and exact-head checks; permit only required checks that can start. Keep PR open pending human review; do not merge, deploy, run hosted SQL, change billing or credentials.",
+    "objective": "After owner-side GitHub billing resolution and human review of PR269, read the exact current head/base/reviews/checks. Close or disposition the existing order under its acceptance criteria; then consult the canonical product/linear phase gates to select one next bounded order, evaluating the Autopilot V1 directive without creating parallel infrastructure.",
     "dependencies": [
-      "This docs-only follow-up advances PR head; query live SHA before acting.",
-      "Do not rerun while account lock persists; pre-run failures and skipped checks are not passes.",
-      "Preserve PR267 closed and P2 worktree unchanged."
+      "This checkpoint follow-up changes the PR SHA; query live head before acting.",
+      "Required CI must actually run and pass; pre-run failures and skipped checks do not count.",
+      "Do not merge without human review; no production deployment, hosted SQL or new scheduler/agent lane."
     ],
     "acceptance": [
-      "Exact current head has successful required validate/postgres/CodeQL/browser checks that actually ran and Vercel Security Review has no open findings.",
-      "PR269 remains open for human review; no merge, production deployment, hosted SQL, sends or real data."
+      "Exact current PR head, CI, preview/security statuses and review disposition recorded.",
+      "Only one canonical order remains active; no duplicated queue, scheduler, ledger or PR.",
+      "Autonomy claims distinguish configured, tested, hosted, running and recovered."
     ],
     "limits": [
-      "Owner must resolve GitHub billing lock.",
-      "No independent code action remains in this order without reopening closed C or duplicating completed A/B/D work."
+      "Owner must resolve billing lock; do not alter account/billing/credentials.",
+      "Respect F0-F4 gates before F5 autonomy; no new code scope on PR269 beyond its demo/security purpose."
     ]
   },
   "preservation_refs": {
