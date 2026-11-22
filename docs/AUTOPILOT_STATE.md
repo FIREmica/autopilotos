@@ -1974,3 +1974,11 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Resultado:** [AUTOPILOT_ORDER_BLOCKED] para las dependencias restantes de esta orden: A/B/D no tienen otra acción independiente autorizada; C continúa cerrado sin disposición; el CI obligatorio no puede iniciar y falta review humana. La corrección acotada sí avanzó y Vercel la aceptó.
 
 **Siguiente misión exacta:** después de que el propietario resuelva el lock de GitHub, leer el head/base/reviews actuales de #269 (incluido el commit documental de este checkpoint), inspeccionar los checks del SHA exacto y permitir solo las ejecuciones requeridas que ahora puedan iniciar. Mantener la PR abierta hasta review humana; no mergear, desplegar ni ejecutar SQL alojado.
+
+## 2026-11-22 03:57 UTC - revalidar el checkpoint de PR #269
+
+La recuperación en el worktree de revisión confirma main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 y PR #269 OPEN, sin review humana, head exacto observado 1b6c062478fed7279a8d833c07e78b612f7ecb44. El arreglo de código está en su padre 998954dd435345f8e7a58f0c572e3079f549c5c5. En 1b6c062 pasan Vercel Security Review, Vercel Preview y Preview Comments; Supabase Preview quedó SKIPPED. Validate, postgres, public-browser-smoke y CodeQL fallaron antes de iniciar el runner; runner_id 0, cero pasos y la anotación confirma bloqueo de cuenta por facturación. No se ejecutaron pruebas remotas ni se reintentaron.
+
+La PR produjo un preview automático en Vercel; no es producción ni despliegue manual. Localmente siguen siendo evidencia 620/620, focal 3/3, secret scan y diff check; browser demo no ejecutado por falta de Playwright. Sin SQL alojado, envíos, datos reales, merge o cambios de billing. El cambio de este checkpoint vuelve a avanzar el SHA documental; se debe consultar el head resultante y sus checks al reanudar.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para validate/postgres/browser/CodeQL, pendientes de que el propietario resuelva el bloqueo de facturación y de review humana. No queda otra acción independiente autorizada de la orden: A/B y D están cubiertos, C sigue cerrado sin disposición; P2 permanece intacta.
