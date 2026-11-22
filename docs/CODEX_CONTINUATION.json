@@ -60,15 +60,15 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-21T04:15:17.602Z",
-  "execution_id": "three-demonstrations-20261121",
+  "updated_at": "2026-11-22T01:30:12Z",
+  "execution_id": "three-demo-reconcile-20261122",
   "repository": {
-    "branch": "codex/lane-d-cloud-contract-20261121",
-    "base_sha": "66da49d3cb7a91b0decb52163a0cbf2e67ee6168",
+    "branch": "codex/three-demo-checkpoint-20261122",
+    "base_sha": "0df5d16da834844535921f887f1745629e5d0ecb",
     "head_sha": null,
-    "worktree": "WORKTREE:lane-d-cloud-contract-20261121",
-    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "Nueva orden sint\u00e9tica autorizada. Consultar PR por rama/SHA; no atribuir resultados futuros a esta versi\u00f3n.",
+    "worktree": "C:\\Users\\micahael\\.codex\\worktrees\\three-demo-checkpoint-20261122\\autopilot",
+    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fthree-demo-checkpoint-20261122",
+    "note": "Documentary reconciliation of merged lane D and current main/CI for the same ORD-THREE-DEMONSTRATIONS-20261121. PR number/head are resolved from the branch after publication; no app or hosted mission.",
     "pr_number": null,
     "pr_url": null
   },
@@ -91,7 +91,7 @@
       "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
       "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
     ],
-    "last_verified_step": "Base66da49d incorpora #263. Medici\u00f3n de esta orden main eac9870 antes de cambios; alias victoriosas.online9d6bbdb (brecha de despliegue), heartbeatACTIVE30min, cola64/130,45completed/13queued/6blocked/0leases. Causas infraestructura:6blocked,3/3intentoss y18failure site_unavailable;13queued0claims. P2 intacta. Cuatro worktrees exclusivos, A/B/C delegados expresamente seg\u00fan solicitud y D root."
+    "last_verified_step": "GitHub main exact 0df5d16da834844535921f887f1745629e5d0ecb. PR #264 merged by owner at 2026-11-21T05:08:58Z (head e0727ff68fba47037ba6dab8f977830e3c0038f2, base 66da49d3cb7a91b0decb52163a0cbf2e67ee6168, merge 6a8ea53d882d61c02a13a1ae15d333f9d07cebc3). Its local handoff contract and tests are integrated; validate/postgres/CodeQL, public-browser-smoke, Vercel security/preview checks, cloud-adapter-validation and inventory passed; cloud-development/hosted-ledger/continuation skipped. D satisfies the local-contract alternative only; no cloud delivery. PR #266 merged at 2026-11-21T07:17:50Z (head 5ee8fa7ce168fcef19ce7a2aba07115e793b0aa5, merge/main 0df5d16da834844535921f887f1745629e5d0ecb); validate/postgres/CodeQL/Vercel security and Preview Comments passed; Supabase Preview skipped. PR #267 remains open draft at 9d8299fbdca595a969e846f1ddc2eeaa0c5eb0f7 based on c2bc24771ead1ea61ac26d9099ca8f7cd0acfbb7; required checks and CodeQL passed, Supabase Preview skipped. It overlaps #266 catalog files; reconcile its incremental tests with the merged code before any catalog integration. Main Autopilot Core run 44879582931 and Push on main run 44879582538 succeeded; exact main validate/postgres, three CodeQL analyses and Supabase Preview check succeeded. Scheduled read-only Public Health 44941101623 and infrastructure availability 44941646984 succeeded. PLAN Cloud run 44879861658 failed closed; artifact 14696828731 says state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; execution jobs skipped. Later run 44939440332 was skipped. No hosted mission or scheduler was created. Lane D local contract accepted/integrated only. A/B worktrees contain local changes and were not touched; C PR #267 is draft and must be compared with #266. The preserved native P2 worktree still has five modified files; no matching process or listener on 28447 was observed, but original terminal receipt remains unresolved. P2 stays outside this order and unchanged."
   },
   "completed_operations": [
     {
@@ -297,6 +297,10 @@
     {
       "operation": "Medir seis roles mediante agregados de solo lectura",
       "detection": "All recorded tasks infrastructure/read_only_public_health. Other five roles zero rows here; on-demand entries not exercised. No retries, dispatch or remote writes."
+    },
+    {
+      "operation": "Reconcile merged lane D and catalog PRs against latest main; record cloud fail-closed receipt",
+      "detection": "GitHub main exact 0df5d16da834844535921f887f1745629e5d0ecb. PR #264 merged by owner at 2026-11-21T05:08:58Z (head e0727ff68fba47037ba6dab8f977830e3c0038f2, base 66da49d3cb7a91b0decb52163a0cbf2e67ee6168, merge 6a8ea53d882d61c02a13a1ae15d333f9d07cebc3). Its local handoff contract and tests are integrated; validate/postgres/CodeQL, public-browser-smoke, Vercel security/preview checks, cloud-adapter-validation and inventory passed; cloud-development/hosted-ledger/continuation skipped. D satisfies the local-contract alternative only; no cloud delivery. PR #266 merged at 2026-11-21T07:17:50Z (head 5ee8fa7ce168fcef19ce7a2aba07115e793b0aa5, merge/main 0df5d16da834844535921f887f1745629e5d0ecb); validate/postgres/CodeQL/Vercel security and Preview Comments passed; Supabase Preview skipped. PR #267 remains open draft at 9d8299fbdca595a969e846f1ddc2eeaa0c5eb0f7 based on c2bc24771ead1ea61ac26d9099ca8f7cd0acfbb7; required checks and CodeQL passed, Supabase Preview skipped. It overlaps #266 catalog files; reconcile its incremental tests with the merged code before any catalog integration. Main Autopilot Core run 44879582931 and Push on main run 44879582538 succeeded; exact main validate/postgres, three CodeQL analyses and Supabase Preview check succeeded. Scheduled read-only Public Health 44941101623 and infrastructure availability 44941646984 succeeded. PLAN Cloud run 44879861658 failed closed; artifact 14696828731 says state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; execution jobs skipped. Later run 44939440332 was skipped. No hosted mission or scheduler was created."
     }
   ],
   "evidence_refs": [
@@ -366,13 +370,24 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44861091827",
     "https://github.com/Victoriosas/autopilot/actions/runs/44861091854",
     "https://github.com/Victoriosas/autopilot/actions/runs/44861335499",
-    "docs/P2_FORENSIC_RECEIPT_20261121.md"
+    "docs/P2_FORENSIC_RECEIPT_20261121.md",
+    "https://github.com/Victoriosas/autopilot/pull/264",
+    "https://github.com/Victoriosas/autopilot/pull/266",
+    "https://github.com/Victoriosas/autopilot/pull/267",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44879582931",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44879861658",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44939440332",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44941101623",
+    "https://github.com/Victoriosas/autopilot/actions/runs/44941646984"
   ],
   "blockers": [
     "P2 original INDETERMINADO, preservado y fuera del trabajo activo; no bloquea A/B/C/D",
     "consultations tiene entrada SQL pausada; probar rechazo conservando guarda",
     "Cloud remoto condicionado al reviewed SHA y environment prevent_self_review; local contrato autorizado",
-    "Dominio todav\u00eda9d6bbdb: brecha despliegue, no prueba de demos productivas"
+    "Dominio todav\u00eda9d6bbdb: brecha despliegue, no prueba de demos productivas",
+    "A/B remain in isolated worktrees with local changes; do not overwrite them or infer final acceptance before their PR and exact checks.",
+    "C PR267 is open/draft and overlaps merged PR266 catalog code; reconcile the remaining delta before creating or integrating catalog changes.",
+    "D local handoff contract is integrated by PR264, but cloud execution remains blocked and must not be retried without a reviewed SHA and the existing independent environment gate."
   ],
   "next_order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
   "next_order": {
@@ -394,9 +409,9 @@
       "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
       "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
     ],
-    "last_verified_step": "Base66da49d incorpora #263. Medici\u00f3n de esta orden main eac9870 antes de cambios; alias victoriosas.online9d6bbdb (brecha de despliegue), heartbeatACTIVE30min, cola64/130,45completed/13queued/6blocked/0leases. Causas infraestructura:6blocked,3/3intentoss y18failure site_unavailable;13queued0claims. P2 intacta. Cuatro worktrees exclusivos, A/B/C delegados expresamente seg\u00fan solicitud y D root.",
+    "last_verified_step": "GitHub main exact 0df5d16da834844535921f887f1745629e5d0ecb. PR #264 merged by owner at 2026-11-21T05:08:58Z (head e0727ff68fba47037ba6dab8f977830e3c0038f2, base 66da49d3cb7a91b0decb52163a0cbf2e67ee6168, merge 6a8ea53d882d61c02a13a1ae15d333f9d07cebc3). Its local handoff contract and tests are integrated; validate/postgres/CodeQL, public-browser-smoke, Vercel security/preview checks, cloud-adapter-validation and inventory passed; cloud-development/hosted-ledger/continuation skipped. D satisfies the local-contract alternative only; no cloud delivery. PR #266 merged at 2026-11-21T07:17:50Z (head 5ee8fa7ce168fcef19ce7a2aba07115e793b0aa5, merge/main 0df5d16da834844535921f887f1745629e5d0ecb); validate/postgres/CodeQL/Vercel security and Preview Comments passed; Supabase Preview skipped. PR #267 remains open draft at 9d8299fbdca595a969e846f1ddc2eeaa0c5eb0f7 based on c2bc24771ead1ea61ac26d9099ca8f7cd0acfbb7; required checks and CodeQL passed, Supabase Preview skipped. It overlaps #266 catalog files; reconcile its incremental tests with the merged code before any catalog integration. Main Autopilot Core run 44879582931 and Push on main run 44879582538 succeeded; exact main validate/postgres, three CodeQL analyses and Supabase Preview check succeeded. Scheduled read-only Public Health 44941101623 and infrastructure availability 44941646984 succeeded. PLAN Cloud run 44879861658 failed closed; artifact 14696828731 says state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; execution jobs skipped. Later run 44939440332 was skipped. No hosted mission or scheduler was created. Lane D local contract accepted/integrated only. A/B worktrees contain local changes and were not touched; C PR #267 is draft and must be compared with #266. The preserved native P2 worktree still has five modified files; no matching process or listener on 28447 was observed, but original terminal receipt remains unresolved. P2 stays outside this order and unchanged.",
     "executor": "Codex",
-    "next_action": "Continuar ORD-THREE-DEMONSTRATIONS-20261121; A/B/C/D paralelos autorizados por propietario21/11. P2 PRESERVAR/NO_REABRIR. Releer execution_inventory, recuperar trabajo ya creado y elegir cualquier acci\u00f3n no bloqueada. No usar dependencias P2 hist\u00f3ricas para detener staging; no cambios productivos ni guardas rebajadas. No repetir ensayos inciertos. Mantener scheduler existente y verificar checkpoint publicado."
+    "next_action": "Continue ORD-THREE-DEMONSTRATIONS-20261121 on current main 0df5d16da834844535921f887f1745629e5d0ecb. Read existing A/B/C lane receipts and select one unowned safe verification task. First reconcile PR267 against merged PR266 without mutating an active lane. Do not repeat PLAN Cloud after run44879861658 (artifact says blocked/no execution/no scheduler) unless the existing independent reviewed-SHA/environment authorization is newly verified. D local contract is complete; preserve the unrelated uncertain P2 worktree."
   },
   "resumption": {
     "status": "p2_active_partial",
@@ -805,34 +820,31 @@
   ],
   "selected_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Implementar handoff por adaptador existente y registrar autorizaci\u00f3n de carriles sint\u00e9ticos paralelos.",
+    "objective": "Reconcile integrated lane D, current main CI, cloud fail-closed receipt, and overlapping catalog candidate into the same durable checkpoint.",
     "modified_files": [
-      "src/autopilot/cloudLedgerHandoff.ts",
-      "src/autopilot/cloudLedgerHandoff.test.ts",
-      "scripts/hosted-ledger-runner.mjs",
-      ".github/workflows/plan-cloud.yml",
-      "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
       "docs/CODEX_CONTINUATION.json",
-      "docs/AUTOPILOT_STATE.md",
-      "docs/CLOUD_HANDOFF_CONTRACT_20261121.md"
+      "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "Implementaci\u00f3n local, CI/PR exacta pendiente. No entrega cloud ni producci\u00f3n."
+    "integration_state": "Documentation-only proposal. PR264 lane D local contract and PR266 catalog hardening are merged; no cloud delivery, hosted SQL, scheduler, dispatch, P3 or production effect."
   },
   "next_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Completar los cuatro carriles staging sin reapertura P2",
+    "objective": "Finish remaining staging lanes A/B/C without replaying uncertain P2 or cloud effects.",
     "dependencies": [
-      "Reconciliar live main/PRs/worktrees antes de integrar",
-      "Respetar contratos existentes, permisos y CI exacta"
+      "Refresh exact main, PR, CI and worktree states before selecting a lane.",
+      "Preserve active A/B/C worktrees; work only in a lane with no competing writer.",
+      "Reconcile PR267 against merged PR266 and retain only incremental C coverage; do not auto-merge or close it.",
+      "Keep D cloud lane fail-closed until existing reviewed-SHA and prevent_self_review gates are satisfied by independent authorization.",
+      "Keep native P2 five-file worktree and uncertain execution untouched."
     ],
     "acceptance": [
-      "A: formulario a cierre reconstruible en panel, cuatro negativos, acuse SIMULADO deduplicado y recuperaci\u00f3n durable",
-      "B: seis entradas normales ejercitadas y evidencia por rol; pausa SQL se prueba y se conserva si deniega",
-      "C: misi\u00f3n autorizada y denegada, m\u00ednimo permiso/auditor\u00eda/cuota/unavailable/disable",
-      "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
-      "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
+      "A: form-to-close reconstructible in admin panel, four negative cases, SIMULATED deduplicated acknowledgement and durable recovery.",
+      "B: six normal entries exercised with per-role evidence; paused SQL entry remains NOT_CLAIMED when gate denies.",
+      "C: authorized and denied mission evidence for permission, audit, quota, unavailable and disable; avoid duplicating #266.",
+      "D: existing handoff adapter local contracts are already tested and merged; cloud delivery remains a separate unproven gate.",
+      "Required PR review and exact validate/postgres/CodeQL before any merge; never equate skipped with success."
     ],
-    "recoverable_prompt": "Continuar ORD-THREE-DEMONSTRATIONS-20261121; A/B/C/D paralelos autorizados por propietario21/11. P2 PRESERVAR/NO_REABRIR. Releer execution_inventory, recuperar trabajo ya creado y elegir cualquier acci\u00f3n no bloqueada. No usar dependencias P2 hist\u00f3ricas para detener staging; no cambios productivos ni guardas rebajadas. No repetir ensayos inciertos. Mantener scheduler existente y verificar checkpoint publicado."
+    "recoverable_prompt": "Continue ORD-THREE-DEMONSTRATIONS-20261121 on current main 0df5d16da834844535921f887f1745629e5d0ecb. Read existing A/B/C lane receipts and select one unowned safe verification task. First reconcile PR267 against merged PR266 without mutating an active lane. Do not repeat PLAN Cloud after run44879861658 (artifact says blocked/no execution/no scheduler) unless the existing independent reviewed-SHA/environment authorization is newly verified. D local contract is complete; preserve the unrelated uncertain P2 worktree."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -1096,27 +1108,27 @@
   "execution_inventory": [
     {
       "lane": "A",
-      "state": "IMPLEMENTADO",
-      "next": "Cerrar demo navegador/verify, revisi\u00f3n y PR",
-      "blocker": null
+      "state": "IMPLEMENTADO_LOCAL_PENDING_VERIFICATION",
+      "next": "Continue only in its isolated A worktree: browser/demo verification, full verify, review and one PR.",
+      "blocker": "Worktree has tracked and untracked work; not changed by this documentation cycle."
     },
     {
       "lane": "B",
-      "state": "IMPLEMENTADO",
-      "next": "Finalizar verify y revisar evidencia seis entradas",
-      "blocker": "consultations pausa SQL conservada; prueba por entrada normal NOT_CLAIMED"
+      "state": "IMPLEMENTADO_LOCAL_PENDING_VERIFICATION",
+      "next": "Continue only in its isolated B worktree: final verify, review six-entry evidence and SQL-pause negative.",
+      "blocker": "The paused SQL entry must remain NOT_CLAIMED; do not claim or bypass it."
     },
     {
       "lane": "C",
-      "state": "PROBADO",
-      "next": "Finalizar verify y revisi\u00f3n independiente, PR",
-      "blocker": null
+      "state": "PR267_OPEN_DRAFT_RECONCILIATION_REQUIRED",
+      "next": "Compare PR267 exact diff against merged PR266 and retain only novel, authorized regression coverage; no merge/close in this cycle.",
+      "blocker": "PR267 is based on c2bc247 and overlaps the already merged SCRAM implementation."
     },
     {
       "lane": "D",
-      "state": "PROBADO",
-      "next": "Completar verify y revisi\u00f3n del handoff, PR",
-      "blocker": "Run alojado exige reviewed SHA exacto y environment protegido prevent_self_review; no bypass"
+      "state": "LOCAL_CONTRACT_IMPLEMENTED_TESTED_MERGED",
+      "next": "No cloud retry while the adapter gate is closed. Keep the workflow fail-closed; use D as complete for local-contract acceptance only.",
+      "blocker": "Run44879861658 artifact says cloud_ledger_adapter_not_configured/executed=false; next run44939440332 skipped."
     }
   ]
 }

@@ -1833,3 +1833,19 @@ Límites: no se dispone de operaciones para inventariar/cerrar alertas privadas 
 **Acción de este lote:** actualizar solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md desde main eac9870. Se mantiene la misma orden, sin segunda cola, replay, SQL alojado, dispatch, cambio de scheduler, P3, despliegue ni auto-merge. Rollback: revertir únicamente esta actualización documental; evidencia forense y worktrees conservados.
 
 **Siguiente paso exacto:** obtener una fuente nueva y correlacionable de stdout/IPC/exit, PIDs/descendientes, late-write receipts o identidad pre/post del intento12801. No repetir búsquedas ya agotadas ni reconstruir la copia sin dato nuevo. Si no llega evidencia nueva, mantener [AUTOPILOT_ORDER_BLOCKED], P2 parcial y los cinco archivos intactos.
+
+## 2026-11-22 01:30 UTC - reconciliar demos D/C y CI de main
+
+**Estado:** ORD-THREE-DEMONSTRATIONS-20261121, producto F0; carriles sintéticos P3-P6 siguen en progreso. Main GitHub 0df5d16da834844535921f887f1745629e5d0ecb. El checkpoint conserva la misma orden; no se reabrió P2 ni se activó P3.
+
+**D:** PR #264 se fusionó el 21/11 05:08Z (head e0727ff, merge 6a8ea53). La implementación/test de handoff local está integrada. CI del head: validate, postgres, CodeQL (tres análisis), browser smoke, Vercel Security/Preview, cloud adapter validation e inventory SUCCESS; cloud-development, hosted-ledger y continuation SKIPPED. La demostración de contrato local está cumplida; entrega cloud no.
+
+**C:** PR #266 se fusionó el 21/11 07:17Z como main 0df5d16da834844535921f887f1745629e5d0ecb; validate, postgres, CodeQL y revisiones de Vercel SUCCESS, Supabase Preview SKIPPED. PR #267 continúa open/draft sobre base c2bc247, con checks validate/postgres/CodeQL/security SUCCESS y Supabase Preview SKIPPED. Sus cambios pisan los mismos tres archivos de catálogo que #266, con pruebas incrementales que requieren comparación. No se integró ni cerró #267; se preserva para que el carril C resuelva el delta sin duplicar la corrección SCRAM.
+
+**Main y Cloud:** Autopilot Core #44879582931 y Push on main #44879582538 SUCCESS en SHA 0df5d16da834844535921f887f1745629e5d0ecb; validate/postgres, tres CodeQL y check Supabase Preview reportaron SUCCESS. Public Health #44941101623 e infraestructura #44941646984 SUCCESS, ambas comprobaciones programadas de lectura. PLAN Cloud #44879861658 falló de forma fail-closed; artefacto 14696828731: state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; jobs de ejecución omitidos. Run #44939440332 quedó SKIPPED. No hubo misión alojada, creación de scheduler ni ejecución SQL.
+
+**Recuperación y aislamiento:** C:\autopilot sigue atrasado 150 commits y con numerosos no rastreados; permanece de solo lectura. El worktree nativo P2 mantiene cinco archivos modificados; no se detectó proceso coincidente ni listener 28447, pero falta recibo terminal original. No se tocó ni se repitió. A/B permanecen en worktrees propios con cambios; no se escribieron.
+
+**Acción/verificación:** actualización documental en rama codex/three-demo-checkpoint-20261122, base verificada 0df5d16da834844535921f887f1745629e5d0ecb, solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md. Se validará JSON, diff estructural y git diff --check; no se repitió npm run verify porque no hay código. Sin gasto, hosted SQL, dispatch, merge, deploy ni cambios al heartbeat. Rollback: revertir solo esta actualización documental.
+
+**Siguiente misión exacta:** continuar la misma orden con un carril A/B/C no ocupado: primero revisar el delta de PR #267 frente a #266 y continuar su evidencia incremental sin tocar la rama activa. No reintentar Cloud mientras no se verifique el SHA revisado y la aprobación del environment existente. Mantener P2 nativa intacta.
