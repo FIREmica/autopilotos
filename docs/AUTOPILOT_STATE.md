@@ -1927,3 +1927,18 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Límites:** no hosted SQL, migración remota, dispatch Cloud, envío, datos reales, merge ni despliegue. El costo del servicio no se midió. Los worktrees candidatos A/B y el worktree P2 de cinco archivos siguen preservados e intactos.
 
 **Siguiente misión exacta:** revisar cambios de tres archivos únicamente, validar JSON/diff/secret scan, commit y push normal al head existente de #269, actualizar el cuerpo de PR y esperar/checkear validate, postgres, CodeQL, navegador y Vercel Security Review en el SHA exacto. Si el hallazgo permanece, mantener la PR abierta y corregir sin suprimir el control; si pasa, dejarla igualmente abierta para revisión humana.
+
+
+## 2026-11-22 02:46 UTC - cierre del ciclo ante bloqueo externo de CI
+
+**Head y PR:** main remoto continúa `0df5d16da834844535921f887f1745629e5d0ecb`. PR #269 está abierta, sin merge/despliegue, head exacto `f47db7e9311888f94bf258123f1ec7547733f80c`; no hay reviews humanas. PR #267 se mantiene cerrada sin merge y sin motivo de cierre visible.
+
+**CI exacta de f47db7e:** Vercel Security Review SUCCESS, salida “No open findings”; Vercel Preview Comments SUCCESS. Supabase Preview SKIPPED. Los jobs GitHub Actions `validate` (dos), `postgres` (dos), `public-browser-smoke` y `Analyze` (actions, JavaScript/TypeScript, Python) terminaron failure antes del runner; API de jobs muestra cero pasos y runner_id 0. El diagnóstico del job Analyze especifica que la cuenta está bloqueada por un problema de facturación. No son fallos de tests ejecutados: no hubo ejecución de esos jobs. No se reintentaron; no se tocaron pagos, facturación, credenciales ni límites.
+
+**Código y pruebas locales:** reparación SCRAM de `scripts/autopilot-office-demo.ts` está en #269. Staging Windows/PostgreSQL 18 desechable: seis roles, cinco completados, consultations no_claimed/attempt 0, credenciales ausentes y erróneas rechazadas, ACL temporal privado, bootstrap borrado antes de iniciar, clúster detenido. `npm run verify` PASS 618/618, cero fallos y cero omitidos; secret scan y diff check PASS. Vercel confirmó el cierre del finding de trust-auth en el nuevo SHA.
+
+**Checkpoint y límites:** se actualizó el JSON canónico con bloqueo por billing, estado de #267 y paso recuperable; esta actualización documental se enviará en el mismo PR, excluyendo `output/office-demo/`. Mantener #269 abierta. Sin SQL alojado, migración remota, dispatch Cloud, envíos, datos reales, merge ni deploy. El costo no está medido.
+
+**Resultado:** `[AUTOPILOT_ORDER_BLOCKED]` para este ciclo: A/B completados localmente, D local integrado; no queda tarea independiente segura de esta orden mientras CI no pueda iniciar y C siga cerrado sin disposición. El worktree P2 de cinco archivos se conserva sin tocar.
+
+**Siguiente misión exacta:** mantener #269 abierta y, cuando el propietario haya resuelto el bloqueo de facturación de GitHub, releer el head exacto y reejecutar solo los checks requeridos allí. No cambiar facturación, reescribir el head para eludir CI ni reintentar mientras siga bloqueado. No reabrir PR267 ni habilitar Cloud, hosted SQL, P2 o producción por inferencia.
