@@ -1,35 +1,42 @@
 import assert from 'node:assert/strict';
 import express from 'express';
-import {randomUUID} from 'node:crypto';
+import {randomBytes,randomUUID} from 'node:crypto';
 import {createConsultationRouter} from '../../src/storefront/consultationRouter';
 import {approvedConsultationFacts,type ConsultationFact} from '../../src/storefront/consultationEvidence';
+import type { ServiceKnowledgeStore } from '../../src/storefront/consultationServiceKnowledge';
 import {ConsultationProfessionalStage,stageAdmin} from './consultationProfessionalStage';
 
 export function createProfessionalStage(file:string){
   const now=new Date('2026-11-21T04:00:00.000Z');
   let facts:readonly ConsultationFact[]=approvedConsultationFacts;
-  const stage=new ConsultationProfessionalStage(file,()=>facts,()=>now);
+  const adminToken=randomBytes(32).toString('base64url');
+  const stage=new ConsultationProfessionalStage(file,()=>facts,()=>now,adminToken);
   let notices=0;
+  const deniedOperationCalls={metrics:0,shadow:0,reply:0,dispatch:0,knowledge:0};
   const app=express();
-  // Deny-only staging boundary: inherited process variables can never enable live delivery or AI.
-  app.use('/api/beauty/inquiries',(req,res,next)=>{
-    if(req.method==='POST'&&/\/(approve-send|draft-ai|dispatch)$/.test(req.path))return res.status(409).json({error:'STAGING_NO_SEND',label:'SIMULADO',delivery_decision:'no_send'});
-    next();
-  });
   app.use('/api/beauty/inquiries',createConsultationRouter({
+    syntheticOnly:true,
     store:stage.requests,administration:stage.administration,enabled:()=>true,
     origin:()=> 'https://victoriosas.online',abuseKey:()=> 'synthetic-staging-only',
-    auth:(req,res,next)=>{if(req.get('authorization')!=='Bearer synthetic-stage-admin')return res.status(401).json({error:'ADMIN_AUTH_REQUIRED'});res.locals.adminUserId=stageAdmin;next();},
+    auth:(req,res,next)=>{if(req.get('authorization')!==`Bearer ${adminToken}`)return res.status(401).json({error:'ADMIN_AUTH_REQUIRED'});res.locals.adminUserId=stageAdmin;next();},
     reads:{list:async()=>({}),unreadCount:async()=>0,set:async()=>now.toISOString()},
     delivery:{ready:()=>true,send:async id=>{notices++;return 'SIMULADO:'+id;}},
-    intelligence:{enabled:()=>true,store:stage.intelligence,provider:()=>undefined,now:()=>now,facts:async()=>facts},
+    metrics:async()=>{deniedOperationCalls.metrics++;return {activeRequests:0,sentLast30Days:0,uncertainLast30Days:0,unreadRequests:0};},
+    recordShadow:async()=>{deniedOperationCalls.shadow++;},
+    approveReply:async()=>{deniedOperationCalls.reply++;return 'provider_unavailable';},
+    intelligence:{enabled:()=>true,store:stage.intelligence,provider:()=>undefined,now:()=>now,facts:async()=>facts,dispatchReply:async()=>{deniedOperationCalls.dispatch++;return 'blocked';}},
+    knowledge:({
+      list:async()=>{deniedOperationCalls.knowledge++;return [];},
+      save:async()=>{deniedOperationCalls.knowledge++;return false;},
+      facts:async()=>{deniedOperationCalls.knowledge++;return [...approvedConsultationFacts];},
+    } satisfies ServiceKnowledgeStore),
   }));
-  return {app,stage,notices:()=>notices,now,setFacts:(value:readonly ConsultationFact[])=>{facts=value;}};
+  return {app,stage,notices:()=>notices,adminToken,deniedOperationCalls:()=>({...deniedOperationCalls}),now,setFacts:(value:readonly ConsultationFact[])=>{facts=value;}};
 }
 export const professionalInput=(id=randomUUID(),message='¿En qué consiste la higiene y limpieza facial?')=>({id,fullName:'Caso sintético profesional',phone:'00000000',email:'',age:null,service:'higiene-y-limpieza-facial',message,responseChannel:'whatsapp',consent:true,consentVersion:'consultation-v1',aiConsent:false,website:''});
-export function professionalClient(base:string){
+export function professionalClient(base:string,adminToken:string){
   const path=base+'/api/beauty/inquiries';
-  const headers=(id:string)=>({authorization:'Bearer synthetic-stage-admin',origin:'https://victoriosas.online','content-type':'application/json','x-consultation-approval':id});
+  const headers=(id:string)=>({authorization:`Bearer ${adminToken}`,origin:'https://victoriosas.online','content-type':'application/json','x-consultation-approval':id});
   return {
     submit:(input:ReturnType<typeof professionalInput>)=>fetch(path,{method:'POST',headers:headers(input.id),body:JSON.stringify(input)}),
     read:(id:string,auth=true)=>fetch(path+'/admin/'+id+'/administrative-record',{headers:auth?headers(id):{}}),
@@ -39,7 +46,7 @@ export function professionalClient(base:string){
   };
 }
 export async function proveProfessionalFlow(base:string,fixture:ReturnType<typeof createProfessionalStage>,id:string){
-  const client=professionalClient(base),record=fixture.stage.record(id)!;
+  const client=professionalClient(base,fixture.adminToken),record=fixture.stage.record(id)!;
   assert.equal((await client.read(id,false)).status,401,'unauthorized session cannot inspect dossier');
   assert.equal((await client.status(id,'closed')).status,409,'unreviewed request cannot close in staging');
   assert.equal((await client.status(id,'in_review')).status,200);
@@ -55,12 +62,12 @@ export async function proveProfessionalFlow(base:string,fixture:ReturnType<typeo
   assert.equal(dossier.simulation.label,'SIMULADO');assert.equal(dossier.simulation.delivery_decision,'no_send');assert.equal(dossier.simulation.acknowledgements,1);
   for(const kind of ['request_received','notice_acknowledged','analysis_claimed','draft_recorded','approve','simulated_acknowledgement','case_closed'])assert.ok(dossier.audit.some((e:{kind:string})=>e.kind===kind),kind);
   const noticeCount=fixture.notices();assert.equal((await client.submit(record.input as ReturnType<typeof professionalInput>)).status,202);assert.equal(fixture.notices(),noticeCount,'replay cannot duplicate notice');
-  const recovered=new ConsultationProfessionalStage(fixture.stage.file,()=>approvedConsultationFacts,()=>fixture.now);
+  const recovered=new ConsultationProfessionalStage(fixture.stage.file,()=>approvedConsultationFacts,()=>fixture.now,fixture.adminToken);
   assert.deepEqual(await recovered.administration.read(id),dossier,'new adapter reconstructs the durable case');
   return dossier;
 }
 export async function proveProfessionalNegatives(base:string,fixture:ReturnType<typeof createProfessionalStage>){
-  const client=professionalClient(base);
+  const client=professionalClient(base,fixture.adminToken);
   const expired=professionalInput();assert.equal((await client.submit(expired)).status,202);
   fixture.setFacts(approvedConsultationFacts.map(f=>({...f,validUntil:'2026-11-20T00:00:00Z'})));
   const stale=await (await client.analyze(expired.id)).json();assert.equal(stale.analysis.guardian.status,'blocked');

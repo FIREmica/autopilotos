@@ -11,7 +11,7 @@ type Saved={record:ConsultationRecord;fingerprint:string;lease:string;notice:str
 /** Test-only durable implementations of the three existing stores. No network or live sender exists. */
 export class ConsultationProfessionalStage{
   private data:Record<string,Saved>;
-  constructor(readonly file:string,readonly facts:()=>readonly ConsultationFact[],readonly now:()=>Date){
+  constructor(readonly file:string,readonly facts:()=>readonly ConsultationFact[],readonly now:()=>Date,readonly adminToken:string){
     this.data=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):{};
   }
   private save(){writeFileSync(this.file+'.tmp',JSON.stringify(this.data,null,2));renameSync(this.file+'.tmp',this.file);}
@@ -30,8 +30,8 @@ export class ConsultationProfessionalStage{
         workflow:{status:'new',responsible:null,updatedAt:null,runs:[],audit:[{kind:'request_received',actor:null,at:this.now().toISOString()}],simulation:{label:'SIMULADO',delivery_decision:'no_send',acknowledgements:0,receipt:null}}};this.save();return {state:'send',lease};
     },
     finish:async(id,lease,provider)=>{const item=this.active(id);if(!item||item.lease!==lease||!provider.startsWith('SIMULADO:'))return false;item.notice=provider;this.audit(item,'notice_acknowledged');this.save();return true;},
-    get:async(token,id)=>token==='synthetic-stage-admin'?structuredClone(this.active(id)?.record??null):null,
-    list:async(token,offset)=>token==='synthetic-stage-admin'?Object.values(this.data).filter(v=>this.active(v.record.id)).map(v=>structuredClone(v.record)).slice(offset,offset+50):[],
+    get:async(token,id)=>token===this.adminToken?structuredClone(this.active(id)?.record??null):null,
+    list:async(token,offset)=>token===this.adminToken?Object.values(this.data).filter(v=>this.active(v.record.id)).map(v=>structuredClone(v.record)).slice(offset,offset+50):[],
   };
   readonly intelligence:IntelligenceStore={
     claim:async(request,version)=>{const item=this.active(request);if(!item)return {state:'failed'};

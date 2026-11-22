@@ -3,11 +3,13 @@ import { isIP } from 'node:net';
 import { requireSupabaseAdminAuth } from '../security/adminAuth';
 import { createHash, createHmac } from 'node:crypto';
 import { normalizeConsultationRequest } from './consultationRequest';
+import type { ConsultationInput } from './consultationRequest';
 import { consultationSupabaseStore, type ConsultationStore } from './consultationSupabase';
+import type { ConsultationRecord } from './consultationSupabase';
 import { createConsultationDelivery, type ConsultationDelivery } from './consultationDelivery';
 import { draftConsultationResponse } from './consultationResponseAgents';
 import { camelRunConsultationDraft } from './consultationCamelRun';
-import { approveAndSendConsultationReply } from './consultationReplyDelivery';
+import { approveAndSendConsultationReply,type ReplyOutcome } from './consultationReplyDelivery';
 import { beautyServerDatabase } from './beautyDatabase';
 import { consultationReadStore, type ConsultationReadStore } from './consultationReading';
 import { registerConsultationIntelligence,type IntelligenceRouterDependencies } from './consultationIntelligenceRouter';
@@ -16,6 +18,7 @@ import { registerConsultationLab } from './consultationLabRouter';
 import type { ServiceKnowledgeStore } from './consultationServiceKnowledge';
 import { consultationAdministrationStore, type ConsultationAdministrationStore } from './consultationAdministration';
 import { checkConsultationReadiness } from './consultationReadiness';
+import { consultationSyntheticRouteAllowed } from './consultationSyntheticBoundary';
 
 export function consultationAddress(req: { ip?: string; get(name: string): string | undefined }, vercel = process.env.VERCEL === '1'): string {
   // Vercel overwrites this header. Outside its runtime, use only Express's peer IP.
@@ -23,35 +26,55 @@ export function consultationAddress(req: { ip?: string; get(name: string): strin
   return address && isIP(address) ? address : req.ip || 'unknown';
 }
 
-export function createConsultationRouter(deps: { store?: ConsultationStore; administration?: ConsultationAdministrationStore; reads?: ConsultationReadStore; knowledge?: ServiceKnowledgeStore; intelligence?:IntelligenceRouterDependencies; delivery?: ConsultationDelivery; enabled?: () => boolean; origin?: () => string | undefined; abuseKey?: () => string | undefined; auth?: RequestHandler } = {}) {
+type ConsultationMetrics = { activeRequests:number; sentLast30Days:number; uncertainLast30Days:number; unreadRequests:number|null };
+type ConsultationRouterDependencies = {
+  store?: ConsultationStore; administration?: ConsultationAdministrationStore; reads?: ConsultationReadStore;
+  knowledge?: ServiceKnowledgeStore; intelligence?:IntelligenceRouterDependencies; delivery?: ConsultationDelivery;
+  enabled?: () => boolean; origin?: () => string | undefined; abuseKey?: () => string | undefined; auth?: RequestHandler;
+  syntheticOnly?:boolean; metrics?:()=>Promise<ConsultationMetrics>; recordShadow?:(id:string)=>Promise<void>;
+  approveReply?:(record:ConsultationRecord,adminId:string)=>Promise<ReplyOutcome>;
+};
+
+export function createConsultationRouter(deps: ConsultationRouterDependencies = {}) {
   const router = Router(), store = deps.store || consultationSupabaseStore, delivery = deps.delivery || createConsultationDelivery();
   const reads = deps.reads || consultationReadStore;
   const administration=deps.administration??consultationAdministrationStore;
   const enabled = deps.enabled || (() => process.env.CONSULTATION_REQUESTS_ENABLED === 'true' && process.env.CONSULTATION_PRIVACY_APPROVED === 'true' && process.env.CONSULTATION_RETENTION_READY === 'true');
   const origin = deps.origin || (() => process.env.PUBLIC_APP_URL), abuseKey = deps.abuseKey || (() => process.env.CONSULTATION_ABUSE_SECRET);
+  const approveReply=deps.approveReply??approveAndSendConsultationReply;
+  const readMetrics=deps.metrics??(async()=>{
+    const db=beautyServerDatabase(),cutoff=new Date().toISOString();
+    const [requests,sent,uncertain,unreadRequests]=await Promise.all([
+      db.from('consultation_requests').select('id',{count:'exact',head:true}).gt('expires_at',cutoff),
+      db.from('consultation_reply_outbox').select('request_id',{count:'exact',head:true}).eq('state','sent').gte('created_at',new Date(Date.now()-30*86400000).toISOString()),
+      db.from('consultation_reply_outbox').select('request_id',{count:'exact',head:true}).eq('state','failed_unknown').gte('created_at',new Date(Date.now()-30*86400000).toISOString()),
+      reads.unreadCount().catch(()=>null),
+    ]);
+    if(requests.error||sent.error||uncertain.error)throw Error('CONSULTATION_UNAVAILABLE');
+    return {activeRequests:requests.count||0,sentLast30Days:sent.count||0,uncertainLast30Days:uncertain.count||0,unreadRequests};
+  });
+  const recordShadow=deps.recordShadow??(async(id:string)=>{
+    if(process.env.AUTOPILOT_RUNTIME!=='supabase-edge'||process.env.CONSULTATION_PRIVACY_APPROVED!=='true')return;
+    const result=await beautyServerDatabase().rpc('consultation_shadow_record',{p_id:id});
+    if(!result.error&&result.data)await runConsultationIntelligence(result.data as any,{provider:undefined});
+  });
   const allowedOrigin = () => { try { const url = new URL(origin() || ''); return url.protocol === 'https:' && !url.username && !url.password ? url.origin : ''; } catch { return ''; } };
   const readiness = () => checkConsultationReadiness({ enabled, configured: () => Boolean(allowedOrigin()) && Boolean(abuseKey() && (deps.abuseKey || abuseKey()!.length >= 32)),
     notificationReady: () => delivery.ready(), storageReady: signal => store.ready(signal) });
   const available = async () => (await readiness()).enabled;
   router.use((_req, res, next) => { res.setHeader('Cache-Control', 'no-store'); next(); });
+  if(deps.syntheticOnly)router.use((req,res,next)=>{
+    if(!consultationSyntheticRouteAllowed(req.method,req.path))return res.status(409).json({error:'STAGING_ROUTE_NOT_ALLOWED',label:'SIMULADO',delivery_decision:'no_send'});
+    next();
+  });
   router.get('/config', async (_req, res) => {
     const state=await readiness();
     return res.json({ enabled: state.enabled, ...(!state.enabled ? { unavailableReason: state.unavailableReason } : {}), privacyVersion: 'consultation-v1', retentionDays: 30 });
   });
   // Aggregate-only private dashboard; no names, email addresses or clinical details.
   router.get('/admin/metrics', deps.auth || requireSupabaseAdminAuth, async (_req, res) => {
-    try {
-      const db = beautyServerDatabase();
-      const cutoff = new Date().toISOString();
-      const [requests, sent, uncertain, unreadRequests] = await Promise.all([
-        db.from('consultation_requests').select('id', { count: 'exact', head: true }).gt('expires_at', cutoff),
-        db.from('consultation_reply_outbox').select('request_id', { count: 'exact', head: true }).eq('state', 'sent').gte('created_at', new Date(Date.now() - 30 * 86400000).toISOString()),
-        db.from('consultation_reply_outbox').select('request_id', { count: 'exact', head: true }).eq('state', 'failed_unknown').gte('created_at', new Date(Date.now() - 30 * 86400000).toISOString()),
-        reads.unreadCount().catch(() => null),
-      ]);
-      if (requests.error || sent.error || uncertain.error) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
-      return res.json({ activeRequests: requests.count || 0, sentLast30Days: sent.count || 0, uncertainLast30Days: uncertain.count || 0, unreadRequests });
-    } catch { return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' }); }
+    try { return res.json(await readMetrics()); }
+    catch { return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' }); }
   });
   router.get('/admin', deps.auth || requireSupabaseAdminAuth, async (req, res) => {
     const offset = req.query.offset === undefined ? 0 : Number(req.query.offset);
@@ -151,7 +174,7 @@ export function createConsultationRouter(deps: { store?: ConsultationStore; admi
       if (!token || typeof adminId !== 'string' || !store.get) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
       const record = await store.get(token, req.params.id);
       if (!record) return res.status(404).json({ error: 'CONSULTATION_NOT_FOUND' });
-      const result = await approveAndSendConsultationReply(record, adminId);
+      const result = await approveReply(record, adminId);
       if (result === 'invalid_channel') return res.status(409).json({ error: 'CONSULTATION_REPLY_CHANNEL_UNAVAILABLE' });
       if (result === 'already_processing') return res.status(409).json({ error: 'CONSULTATION_REPLY_ALREADY_PROCESSED' });
       if (result === 'provider_unavailable') return res.status(503).json({ error: 'CONSULTATION_REPLY_UNAVAILABLE' });
@@ -180,12 +203,9 @@ export function createConsultationRouter(deps: { store?: ConsultationStore; admi
         // Recording a consultation and notifying its owner never authorizes a customer reply.
         // Supabase Edge: consented consultations receive a deterministic, internal shadow analysis.
         // No remote model, customer reply or notification is triggered. Victoria reviews the draft.
-        if (process.env.AUTOPILOT_RUNTIME === 'supabase-edge' && process.env.CONSULTATION_PRIVACY_APPROVED === 'true' && input.aiConsent === true) {
+        if (input.aiConsent === true) {
           try {
-            const result = await beautyServerDatabase().rpc('consultation_shadow_record', { p_id: input.id });
-            if (!result.error && result.data) {
-              await runConsultationIntelligence(result.data as any, { provider: undefined });
-            }
+            await recordShadow(input.id);
           } catch { /* Submission still accepted; an optional shadow failure never duplicates the notice. */ }
         }
       }

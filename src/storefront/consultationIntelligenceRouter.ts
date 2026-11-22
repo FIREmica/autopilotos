@@ -8,11 +8,12 @@ import { intelligenceStore,runConsultationIntelligence,reviewConsultationIntelli
 import { prepareIntelligenceOperations,validateWorkflowEvent } from './consultationIntelligenceOperations';
 import { dispatchIntelligenceReply } from './consultationIntelligenceDispatch';
 
-export type IntelligenceRouterDependencies={enabled?:()=>boolean;store?:IntelligenceStore;provider?:()=>ConsultationModel|undefined;now?:()=>Date;facts?:()=>Promise<readonly ConsultationFact[]>};
+export type IntelligenceRouterDependencies={enabled?:()=>boolean;store?:IntelligenceStore;provider?:()=>ConsultationModel|undefined;now?:()=>Date;facts?:()=>Promise<readonly ConsultationFact[]>;dispatchReply?:typeof dispatchIntelligenceReply};
 /** Adds authenticated, explicit, durable shadow work; never changes the existing delivery path. */
 export function registerConsultationIntelligence(router:Router,auth:RequestHandler,store:ConsultationStore,allowedOrigin:()=>string,deps:IntelligenceRouterDependencies={}){
  const enabled=deps.enabled??(()=>process.env.CONSULTATION_INTELLIGENCE_ENABLED==='true' || (process.env.AUTOPILOT_RUNTIME==='supabase-edge' && process.env.CONSULTATION_PRIVACY_APPROVED==='true'));
  const persistence=deps.store??intelligenceStore;
+ const dispatchReply=deps.dispatchReply??dispatchIntelligenceReply;
  const guard:RequestHandler=(req,res,next)=>{
   res.set('Cache-Control','no-store');
   if(!enabled())return res.status(503).json({error:'INTELLIGENCE_DISABLED',mode:'shadow'});
@@ -62,7 +63,7 @@ export function registerConsultationIntelligence(router:Router,auth:RequestHandl
   if(!strictObject(req.body,['approvalHash'])||typeof req.body.approvalHash!=='string'||!/^[a-f0-9]{64}$/.test(req.body.approvalHash))return res.status(400).json({error:'CONSULTATION_INPUT_INVALID'});
   try{const record=await recordFor(req);if(!record)return res.status(404).json({error:'CONSULTATION_NOT_FOUND'});
    if(typeof res.locals.adminUserId!=='string')return res.status(403).json({error:'ADMIN_AUTH_REQUIRED'});
-   const status=await dispatchIntelligenceReply(record,req.params.run,res.locals.adminUserId,req.body.approvalHash);
+   const status=await dispatchReply(record,req.params.run,res.locals.adminUserId,req.body.approvalHash);
    return res.status(status==='sent'?200:409).json({status});
   }catch{return res.status(503).json({error:'INTELLIGENCE_DELIVERY_UNCONFIRMED'});}
  });

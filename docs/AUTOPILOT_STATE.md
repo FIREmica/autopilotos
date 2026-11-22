@@ -1942,3 +1942,19 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Resultado:** `[AUTOPILOT_ORDER_BLOCKED]` para este ciclo: A/B completados localmente, D local integrado; no queda tarea independiente segura de esta orden mientras CI no pueda iniciar y C siga cerrado sin disposición. El worktree P2 de cinco archivos se conserva sin tocar.
 
 **Siguiente misión exacta:** mantener #269 abierta y, cuando el propietario haya resuelto el bloqueo de facturación de GitHub, releer el head exacto y reejecutar solo los checks requeridos allí. No cambiar facturación, reescribir el head para eludir CI ni reintentar mientras siga bloqueado. No reabrir PR267 ni habilitar Cloud, hosted SQL, P2 o producción por inferencia.
+
+## 2026-11-22 03:25 UTC - cerrar bypass de rutas en demo sintetica de consultas
+
+**Estado recuperado:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR #269 sigue abierta y sin review humana; el head remoto exacto verificado es 00c3c0c973b9e45eb09de44e06190a3bb18f1044, basado en ese main. Se reutiliza la misma PR y un worktree aislado nuevo; no se tocaron el worktree de carril A ni el worktree P2 de cinco archivos.
+
+**Deteccion RED:** Vercel Security Review fallo para 00c3c0c con el hallazgo #5, security-control-bypass: el filtro no_send de la demo no cubria variantes de mayusculas y barra final aunque Express resuelve rutas sin distinguir mayusculas ni barra final. La prueba focal reprodujo el bypass con POST /admin/{id}/APPROVE-SEND/ antes de corregirlo. No hay evidencia de que se haya enviado una respuesta ni llamado a Supabase en produccion.
+
+**Correccion GREEN local:** se agrego una lista exacta de metodo/ruta permitidos normalizada antes de handlers; operaciones de metricas, shadow, aprobacion/entrega, despacho de inteligencia y conocimiento quedan inyectadas en stubs locales de demo. El fixture usa token administrativo aleatorio por ejecucion. Se agrego prueba HTTP negativa con flags de aspecto productivo habilitados, clave Resend ficticia, rutas mixtas, barra final y counters que aseguran que las operaciones locales de envio/dispatch/metricas no se invocan.
+
+**Verificacion local:** prueba RED fallo en la variante antes de corregirla; focal actual 3/3 PASS. npm run verify PASS 620/620, 0 fallos y 0 omitidos; lint, typecheck, builds y API compilada PASS. node scripts/secret-scan.mjs y git diff --check PASS. La demo de navegador no se ejecuto: Playwright no esta instalado en este worktree limpio. No se anadieron dependencias para sortearlo.
+
+**Estado remoto y CI:** la correccion sigue local y sin commit/push al registrar este checkpoint. En el head remoto anterior, validate, postgres, public-browser-smoke y CodeQL terminaron antes del runner por el bloqueo de facturacion; no cuentan como tests ejecutados y no se reintentaron. Vercel Security Review debe volver a evaluar el head que contenga la reparacion. No se cambio facturacion, secretos ni credenciales.
+
+**Limites:** no hubo SQL alojado, migraciones remotas, llamadas productivas, envios, datos reales, merge ni despliegue. #269 permanece abierta. PR #267 cerrada sin merge queda sin reabrir; el worktree P2 sigue intacto. Costos no medidos; sin gasto externo.
+
+**Siguiente accion concreta:** confirmar una vez mas que la rama remota de #269 sigue en 00c3c0c..., crear commit solo con los siete archivos de codigo/test y estos dos documentos, y hacer push normal fast-forward a la rama existente. Despues verificar el SHA remoto y los checks exactos, especialmente Vercel Security Review. Si GitHub Actions continua bloqueado antes del runner por billing, mantener la PR abierta y detener solo esa dependencia; no reintentar, tocar la cuenta, fusionar ni desplegar.

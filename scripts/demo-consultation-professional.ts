@@ -16,7 +16,7 @@ const vite=await createViteServer({configFile:false,root:process.cwd(),plugins:[
   resolveId(id){if(id==='/__professional.js')return '\0professional-entry';if(id==='../../lib/api'||id.endsWith('/src/lib/api.ts'))return '\0professional-api';},
   load(id){
     if(id==='\0professional-entry')return `import React from 'react';import {createRoot} from 'react-dom/client';import {ConsultationForm} from '/src/components/public/ConsultationForm.tsx';import {ConsultationInbox} from '/src/components/admin/ConsultationInbox.tsx';createRoot(document.getElementById('root')).render(React.createElement(location.pathname.startsWith('/admin')?ConsultationInbox:ConsultationForm));`;
-    if(id==='\0professional-api')return `export async function apiFetch(path,options={}){if(!path.startsWith('/api/beauty/inquiries'))throw Error('STAGING_PATH_DENIED');const headers=new Headers(options.headers);headers.set('authorization','Bearer synthetic-stage-admin');return fetch(path,{...options,headers});}`;
+    if(id==='\0professional-api')return `export async function apiFetch(path,options={}){if(!path.startsWith('/api/beauty/inquiries'))throw Error('STAGING_PATH_DENIED');const headers=new Headers(options.headers);headers.set('authorization','Bearer '+${JSON.stringify(fixture.adminToken)});return fetch(path,{...options,headers});}`;
   },
 }],server:{middlewareMode:true,hmr:false,fs:{allow:[process.cwd(),realpathSync('node_modules')]}},appType:'custom'});
 for(const route of ['/consultanos','/admin/consultas'])fixture.app.get(route,async(_req,res)=>res.type('html').send(await vite.transformIndexHtml(route,'<html lang="es"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><p>STAGING LOCAL · SIMULADO · no_send</p><div id="root"></div><script type="module" src="/__professional.js"></script></body></html>')));
@@ -52,7 +52,7 @@ try{
   await page.locator('[name=consent]').check();
   await page.getByRole('button',{name:'Enviar consulta',exact:true}).click();
   await page.getByRole('status').filter({hasText:'Tu consulta quedó registrada'}).waitFor();
-  const id=fixture.stage.ids()[0],client=professionalClient(base);
+  const id=fixture.stage.ids()[0],client=professionalClient(base,fixture.adminToken);
   console.log('stage: admin panel');
   await page.goto(base+'/admin/consultas');
   await page.getByRole('heading',{name:'Caso sintético profesional navegador · Higiene y limpieza facial'}).waitFor();
