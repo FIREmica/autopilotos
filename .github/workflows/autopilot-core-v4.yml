@@ -129,6 +129,18 @@ jobs:
           sudo apt-get install -y postgresql openssl
           PG_BIN="$(pg_config --bindir)" CLOUD_LEDGER_FIXTURE=1 node --import tsx --test tests/cloud-ledger-postgres.test.ts
 
+      - name: Disposable catalog SCRAM authentication regression
+        # The synthetic demo starts and stops its own temporary PostgreSQL cluster.
+        # Prove passwordless and incorrect-password clients are rejected in CI.
+        run: |
+          # Isolate the demo's temp files so diagnostic output is limited to this job.
+          export TMPDIR="$(mktemp -d)"
+          trap 'rm -rf "$TMPDIR"' EXIT
+          if ! POSTGRES_BIN="$(pg_config --bindir)" node scripts/demo-synthetic-catalog.mjs; then
+            # PostgreSQL startup logs from this synthetic-only cluster contain no credentials.
+            find "$TMPDIR" -name postgres.log -type f -exec tail -n 12 {} \;
+            exit 1
+          fi
       - name: Create disposable catalog database
         # The catalog proof uses the same canonical queue and mission RPCs, on its own empty database.
         run: |
