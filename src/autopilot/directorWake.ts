@@ -1,7 +1,6 @@
 /**
  * Authenticated, read-only Supabase Cron wake preflight.
- * IMPORTANT: This is NOT an executor or a durable heartbeat. It does not
- * claim, create, complete or fail agent tasks. Deployment is opt-in.
+ * This is NOT an executor or a durable heartbeat. No task claim/write/send.
  */
 export interface DirectorWakeConfig {
   token: string | undefined;
@@ -26,26 +25,27 @@ async function equalToken(provided: string, expected: string): Promise<boolean> 
   return difference === 0;
 }
 
+const ALLOWED_PATHS = new Set([
+  '/functions/v1/autopilot-director-wake',
+  '/autopilot-director-wake',
+]);
 export function createDirectorWakeHandler(config: DirectorWakeConfig) {
   return async function directorWake(request: Request): Promise<Response> {
-    const expected = config.token;
-    if (!expected || expected.length < 32 || expected.length > 256) {
-      return json(503, { error: 'wake_not_configured' });
-    }
-    const path = new URL(request.url).pathname.replace(/\/+$/, '');
-    if (!path.endsWith('/autopilot-director-wake')) {
+    if (!ALLOWED_PATHS.has(new URL(request.url).pathname)) {
       return json(404, { error: 'not_found' });
     }
     if (request.method !== 'POST') {
       return json(405, { error: 'method_not_allowed' });
+    }
+    const expected = config.token;
+    if (!expected || expected.length < 32 || expected.length > 256) {
+      return json(503, { error: 'wake_not_configured' });
     }
     const supplied = request.headers.get('x-autopilot-wake-token') ?? '';
     if (supplied.length < 32 || supplied.length > 256 ||
         !(await equalToken(supplied, expected))) {
       return json(401, { error: 'unauthorized' });
     }
-    // No network calls, LLM invocation, database writes or agent dispatch.
-    // A successful response proves only authentication and reachability.
     return json(200, {
       state: 'wake_preflight_authenticated',
       executed: false,

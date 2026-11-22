@@ -34,3 +34,20 @@ Este cambio **no** satisface el criterio de autonomía operativa.
 - https://supabase.com/docs/guides/functions/schedule-functions
 - https://supabase.com/docs/guides/database/extensions/pg_net
 - https://supabase.com/changelog.md
+
+
+## Revisión aislada adicional · 22/11/2026
+
+La revisión de la PR #273 corrigió el uso de `endsWith` para autorizar
+rutas de invocación. Ahora solo se admiten las dos rutas exactas del
+endpoint; variantes con prefijos, sufijos, capitalización diferente o
+segmentos codificados no autorizan el preflight.
+
+La prueba `src/autopilot/directorWakeEntry.test.ts` importa el punto de
+entrada real de Edge con un shim Deno limitado y lo invoca por HTTP
+loopback. Resultado: 5/5 pruebas del puente; `npm run verify` final:
+619/619 tests, TypeScript, builds de Node/Vercel y smoke de API aprobados.
+
+**Límite de evidencia:** la prueba HTTP se hizo en Node sobre loopback,
+no en Supabase Edge ni en Deno real. No se desplegó, no se creó un job
+Cron y no existe todavía un ejecutor `director` alojado.
