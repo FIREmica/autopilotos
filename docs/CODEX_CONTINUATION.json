@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-22T05:16:30Z",
+  "updated_at": "2026-11-22T05:17:30Z",
   "execution_id": "ord-autonomous-engine-20261122",
   "repository": {
     "branch": "codex/ord-autonomous-engine-20261122",
@@ -93,7 +93,7 @@
       "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
       "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana. Reconciled checkpoint head 98f8c115891555301fab2880a20716a3061e8695: same CI failures; GitHub API shows Actions enabled=true but every failed job runner_id=0/runner_name empty, no logs. Runner/platform cause remains unclassified."
+    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana. Reconciled checkpoint head 98f8c115891555301fab2880a20716a3061e8695: same CI failures; GitHub API shows Actions enabled=true but every failed job runner_id=0/runner_name empty, no logs. Runner/platform cause remains unclassified. Exact PR head d5cb2f1aef7fb316e6369d41de7fc9ab630c9feb likewise failed validate/postgres/CodeQL with zero steps; validate API job runner_id=0, runner_name empty, empty logs archive; Actions enabled=true. PR #272 remains draft/open, no human review; preview pending and Supabase Preview skipped."
   },
   "completed_operations": [
     {
@@ -382,7 +382,7 @@
     "PR #269 CI reporta validate/postgres/CodeQL/browser failed con cero pasos y sin logs; causa no clasificada.",
     "Cuotas/utilizaci\u00f3n/costo real de invocaciones y DB no medidos; plan observado Free no prueba gasto cero.",
     "Puertas de producto F0-F4 no cerradas; P3/F5 no activas.",
-    "PR #272 exact observed head 98f8c115891555301fab2880a20716a3061e8695: validate/postgres/CodeQL failed with steps=[] and runner_id=0/runner_name empty; logs unavailable. Actions is enabled=true, but the underlying runner/platform cause is unclassified. Do not modify Actions permissions/settings or infer billing cause."
+    "PR #272 latest observed head d5cb2f1aef7fb316e6369d41de7fc9ab630c9feb repeats zero-step failures with runner_id=0/empty runner_name and no logs despite Actions enabled=true. Root cause unclassified; do not rerun manually or change settings."
   ],
   "next_order_id": "ORD-AUTONOMOUS-ENGINE-01",
   "next_order": {
@@ -390,7 +390,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Diagnose empty-runner CI on PR #272: API confirms Actions enabled, but failed jobs have runner_id=0, runner_name empty and no logs. Seek new GitHub platform evidence without changing settings or dispatching manual reruns; then reconcile exact current head.",
+      "Await/reconcile exact-head checks after checkpoint publication. Observed failed jobs have no assigned runner (runner_id=0), no steps/logs; Actions API is enabled. Seek platform-level evidence without manual rerun or settings change. If unchanged, retain the PR blocked at remote CI.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
@@ -833,6 +833,25 @@
       "other_checks": "Vercel Preview pending/building at observation; Preview Comments success; Security Review pending/in progress; Supabase Preview skipped.",
       "reviews": "no human reviews; PR remains draft/open/mergeable",
       "observed_at": "2026-11-22T05:16:30Z"
+    },
+    "ord_autonomous_engine_01_pr_latest_precheckpoint_head": {
+      "pr_number": 272,
+      "head_sha": "d5cb2f1aef7fb316e6369d41de7fc9ab630c9feb",
+      "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+      "runs": [
+        44988748161,
+        44988748427,
+        44988750940
+      ],
+      "job_api": "validate job 137104963053: failure in ~1s; steps=[]; runner_id=0; runner_name empty; logs API returned empty archive. Same pattern for postgres and CodeQL per checks.",
+      "repo_actions_permissions": "enabled=true; no settings changed.",
+      "vercel_preview": "pending/building; preview only.",
+      "vercel_preview_comments": "success",
+      "vercel_security_review": "pending/in_progress",
+      "supabase_preview": "skipped",
+      "pr": "open draft, mergeable, no human review",
+      "observed_at": "2026-11-22T05:17:30Z",
+      "interpretation": "Runner was not assigned to the observed job; underlying platform cause remains unclassified. No code failure or billing cause inferred."
     }
   },
   "p1_remaining_work": [],
@@ -846,7 +865,7 @@
     "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
       "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
-      "Diagnose empty-runner CI on PR #272: API confirms Actions enabled, but failed jobs have runner_id=0, runner_name empty and no logs. Seek new GitHub platform evidence without changing settings or dispatching manual reruns; then reconcile exact current head.",
+      "Await/reconcile exact-head checks after checkpoint publication. Observed failed jobs have no assigned runner (runner_id=0), no steps/logs; Actions API is enabled. Seek platform-level evidence without manual rerun or settings change. If unchanged, retain the PR blocked at remote CI.",
       "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
