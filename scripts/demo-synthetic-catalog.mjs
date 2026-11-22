@@ -31,7 +31,7 @@ try {
   await writeFile(passFile, `127.0.0.1:${port}:*:postgres:${password}\n`, { mode: 0o600, flag: 'wx' });
   run('initdb', ['-D', data, '-U', 'postgres', '--auth=scram-sha-256', '--pwfile', passwordFile, '--no-locale', '-E', 'UTF8']);
   await rm(passwordFile);
-  run('pg_ctl', ['-D', data, '-o', `-p ${port} -h 127.0.0.1`, '-l', path.join(workspace, 'postgres.log'), '-w', 'start']);
+  run('pg_ctl', ['-D', data, '-o', `-p ${port} -h 127.0.0.1${process.platform === 'win32' ? '' : ` -k ${workspace}`}`, '-l', path.join(workspace, 'postgres.log'), '-w', 'start']);
   started = true;
   run('createdb', ['-h', '127.0.0.1', '-p', String(port), '-U', 'postgres', 'victoriosa_catalog_demo'], 15000, clientEnv);
   const result = spawnSync(process.execPath, ['--import', 'tsx', '--test', 'tests/catalog-integration-postgres.test.ts'], {
