@@ -60,38 +60,40 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-21T04:15:17.602Z",
-  "execution_id": "three-demonstrations-20261121",
+  "updated_at": "2026-11-22T05:10:52Z",
+  "execution_id": "ord-autonomous-engine-20261122",
   "repository": {
-    "branch": "codex/lane-d-cloud-contract-20261121",
-    "base_sha": "66da49d3cb7a91b0decb52163a0cbf2e67ee6168",
+    "branch": "codex/ord-autonomous-engine-20261122",
+    "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
     "head_sha": null,
-    "worktree": "WORKTREE:lane-d-cloud-contract-20261121",
-    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Fp2-cancel-ledger-boundary-20261117",
-    "note": "Nueva orden sint\u00e9tica autorizada. Consultar PR por rama/SHA; no atribuir resultados futuros a esta versi\u00f3n.",
+    "worktree": "E:/autopilot-worktrees/ord-autonomous-engine-20261122",
+    "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Ford-autonomous-engine-20261122",
+    "note": "Aislado sobre origin/main verificado. El head_sha queda null hasta el commit del checkpoint; el SHA de origen se registra como base. Root atrasado/sucio permanece intacto.",
     "pr_number": null,
     "pr_url": null
   },
   "current_order": {
-    "id": "ORD-THREE-DEMONSTRATIONS-20261121",
+    "id": "ORD-AUTONOMOUS-ENGINE-01",
     "phase": "F0",
-    "linear_phase": "P3-P6_SYNTHETIC",
-    "objective": "Tres demostraciones reproducibles staging por contratos existentes: consulta integral, seis roles y cat\u00e1logo; handoff cloud acotado como carril independiente.",
-    "status": "in_progress_parallel_staging",
+    "linear_phase": "P2_PARTIAL",
+    "objective": "Auditar y reconciliar infraestructura Supabase real frente al repo; cerrar defectos de seguridad de lease/ACL en una migraci\u00f3n versionada probada localmente; preparar, sin activar, la dependencia segura para un primer circuito aut\u00f3nomo director read-only.",
+    "status": "local_security_increment_prepared_pr_ci_pending",
     "limits": [
-      "no_send y datos sint\u00e9ticos; sin pagos/clientas/credenciales o permisos productivos/migraciones remotas productivas/deploy manual",
-      "P2 preservada sin reapertura ni tareas nuevas; no modificar cinco archivos ni cl\u00faster original",
-      "Sin nuevo ledger/cola/scheduler/supervisor; conservar heartbeat victoriosa-autopilot-6h ACTIVE cada30min",
-      "Sin bypass de environment prevent_self_review, SHA revisado, RLS/TLS/fencing o tests"
+      "Solo propuesta revisable y validaci\u00f3n PostgreSQL local desechable; sin SQL alojado.",
+      "Sin instalar pg_net/pgmq, cron de agentes, desplegar Edge Functions ni usar Actions como worker director.",
+      "Sin insertar, claim, ejecutar o completar una tarea director alojada; ninguna operaci\u00f3n cliente/env\u00edo/compra/c\u00f3digo/despliegue.",
+      "P2 nativo anterior indeterminado y preservado; A/B/C/D anteriores estacionados, recursos intactos.",
+      "Sin P3/F5 ni cierre F0-F4 por esta orden.",
+      "No modificar automatizaciones ni afirmar servicio aut\u00f3nomo fuera de Codex."
     ],
     "acceptance_criteria": [
-      "A: formulario a cierre reconstruible en panel, cuatro negativos, acuse SIMULADO deduplicado y recuperaci\u00f3n durable",
-      "B: seis entradas normales ejercitadas y evidencia por rol; pausa SQL se prueba y se conserva si deniega",
-      "C: misi\u00f3n autorizada y denegada, m\u00ednimo permiso/auditor\u00eda/cuota/unavailable/disable",
-      "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
-      "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
+      "Reconciliar fuente, despliegue, autenticaci\u00f3n, ACL, lease/fencing y ejecuciones con evidencia fechada y sin exponer secretos/PII.",
+      "Migraci\u00f3n versionada para lease vigente en fail y revocaci\u00f3n de ACL navegador, probada RED/GREEN sobre PostgreSQL desechable.",
+      "Verify local completo; diff y escaneo revisados; una sola PR y CI del SHA final, con SKIPPED/ausente separado de PASS.",
+      "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
+      "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "Base66da49d incorpora #263. Medici\u00f3n de esta orden main eac9870 antes de cambios; alias victoriosas.online9d6bbdb (brecha de despliegue), heartbeatACTIVE30min, cola64/130,45completed/13queued/6blocked/0leases. Causas infraestructura:6blocked,3/3intentoss y18failure site_unavailable;13queued0claims. P2 intacta. Cuatro worktrees exclusivos, A/B/C delegados expresamente seg\u00fan solicitud y D root."
+    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted."
   },
   "completed_operations": [
     {
@@ -297,6 +299,10 @@
     {
       "operation": "Medir seis roles mediante agregados de solo lectura",
       "detection": "All recorded tasks infrastructure/read_only_public_health. Other five roles zero rows here; on-demand entries not exercised. No retries, dispatch or remote writes."
+    },
+    {
+      "operation": "ORD-AUTONOMOUS-ENGINE-01: reconciliaci\u00f3n read-only y RED/GREEN de fail lease/ACL",
+      "detection": "Informe docs/AUTONOMOUS_ENGINE_AUDIT_20261122.md; local PostgreSQL GREEN; npm run verify 614/614; no hosted write, claim, deploy ni director execution."
     }
   ],
   "evidence_refs": [
@@ -366,49 +372,47 @@
     "https://github.com/Victoriosas/autopilot/actions/runs/44861091827",
     "https://github.com/Victoriosas/autopilot/actions/runs/44861091854",
     "https://github.com/Victoriosas/autopilot/actions/runs/44861335499",
-    "docs/P2_FORENSIC_RECEIPT_20261121.md"
+    "docs/P2_FORENSIC_RECEIPT_20261121.md",
+    "docs/AUTONOMOUS_ENGINE_AUDIT_20261122.md"
   ],
   "blockers": [
-    "P2 original INDETERMINADO, preservado y fuera del trabajo activo; no bloquea A/B/C/D",
-    "consultations tiene entrada SQL pausada; probar rechazo conservando guarda",
-    "Cloud remoto condicionado al reviewed SHA y environment prevent_self_review; local contrato autorizado",
-    "Dominio todav\u00eda9d6bbdb: brecha despliegue, no prueba de demos productivas"
+    "No autorizaci\u00f3n espec\u00edfica para aplicar migraci\u00f3n a Supabase hosted, desplegar funci\u00f3n, instalar pg_net ni programar cron.",
+    "No existe circuito director hosted; no se verific\u00f3 ninguna ejecuci\u00f3n de director.",
+    "PR #269 mantiene hallazgo estructural no_send abierto; no usar su demo como ejecuci\u00f3n segura.",
+    "PR #269 CI reporta validate/postgres/CodeQL/browser failed con cero pasos y sin logs; causa no clasificada.",
+    "Todav\u00eda debe crearse la PR \u00fanica de esta orden y observar checks/revisiones de su SHA exacto; no merge autom\u00e1tico.",
+    "Cuotas/utilizaci\u00f3n/costo real de invocaciones y DB no medidos; plan observado Free no prueba gasto cero.",
+    "Puertas de producto F0-F4 no cerradas; P3/F5 no activas."
   ],
-  "next_order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
+  "next_order_id": "ORD-AUTONOMOUS-ENGINE-01",
   "next_order": {
-    "id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "phase": "F0",
-    "linear_phase": "P3-P6_SYNTHETIC",
-    "objective": "Tres demostraciones reproducibles staging por contratos existentes: consulta integral, seis roles y cat\u00e1logo; handoff cloud acotado como carril independiente.",
-    "status": "in_progress_parallel_staging",
-    "limits": [
-      "no_send y datos sint\u00e9ticos; sin pagos/clientas/credenciales o permisos productivos/migraciones remotas productivas/deploy manual",
-      "P2 preservada sin reapertura ni tareas nuevas; no modificar cinco archivos ni cl\u00faster original",
-      "Sin nuevo ledger/cola/scheduler/supervisor; conservar heartbeat victoriosa-autopilot-6h ACTIVE cada30min",
-      "Sin bypass de environment prevent_self_review, SHA revisado, RLS/TLS/fencing o tests"
+    "order_id": "ORD-AUTONOMOUS-ENGINE-01",
+    "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
+    "dependencies": [
+      "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
+      "Reconciliar checks relevantes del SHA exacto; fallas de cero pasos/sin logs deben quedar no clasificadas, y Supabase Preview skipped no es \u00e9xito hosted.",
+      "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
-    "acceptance_criteria": [
-      "A: formulario a cierre reconstruible en panel, cuatro negativos, acuse SIMULADO deduplicado y recuperaci\u00f3n durable",
-      "B: seis entradas normales ejercitadas y evidencia por rol; pausa SQL se prueba y se conserva si deniega",
-      "C: misi\u00f3n autorizada y denegada, m\u00ednimo permiso/auditor\u00eda/cuota/unavailable/disable",
-      "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
-      "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
+    "acceptance": [
+      "Reconciliar fuente, despliegue, autenticaci\u00f3n, ACL, lease/fencing y ejecuciones con evidencia fechada y sin exponer secretos/PII.",
+      "Migraci\u00f3n versionada para lease vigente en fail y revocaci\u00f3n de ACL navegador, probada RED/GREEN sobre PostgreSQL desechable.",
+      "Verify local completo; diff y escaneo revisados; una sola PR y CI del SHA final, con SKIPPED/ausente separado de PASS.",
+      "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
+      "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "Base66da49d incorpora #263. Medici\u00f3n de esta orden main eac9870 antes de cambios; alias victoriosas.online9d6bbdb (brecha de despliegue), heartbeatACTIVE30min, cola64/130,45completed/13queued/6blocked/0leases. Causas infraestructura:6blocked,3/3intentoss y18failure site_unavailable;13queued0claims. P2 intacta. Cuatro worktrees exclusivos, A/B/C delegados expresamente seg\u00fan solicitud y D root.",
-    "executor": "Codex",
-    "next_action": "Continuar ORD-THREE-DEMONSTRATIONS-20261121; A/B/C/D paralelos autorizados por propietario21/11. P2 PRESERVAR/NO_REABRIR. Releer execution_inventory, recuperar trabajo ya creado y elegir cualquier acci\u00f3n no bloqueada. No usar dependencias P2 hist\u00f3ricas para detener staging; no cambios productivos ni guardas rebajadas. No repetir ensayos inciertos. Mantener scheduler existente y verificar checkpoint publicado."
+    "recoverable_prompt": "Continue this same order from exact origin/main base 82b6fb24e76d81e5026c94af2630358d00f2ebe9 on branch codex/ord-autonomous-engine-20261122. Reconcile the single PR and exact-head CI after publication. Preserve the older P2 native receipt as indeterminate and untouched; park ORD-THREE-DEMONSTRATIONS A/B/C/D with all resources retained. Continue only the authorized isolated DB regression/security increment. No hosted SQL, extension install, cron, function deploy, real task admission/claim, production effect, P3/F5, or automation change. Do not claim director execution. If hosted action remains required for the criterion, state the exact owner approval/deployment boundary and stop there."
   },
   "resumption": {
-    "status": "p2_active_partial",
-    "mechanism": "Same published checkpoint; verify containing head/PR/CI and integrated effects. Native synthetic proof does not certify heartbeat/global writer recovery."
+    "status": "ORD-AUTONOMOUS-ENGINE-01_local_proposal_pending_ci",
+    "mechanism": "One canonical checkpoint, existing project runtime/ledger and current owner order only; no parallel queue/scheduler. Hosted execution is not authorized."
   },
-  "resume_instructions": "Continuar ORD-THREE-DEMONSTRATIONS-20261121; A/B/C/D paralelos autorizados por propietario21/11. P2 PRESERVAR/NO_REABRIR. Releer execution_inventory, recuperar trabajo ya creado y elegir cualquier acci\u00f3n no bloqueada. No usar dependencias P2 hist\u00f3ricas para detener staging; no cambios productivos ni guardas rebajadas. No repetir ensayos inciertos. Mantener scheduler existente y verificar checkpoint publicado.",
+  "resume_instructions": "Continue this same order from exact origin/main base 82b6fb24e76d81e5026c94af2630358d00f2ebe9 on branch codex/ord-autonomous-engine-20261122. Reconcile the single PR and exact-head CI after publication. Preserve the older P2 native receipt as indeterminate and untouched; park ORD-THREE-DEMONSTRATIONS A/B/C/D with all resources retained. Continue only the authorized isolated DB regression/security increment. No hosted SQL, extension install, cron, function deploy, real task admission/claim, production effect, P3/F5, or automation change. Do not claim director execution. If hosted action remains required for the criterion, state the exact owner approval/deployment boundary and stop there.",
   "supervision": {
     "verdict": "P2_PARTIAL",
     "scope": "Bounded local completion-cancellation boundary in the existing P2 order.",
     "evidence": "PR252 merged into main by a9fc08a4ecd8daa6f35eca1573d1c090d20eb63b; final PR head 8bd50a2686c05480a7e4bddfd91ebab6fc96d52d exact validate/postgres/CodeQL/browser/security/Vercel checks succeeded; Supabase Preview skipped. Local RED/GREEN 43/43 and npm run verify 583/583 with zero failures/omissions were recorded before integration; no SQL changes. Native cancellation receipt remains unresolved; P2 partial."
   },
-  "linear_phase": "P3-P6_SYNTHETIC",
+  "linear_phase": "P2_PARTIAL",
   "linear_plan": "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
   "continuation_prompt": "docs/CODEX_LINEAR_CONTINUATION_PROMPT.md",
   "previous_order_close": {
@@ -804,36 +808,23 @@
     "P5 hosted material A\u2013C persistence remains unaccredited; no hosted migration authorized."
   ],
   "selected_mission": {
-    "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Implementar handoff por adaptador existente y registrar autorizaci\u00f3n de carriles sint\u00e9ticos paralelos.",
-    "modified_files": [
-      "src/autopilot/cloudLedgerHandoff.ts",
-      "src/autopilot/cloudLedgerHandoff.test.ts",
-      "scripts/hosted-ledger-runner.mjs",
-      ".github/workflows/plan-cloud.yml",
-      "docs/MASTER_LINEAR_DEVELOPMENT_PLAN.md",
-      "docs/CODEX_CONTINUATION.json",
-      "docs/AUTOPILOT_STATE.md",
-      "docs/CLOUD_HANDOFF_CONTRACT_20261121.md"
-    ],
-    "integration_state": "Implementaci\u00f3n local, CI/PR exacta pendiente. No entrega cloud ni producci\u00f3n."
-  },
-  "next_mission": {
-    "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Completar los cuatro carriles staging sin reapertura P2",
+    "order_id": "ORD-AUTONOMOUS-ENGINE-01",
+    "objective": "Publicar y conciliar una propuesta segura de fencing/ACL para el ledger, y documentar las dependencias exactas que impiden una ejecuci\u00f3n director alojada sin autorizaci\u00f3n de producci\u00f3n.",
     "dependencies": [
-      "Reconciliar live main/PRs/worktrees antes de integrar",
-      "Respetar contratos existentes, permisos y CI exacta"
+      "Cerrar diff y escaneo; PR \u00fanica sobre el SHA base remoto verificado.",
+      "Reconciliar checks relevantes del SHA exacto; fallas de cero pasos/sin logs deben quedar no clasificadas, y Supabase Preview skipped no es \u00e9xito hosted.",
+      "No hay autorizaci\u00f3n para migraci\u00f3n alojada, pg_net, cron ni deploy; el criterio real no puede completarse en este ciclo."
     ],
     "acceptance": [
-      "A: formulario a cierre reconstruible en panel, cuatro negativos, acuse SIMULADO deduplicado y recuperaci\u00f3n durable",
-      "B: seis entradas normales ejercitadas y evidencia por rol; pausa SQL se prueba y se conserva si deniega",
-      "C: misi\u00f3n autorizada y denegada, m\u00ednimo permiso/auditor\u00eda/cuota/unavailable/disable",
-      "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
-      "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
+      "Reconciliar fuente, despliegue, autenticaci\u00f3n, ACL, lease/fencing y ejecuciones con evidencia fechada y sin exponer secretos/PII.",
+      "Migraci\u00f3n versionada para lease vigente en fail y revocaci\u00f3n de ACL navegador, probada RED/GREEN sobre PostgreSQL desechable.",
+      "Verify local completo; diff y escaneo revisados; una sola PR y CI del SHA final, con SKIPPED/ausente separado de PASS.",
+      "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
+      "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "recoverable_prompt": "Continuar ORD-THREE-DEMONSTRATIONS-20261121; A/B/C/D paralelos autorizados por propietario21/11. P2 PRESERVAR/NO_REABRIR. Releer execution_inventory, recuperar trabajo ya creado y elegir cualquier acci\u00f3n no bloqueada. No usar dependencias P2 hist\u00f3ricas para detener staging; no cambios productivos ni guardas rebajadas. No repetir ensayos inciertos. Mantener scheduler existente y verificar checkpoint publicado."
+    "recoverable_prompt": "Continue this same order from exact origin/main base 82b6fb24e76d81e5026c94af2630358d00f2ebe9 on branch codex/ord-autonomous-engine-20261122. Reconcile the single PR and exact-head CI after publication. Preserve the older P2 native receipt as indeterminate and untouched; park ORD-THREE-DEMONSTRATIONS A/B/C/D with all resources retained. Continue only the authorized isolated DB regression/security increment. No hosted SQL, extension install, cron, function deploy, real task admission/claim, production effect, P3/F5, or automation change. Do not claim director execution. If hosted action remains required for the criterion, state the exact owner approval/deployment boundary and stop there."
   },
+  "next_mission": "Continue this same order from exact origin/main base 82b6fb24e76d81e5026c94af2630358d00f2ebe9 on branch codex/ord-autonomous-engine-20261122. Reconcile the single PR and exact-head CI after publication. Preserve the older P2 native receipt as indeterminate and untouched; park ORD-THREE-DEMONSTRATIONS A/B/C/D with all resources retained. Continue only the authorized isolated DB regression/security increment. No hosted SQL, extension install, cron, function deploy, real task admission/claim, production effect, P3/F5, or automation change. Do not claim director execution. If hosted action remains required for the criterion, state the exact owner approval/deployment boundary and stop there.",
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
     "exclusive_commit": "19f62f9805ace0b197d1b7b565824b0f7a0af6a9",
@@ -1073,6 +1064,11 @@
       "status": "INDETERMINADO_PRESERVAR_NO_REABRIR",
       "report": "docs/P2_FORENSIC_RECEIPT_20261121.md",
       "reason": "Orden expresa21/11: P2 no bloquea otros carriles y no se crean tareas P2."
+    },
+    {
+      "id": "ORD-THREE-DEMONSTRATIONS-20261121",
+      "status": "PARKED_BY_NEW_OWNER_ORDER_RESOURCES_PRESERVED",
+      "reason": "Replaced by explicit owner order ORD-AUTONOMOUS-ENGINE-01 on 2026-11-22; preserve all branches, PRs, worktrees, receipts and evidence; no closure or deletion."
     }
   ],
   "p2_remaining_work": [],
@@ -1096,27 +1092,27 @@
   "execution_inventory": [
     {
       "lane": "A",
-      "state": "IMPLEMENTADO",
-      "next": "Cerrar demo navegador/verify, revisi\u00f3n y PR",
-      "blocker": null
+      "state": "PARKED_BY_NEW_OWNER_ORDER_RESOURCES_PRESERVED",
+      "next": "No reanudar ni borrar; conservar branch/PR/worktree y reevaluar solo tras cierre expl\u00edcito de ORD-AUTONOMOUS-ENGINE-01.",
+      "blocker": "Estacionado por sustituci\u00f3n de prioridad expresa; evidencia local previa no se presenta como cierre."
     },
     {
       "lane": "B",
-      "state": "IMPLEMENTADO",
-      "next": "Finalizar verify y revisar evidencia seis entradas",
-      "blocker": "consultations pausa SQL conservada; prueba por entrada normal NOT_CLAIMED"
+      "state": "PARKED_BY_NEW_OWNER_ORDER_RESOURCES_PRESERVED",
+      "next": "No reanudar ni borrar; conservar branch/PR/worktree y reevaluar solo tras cierre expl\u00edcito de ORD-AUTONOMOUS-ENGINE-01.",
+      "blocker": "Estacionado por sustituci\u00f3n de prioridad expresa; evidencia local previa no se presenta como cierre."
     },
     {
       "lane": "C",
-      "state": "PROBADO",
-      "next": "Finalizar verify y revisi\u00f3n independiente, PR",
-      "blocker": null
+      "state": "PARKED_BY_NEW_OWNER_ORDER_RESOURCES_PRESERVED",
+      "next": "No reanudar ni borrar; conservar branch/PR/worktree y reevaluar solo tras cierre expl\u00edcito de ORD-AUTONOMOUS-ENGINE-01.",
+      "blocker": "Estacionado por sustituci\u00f3n de prioridad expresa; evidencia local previa no se presenta como cierre."
     },
     {
       "lane": "D",
-      "state": "PROBADO",
-      "next": "Completar verify y revisi\u00f3n del handoff, PR",
-      "blocker": "Run alojado exige reviewed SHA exacto y environment protegido prevent_self_review; no bypass"
+      "state": "PARKED_BY_NEW_OWNER_ORDER_RESOURCES_PRESERVED",
+      "next": "No reanudar ni borrar; conservar branch/PR/worktree y reevaluar solo tras cierre expl\u00edcito de ORD-AUTONOMOUS-ENGINE-01.",
+      "blocker": "Estacionado por sustituci\u00f3n de prioridad expresa; evidencia local previa no se presenta como cierre."
     }
   ]
 }
