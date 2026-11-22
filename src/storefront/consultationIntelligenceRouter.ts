@@ -1,3 +1,4 @@
+import type { ConsultationFact } from './consultationEvidence';
 import { json,type Router,type RequestHandler } from 'express';
 import type { ConsultationStore } from './consultationSupabase';
 import { CONSULTATION_UUID } from './consultationRequest';
@@ -7,11 +8,12 @@ import { intelligenceStore,runConsultationIntelligence,reviewConsultationIntelli
 import { prepareIntelligenceOperations,validateWorkflowEvent } from './consultationIntelligenceOperations';
 import { dispatchIntelligenceReply } from './consultationIntelligenceDispatch';
 
-export type IntelligenceRouterDependencies={enabled?:()=>boolean;store?:IntelligenceStore;provider?:()=>ConsultationModel|undefined;now?:()=>Date};
+export type IntelligenceRouterDependencies={enabled?:()=>boolean;store?:IntelligenceStore;provider?:()=>ConsultationModel|undefined;now?:()=>Date;facts?:()=>Promise<readonly ConsultationFact[]>;dispatchReply?:typeof dispatchIntelligenceReply};
 /** Adds authenticated, explicit, durable shadow work; never changes the existing delivery path. */
 export function registerConsultationIntelligence(router:Router,auth:RequestHandler,store:ConsultationStore,allowedOrigin:()=>string,deps:IntelligenceRouterDependencies={}){
  const enabled=deps.enabled??(()=>process.env.CONSULTATION_INTELLIGENCE_ENABLED==='true' || (process.env.AUTOPILOT_RUNTIME==='supabase-edge' && process.env.CONSULTATION_PRIVACY_APPROVED==='true'));
  const persistence=deps.store??intelligenceStore;
+ const dispatchReply=deps.dispatchReply??dispatchIntelligenceReply;
  const guard:RequestHandler=(req,res,next)=>{
   res.set('Cache-Control','no-store');
   if(!enabled())return res.status(503).json({error:'INTELLIGENCE_DISABLED',mode:'shadow'});
@@ -31,7 +33,7 @@ export function registerConsultationIntelligence(router:Router,auth:RequestHandl
    const record=await recordFor(req);if(!record)return res.status(404).json({error:'CONSULTATION_NOT_FOUND'});
    const provider=(deps.provider??(()=>configuredConsultationModel()))();
    const budget=(key:string)=>/^\d+$/.test(process.env[key]??'')?Number(process.env[key]):0;
-   const result=await runConsultationIntelligence(record,{store:persistence,provider,now:deps.now?.(),dailyBudget:budget('CONSULTATION_AI_DAILY_MICROUSD'),monthlyBudget:budget('CONSULTATION_AI_MONTHLY_MICROUSD')});
+   const result=await runConsultationIntelligence(record,{store:persistence,provider,now:deps.now?.(),facts:await deps.facts?.(),dailyBudget:budget('CONSULTATION_AI_DAILY_MICROUSD'),monthlyBudget:budget('CONSULTATION_AI_MONTHLY_MICROUSD')});
    return res.status(result.state==='busy'?202:result.state==='failed'?409:200).json(result);
   }catch{return res.status(503).json({error:'INTELLIGENCE_UNAVAILABLE',mode:'shadow'});}
  });
@@ -40,7 +42,7 @@ export function registerConsultationIntelligence(router:Router,auth:RequestHandl
   try{
    const record=await recordFor(req);if(!record)return res.status(404).json({error:'CONSULTATION_NOT_FOUND'});
    const admin=res.locals.adminUserId;if(typeof admin!=='string')return res.status(403).json({error:'ADMIN_AUTH_REQUIRED'});
-   const result=await reviewConsultationIntelligence(record,req.params.run,admin,req.body.text,{store:persistence,now:deps.now?.(),action:req.body.action as 'approve'|'reject'});
+   const result=await reviewConsultationIntelligence(record,req.params.run,admin,req.body.text,{store:persistence,now:deps.now?.(),action:req.body.action as 'approve'|'reject',facts:await deps.facts?.()});
    return res.status(result.status==='blocked'?409:200).json(result);
   }catch{return res.status(409).json({error:'INTELLIGENCE_REVIEW_STALE'});}
  });
@@ -61,7 +63,7 @@ export function registerConsultationIntelligence(router:Router,auth:RequestHandl
   if(!strictObject(req.body,['approvalHash'])||typeof req.body.approvalHash!=='string'||!/^[a-f0-9]{64}$/.test(req.body.approvalHash))return res.status(400).json({error:'CONSULTATION_INPUT_INVALID'});
   try{const record=await recordFor(req);if(!record)return res.status(404).json({error:'CONSULTATION_NOT_FOUND'});
    if(typeof res.locals.adminUserId!=='string')return res.status(403).json({error:'ADMIN_AUTH_REQUIRED'});
-   const status=await dispatchIntelligenceReply(record,req.params.run,res.locals.adminUserId,req.body.approvalHash);
+   const status=await dispatchReply(record,req.params.run,res.locals.adminUserId,req.body.approvalHash);
    return res.status(status==='sent'?200:409).json({status});
   }catch{return res.status(503).json({error:'INTELLIGENCE_DELIVERY_UNCONFIRMED'});}
  });

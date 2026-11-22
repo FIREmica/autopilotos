@@ -1833,3 +1833,168 @@ Límites: no se dispone de operaciones para inventariar/cerrar alertas privadas 
 **Acción de este lote:** actualizar solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md desde main eac9870. Se mantiene la misma orden, sin segunda cola, replay, SQL alojado, dispatch, cambio de scheduler, P3, despliegue ni auto-merge. Rollback: revertir únicamente esta actualización documental; evidencia forense y worktrees conservados.
 
 **Siguiente paso exacto:** obtener una fuente nueva y correlacionable de stdout/IPC/exit, PIDs/descendientes, late-write receipts o identidad pre/post del intento12801. No repetir búsquedas ya agotadas ni reconstruir la copia sin dato nuevo. Si no llega evidencia nueva, mantener [AUTOPILOT_ORDER_BLOCKED], P2 parcial y los cinco archivos intactos.
+
+## 2026-11-22 01:30 UTC - reconciliar demos D/C y CI de main
+
+**Estado:** ORD-THREE-DEMONSTRATIONS-20261121, producto F0; carriles sintéticos P3-P6 siguen en progreso. Main GitHub 0df5d16da834844535921f887f1745629e5d0ecb. El checkpoint conserva la misma orden; no se reabrió P2 ni se activó P3.
+
+**D:** PR #264 se fusionó el 21/11 05:08Z (head e0727ff, merge 6a8ea53). La implementación/test de handoff local está integrada. CI del head: validate, postgres, CodeQL (tres análisis), browser smoke, Vercel Security/Preview, cloud adapter validation e inventory SUCCESS; cloud-development, hosted-ledger y continuation SKIPPED. La demostración de contrato local está cumplida; entrega cloud no.
+
+**C:** PR #266 se fusionó el 21/11 07:17Z como main 0df5d16da834844535921f887f1745629e5d0ecb; validate, postgres, CodeQL y revisiones de Vercel SUCCESS, Supabase Preview SKIPPED. PR #267 continúa open/draft sobre base c2bc247, con checks validate/postgres/CodeQL/security SUCCESS y Supabase Preview SKIPPED. Sus cambios pisan los mismos tres archivos de catálogo que #266, con pruebas incrementales que requieren comparación. No se integró ni cerró #267; se preserva para que el carril C resuelva el delta sin duplicar la corrección SCRAM.
+
+**Main y Cloud:** Autopilot Core #44879582931 y Push on main #44879582538 SUCCESS en SHA 0df5d16da834844535921f887f1745629e5d0ecb; validate/postgres, tres CodeQL y check Supabase Preview reportaron SUCCESS. Public Health #44941101623 e infraestructura #44941646984 SUCCESS, ambas comprobaciones programadas de lectura. PLAN Cloud #44879861658 falló de forma fail-closed; artefacto 14696828731: state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; jobs de ejecución omitidos. Run #44939440332 quedó SKIPPED. No hubo misión alojada, creación de scheduler ni ejecución SQL.
+
+**Recuperación y aislamiento:** C:\autopilot sigue atrasado 150 commits y con numerosos no rastreados; permanece de solo lectura. El worktree nativo P2 mantiene cinco archivos modificados; no se detectó proceso coincidente ni listener 28447, pero falta recibo terminal original. No se tocó ni se repitió. A/B permanecen en worktrees propios con cambios; no se escribieron.
+
+**Acción/verificación:** actualización documental en rama codex/three-demo-checkpoint-20261122, base verificada 0df5d16da834844535921f887f1745629e5d0ecb, solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md. Se validará JSON, diff estructural y git diff --check; no se repitió npm run verify porque no hay código. Sin gasto, hosted SQL, dispatch, merge, deploy ni cambios al heartbeat. Rollback: revertir solo esta actualización documental.
+
+**Siguiente misión exacta:** continuar la misma orden con un carril A/B/C no ocupado: primero revisar el delta de PR #267 frente a #266 y continuar su evidencia incremental sin tocar la rama activa. No reintentar Cloud mientras no se verifique el SHA revisado y la aprobación del environment existente. Mantener P2 nativa intacta.
+
+## 2026-11-22 01:43 UTC - delta C y CI exacta de PR268
+
+**Estado:** ORD-THREE-DEMONSTRATIONS-20261121 continúa F0 / P3-P6 sintético. Main verificado 0df5d16da834844535921f887f1745629e5d0ecb. PR #268 está abierta y no fusionada, base main en ese SHA, head previo 9b902aa6654f9522d1d641b60fe73a97c2c66550. No se tocó el árbol local sucio C:\autopilot ni los worktrees A/B/C/D o el P2 nativo incierto.
+
+**CI de #268, SHA exacto:** validate y postgres SUCCESS (ambos workflows); CodeQL y análisis Python/Actions/JavaScript-TypeScript SUCCESS; Vercel Security Review, Preview y Preview Comments SUCCESS. Supabase Preview SKIPPED, no considerado éxito. No hay otros checks requeridos pendientes. Es documentación, por lo que no se repitió npm run verify.
+
+**Reconciliación de C:** comparación de los heads de #267 y #266 sobre los archivos scripts/demo-synthetic-catalog.mjs, tests/catalog-integration-postgres.test.ts y docs/AUTOPILOT_STATE.md. Ambos comparten endurecimiento SCRAM y credenciales efímeras. #267 añade/remarca que el archivo de password de initdb fue borrado antes de iniciar PostgreSQL y que las reglas HBA no tengan errores ni método distinto de SCRAM; desplaza las pruebas negativas de autenticación al test de entrada normal. El delta aporta assertions explícitas y no duplica una segunda implementación completa en main. Se conserva #267 abierta/draft para revisión del propietario; no se modificó ni fusionó su rama.
+
+**Acción/validación:** #268 registra el checkpoint y esta comparación; al actualizarlo se genera otro head y su CI deberá verificarse por SHA. Solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md; validar JSON, diff de archivos y git diff --check. Sin ejecución local/cloud, SQL alojado, dispatch, scheduler, merge o despliegue. Rollback: revertir exclusivamente el commit documental nuevo.
+
+**Siguiente misión exacta:** confirmar el SHA final y checks de #268; después releer recibos/estado de A y B y verificar exclusión de escritor para seleccionar un carril sin conflicto. Si ambos siguen activos/ambiguos, no tocarlos y mantener la orden en progreso sin reintentos Cloud ni alteración de P2.
+
+## 2026-11-22 02:14 UTC - carril A aislado y PR269
+
+**Estado/orden:** ORD-THREE-DEMONSTRATIONS-20261121 permanece F0 / P3-P6 sintético. Main remoto confirmado `0df5d16da834844535921f887f1745629e5d0ecb`. Se preservó el worktree A original en `C:\autopilot-worktrees\lane-a-professional-20261121`; el `node_modules` allí era un junction incompatible con el lockfile actual. El proceso actual se filtró fuera del inventario; no hubo otra línea de comando de proceso que mencionara A, B o este worktree. PR #268 no tuvo revisiones humanas; su único comentario era de Vercel.
+
+**A implementado:** nueva rama/worktree limpia `codex/lane-a-professional-main-20261122`, base 0df5d16, commit de código `aa140d23984ed44342ce8bf8501298424c3ffe3e`. Se portaron diez archivos de código/prueba/script y se excluyó `output/` del Git. El recorrido permanece detrás de autenticación administrativa y usa las tablas ya existentes; no se añadió ni aplicó migración. El fixture y el demo son sintéticos, loopback, `SIMULADO`/`no_send`. El recibo local preexistente del mismo código indica formulario público simulado, reconstrucción del panel tras reload, un acuse deduplicado, cuatro negativos y `remoteCalls=0`; los artefactos locales no se copiaron al PR.
+
+**Validación exacta del código:** `npm ci` instaló 223 paquetes, con cero vulnerabilidades reportadas. `npm run verify` terminó PASS sobre el worktree main-based: skills, TypeScript, suite, builds Node/Vercel y validaciones API. También `node scripts/secret-scan.mjs` y `git diff --check` PASS. El intento anterior en el worktree A original falló en build por la junction de `node_modules`; la nueva copia limpia pasó sin alterar el original.
+
+**PR #269:** abierta y no fusionada, base 0df5d16, head de código aa140d2. En el SHA exacto: validate (dos informes) SUCCESS, postgres (dos informes) SUCCESS, CodeQL y análisis Python/Actions/JS-TS SUCCESS, public-browser-smoke SUCCESS, beauty-stack SUCCESS, Vercel Security Review y Preview Comments SUCCESS. Supabase Preview SKIPPED; no es prueba alojada. CI del próximo head documental aún debe comprobarse.
+
+**B independiente:** recibo sintético existente registra seis roles: cinco completados y `consultations` `not_claimed` con intento cero por `consultations_policy_paused`; `unauthorizedCallerDenied=true`. No se repitió ni se reanudó. La verificación lockfile anterior de B fue una copia aislada y no se atribuye al head branch actual.
+
+**Límites y rollback:** no se ejecutó SQL alojado, no hubo envío, contacto con clientas, operación de cliente real, despacho Cloud, merge ni despliegue. El coste total de los servicios no se midió; no se invocó proveedor pago. Revertir el commit de la propuesta conserva intactos los worktrees originales A/B.
+
+**Siguiente misión exacta:** incorporar esta evidencia en el checkpoint canónico de la misma propuesta; actualizar PR #269 y comprobar el nuevo SHA final. Luego conservar A abierta para revisión humana y preparar B solo desde un worktree aislado basado en main, manteniendo `consultations` no reclamada por la pausa existente.
+
+## 2026-11-22 02:16 UTC - consolidar la continuidad en PR269
+
+PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisiones humanas; la única nota era del bot de Vercel. Se incorporaron a la misma propuesta #269 el checkpoint y la reconciliación de C/D, junto con el cambio del carril A, para evitar dos PRs paralelas sobre el mismo estado de la orden. La rama #269 conserva como padre verificado el commit de código `aa140d23984ed44342ce8bf8501298424c3ffe3e`; este commit documental crea un nuevo head. CI de código en el padre pasó; CI del nuevo head documental debe consultarse por SHA exacto.
+
+**Acción:** solo `docs/CODEX_CONTINUATION.json` y `docs/AUTOPILOT_STATE.md` en `codex/lane-a-professional-main-20261122`. No cambia la ejecución sintética ya comprobada ni sus límites. Rollback: revertir solo el commit documental; el commit de código sigue preservado en la misma PR. Sin hosted SQL, dispatch, envíos, merge ni deploy.
+
+**Siguiente misión exacta:** confirmar el nuevo head de #269 y revisar todos sus checks requeridos; si green, dejar PR abierta para revisión humana. Luego continuar lane B en un worktree limpio sobre main, sin reclamar `consultations` mientras la pausa de política siga vigente.
+
+## 2026-11-22 02:25 UTC - integrar la demostración B sin ejecutar la pausa
+
+**A/B en una sola propuesta:** se portó el commit sintético de B (`6f29219`, reaplicado como `aaad054e2391d29e7c286bd6b88e7badcc2ee769`) sobre la misma rama actual-main de PR #269, sin modificar los worktrees candidatos A/B. No se abrió una PR duplicada. El worktree B original conserva su único `output/office-demo` local; la nueva ejecución guardó evidencia solo en salida ignorada.
+
+**B, staging local de PostgreSQL:** `node --import tsx scripts/autopilot-office-demo.ts --output output/office-demo/receipt.json` PASS sobre el código combinado A/B; modo `SIMULADO`, seis roles, cinco completados, `consultations` `not_claimed` con intento cero por `consultations_policy_paused`, caller DB no autorizado denegado, seguimiento con consentimiento revocado bloqueado y cluster desechable detenido. Se reutilizó la cola y las funciones canónicas; no se reclamó ni se cambió la pausa.
+
+**Validación combinada:** `npm run verify` PASS sobre `aaad054`: 618 tests, 0 fallos, 0 omitidos; typecheck, builds Node/Vercel y validaciones API incluidos. `node scripts/secret-scan.mjs` y `git show --check` PASS. La CI del nuevo SHA final documental queda pendiente y se consultará en GitHub.
+
+**Estado externo:** PR #269 abierta, no fusionada ni desplegada; PR #268 cerrada sin merge como supersedida y su contenido documental se consolidará aquí. PR #267 sigue abierta en draft para la revisión del delta C; no se tocó. No hubo SQL alojado, envío, contacto con clientas, misión cloud, merge ni deploy.
+
+**Siguiente misión exacta:** actualizar el head/documentación de #269, verificar todos los checks del SHA exacto resultante y mantenerla abierta para revisión humana. Después revisar cambios de comentarios sobre #267; no duplicar su delta C ni cerrar/mergear esa PR sin resolver la revisión pendiente.
+
+
+## 2026-11-22 02:30 UTC - conciliar PR267 y preparar el head final de A/B
+
+**Fuente y conflicto detectado:** main remoto sigue en `0df5d16da834844535921f887f1745629e5d0ecb`. PR #269 continúa abierta y sin merge, pero su head remoto aún es `973bb3bea9f63f002d30fdae9257dbff10997acb`; el worktree aislado ya contiene el código combinado A/B en `aaad054e2391d29e7c286bd6b88e7badcc2ee769` y cambios locales de continuidad. Por tanto, la evidencia A/B no está todavía publicada en el head remoto.
+
+**Estado de C:** lectura GitHub en esta ejecución confirma PR #267 cerrada sin merge a las 02:24:12Z, conservando la marca draft; no aparecen reviews humanas y el único comentario es de Vercel. No se encontró motivo de cierre. La afirmación anterior de que seguía abierta quedó obsoleta; se corrigió el checkpoint canónico, sin reabrir PR ni trasplantar su delta. El carril C queda esperando disposición del propietario. PR #269 tampoco tiene reviews humanas; su único comentario devuelto es del bot Vercel.
+
+**Trabajo verificado y conservado:** A/B siguen en una sola PR propuesta. El staging B local con PostgreSQL desechable pasó: seis roles observados, cinco completados; `consultations` quedó `not_claimed`, intento cero por la pausa de política existente; caller no autorizado denegado, seguimiento con consentimiento revocado bloqueado y clúster detenido. La verificación combinada en `aaad054` fue 618/618, cero fallos y cero omitidos; escaneo de secretos y comprobación de whitespace pasaron. El recibo generado en `output/office-demo/` se conserva local y no se añadirá a Git.
+
+**Acción preparada:** se reconcilió `docs/CODEX_CONTINUATION.json` con el cierre de #267, el head remoto/local divergente y el plan exacto de publicación/CI. Solo los dos archivos de continuidad están modificados; `output/office-demo/` es no rastreado e intencional. Antes de publicar: revisar ambos diffs, JSON y `git diff --check`; commit únicamente de los dos documentos y push normal a la rama existente de #269. Tras push, verificar validate, postgres, CodeQL y checks relevantes del SHA final. PR seguirá abierta para revisión humana; no auto-merge, hosted SQL, despacho Cloud ni despliegue.
+
+**Límites preservados:** checkout `C:\autopilot` permanece atrasado/en solo lectura. Los worktrees candidatos originales A/B y el worktree de cinco archivos P2 siguen intactos; la clausura de #267 no autoriza cambios a esos recursos. El costo del servicio no fue medido. Sin llamada a servicios pagos, envío o ejecución alojada.
+
+**Siguiente misión exacta:** publicar únicamente los dos archivos de continuidad en el head existente de PR #269, actualizar el título/cuerpo para reflejar A+B y comprobar todos los checks del SHA remoto final. Dejarla abierta y sin desplegar. No reabrir ni trasladar el delta de #267 sin disposición explícita del propietario; después reevaluar C solo con un carril aprobado y no duplicado.
+
+
+## 2026-11-22 02:42 UTC - remediar el hallazgo de autenticación de la demo B
+
+**Detección (RED):** Vercel Security Review terminó en fallo para el head remoto exacto de #269, `3d53904da91107163b0fec61c94cbbc448b48b97`. Reportó un hallazgo medio de escalada de privilegios: `scripts/autopilot-office-demo.ts` iniciaba PostgreSQL con `trust` en loopback, permitiendo acceso de otras cuentas locales durante la demo. No se ignoró ni se cerró el hallazgo manualmente.
+
+**Reparación (GREEN):** en el mismo worktree aislado y misma PR, la demo ahora crea una contraseña aleatoria por ejecución, inicializa con SCRAM-SHA-256 y archivo temporal, borra el archivo bootstrap antes de iniciar PostgreSQL y entrega el secreto cliente por `PGPASSFILE`. El temporal se restringe al SID actual en Windows y a 0700/0600 en POSIX. Los procesos de PostgreSQL reciben entorno mínimo. El staging prueba conexiones sin credenciales y con credenciales incorrectas rechazadas, y verifica que las reglas HBA válidas usen SCRAM; limpia los archivos incluso al fallar.
+
+**Prueba local real:** en Windows y PostgreSQL 18 desechable, el staging terminó PASS en modo SIMULADO; seis roles, cinco completed y consultations not_claimed (attempt 0 por la pausa de política); credenciales vacías/incorrectas rechazadas, archivo bootstrap ausente antes del arranque, modo SCRAM confirmado y clúster detenido. El recibo sintético quedó únicamente en `output/office-demo/receipt-scram.json`, no se subirá. `npm run verify` pasó 618/618, 0 fallos, 0 omitidos; también secret scan y `git diff --check` PASS.
+
+**Publicación y estado:** la corrección y los documentos de continuidad todavía son locales; #269 en GitHub sigue en el head anterior `3d53904` hasta commit/push normal. El hallazgo se considera pendiente de resolución hasta que Vercel Security Review vuelva a escanear el nuevo head y pase. CI exacta de ese nuevo head aún no existe. #269 permanece abierta y sin merge. #267 sigue cerrada sin merge, sin review humana ni razón de cierre visible; no se reabrió ni se importó su código.
+
+**Límites:** no hosted SQL, migración remota, dispatch Cloud, envío, datos reales, merge ni despliegue. El costo del servicio no se midió. Los worktrees candidatos A/B y el worktree P2 de cinco archivos siguen preservados e intactos.
+
+**Siguiente misión exacta:** revisar cambios de tres archivos únicamente, validar JSON/diff/secret scan, commit y push normal al head existente de #269, actualizar el cuerpo de PR y esperar/checkear validate, postgres, CodeQL, navegador y Vercel Security Review en el SHA exacto. Si el hallazgo permanece, mantener la PR abierta y corregir sin suprimir el control; si pasa, dejarla igualmente abierta para revisión humana.
+
+
+## 2026-11-22 02:46 UTC - cierre del ciclo ante bloqueo externo de CI
+
+**Head y PR:** main remoto continúa `0df5d16da834844535921f887f1745629e5d0ecb`. PR #269 está abierta, sin merge/despliegue, head exacto `f47db7e9311888f94bf258123f1ec7547733f80c`; no hay reviews humanas. PR #267 se mantiene cerrada sin merge y sin motivo de cierre visible.
+
+**CI exacta de f47db7e:** Vercel Security Review SUCCESS, salida “No open findings”; Vercel Preview Comments SUCCESS. Supabase Preview SKIPPED. Los jobs GitHub Actions `validate` (dos), `postgres` (dos), `public-browser-smoke` y `Analyze` (actions, JavaScript/TypeScript, Python) terminaron failure antes del runner; API de jobs muestra cero pasos y runner_id 0. El diagnóstico del job Analyze especifica que la cuenta está bloqueada por un problema de facturación. No son fallos de tests ejecutados: no hubo ejecución de esos jobs. No se reintentaron; no se tocaron pagos, facturación, credenciales ni límites.
+
+**Código y pruebas locales:** reparación SCRAM de `scripts/autopilot-office-demo.ts` está en #269. Staging Windows/PostgreSQL 18 desechable: seis roles, cinco completados, consultations no_claimed/attempt 0, credenciales ausentes y erróneas rechazadas, ACL temporal privado, bootstrap borrado antes de iniciar, clúster detenido. `npm run verify` PASS 618/618, cero fallos y cero omitidos; secret scan y diff check PASS. Vercel confirmó el cierre del finding de trust-auth en el nuevo SHA.
+
+**Checkpoint y límites:** se actualizó el JSON canónico con bloqueo por billing, estado de #267 y paso recuperable; esta actualización documental se enviará en el mismo PR, excluyendo `output/office-demo/`. Mantener #269 abierta. Sin SQL alojado, migración remota, dispatch Cloud, envíos, datos reales, merge ni deploy. El costo no está medido.
+
+**Resultado:** `[AUTOPILOT_ORDER_BLOCKED]` para este ciclo: A/B completados localmente, D local integrado; no queda tarea independiente segura de esta orden mientras CI no pueda iniciar y C siga cerrado sin disposición. El worktree P2 de cinco archivos se conserva sin tocar.
+
+**Siguiente misión exacta:** mantener #269 abierta y, cuando el propietario haya resuelto el bloqueo de facturación de GitHub, releer el head exacto y reejecutar solo los checks requeridos allí. No cambiar facturación, reescribir el head para eludir CI ni reintentar mientras siga bloqueado. No reabrir PR267 ni habilitar Cloud, hosted SQL, P2 o producción por inferencia.
+
+## 2026-11-22 03:25 UTC - cerrar bypass de rutas en demo sintetica de consultas
+
+**Estado recuperado:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR #269 sigue abierta y sin review humana; el head remoto exacto verificado es 00c3c0c973b9e45eb09de44e06190a3bb18f1044, basado en ese main. Se reutiliza la misma PR y un worktree aislado nuevo; no se tocaron el worktree de carril A ni el worktree P2 de cinco archivos.
+
+**Deteccion RED:** Vercel Security Review fallo para 00c3c0c con el hallazgo #5, security-control-bypass: el filtro no_send de la demo no cubria variantes de mayusculas y barra final aunque Express resuelve rutas sin distinguir mayusculas ni barra final. La prueba focal reprodujo el bypass con POST /admin/{id}/APPROVE-SEND/ antes de corregirlo. No hay evidencia de que se haya enviado una respuesta ni llamado a Supabase en produccion.
+
+**Correccion GREEN local:** se agrego una lista exacta de metodo/ruta permitidos normalizada antes de handlers; operaciones de metricas, shadow, aprobacion/entrega, despacho de inteligencia y conocimiento quedan inyectadas en stubs locales de demo. El fixture usa token administrativo aleatorio por ejecucion. Se agrego prueba HTTP negativa con flags de aspecto productivo habilitados, clave Resend ficticia, rutas mixtas, barra final y counters que aseguran que las operaciones locales de envio/dispatch/metricas no se invocan.
+
+**Verificacion local:** prueba RED fallo en la variante antes de corregirla; focal actual 3/3 PASS. npm run verify PASS 620/620, 0 fallos y 0 omitidos; lint, typecheck, builds y API compilada PASS. node scripts/secret-scan.mjs y git diff --check PASS. La demo de navegador no se ejecuto: Playwright no esta instalado en este worktree limpio. No se anadieron dependencias para sortearlo.
+
+**Estado remoto y CI:** la correccion sigue local y sin commit/push al registrar este checkpoint. En el head remoto anterior, validate, postgres, public-browser-smoke y CodeQL terminaron antes del runner por el bloqueo de facturacion; no cuentan como tests ejecutados y no se reintentaron. Vercel Security Review debe volver a evaluar el head que contenga la reparacion. No se cambio facturacion, secretos ni credenciales.
+
+**Limites:** no hubo SQL alojado, migraciones remotas, llamadas productivas, envios, datos reales, merge ni despliegue. #269 permanece abierta. PR #267 cerrada sin merge queda sin reabrir; el worktree P2 sigue intacto. Costos no medidos; sin gasto externo.
+
+**Siguiente accion concreta:** confirmar una vez mas que la rama remota de #269 sigue en 00c3c0c..., crear commit solo con los siete archivos de codigo/test y estos dos documentos, y hacer push normal fast-forward a la rama existente. Despues verificar el SHA remoto y los checks exactos, especialmente Vercel Security Review. Si GitHub Actions continua bloqueado antes del runner por billing, mantener la PR abierta y detener solo esa dependencia; no reintentar, tocar la cuenta, fusionar ni desplegar.
+
+## 2026-11-22 03:50 UTC - reconciliar seguridad y bloqueo CI de PR #269
+
+**Código y PR:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. La corrección de seguridad quedó en el commit 998954dd435345f8e7a58f0c572e3079f549c5c5, push fast-forward a la PR existente #269. La PR continúa OPEN, sin review humana ni merge. Su cuerpo se actualizó y se leyó de vuelta con resultados locales/remotos y límites.
+
+**Resultado de seguridad:** Vercel Security Review pasó en el SHA 998954d tras el hallazgo #5; Vercel Preview y Preview Comments también pasaron. Es una Preview y no producción. Supabase Preview continúa SKIPPED.
+
+**CI obligatorio exacto de 998954d:** validate, postgres, public-browser-smoke, beauty-stack y CodeQL fallaron en 1–3 segundos antes de iniciar runners. La API informa runner_id 0 y lista de pasos vacía; anotación exacta de validate: “The job was not started because your account is locked due to a billing issue.” No se ejecutaron esas pruebas, no se reintentaron ni se cambió billing.
+
+**Pruebas locales de la corrección:** RED reprodujo la variante de mayúsculas/barra final; focal 3/3 PASS; npm run verify 620/620, 0 fallos, 0 omitidos; secret scan y git diff --check PASS. No se ejecutó browser demo local porque falta Playwright en este worktree limpio. La verificación PostgreSQL desechable de B permanece la evidencia previa descrita arriba, no se repitió.
+
+**Límites y bloqueos:** sin hosted SQL, producción, envíos, datos reales, merge ni despliegue. PR267 cerrada sin merge sigue intacta y sin trasplante; worktree P2 de cinco archivos no tocado. Costos no medidos. El CI remoto requiere que el propietario resuelva el bloqueo de facturación; no cambiar cuenta, pagos, credenciales ni repetir jobs en este estado.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para las dependencias restantes de esta orden: A/B/D no tienen otra acción independiente autorizada; C continúa cerrado sin disposición; el CI obligatorio no puede iniciar y falta review humana. La corrección acotada sí avanzó y Vercel la aceptó.
+
+**Siguiente misión exacta:** después de que el propietario resuelva el lock de GitHub, leer el head/base/reviews actuales de #269 (incluido el commit documental de este checkpoint), inspeccionar los checks del SHA exacto y permitir solo las ejecuciones requeridas que ahora puedan iniciar. Mantener la PR abierta hasta review humana; no mergear, desplegar ni ejecutar SQL alojado.
+
+## 2026-11-22 03:57 UTC - revalidar el checkpoint de PR #269
+
+La recuperación en el worktree de revisión confirma main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 y PR #269 OPEN, sin review humana, head exacto observado 1b6c062478fed7279a8d833c07e78b612f7ecb44. El arreglo de código está en su padre 998954dd435345f8e7a58f0c572e3079f549c5c5. En 1b6c062 pasan Vercel Security Review, Vercel Preview y Preview Comments; Supabase Preview quedó SKIPPED. Validate, postgres, public-browser-smoke y CodeQL fallaron antes de iniciar el runner; runner_id 0, cero pasos y la anotación confirma bloqueo de cuenta por facturación. No se ejecutaron pruebas remotas ni se reintentaron.
+
+La PR produjo un preview automático en Vercel; no es producción ni despliegue manual. Localmente siguen siendo evidencia 620/620, focal 3/3, secret scan y diff check; browser demo no ejecutado por falta de Playwright. Sin SQL alojado, envíos, datos reales, merge o cambios de billing. El cambio de este checkpoint vuelve a avanzar el SHA documental; se debe consultar el head resultante y sus checks al reanudar.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para validate/postgres/browser/CodeQL, pendientes de que el propietario resuelva el bloqueo de facturación y de review humana. No queda otra acción independiente autorizada de la orden: A/B y D están cubiertos, C sigue cerrado sin disposición; P2 permanece intacta.
+
+## 2026-11-22 04:08 UTC - evaluar Directiva Maestra Autopilot Autonomous Engine V1
+
+**Estado recuperado:** main remoto 82b6fb24e76d81e5026c94af2630358d00f2ebe9. PR #269 OPEN, sin review humana, head observado 83e4b0c0e5b1e817ff01451988351886df55e61e. Vercel Security Review, Vercel Preview y Preview Comments pasan en ese SHA; Supabase Preview está SKIPPED. Validate, postgres, public-browser-smoke y CodeQL fallaron antes del runner; runner_id 0, sin pasos, anotación exacta de bloqueo de cuenta por facturación. No equivalen a tests remotos. No se repitió npm run verify ni suites ya aprobadas.
+
+**Prueba independiente solicitada por la directiva:** comando node --import tsx --test src/autopilot/missionPlanner.test.ts src/autopilot/missionRuntime.test.ts src/autopilot/missionAuthorization.test.ts src/autopilot/permanentSupervisor.test.ts PASS, 73/73, cero fallos, cancelados u omitidos. Son pruebas locales sintéticas; no acreditan servicio alojado, ejecución independiente de Codex ni continuidad con la máquina apagada.
+
+**Mapa existente, solo por código:** hay piezas en src/autopilot/agentRegistry.ts, missionPlanner.ts, permanentSupervisor.ts, missionRuntime.ts, executorAdapter.ts, missionAuthorization.ts, localMissionStore.ts, cloudMissionStore.ts, cloudLedgerHandoff.ts, missionContinuation.ts y selfDevelopment.ts; también hay workflows y contratos de seis roles. Esto no demuestra que seis agentes estén corriendo, que el cloud runtime admita trabajo, ni que el verificador/recuperación sean independientes en operación alojada. No se hizo inventario de costo de proveedores ni llamadas externas.
+
+**Control de alcance:** el checkpoint conserva una sola orden, ORD-THREE-DEMONSTRATIONS-20261121, y PR269 es específicamente la demo A/B y su corrección de no_send. La dirección de producto coloca autonomía F5 después de F0-F4; F2 todavía depende de la revisión humana de conocimiento profesional. Por eso no agregué un segundo scheduler, cola, agente, PR ni capacidades de producción a PR269. No se cambió código de aplicación en este ciclo.
+
+**Límites:** PR preview automático solamente; no producción ni despliegue manual. Sin hosted SQL, envíos, datos reales, cambios de permisos/credenciales/billing, merge ni ejecución alojada. No se verificó aquí el estado live del servicio cloud; el checkpoint sigue reportando admisión bloqueada por API HTTP 429. P2 permanece intacta.
+
+**Resultado:** [AUTOPILOT_ORDER_BLOCKED] para la verificación remota y revisión de PR269, que requieren intervención del propietario. La verificación local independiente 73/73 sí se completó; no queda otra acción de código segura dentro de la orden actual sin duplicarla o saltar las puertas F0-F4.
+
+**Siguiente misión exacta:** después de resolver el bloqueo de facturación de GitHub y revisar PR269, consultar su head/base/reviews/checks exactos. Luego cerrar o disponer la orden según sus criterios y elegir, desde el plan canónico, una sola orden acotada para la directiva V1 respetando F0-F4; no afirmar autonomía alojada hasta observar recibos reales desde un host independiente.

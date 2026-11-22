@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from 'react';
 import {apiFetch} from '../../lib/api';
 
-type AgentRow={id:string;configuredState:string;trigger:string;lastActivity:string|null;pending:number;running:number;completed:number;blocked:number};
+type AgentRow={id:string;configuredState:string;trigger:string;lastActivity:string|null;lastExecution:{status:string;at:string}|null;lastSuccess:string|null;observedHealth:string;received:number;oldestOpenAgeSeconds:number|null;retriedTasks:number;activeLeases:number;pending:number;running:number;completed:number;blocked:number};
 type AgentPayload={source:'supabase';generatedAt:string;partial:boolean;agents:AgentRow[]};
+const healthLabels:Record<string,string>={partial:'Lectura parcial',unobserved:'Sin ejecución observada',attention_required:'Requiere atención',lease_active:'Lease activa observada',recent_success:'Éxito reciente observado',stale_or_waiting:'Sin éxito reciente'};
 const labels:Record<string,string>={director:'Director Autopilot',software:'Ingeniero de software',infrastructure:'Auditor de infraestructura',consultations:'Asistente de consultas',followup:'Seguimiento operativo',reports:'Informes y auditoría'};
 export function SixAgentStatusPanel(){
  const [state,setState]=useState<AgentPayload|null>(null);
@@ -27,8 +28,12 @@ export function SixAgentStatusPanel(){
      <h3 className="font-semibold">{labels[a.id]??a.id}</h3>
      <p className="text-xs">Configuración: {a.configuredState}. Sin certificación de ejecución 24/7.</p>
      <p className="text-xs text-slate-400">Disparador: {a.trigger}</p>
+     <p className="text-sm">Salud observada: {healthLabels[a.observedHealth]??'No disponible'}</p>
+     <p className="text-xs">Última ejecución: {a.lastExecution?`${a.lastExecution.status} · ${new Date(a.lastExecution.at).toLocaleString('es-UY')}`:'Sin registros'}</p>
+     <p className="text-xs">Recibidas: {a.received} · Tareas con reintentos: {a.retriedTasks} · Leases activas: {a.activeLeases}</p>
      <p className="text-sm">Pendientes: {a.pending} · Ejecutando: {a.running}</p>
      <p className="text-sm">Completadas verificadas: {a.completed} · Bloqueadas: {a.blocked}</p>
+     <p className="text-xs">Último éxito: {a.lastSuccess?new Date(a.lastSuccess).toLocaleString('es-UY'):'Sin registros'} · Antigüedad abierta: {a.oldestOpenAgeSeconds===null?'Sin tareas abiertas':`${Math.floor(a.oldestOpenAgeSeconds/3600)} h`}</p>
      <p className="text-xs text-slate-400">Última actividad: {a.lastActivity?new Date(a.lastActivity).toLocaleString('es-UY'):'Sin registros'}</p>
     </article>)}</div></>}
  </section>;
