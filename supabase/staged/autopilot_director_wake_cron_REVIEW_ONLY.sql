@@ -10,7 +10,16 @@
 -- 4. Review SQL/permissions, verify project hostname and resource limits,
 --    test 401/503/200 in an isolated environment first.
 -- 5. Approve install pg_net and ONE cron job separately.
--- 6. pg_net transiently queues HTTP headers. Scope and rotate the token.
+-- 6. pg_net transiently queues HTTP headers in its request queue. It may expose
+--    header values to roles with queue/table access and may retain them transiently.
+--    Restrict pg_net schema/table privileges, scope and rotate the token, and
+--    verify queue cleanup; never use a service_role key or real client credential.
+-- 7. Install/test in a disposable Supabase/PostgreSQL lab only if pg_cron, pg_net
+--    and Vault/pgsodium are available. Otherwise this SQL remains NOT_EXECUTED.
+-- 8. Controls against duplicate jobs: BEFORE: SELECT jobname/jobid FROM cron.job;
+--    install one exact name only; AFTER: verify exactly one matching row;
+--    rollback only: SELECT cron.unschedule('autopilot-director-wake-preflight');
+--    verify no matching row. Drop pg_net only in a lab and only after approval.
 --
 -- Proposed future commands (COMMENTED OUT deliberately):
 --
