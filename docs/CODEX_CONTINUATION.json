@@ -60,7 +60,7 @@
       "current_session_limit": "El21/11 Vercel Agent no consult\u00f3 variables Actions, configuraci\u00f3n heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro hist\u00f3rico."
     }
   },
-  "updated_at": "2026-11-22T05:29:32Z",
+  "updated_at": "2026-11-22T05:36:57Z",
   "execution_id": "ord-autonomous-engine-20261122",
   "repository": {
     "branch": "codex/ord-autonomous-engine-20261122",
@@ -68,7 +68,7 @@
     "head_sha": null,
     "worktree": "E:/autopilot-worktrees/ord-autonomous-engine-20261122",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Ford-autonomous-engine-20261122",
-    "note": "Una sola PR #272 en estado OPEN/ready-for-review seg\u00fan timeline del propietario (evento 05:21Z); sin review ni merge. head_sha null para evitar autorreferencia; reconciliar commit que contiene este checkpoint desde GitHub.",
+    "note": "PR #272 OPEN/ready-for-review, head a90ab331a77eeeb7b2683df6fa2a8f942713ba29, base 82b6fb24e76d81e5026c94af2630358d00f2ebe9; sin review humana ni merge. PR #273 es una propuesta draft separada de preflight wake, base igual, head 78fc8454a3538b2bd9cfb0c9ac635a307ea77f55; su worktree presenta procesos activos y se preservo sin tocar. Ninguna esta desplegada.",
     "pr_number": 272,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/272"
   },
@@ -93,7 +93,36 @@
       "No ejecutar efectos hosted; documentar exactamente autorizaciones y gates faltantes para el criterio de tarea director real.",
       "Mantener checkpoint y AUTOPILOT_STATE consistentes dentro de la misma PR."
     ],
-    "last_verified_step": "origin/main 82b6fb24e76d81e5026c94af2630358d00f2ebe9 verificado. Supabase read-only: health worker OIDC de infrastructure, cero tareas director y cron de agentes; pg_net no instalado; fail hosted sin lease expiry; ACL de ledger concedidas a anon/authenticated detr\u00e1s de RLS sin pol\u00edticas. RED reprodujo fail con lease vencida; GREEN migration y queue harness pasaron en PostgreSQL aislado. npm run verify 614/614. Sin operaci\u00f3n hosted. PR #272 draft abierta en head inicial 18c0a0b64f14f30813b61fa19af4bf6a78b3baeb, base 82b6fb24; validate/postgres/CodeQL fallan sin pasos/logs, causa no clasificada; Vercel Preview pendiente, Supabase Preview skipped; sin review humana. Reconciled checkpoint head 98f8c115891555301fab2880a20716a3061e8695: same CI failures; GitHub API shows Actions enabled=true but every failed job runner_id=0/runner_name empty, no logs. Runner/platform cause remains unclassified. Exact PR head d5cb2f1aef7fb316e6369d41de7fc9ab630c9feb likewise failed validate/postgres/CodeQL with zero steps; validate API job runner_id=0, runner_name empty, empty logs archive; Actions enabled=true. PR #272 remains draft/open, no human review; preview pending and Supabase Preview skipped. Independent security-minimization increment RED/GREEN: Edge report now calls service-role-only six_agent_report_metrics RPC, not raw evidence rows; SQL aggregates completed_evidence privately. Focused static Edge test 5/5, PostgreSQL 18 disposable queue/RPC/fencing suite PASS, npm run verify 614/614 zero fail/skip. These latest changes are local/uncommitted and not on PR head yet. Incremento RPC privado integrado en head 03a106961d64f847b6d78c24d6da6bcc0666a156 y body de PR actualizado. PR #272 OPEN/ready-for-review por evento del propietario 05:21Z, sin review/merge. validate/postgres/CodeQL/beauty-stack fallaron en 1-3s sin steps; validate runner_id=0/runner_name vac\u00edo; Actions enabled=true; causa de plataforma no clasificada. Nada hosted se ejecut\u00f3."
+    "last_verified_step": "Read-only exact-head reconciliation at 2026-11-22T05:36:57Z: origin/main remains 82b6fb24e76d81e5026c94af2630358d00f2ebe9; current PR #272 head a90ab331a77eeeb7b2683df6fa2a8f942713ba29, base unchanged, OPEN/ready-for-review, no human review/merge. Runs 44989715740 (Core), 44989715803 (Edge static), and 44989711920 (CodeQL) failed before steps; check annotations state: \"The job was not started because your account is locked due to a billing issue.\" Validate/postgres jobs show runner_id=0; Actions enabled=true. Vercel is Preview only; Supabase Preview SKIPPED. Separate draft PR #273 head 78fc8454a3538b2bd9cfb0c9ac635a307ea77f55 prepares only a no-effect wake preflight; its own checks exhibit the same billing-lock annotation. Active processes were observed in its worktree; it was not modified. No hosted writes, secrets, extension, cron, deploy, director task/claim/run, billing/settings change, or CI rerun performed. Local RED/GREEN, PostgreSQL isolated, Edge 5/5, verify 614/614, and secret scan remain the last local code evidence.",
+    "latest_reconciliation": {
+        "observed_at_utc": "2026-11-22T05:36:57Z",
+        "main_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+        "pr272": {
+          "state": "OPEN_READY_FOR_REVIEW_NOT_MERGED",
+          "head_sha": "a90ab331a77eeeb7b2683df6fa2a8f942713ba29",
+          "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+          "reviews": 0,
+          "runs": [
+            44989715740,
+            44989715803,
+            44989711920
+          ],
+          "validate_postgres_runner_id": 0,
+          "failure_annotation": "The job was not started because your account is locked due to a billing issue.",
+          "actions_enabled": true,
+          "vercel": "PREVIEW_ONLY_SUCCESS",
+          "supabase_preview": "SKIPPED"
+        },
+        "pr273": {
+          "state": "OPEN_DRAFT_NOT_MERGED",
+          "head_sha": "78fc8454a3538b2bd9cfb0c9ac635a307ea77f55",
+          "base_sha": "82b6fb24e76d81e5026c94af2630358d00f2ebe9",
+          "scope": "authenticated no-effect director wake preflight preparation only; not deployed or scheduled",
+          "failure_annotation_observed": "The job was not started because your account is locked due to a billing issue.",
+          "worktree_policy": "active processes observed; preserved and not modified"
+        },
+        "effects": "No GitHub rerun, billing/settings change, hosted SQL, extension, cron, deployment, task insert/claim, or director execution."
+      }
   },
   "completed_operations": [
     {
