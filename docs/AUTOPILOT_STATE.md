@@ -1885,3 +1885,30 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Acción:** solo `docs/CODEX_CONTINUATION.json` y `docs/AUTOPILOT_STATE.md` en `codex/lane-a-professional-main-20261122`. No cambia la ejecución sintética ya comprobada ni sus límites. Rollback: revertir solo el commit documental; el commit de código sigue preservado en la misma PR. Sin hosted SQL, dispatch, envíos, merge ni deploy.
 
 **Siguiente misión exacta:** confirmar el nuevo head de #269 y revisar todos sus checks requeridos; si green, dejar PR abierta para revisión humana. Luego continuar lane B en un worktree limpio sobre main, sin reclamar `consultations` mientras la pausa de política siga vigente.
+
+## 2026-11-22 02:25 UTC - integrar la demostración B sin ejecutar la pausa
+
+**A/B en una sola propuesta:** se portó el commit sintético de B (`6f29219`, reaplicado como `aaad054e2391d29e7c286bd6b88e7badcc2ee769`) sobre la misma rama actual-main de PR #269, sin modificar los worktrees candidatos A/B. No se abrió una PR duplicada. El worktree B original conserva su único `output/office-demo` local; la nueva ejecución guardó evidencia solo en salida ignorada.
+
+**B, staging local de PostgreSQL:** `node --import tsx scripts/autopilot-office-demo.ts --output output/office-demo/receipt.json` PASS sobre el código combinado A/B; modo `SIMULADO`, seis roles, cinco completados, `consultations` `not_claimed` con intento cero por `consultations_policy_paused`, caller DB no autorizado denegado, seguimiento con consentimiento revocado bloqueado y cluster desechable detenido. Se reutilizó la cola y las funciones canónicas; no se reclamó ni se cambió la pausa.
+
+**Validación combinada:** `npm run verify` PASS sobre `aaad054`: 618 tests, 0 fallos, 0 omitidos; typecheck, builds Node/Vercel y validaciones API incluidos. `node scripts/secret-scan.mjs` y `git show --check` PASS. La CI del nuevo SHA final documental queda pendiente y se consultará en GitHub.
+
+**Estado externo:** PR #269 abierta, no fusionada ni desplegada; PR #268 cerrada sin merge como supersedida y su contenido documental se consolidará aquí. PR #267 sigue abierta en draft para la revisión del delta C; no se tocó. No hubo SQL alojado, envío, contacto con clientas, misión cloud, merge ni deploy.
+
+**Siguiente misión exacta:** actualizar el head/documentación de #269, verificar todos los checks del SHA exacto resultante y mantenerla abierta para revisión humana. Después revisar cambios de comentarios sobre #267; no duplicar su delta C ni cerrar/mergear esa PR sin resolver la revisión pendiente.
+
+
+## 2026-11-22 02:30 UTC - conciliar PR267 y preparar el head final de A/B
+
+**Fuente y conflicto detectado:** main remoto sigue en `0df5d16da834844535921f887f1745629e5d0ecb`. PR #269 continúa abierta y sin merge, pero su head remoto aún es `973bb3bea9f63f002d30fdae9257dbff10997acb`; el worktree aislado ya contiene el código combinado A/B en `aaad054e2391d29e7c286bd6b88e7badcc2ee769` y cambios locales de continuidad. Por tanto, la evidencia A/B no está todavía publicada en el head remoto.
+
+**Estado de C:** lectura GitHub en esta ejecución confirma PR #267 cerrada sin merge a las 02:24:12Z, conservando la marca draft; no aparecen reviews humanas y el único comentario es de Vercel. No se encontró motivo de cierre. La afirmación anterior de que seguía abierta quedó obsoleta; se corrigió el checkpoint canónico, sin reabrir PR ni trasplantar su delta. El carril C queda esperando disposición del propietario. PR #269 tampoco tiene reviews humanas; su único comentario devuelto es del bot Vercel.
+
+**Trabajo verificado y conservado:** A/B siguen en una sola PR propuesta. El staging B local con PostgreSQL desechable pasó: seis roles observados, cinco completados; `consultations` quedó `not_claimed`, intento cero por la pausa de política existente; caller no autorizado denegado, seguimiento con consentimiento revocado bloqueado y clúster detenido. La verificación combinada en `aaad054` fue 618/618, cero fallos y cero omitidos; escaneo de secretos y comprobación de whitespace pasaron. El recibo generado en `output/office-demo/` se conserva local y no se añadirá a Git.
+
+**Acción preparada:** se reconcilió `docs/CODEX_CONTINUATION.json` con el cierre de #267, el head remoto/local divergente y el plan exacto de publicación/CI. Solo los dos archivos de continuidad están modificados; `output/office-demo/` es no rastreado e intencional. Antes de publicar: revisar ambos diffs, JSON y `git diff --check`; commit únicamente de los dos documentos y push normal a la rama existente de #269. Tras push, verificar validate, postgres, CodeQL y checks relevantes del SHA final. PR seguirá abierta para revisión humana; no auto-merge, hosted SQL, despacho Cloud ni despliegue.
+
+**Límites preservados:** checkout `C:\autopilot` permanece atrasado/en solo lectura. Los worktrees candidatos originales A/B y el worktree de cinco archivos P2 siguen intactos; la clausura de #267 no autoriza cambios a esos recursos. El costo del servicio no fue medido. Sin llamada a servicios pagos, envío o ejecución alojada.
+
+**Siguiente misión exacta:** publicar únicamente los dos archivos de continuidad en el head existente de PR #269, actualizar el título/cuerpo para reflejar A+B y comprobar todos los checks del SHA remoto final. Dejarla abierta y sin desplegar. No reabrir ni trasladar el delta de #267 sin disposición explícita del propietario; después reevaluar C solo con un carril aprobado y no duplicado.

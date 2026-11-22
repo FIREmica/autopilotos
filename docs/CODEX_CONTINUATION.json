@@ -60,15 +60,15 @@
       "current_session_limit": "El21/11 Vercel Agent no consultó variables Actions, configuración heartbeat ni cuota del proveedor. Ver runtime_audit.session_read_only_20261121; no reactivar ni certificar estado actual a partir de este registro histórico."
     }
   },
-  "updated_at": "2026-11-22T02:16:22Z",
+  "updated_at": "2026-11-22T02:30:35Z",
   "execution_id": "three-demo-reconcile-20261122",
   "repository": {
     "branch": "codex/lane-a-professional-main-20261122",
     "base_sha": "0df5d16da834844535921f887f1745629e5d0ecb",
-    "head_sha": "aa140d23984ed44342ce8bf8501298424c3ffe3e",
+    "head_sha": "aaad054e2391d29e7c286bd6b88e7badcc2ee769",
     "worktree": "C:\\autopilot-worktrees\\lane-a-professional-main-20261122",
     "pr_lookup": "https://github.com/Victoriosas/autopilot/pulls?q=is%3Apr+head%3Acodex%2Flane-a-professional-main-20261122",
-    "note": "PR #269 consolidates the checkpoint/C comparison and lane A proposal. PR #268 was closed unmerged as superseded; its documentation is carried here. repository.head_sha is code parent aa140d23984ed44342ce8bf8501298424c3ffe3e; this documentation commit creates a new SHA whose exact CI must be checked.",
+    "note": "PR #269 is the single A/B proposal. Remote PR head is still 973bb3bea9f63f002d30fdae9257dbff10997acb; local branch adds code commit aaad054e2391d29e7c286bd6b88e7badcc2ee769 and the current uncommitted checkpoint update. Push only after validation. Exact checks are required on the final pushed head.",
     "pr_number": 269,
     "pr_url": "https://github.com/Victoriosas/autopilot/pull/269"
   },
@@ -77,7 +77,7 @@
     "phase": "F0",
     "linear_phase": "P3-P6_SYNTHETIC",
     "objective": "Tres demostraciones reproducibles staging por contratos existentes: consulta integral, seis roles y catálogo; handoff cloud acotado como carril independiente.",
-    "status": "in_progress_parallel_staging",
+    "status": "in_progress_pr_validation_and_owner_review",
     "limits": [
       "no_send y datos sintéticos; sin pagos/clientas/credenciales o permisos productivos/migraciones remotas productivas/deploy manual",
       "P2 preservada sin reapertura ni tareas nuevas; no modificar cinco archivos ni clúster original",
@@ -91,7 +91,7 @@
       "D: handoff por adaptador existente con contratos locales o entrega cloud autorizada demostrada; conservar fallo original",
       "PRs revisadas y CI exacta validate/postgres/CodeQL antes de merge; estados separado por entorno"
     ],
-    "last_verified_step": "GitHub main exact 0df5d16da834844535921f887f1745629e5d0ecb. PR #264 merged by owner at 2026-11-21T05:08:58Z (head e0727ff68fba47037ba6dab8f977830e3c0038f2, base 66da49d3cb7a91b0decb52163a0cbf2e67ee6168, merge 6a8ea53d882d61c02a13a1ae15d333f9d07cebc3). Its local handoff contract and tests are integrated; validate/postgres/CodeQL, public-browser-smoke, Vercel security/preview checks, cloud-adapter-validation and inventory passed; cloud-development/hosted-ledger/continuation skipped. D satisfies the local-contract alternative only; no cloud delivery. PR #266 merged at 2026-11-21T07:17:50Z (head 5ee8fa7ce168fcef19ce7a2aba07115e793b0aa5, merge/main 0df5d16da834844535921f887f1745629e5d0ecb); validate/postgres/CodeQL/Vercel security and Preview Comments passed; Supabase Preview skipped. PR #267 remains open draft at 9d8299fbdca595a969e846f1ddc2eeaa0c5eb0f7 based on c2bc24771ead1ea61ac26d9099ca8f7cd0acfbb7; required checks and CodeQL passed, Supabase Preview skipped. Exact diff vs #266: shared SCRAM hardening plus #267-specific initdb-password-file removal and HBA error/non-SCRAM assertions; negative auth checks moved into the normal integration test. Keep #267 open/draft for owner review; no merge/close. Main Autopilot Core run 44879582931 and Push on main run 44879582538 succeeded; exact main validate/postgres, three CodeQL analyses and Supabase Preview check succeeded. Scheduled read-only Public Health 44941101623 and infrastructure availability 44941646984 succeeded. PLAN Cloud run 44879861658 failed closed; artifact 14696828731 says state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; execution jobs skipped. Later run 44939440332 was skipped. No hosted mission or scheduler was created. Lane D local contract accepted/integrated only. A/B worktrees contain local changes and were not touched; C PR #267 remains draft after exact comparison with #266; retain its incremental assertions for owner review. The preserved native P2 worktree still has five modified files; no matching process or listener on 28447 was observed, but original terminal receipt remains unresolved. P2 stays outside this order and unchanged. Lane A was ported from its preserved dirty worktree into a new clean worktree based on main 0df5d16; npm ci installed 223 packages (0 reported vulnerabilities), npm run verify PASS, secret scan and diff check PASS. Exact PR #269 head aa140d23984ed44342ce8bf8501298424c3ffe3e: validate (both workflows), postgres (both workflows), CodeQL plus three language analyses, public-browser-smoke, beauty-stack, Vercel Security Review and Preview Comments SUCCESS; Supabase Preview SKIPPED. Original A output receipt confirms loopback synthetic/no_send, panel reload, one simulated acknowledgement, four negatives, zero remote calls; output is not tracked. B receipt records five completed roles and consultations not_claimed under the existing SQL pause; no replay or bypass. PR #268 was closed unmerged at 2026-11-22T02:15:59Z as superseded by #269; the checkpoint and C/A reconciliation it carried are consolidated in this PR. The current code-parent CI is green; the next documentation commit has a new SHA and must be checked exactly."
+    "last_verified_step": "GitHub main exact 0df5d16da834844535921f887f1745629e5d0ecb. PR #264 merged by owner at 2026-11-21T05:08:58Z (head e0727ff68fba47037ba6dab8f977830e3c0038f2, base 66da49d3cb7a91b0decb52163a0cbf2e67ee6168, merge 6a8ea53d882d61c02a13a1ae15d333f9d07cebc3). Its local handoff contract and tests are integrated; validate/postgres/CodeQL, public-browser-smoke, Vercel security/preview checks, cloud-adapter-validation and inventory passed; cloud-development/hosted-ledger/continuation skipped. D satisfies the local-contract alternative only; no cloud delivery. PR #266 merged at 2026-11-21T07:17:50Z (head 5ee8fa7ce168fcef19ce7a2aba07115e793b0aa5, merge/main 0df5d16da834844535921f887f1745629e5d0ecb); validate/postgres/CodeQL/Vercel security and Preview Comments passed; Supabase Preview skipped. PR #267 remains open draft at 9d8299fbdca595a969e846f1ddc2eeaa0c5eb0f7 based on c2bc24771ead1ea61ac26d9099ca8f7cd0acfbb7; required checks and CodeQL passed, Supabase Preview skipped. Exact diff vs #266: shared SCRAM hardening plus #267-specific initdb-password-file removal and HBA error/non-SCRAM assertions; negative auth checks moved into the normal integration test. Keep #267 open/draft for owner review; no merge/close. Main Autopilot Core run 44879582931 and Push on main run 44879582538 succeeded; exact main validate/postgres, three CodeQL analyses and Supabase Preview check succeeded. Scheduled read-only Public Health 44941101623 and infrastructure availability 44941646984 succeeded. PLAN Cloud run 44879861658 failed closed; artifact 14696828731 says state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; execution jobs skipped. Later run 44939440332 was skipped. No hosted mission or scheduler was created. Lane D local contract accepted/integrated only. A/B worktrees contain local changes and were not touched; C PR #267 remains draft after exact comparison with #266; retain its incremental assertions for owner review. The preserved native P2 worktree still has five modified files; no matching process or listener on 28447 was observed, but original terminal receipt remains unresolved. P2 stays outside this order and unchanged. Lane A was ported from its preserved dirty worktree into a new clean worktree based on main 0df5d16; npm ci installed 223 packages (0 reported vulnerabilities), npm run verify PASS, secret scan and diff check PASS. Exact PR #269 head aa140d23984ed44342ce8bf8501298424c3ffe3e: validate (both workflows), postgres (both workflows), CodeQL plus three language analyses, public-browser-smoke, beauty-stack, Vercel Security Review and Preview Comments SUCCESS; Supabase Preview SKIPPED. Original A output receipt confirms loopback synthetic/no_send, panel reload, one simulated acknowledgement, four negatives, zero remote calls; output is not tracked. B receipt records five completed roles and consultations not_claimed under the existing SQL pause; no replay or bypass. PR #268 was closed unmerged at 2026-11-22T02:15:59Z as superseded by #269; the checkpoint and C/A reconciliation it carried are consolidated in this PR. The current code-parent CI is green; the next documentation commit has a new SHA and must be checked exactly. Lane B code commit aaad054e2391d29e7c286bd6b88e7badcc2ee769 was ported from its preserved candidate branch onto PR #269 current-main proposal. The loopback local PostgreSQL staging script ran on the combined A/B code: six roles observed, five completed, consultations not_claimed at attempt 0 due consultations_policy_paused, unauthorized DB caller denied, revoked-consent followup blocked, cluster stopped. Combined npm run verify passed 618/618, 0 failed, 0 skipped; secret scan and commit whitespace check passed. The exact PR head after the next checkpoint commit still requires GitHub CI. Current live check (2026-11-22T02:30:35Z): main remains 0df5d16da834844535921f887f1745629e5d0ecb; PR #269 remains open/unmerged at remote head 973bb3bea9f63f002d30fdae9257dbff10997acb, while this isolated branch has local code head aaad054e2391d29e7c286bd6b88e7badcc2ee769 plus uncommitted checkpoint/state docs. PR #267 was closed unmerged at 2026-11-22T02:24:12Z (draft flag remains true); live reviews list is empty and its only returned discussion item is a Vercel bot comment. No closure rationale was visible, so do not reopen it or transplant its unmerged delta without owner disposition. PR #269 has no submitted reviews; its only returned comment is Vercel bot. The combined A/B local verify is 618/618 with 0 failed/skipped, B loopback PostgreSQL staging passed with consultations not_claimed under policy pause; exact CI for the eventual pushed PR head is still pending. Historical note clarification: earlier text in this field records the 02:25 snapshot when PR267 appeared open; the newer GitHub read at 02:30 is authoritative for this continuation and shows it closed unmerged at 02:24:12Z. The close is not a merge and supplies no owner disposition for transplanting its delta."
   },
   "completed_operations": [
     {
@@ -386,8 +386,9 @@
     "Cloud remoto condicionado al reviewed SHA y environment prevent_self_review; local contrato autorizado",
     "Dominio todavía9d6bbdb: brecha despliegue, no prueba de demos productivas",
     "A/B remain in isolated worktrees with local changes; do not overwrite them or infer final acceptance before their PR and exact checks.",
-    "C PR267 is open/draft and overlaps merged PR266 catalog code; reconcile the remaining delta before creating or integrating catalog changes.",
-    "D local handoff contract is integrated by PR264, but cloud execution remains blocked and must not be retried without a reviewed SHA and the existing independent environment gate."
+    "D local handoff contract is integrated by PR264, but cloud execution remains blocked and must not be retried without a reviewed SHA and the existing independent environment gate.",
+    "PR269 remote head 973bb3bea9f63f002d30fdae9257dbff10997acb does not yet contain local code aaad054e2391d29e7c286bd6b88e7badcc2ee769 and current docs; publish only after validating the docs diff, then check CI on exact final head.",
+    "C is held because owner closed PR267 unmerged; do not reopen or transplant its code without disposition. No reviewable C lane remains active in this cycle."
   ],
   "next_order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
   "next_order": {
@@ -820,31 +821,31 @@
   ],
   "selected_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Reconcile lane D/main CI and compare the open catalog candidate against merged #266, recording the unique C assertions and current PR/CI state.",
+    "objective": "Publish the already verified A/B code and checkpoint/state evidence in existing PR269; reconcile the newly observed closure of PR267 and obtain CI on the exact final head.",
     "modified_files": [
       "docs/CODEX_CONTINUATION.json",
       "docs/AUTOPILOT_STATE.md"
     ],
-    "integration_state": "Documentation-only proposal in open PR #268. PR264 lane D local contract and PR266 catalog hardening are merged; PR267 remains draft with an exact delta documented. PR268 head 9b902aa checks passed except Supabase Preview SKIPPED. No cloud delivery, hosted SQL, scheduler, dispatch, P3 or production effect."
+    "integration_state": "Single PR269 remains open/unmerged. Local combined A/B code is verified; current docs diff records evidence and C closure, with generated output excluded. Next publish a normal fast-forward only after validation; no merge or deployment."
   },
   "next_mission": {
     "order_id": "ORD-THREE-DEMONSTRATIONS-20261121",
-    "objective": "Finish remaining staging lanes A/B/C without replaying uncertain P2 or cloud effects.",
+    "objective": "Complete publication and exact-head CI review for the single PR269 A/B proposal; preserve C pending owner disposition, keep D/cloud fail-closed, and leave unrelated uncertain P2 intact.",
     "dependencies": [
-      "Refresh exact main, PR, CI and worktree states before selecting a lane.",
-      "Preserve active A/B/C worktrees; work only in a lane with no competing writer.",
-      "Leave PR267 open/draft for owner review; its unique C assertions (initdb credential-file removal and invalid HBA rule rejection) are documented against merged #266.",
-      "Keep D cloud lane fail-closed until existing reviewed-SHA and prevent_self_review gates are satisfied by independent authorization.",
-      "Keep native P2 five-file worktree and uncertain execution untouched."
+      "Verify main still equals 0df5d16da834844535921f887f1745629e5d0ecb and PR269 base/head before push.",
+      "Exclude ignored/untracked output/office-demo receipt; commit only the two checkpoint/state documentation files.",
+      "Push normally to the existing PR269 head with no force push; update PR metadata to describe A/B and evidence.",
+      "Check validate, postgres, CodeQL, browser smoke and other relevant checks on the exact final PR head; Supabase Preview skipped is not hosted success.",
+      "PR267 is closed unmerged with no human review or visible rationale; do not reopen or transplant its delta without owner disposition.",
+      "Keep D cloud gate, hosted SQL, production and unrelated P2 five-file worktree unchanged."
     ],
     "acceptance": [
-      "A: form-to-close reconstructible in admin panel, four negative cases, SIMULATED deduplicated acknowledgement and durable recovery.",
-      "B: six normal entries exercised with per-role evidence; paused SQL entry remains NOT_CLAIMED when gate denies.",
-      "C: authorized and denied mission evidence for permission, audit, quota, unavailable and disable; avoid duplicating #266. Reuse PR267 incremental auth assertions only after its branch is reconciled by an authorized owner.",
-      "D: existing handoff adapter local contracts are already tested and merged; cloud delivery remains a separate unproven gate.",
-      "Required PR review and exact validate/postgres/CodeQL before any merge; never equate skipped with success."
+      "A+B source and tests are included in one PR based on current main 0df5d16; local npm run verify 618/618, 0 fail/skip, and synthetic B loopback staging evidence are recorded.",
+      "Final remote PR head has required validate, postgres, CodeQL and relevant checks successful; skipped checks are explicitly disclosed.",
+      "PR269 remains open/unmerged and undeployed for owner review; no cloud dispatch or hosted SQL.",
+      "C closure and unresolved disposition are accurate in the same canonical checkpoint."
     ],
-    "recoverable_prompt": "Continue ORD-THREE-DEMONSTRATIONS-20261121 on current main 0df5d16da834844535921f887f1745629e5d0ecb. Read existing A/B/C lane receipts and select one unowned safe verification task. PR267 delta is reconciled in #268; leave #267 open/draft for owner review. Do not repeat PLAN Cloud after run44879861658 (artifact says blocked/no execution/no scheduler) unless the existing independent reviewed-SHA/environment authorization is newly verified. D local contract is complete; preserve the unrelated uncertain P2 worktree."
+    "recoverable_prompt": "Continue ORD-THREE-DEMONSTRATIONS-20261121 from main 0df5d16da834844535921f887f1745629e5d0ecb. In worktree C:\\autopilot-worktrees\\lane-a-professional-main-20261122 validate and commit only docs/CODEX_CONTINUATION.json and docs/AUTOPILOT_STATE.md; exclude output/office-demo. Push normally to the existing PR269 branch, update its title/body for A+B, and verify checks on the exact final head. Do not merge/deploy. PR267 closed unmerged at 2026-11-22T02:24:12Z; do not reopen or transplant its delta absent owner disposition. Keep cloud fail-closed and unrelated five-file P2 worktree untouched."
   },
   "preservation_refs": {
     "original_branch": "codex/p1-durable-policy-20261116",
@@ -1108,21 +1109,21 @@
   "execution_inventory": [
     {
       "lane": "A",
-      "state": "PR269_OPEN_CODE_CI_PASS_DOC_HEAD_PENDING",
-      "next": "Check validate, postgres, CodeQL and relevant checks on the new documentation head. Keep PR open for owner review; do not merge/deploy.",
-      "blocker": "Supabase Preview is skipped and therefore provides no hosted-operation evidence; no merge/deploy/hosted execution is claimed."
+      "state": "PR269_A_B_LOCAL_VERIFY_PASS_DOCS_PENDING_PUSH_CI_PENDING",
+      "next": "Validate and commit the current checkpoint/state docs without output/; push normally to the existing PR269 branch; then verify required checks on the exact final remote head. Leave PR open for owner review.",
+      "blocker": "Remote PR head 973bb3b is behind local code aaad054 plus uncommitted docs; final exact CI does not yet exist."
     },
     {
       "lane": "B",
-      "state": "LOCAL_SYNTHETIC_RECEIPT_RECONCILED_PAUSE_PRESERVED",
-      "next": "Port the committed B delta to a current-main isolated worktree only after lane A review or when writers are excluded; re-run relevant verification there and prepare one PR.",
-      "blocker": "The canonical consultations task remains not_claimed because the SQL policy pause is intact; do not bypass, resume, or execute it. Previous lockfile verification was on an isolated snapshot, not this branch head."
+      "state": "PR269_A_B_LOCAL_VERIFY_PASS_DOCS_PENDING_PUSH_CI_PENDING",
+      "next": "Preserve the six-role synthetic evidence in PR269; consultations remains not_claimed under the canonical policy pause. Wait for final-head CI.",
+      "blocker": "The consultations role was intentionally not claimed (attempt zero) under consultations_policy_paused. This is a preserved gate, not a failed demonstration; no hosted role execution."
     },
     {
       "lane": "C",
-      "state": "PR267_OPEN_DRAFT_DELTA_RECONCILED",
-      "next": "Leave PR267 open/draft for owner review; delta comparison is recorded in PR268. Do not merge/close or modify the candidate lane in this cycle.",
-      "blocker": "PR267 base c2bc247 is stale relative to main; it shares SCRAM hardening with #266 and must remain separate pending owner review of its incremental assertions."
+      "state": "PR267_CLOSED_UNMERGED_OWNER_DISPOSITION_REQUIRED",
+      "next": "Do not reopen PR267 or transplant its closed unmerged delta based on inference. Preserve the candidate branch and ask for/await owner disposition before using that specific delta; meanwhile do not duplicate it.",
+      "blocker": "PR267 closed unmerged at 2026-11-22T02:24:12Z; no human review submissions or closure rationale found in the current readback."
     },
     {
       "lane": "D",
