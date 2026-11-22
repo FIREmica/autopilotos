@@ -1912,3 +1912,18 @@ PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisio
 **Límites preservados:** checkout `C:\autopilot` permanece atrasado/en solo lectura. Los worktrees candidatos originales A/B y el worktree de cinco archivos P2 siguen intactos; la clausura de #267 no autoriza cambios a esos recursos. El costo del servicio no fue medido. Sin llamada a servicios pagos, envío o ejecución alojada.
 
 **Siguiente misión exacta:** publicar únicamente los dos archivos de continuidad en el head existente de PR #269, actualizar el título/cuerpo para reflejar A+B y comprobar todos los checks del SHA remoto final. Dejarla abierta y sin desplegar. No reabrir ni trasladar el delta de #267 sin disposición explícita del propietario; después reevaluar C solo con un carril aprobado y no duplicado.
+
+
+## 2026-11-22 02:42 UTC - remediar el hallazgo de autenticación de la demo B
+
+**Detección (RED):** Vercel Security Review terminó en fallo para el head remoto exacto de #269, `3d53904da91107163b0fec61c94cbbc448b48b97`. Reportó un hallazgo medio de escalada de privilegios: `scripts/autopilot-office-demo.ts` iniciaba PostgreSQL con `trust` en loopback, permitiendo acceso de otras cuentas locales durante la demo. No se ignoró ni se cerró el hallazgo manualmente.
+
+**Reparación (GREEN):** en el mismo worktree aislado y misma PR, la demo ahora crea una contraseña aleatoria por ejecución, inicializa con SCRAM-SHA-256 y archivo temporal, borra el archivo bootstrap antes de iniciar PostgreSQL y entrega el secreto cliente por `PGPASSFILE`. El temporal se restringe al SID actual en Windows y a 0700/0600 en POSIX. Los procesos de PostgreSQL reciben entorno mínimo. El staging prueba conexiones sin credenciales y con credenciales incorrectas rechazadas, y verifica que las reglas HBA válidas usen SCRAM; limpia los archivos incluso al fallar.
+
+**Prueba local real:** en Windows y PostgreSQL 18 desechable, el staging terminó PASS en modo SIMULADO; seis roles, cinco completed y consultations not_claimed (attempt 0 por la pausa de política); credenciales vacías/incorrectas rechazadas, archivo bootstrap ausente antes del arranque, modo SCRAM confirmado y clúster detenido. El recibo sintético quedó únicamente en `output/office-demo/receipt-scram.json`, no se subirá. `npm run verify` pasó 618/618, 0 fallos, 0 omitidos; también secret scan y `git diff --check` PASS.
+
+**Publicación y estado:** la corrección y los documentos de continuidad todavía son locales; #269 en GitHub sigue en el head anterior `3d53904` hasta commit/push normal. El hallazgo se considera pendiente de resolución hasta que Vercel Security Review vuelva a escanear el nuevo head y pase. CI exacta de ese nuevo head aún no existe. #269 permanece abierta y sin merge. #267 sigue cerrada sin merge, sin review humana ni razón de cierre visible; no se reabrió ni se importó su código.
+
+**Límites:** no hosted SQL, migración remota, dispatch Cloud, envío, datos reales, merge ni despliegue. El costo del servicio no se midió. Los worktrees candidatos A/B y el worktree P2 de cinco archivos siguen preservados e intactos.
+
+**Siguiente misión exacta:** revisar cambios de tres archivos únicamente, validar JSON/diff/secret scan, commit y push normal al head existente de #269, actualizar el cuerpo de PR y esperar/checkear validate, postgres, CodeQL, navegador y Vercel Security Review en el SHA exacto. Si el hallazgo permanece, mantener la PR abierta y corregir sin suprimir el control; si pasa, dejarla igualmente abierta para revisión humana.
