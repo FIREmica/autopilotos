@@ -1833,3 +1833,55 @@ Límites: no se dispone de operaciones para inventariar/cerrar alertas privadas 
 **Acción de este lote:** actualizar solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md desde main eac9870. Se mantiene la misma orden, sin segunda cola, replay, SQL alojado, dispatch, cambio de scheduler, P3, despliegue ni auto-merge. Rollback: revertir únicamente esta actualización documental; evidencia forense y worktrees conservados.
 
 **Siguiente paso exacto:** obtener una fuente nueva y correlacionable de stdout/IPC/exit, PIDs/descendientes, late-write receipts o identidad pre/post del intento12801. No repetir búsquedas ya agotadas ni reconstruir la copia sin dato nuevo. Si no llega evidencia nueva, mantener [AUTOPILOT_ORDER_BLOCKED], P2 parcial y los cinco archivos intactos.
+
+## 2026-11-22 01:30 UTC - reconciliar demos D/C y CI de main
+
+**Estado:** ORD-THREE-DEMONSTRATIONS-20261121, producto F0; carriles sintéticos P3-P6 siguen en progreso. Main GitHub 0df5d16da834844535921f887f1745629e5d0ecb. El checkpoint conserva la misma orden; no se reabrió P2 ni se activó P3.
+
+**D:** PR #264 se fusionó el 21/11 05:08Z (head e0727ff, merge 6a8ea53). La implementación/test de handoff local está integrada. CI del head: validate, postgres, CodeQL (tres análisis), browser smoke, Vercel Security/Preview, cloud adapter validation e inventory SUCCESS; cloud-development, hosted-ledger y continuation SKIPPED. La demostración de contrato local está cumplida; entrega cloud no.
+
+**C:** PR #266 se fusionó el 21/11 07:17Z como main 0df5d16da834844535921f887f1745629e5d0ecb; validate, postgres, CodeQL y revisiones de Vercel SUCCESS, Supabase Preview SKIPPED. PR #267 continúa open/draft sobre base c2bc247, con checks validate/postgres/CodeQL/security SUCCESS y Supabase Preview SKIPPED. Sus cambios pisan los mismos tres archivos de catálogo que #266, con pruebas incrementales que requieren comparación. No se integró ni cerró #267; se preserva para que el carril C resuelva el delta sin duplicar la corrección SCRAM.
+
+**Main y Cloud:** Autopilot Core #44879582931 y Push on main #44879582538 SUCCESS en SHA 0df5d16da834844535921f887f1745629e5d0ecb; validate/postgres, tres CodeQL y check Supabase Preview reportaron SUCCESS. Public Health #44941101623 e infraestructura #44941646984 SUCCESS, ambas comprobaciones programadas de lectura. PLAN Cloud #44879861658 falló de forma fail-closed; artefacto 14696828731: state=blocked, reason=cloud_ledger_adapter_not_configured, executed=false, scheduler_created=false; jobs de ejecución omitidos. Run #44939440332 quedó SKIPPED. No hubo misión alojada, creación de scheduler ni ejecución SQL.
+
+**Recuperación y aislamiento:** C:\autopilot sigue atrasado 150 commits y con numerosos no rastreados; permanece de solo lectura. El worktree nativo P2 mantiene cinco archivos modificados; no se detectó proceso coincidente ni listener 28447, pero falta recibo terminal original. No se tocó ni se repitió. A/B permanecen en worktrees propios con cambios; no se escribieron.
+
+**Acción/verificación:** actualización documental en rama codex/three-demo-checkpoint-20261122, base verificada 0df5d16da834844535921f887f1745629e5d0ecb, solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md. Se validará JSON, diff estructural y git diff --check; no se repitió npm run verify porque no hay código. Sin gasto, hosted SQL, dispatch, merge, deploy ni cambios al heartbeat. Rollback: revertir solo esta actualización documental.
+
+**Siguiente misión exacta:** continuar la misma orden con un carril A/B/C no ocupado: primero revisar el delta de PR #267 frente a #266 y continuar su evidencia incremental sin tocar la rama activa. No reintentar Cloud mientras no se verifique el SHA revisado y la aprobación del environment existente. Mantener P2 nativa intacta.
+
+## 2026-11-22 01:43 UTC - delta C y CI exacta de PR268
+
+**Estado:** ORD-THREE-DEMONSTRATIONS-20261121 continúa F0 / P3-P6 sintético. Main verificado 0df5d16da834844535921f887f1745629e5d0ecb. PR #268 está abierta y no fusionada, base main en ese SHA, head previo 9b902aa6654f9522d1d641b60fe73a97c2c66550. No se tocó el árbol local sucio C:\autopilot ni los worktrees A/B/C/D o el P2 nativo incierto.
+
+**CI de #268, SHA exacto:** validate y postgres SUCCESS (ambos workflows); CodeQL y análisis Python/Actions/JavaScript-TypeScript SUCCESS; Vercel Security Review, Preview y Preview Comments SUCCESS. Supabase Preview SKIPPED, no considerado éxito. No hay otros checks requeridos pendientes. Es documentación, por lo que no se repitió npm run verify.
+
+**Reconciliación de C:** comparación de los heads de #267 y #266 sobre los archivos scripts/demo-synthetic-catalog.mjs, tests/catalog-integration-postgres.test.ts y docs/AUTOPILOT_STATE.md. Ambos comparten endurecimiento SCRAM y credenciales efímeras. #267 añade/remarca que el archivo de password de initdb fue borrado antes de iniciar PostgreSQL y que las reglas HBA no tengan errores ni método distinto de SCRAM; desplaza las pruebas negativas de autenticación al test de entrada normal. El delta aporta assertions explícitas y no duplica una segunda implementación completa en main. Se conserva #267 abierta/draft para revisión del propietario; no se modificó ni fusionó su rama.
+
+**Acción/validación:** #268 registra el checkpoint y esta comparación; al actualizarlo se genera otro head y su CI deberá verificarse por SHA. Solo docs/CODEX_CONTINUATION.json y docs/AUTOPILOT_STATE.md; validar JSON, diff de archivos y git diff --check. Sin ejecución local/cloud, SQL alojado, dispatch, scheduler, merge o despliegue. Rollback: revertir exclusivamente el commit documental nuevo.
+
+**Siguiente misión exacta:** confirmar el SHA final y checks de #268; después releer recibos/estado de A y B y verificar exclusión de escritor para seleccionar un carril sin conflicto. Si ambos siguen activos/ambiguos, no tocarlos y mantener la orden en progreso sin reintentos Cloud ni alteración de P2.
+
+## 2026-11-22 02:14 UTC - carril A aislado y PR269
+
+**Estado/orden:** ORD-THREE-DEMONSTRATIONS-20261121 permanece F0 / P3-P6 sintético. Main remoto confirmado `0df5d16da834844535921f887f1745629e5d0ecb`. Se preservó el worktree A original en `C:\autopilot-worktrees\lane-a-professional-20261121`; el `node_modules` allí era un junction incompatible con el lockfile actual. El proceso actual se filtró fuera del inventario; no hubo otra línea de comando de proceso que mencionara A, B o este worktree. PR #268 no tuvo revisiones humanas; su único comentario era de Vercel.
+
+**A implementado:** nueva rama/worktree limpia `codex/lane-a-professional-main-20261122`, base 0df5d16, commit de código `aa140d23984ed44342ce8bf8501298424c3ffe3e`. Se portaron diez archivos de código/prueba/script y se excluyó `output/` del Git. El recorrido permanece detrás de autenticación administrativa y usa las tablas ya existentes; no se añadió ni aplicó migración. El fixture y el demo son sintéticos, loopback, `SIMULADO`/`no_send`. El recibo local preexistente del mismo código indica formulario público simulado, reconstrucción del panel tras reload, un acuse deduplicado, cuatro negativos y `remoteCalls=0`; los artefactos locales no se copiaron al PR.
+
+**Validación exacta del código:** `npm ci` instaló 223 paquetes, con cero vulnerabilidades reportadas. `npm run verify` terminó PASS sobre el worktree main-based: skills, TypeScript, suite, builds Node/Vercel y validaciones API. También `node scripts/secret-scan.mjs` y `git diff --check` PASS. El intento anterior en el worktree A original falló en build por la junction de `node_modules`; la nueva copia limpia pasó sin alterar el original.
+
+**PR #269:** abierta y no fusionada, base 0df5d16, head de código aa140d2. En el SHA exacto: validate (dos informes) SUCCESS, postgres (dos informes) SUCCESS, CodeQL y análisis Python/Actions/JS-TS SUCCESS, public-browser-smoke SUCCESS, beauty-stack SUCCESS, Vercel Security Review y Preview Comments SUCCESS. Supabase Preview SKIPPED; no es prueba alojada. CI del próximo head documental aún debe comprobarse.
+
+**B independiente:** recibo sintético existente registra seis roles: cinco completados y `consultations` `not_claimed` con intento cero por `consultations_policy_paused`; `unauthorizedCallerDenied=true`. No se repitió ni se reanudó. La verificación lockfile anterior de B fue una copia aislada y no se atribuye al head branch actual.
+
+**Límites y rollback:** no se ejecutó SQL alojado, no hubo envío, contacto con clientas, operación de cliente real, despacho Cloud, merge ni despliegue. El coste total de los servicios no se midió; no se invocó proveedor pago. Revertir el commit de la propuesta conserva intactos los worktrees originales A/B.
+
+**Siguiente misión exacta:** incorporar esta evidencia en el checkpoint canónico de la misma propuesta; actualizar PR #269 y comprobar el nuevo SHA final. Luego conservar A abierta para revisión humana y preparar B solo desde un worktree aislado basado en main, manteniendo `consultations` no reclamada por la pausa existente.
+
+## 2026-11-22 02:16 UTC - consolidar la continuidad en PR269
+
+PR #268 se cerró a las 02:15:59Z como supersedida, sin merge. No había revisiones humanas; la única nota era del bot de Vercel. Se incorporaron a la misma propuesta #269 el checkpoint y la reconciliación de C/D, junto con el cambio del carril A, para evitar dos PRs paralelas sobre el mismo estado de la orden. La rama #269 conserva como padre verificado el commit de código `aa140d23984ed44342ce8bf8501298424c3ffe3e`; este commit documental crea un nuevo head. CI de código en el padre pasó; CI del nuevo head documental debe consultarse por SHA exacto.
+
+**Acción:** solo `docs/CODEX_CONTINUATION.json` y `docs/AUTOPILOT_STATE.md` en `codex/lane-a-professional-main-20261122`. No cambia la ejecución sintética ya comprobada ni sus límites. Rollback: revertir solo el commit documental; el commit de código sigue preservado en la misma PR. Sin hosted SQL, dispatch, envíos, merge ni deploy.
+
+**Siguiente misión exacta:** confirmar el nuevo head de #269 y revisar todos sus checks requeridos; si green, dejar PR abierta para revisión humana. Luego continuar lane B en un worktree limpio sobre main, sin reclamar `consultations` mientras la pausa de política siga vigente.
