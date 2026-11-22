@@ -1,0 +1,40 @@
+-- REVIEW ONLY: NOT A MIGRATION. DO NOT APPLY TO PRODUCTION.
+-- This text documents a future, separately authorized activation.
+-- Preconditions:
+-- 1. Review lease-fencing PR #272 before any agent claims.
+-- 2. Review/deploy Edge Function with verify_jwt=false ONLY because
+--    it enforces its own high-entropy, scoped invocation secret.
+-- 3. Generate >=32-character random secret; configure Edge Function secret
+--    AUTOPILOT_DIRECTOR_WAKE_TOKEN and Vault secret named
+--    autopilot_director_wake_token, NEVER a service_role secret.
+-- 4. Review SQL/permissions, verify project hostname and resource limits,
+--    test 401/503/200 in an isolated environment first.
+-- 5. Approve install pg_net and ONE cron job separately.
+-- 6. pg_net transiently queues HTTP headers. Scope and rotate the token.
+--
+-- Proposed future commands (COMMENTED OUT deliberately):
+--
+-- CREATE EXTENSION IF NOT EXISTS pg_net WITH SCHEMA extensions;
+--
+-- SELECT cron.schedule(
+--   'autopilot-director-wake-preflight',
+--   '*/30 * * * *',
+--   $job$
+--   SELECT net.http_post(
+--     url := 'https://PROJECT_REF.supabase.co/functions/v1/autopilot-director-wake',
+--     headers := jsonb_build_object(
+--       'Content-Type', 'application/json',
+--       'x-autopilot-wake-token',
+--       (SELECT decrypted_secret FROM vault.decrypted_secrets
+--        WHERE name = 'autopilot_director_wake_token')
+--     ),
+--     body := '{}'::jsonb,
+--     timeout_milliseconds := 5000
+--   );
+--   $job$
+-- );
+--
+-- Rollback after explicit approval:
+-- SELECT cron.unschedule('autopilot-director-wake-preflight');
+--
+-- IMPORTANT: Endpoint DOES NOT enqueue/claim a task and does not execute.
