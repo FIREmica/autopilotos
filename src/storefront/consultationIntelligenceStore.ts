@@ -1,3 +1,4 @@
+import type { ConsultationFact } from './consultationEvidence';
 import { beautyServerDatabase } from './beautyDatabase';
 import type { ConsultationRecord } from './consultationSupabase';
 import { analyzeConsultation,approvalFingerprint,checkExactAnswer,conversationVersion,intelligencePolicy,type IntelligenceAnalysis } from './consultationIntelligence';
@@ -28,7 +29,7 @@ export function createIntelligenceStore(database=beautyServerDatabase):Intellige
  };
 }
 export const intelligenceStore=createIntelligenceStore();
-export async function runConsultationIntelligence(record:ConsultationRecord,options:{store?:IntelligenceStore;provider?:ConsultationModel;now?:Date;dailyBudget?:number;monthlyBudget?:number}={}){
+export async function runConsultationIntelligence(record:ConsultationRecord,options:{store?:IntelligenceStore;provider?:ConsultationModel;now?:Date;dailyBudget?:number;monthlyBudget?:number;facts?:readonly ConsultationFact[]}={}){
  const store=options.store??intelligenceStore,provider=options.provider;
  const config=[INTELLIGENCE_VERSION,intelligencePolicy.version,provider?.id??'local',provider?.model??'approved-extracts',provider?.configVersion??INTELLIGENCE_VERSION].join('/');
  const version=conversationVersion(record),claim=await store.claim(record.id,version,config);
@@ -37,14 +38,14 @@ export async function runConsultationIntelligence(record:ConsultationRecord,opti
   return {state:'ready' as const,id:claim.id,analysis:claim.analysis};
  }
  if(claim.state!=='claimed'||!claim.id||!claim.lease)return {state:claim.state,id:claim.id};
- const analysis=await analyzeConsultation(record,{now:options.now,provider,reserveBudget:()=>store.reserve(claim.id!,60000,options.dailyBudget??0,options.monthlyBudget??0)});
+ const analysis=await analyzeConsultation(record,{now:options.now,facts:options.facts,provider,reserveBudget:()=>store.reserve(claim.id!,60000,options.dailyBudget??0,options.monthlyBudget??0)});
  if(!await store.finish(claim.id,claim.lease,analysis))throw Error('INTELLIGENCE_RESULT_STALE');
  return {state:'ready' as const,id:claim.id,analysis};
 }
-export async function reviewConsultationIntelligence(record:ConsultationRecord,run:string,admin:string,text:string,options:{store?:IntelligenceStore;now?:Date;action?:'approve'|'reject'}={}){
+export async function reviewConsultationIntelligence(record:ConsultationRecord,run:string,admin:string,text:string,options:{store?:IntelligenceStore;now?:Date;action?:'approve'|'reject';facts?:readonly ConsultationFact[]}={}){
  const store=options.store??intelligenceStore,saved=await store.get(record.id,run);
  if(!saved)throw Error('INTELLIGENCE_NOT_FOUND');
- const guardian=checkExactAnswer(saved.analysis,record,text,options.now);
+ const guardian=checkExactAnswer(saved.analysis,record,text,options.now,options.facts);
  if(options.action!=='reject'&&guardian.status!=='approved')return {status:'blocked',guardian};
  if(!await store.review(record.id,run,admin,text,approvalFingerprint(saved.analysis,record,text),options.action??'approve'))throw Error('INTELLIGENCE_RESULT_STALE');
  return {status:options.action==='reject'?'rejected':'approved_for_review_only',guardian};

@@ -14,6 +14,7 @@ import { registerConsultationIntelligence,type IntelligenceRouterDependencies } 
 import { runConsultationIntelligence } from './consultationIntelligenceStore';
 import { registerConsultationLab } from './consultationLabRouter';
 import type { ServiceKnowledgeStore } from './consultationServiceKnowledge';
+import { consultationAdministrationStore, type ConsultationAdministrationStore } from './consultationAdministration';
 import { checkConsultationReadiness } from './consultationReadiness';
 
 export function consultationAddress(req: { ip?: string; get(name: string): string | undefined }, vercel = process.env.VERCEL === '1'): string {
@@ -22,9 +23,10 @@ export function consultationAddress(req: { ip?: string; get(name: string): strin
   return address && isIP(address) ? address : req.ip || 'unknown';
 }
 
-export function createConsultationRouter(deps: { store?: ConsultationStore; reads?: ConsultationReadStore; knowledge?: ServiceKnowledgeStore; intelligence?:IntelligenceRouterDependencies; delivery?: ConsultationDelivery; enabled?: () => boolean; origin?: () => string | undefined; abuseKey?: () => string | undefined; auth?: RequestHandler } = {}) {
+export function createConsultationRouter(deps: { store?: ConsultationStore; administration?: ConsultationAdministrationStore; reads?: ConsultationReadStore; knowledge?: ServiceKnowledgeStore; intelligence?:IntelligenceRouterDependencies; delivery?: ConsultationDelivery; enabled?: () => boolean; origin?: () => string | undefined; abuseKey?: () => string | undefined; auth?: RequestHandler } = {}) {
   const router = Router(), store = deps.store || consultationSupabaseStore, delivery = deps.delivery || createConsultationDelivery();
   const reads = deps.reads || consultationReadStore;
+  const administration=deps.administration??consultationAdministrationStore;
   const enabled = deps.enabled || (() => process.env.CONSULTATION_REQUESTS_ENABLED === 'true' && process.env.CONSULTATION_PRIVACY_APPROVED === 'true' && process.env.CONSULTATION_RETENTION_READY === 'true');
   const origin = deps.origin || (() => process.env.PUBLIC_APP_URL), abuseKey = deps.abuseKey || (() => process.env.CONSULTATION_ABUSE_SECRET);
   const allowedOrigin = () => { try { const url = new URL(origin() || ''); return url.protocol === 'https:' && !url.username && !url.password ? url.origin : ''; } catch { return ''; } };
@@ -83,14 +85,17 @@ export function createConsultationRouter(deps: { store?: ConsultationStore; read
       const token = req.get('authorization')?.match(/^Bearer (.+)$/i)?.[1];
       if (!token || !store.get) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
       if (!await store.get(token, req.params.id)) return res.status(404).json({ error: 'CONSULTATION_NOT_FOUND' });
-      const db = beautyServerDatabase();
-      const [result, caseResult] = await Promise.all([
-        db.from('consultation_reply_outbox').select('state,created_at,sent_at').eq('request_id', req.params.id).maybeSingle(),
-        db.from('consultation_case_states').select('status,updated_at').eq('request_id', req.params.id).maybeSingle(),
-      ]);
-      if (result.error || caseResult.error) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
-      return res.json({ reply: result.data || null, case: caseResult.data || { status: 'new' } });
+      const [reply,caseRecord]=await Promise.all([administration.reply(req.params.id),administration.state(req.params.id)]);
+      return res.json({reply,case:{status:caseRecord.status,updated_at:caseRecord.updatedAt}});
     } catch { return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' }); }
+  });
+  router.get('/admin/:id/administrative-record',deps.auth||requireSupabaseAdminAuth,async(req,res)=>{
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(req.params.id))return res.status(400).json({error:'CONSULTATION_INPUT_INVALID'});
+    try{const token=req.get('authorization')?.match(/^Bearer (.+)$/i)?.[1];
+      if(!token||!store.get)return res.status(503).json({error:'CONSULTATION_UNAVAILABLE'});
+      if(!await store.get(token,req.params.id))return res.status(404).json({error:'CONSULTATION_NOT_FOUND'});
+      return res.json(await administration.read(req.params.id));
+    }catch{return res.status(503).json({error:'CONSULTATION_UNAVAILABLE'});}
   });
   // Administrative workflow is independent of delivery and can never send mail.
   router.post('/admin/:id/case-status', deps.auth || requireSupabaseAdminAuth, json({ limit: '1kb', strict: true }), async (req, res) => {
@@ -104,11 +109,7 @@ export function createConsultationRouter(deps: { store?: ConsultationStore; read
       const adminId = res.locals.adminUserId;
       if (!token || typeof adminId !== 'string' || !store.get) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
       if (!await store.get(token, req.params.id)) return res.status(404).json({ error: 'CONSULTATION_NOT_FOUND' });
-      const result = await beautyServerDatabase().from('consultation_case_states').upsert({
-        request_id: req.params.id, status: value.status, updated_by: adminId,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'request_id' });
-      if (result.error) return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' });
+      if(!await administration.set(req.params.id,value.status,adminId))return res.status(409).json({error:'CONSULTATION_CASE_TRANSITION_REJECTED'});
       return res.json({ status: value.status });
     } catch { return res.status(503).json({ error: 'CONSULTATION_UNAVAILABLE' }); }
   });
